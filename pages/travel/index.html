@@ -1,0 +1,238 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel | LV-ZHU</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="../../css/common.css">
+    <style>
+        .map-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            padding: 2rem;
+        }
+        .map-legend {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        .legend-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+        }
+        .legend-dot.visited {
+            background: var(--primary);
+        }
+        .legend-dot.unvisited {
+            background: var(--gray-light);
+        }
+        .legend-dot.want {
+            background: var(--secondary);
+        }
+        .china-map {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+            gap: 0.6rem;
+        }
+        .province {
+            padding: 0.7rem 0.5rem;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border: 2px solid transparent;
+            user-select: none;
+        }
+        .province.unvisited {
+            background: var(--gray-light);
+            color: var(--gray);
+        }
+        .province.visited {
+            background: rgba(79, 70, 229, 0.15);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+        .province.want {
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+        .province:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-sm);
+        }
+        .province i {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+        .map-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray-light);
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-num {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 0.2rem;
+        }
+        .map-tip {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo"><a href="../../index.html"><i class="fas fa-code"></i><span>LV-ZHU</span></a></div>
+            <ul class="nav-menu">
+                <li><a href="../../index.html" class="nav-link">Recent</a></li>
+                <li><a href="../study/index.html" class="nav-link">Study</a></li>
+                <li><a href="../projects/index.html" class="nav-link">Projects</a></li>
+                <li><a href="../jottings/index.html" class="nav-link">Jottings</a></li>
+                <li><a href="../favorites/index.html" class="nav-link">Favorites</a></li>
+                <li><a href="../animation/index.html" class="nav-link">Animation</a></li>
+                <li><a href="../music/index.html" class="nav-link">Music</a></li>
+                <li><a href="../game/index.html" class="nav-link">Game</a></li>
+                <li><a href="../travel/index.html" class="nav-link active">Travel</a></li>
+                <li><a href="../tour/index.html" class="nav-link">Tour</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+    <div class="page-wrapper">
+        <div class="page-header">
+            <h1><i class="fas fa-map-marked-alt"></i> Travel</h1>
+            <p>�������꣬��Ҫ��һ����·��</p>
+        </div>
+        <section class="section">
+            <div class="container">
+                <div class="map-container fade-in">
+                    <div class="section-header">
+                        <h2 class="section-title">�й��㼣��ͼ</h2>
+                        <p class="section-desc">���ʡ���л�״̬��δȥ �� ȥ�� �� ��ȥ</p>
+                    </div>
+
+                    <div class="map-legend">
+                        <div class="legend-item"><span class="legend-dot visited"></span> ȥ��</div>
+                        <div class="legend-item"><span class="legend-dot want"></span> ��ȥ</div>
+                        <div class="legend-item"><span class="legend-dot unvisited"></span> δȥ</div>
+                    </div>
+
+                    <div class="china-map" id="chinaMap"></div>
+
+                    <div class="map-stats">
+                        <div class="stat-item">
+                            <div class="stat-num" id="visitedCount">0</div>
+                            <div class="stat-label">ȥ��</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-num" id="wantCount">0</div>
+                            <div class="stat-label">��ȥ</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-num" id="totalCount">34</div>
+                            <div class="stat-label">����</div>
+                        </div>
+                    </div>
+                    <p class="map-tip">�9�5 ���ʡ�ݿ��л�״̬�����ݱ��������������</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer class="footer">
+        <div class="container"><div class="footer-inner">
+            <div class="footer-copy">&copy; 2026 LV-ZHU</div>
+            <div class="footer-social"><a href="https://github.com/LV-ZHU" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a></div>
+        </div></div>
+    </footer>
+    <script src="../../js/common.js"></script>
+    <script>
+        // �й� 34 ��ʡ��������
+        const provinces = [
+            '����','���','�Ϻ�','����',
+            '�ӱ�','ɽ��','����','����','������',
+            '����','�㽭','����','����','����','ɽ��',
+            '����','����','����','�㶫','����',
+            '�Ĵ�','����','����','����','����',
+            '�ຣ','���ɹ�','����','����','����','�½�',
+            '���','����','̨��'
+        ];
+
+        const states = ['unvisited', 'visited', 'want'];
+        const STORAGE_KEY = 'lv-zhu-travel-map';
+
+        // �� localStorage ��ȡ
+        function loadData() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                return raw ? JSON.parse(raw) : {};
+            } catch { return {}; }
+        }
+
+        function saveData(data) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+
+        function render() {
+            const map = document.getElementById('chinaMap');
+            const data = loadData();
+            map.innerHTML = '';
+
+            provinces.forEach(name => {
+                const state = data[name] || 'unvisited';
+                const el = document.createElement('div');
+                el.className = 'province ' + state;
+                el.textContent = name;
+                el.addEventListener('click', () => {
+                    const currentIdx = states.indexOf(data[name] || 'unvisited');
+                    data[name] = states[(currentIdx + 1) % states.length];
+                    saveData(data);
+                    render();
+                });
+                map.appendChild(el);
+            });
+
+            // ͳ��
+            const vals = Object.values(data);
+            document.getElementById('visitedCount').textContent = vals.filter(v => v === 'visited').length;
+            document.getElementById('wantCount').textContent = vals.filter(v => v === 'want').length;
+        }
+
+        render();
+    </script>
+</body>
+</html>
