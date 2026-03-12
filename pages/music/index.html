@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -10,72 +10,32 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="../../css/common.css">
     <style>
-        .music-category {
-            margin-bottom: 3rem;
-        }
-        .music-category:last-child {
-            margin-bottom: 0;
-        }
+        .music-category { margin-bottom: 3rem; }
+        .music-category:last-child { margin-bottom: 0; }
         .music-category-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-size: 1.4rem; font-weight: 600; margin-bottom: 1.5rem;
+            color: var(--dark); display: flex; align-items: center; gap: 0.5rem;
         }
-        .music-category-title i {
-            color: var(--primary);
-        }
+        .music-category-title i { color: var(--primary); }
         .music-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 1rem;
-            list-style: none;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1rem; list-style: none;
         }
         .music-item {
-            background: white;
-            border-radius: var(--radius-md);
-            padding: 1.2rem;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid rgba(0,0,0,0.05);
-            transition: var(--transition-normal);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+            background: white; border-radius: var(--radius-md); padding: 1.2rem;
+            box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition-normal); display: flex; align-items: center; gap: 1rem;
         }
-        .music-item:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
+        .music-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
         .music-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(79, 70, 229, 0.08);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: rgba(79, 70, 229, 0.08); display: flex;
+            align-items: center; justify-content: center; flex-shrink: 0;
         }
-        .music-icon i {
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-        .music-info {
-            min-width: 0;
-        }
-        .music-name {
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 0.95rem;
-        }
-        .music-artist {
-            font-size: 0.82rem;
-            color: var(--gray);
-            margin-top: 0.15rem;
-        }
+        .music-icon i { color: var(--primary); font-size: 1.1rem; }
+        .music-info { min-width: 0; }
+        .music-name { font-weight: 600; color: var(--dark); font-size: 0.95rem; }
+        .music-artist { font-size: 0.82rem; color: var(--gray); margin-top: 0.15rem; }
     </style>
 </head>
 <body>
@@ -100,56 +60,56 @@
     <div class="page-wrapper">
         <div class="page-header">
             <h1><i class="fas fa-music"></i> Music</h1>
-            <p>����������ĵ�ζ������¼��Щ�����ĵ�����</p>
+            <p>音乐承载着心灵的味道，记录那些触动心弦的旋律</p>
         </div>
         <section class="section">
             <div class="container">
-                <!-- ���� -->
+                <!-- 华语 -->
                 <div class="music-category fade-in">
-                    <h3 class="music-category-title"><i class="fas fa-headphones"></i> ����</h3>
+                    <h3 class="music-category-title"><i class="fas fa-headphones"></i> 华语</h3>
                     <ul class="music-list">
                         <li class="music-item">
                             <div class="music-icon"><i class="fas fa-music"></i></div>
                             <div class="music-info">
-                                <div class="music-name">ʾ������</div>
-                                <div class="music-artist">ʾ������</div>
+                                <div class="music-name">示例歌曲</div>
+                                <div class="music-artist">示例歌手</div>
                             </div>
                         </li>
-                        <!-- ��Ӹ��໪����������� music-item -->
+                        <!-- 添加更多华语歌曲条目 -->
                     </ul>
                 </div>
 
-                <!-- ������ -->
+                <!-- 纯音乐 -->
                 <div class="music-category fade-in">
-                    <h3 class="music-category-title"><i class="fas fa-piano-keyboard"></i> ������</h3>
+                    <h3 class="music-category-title"><i class="fas fa-violin"></i> 纯音乐</h3>
                     <ul class="music-list">
                         <li class="music-item">
                             <div class="music-icon"><i class="fas fa-music"></i></div>
                             <div class="music-info">
-                                <div class="music-name">ʾ��������</div>
-                                <div class="music-artist">ʾ��������</div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- ���� -->
-                <div class="music-category fade-in">
-                    <h3 class="music-category-title"><i class="fas fa-compact-disc"></i> ����</h3>
-                    <ul class="music-list">
-                        <li class="music-item">
-                            <div class="music-icon"><i class="fas fa-music"></i></div>
-                            <div class="music-info">
-                                <div class="music-name">ʾ�������</div>
-                                <div class="music-artist">ʾ������</div>
+                                <div class="music-name">示例纯音乐</div>
+                                <div class="music-artist">示例演奏家</div>
                             </div>
                         </li>
                     </ul>
                 </div>
 
-                <!-- ���� -->
+                <!-- 粤语 -->
                 <div class="music-category fade-in">
-                    <h3 class="music-category-title"><i class="fas fa-globe"></i> ����</h3>
+                    <h3 class="music-category-title"><i class="fas fa-compact-disc"></i> 粤语</h3>
+                    <ul class="music-list">
+                        <li class="music-item">
+                            <div class="music-icon"><i class="fas fa-music"></i></div>
+                            <div class="music-info">
+                                <div class="music-name">示例粤语歌</div>
+                                <div class="music-artist">示例歌手</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 外语 -->
+                <div class="music-category fade-in">
+                    <h3 class="music-category-title"><i class="fas fa-globe"></i> 外语</h3>
                     <ul class="music-list">
                         <li class="music-item">
                             <div class="music-icon"><i class="fas fa-music"></i></div>
