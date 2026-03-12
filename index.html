@@ -3,228 +3,1061 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | Minimal Profile</title>
-    <!-- 引入字体和图标 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>LV-ZHU | Personal Space</title>
+    <!-- 引入外部资源 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
     
     <style>
-        /* 全局重置与基础样式 */
+        /* ========== 全局基础样式 ========== */
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #6366f1;
+            --secondary: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.15);
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa;
-            color: #333;
+            color: var(--dark);
+            background-color: var(--light);
             line-height: 1.6;
-            padding: 0;
-            margin: 0;
-            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-normal);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--gray-light);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gray);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* ========== 导航系统 ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            z-index: 999;
+            padding: 1rem 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        /* 桌面端导航 */
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--dark);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: var(--transition-normal);
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* 移动端汉堡菜单 */
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        /* ========== 英雄区 ========== */
+        .hero {
+            height: 100vh;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
-        }
-
-        /* 容器：核心视觉区域 */
-        .container {
-            max-width: 800px;
-            width: 100%;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
-            padding: 4rem 3rem;
             position: relative;
             overflow: hidden;
-            transition: transform 0.3s ease;
+            margin-top: -80px;
+            padding-top: 80px;
         }
 
-        .container:hover {
-            transform: translateY(-5px);
-        }
-
-        /* 顶部装饰（低调的视觉亮点） */
-        .container::before {
-            content: '';
+        .hero-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            height: 100%;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            z-index: -2;
         }
 
-        /* 头像区域（极简处理） */
-        .avatar {
-            width: 120px;
-            height: 120px;
+        .hero-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(rgba(79, 70, 229, 0.1) 1px, transparent 1px),
+                radial-gradient(rgba(79, 70, 229, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: 0 0, 25px 25px;
+            z-index: -1;
+            animation: patternMove 20s linear infinite;
+        }
+
+        @keyframes patternMove {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .hero-avatar {
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             margin: 0 auto 2rem;
-            background-color: #eee;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border: 4px solid rgba(255,255,255,0.2);
             overflow: hidden;
-            border: 2px solid #f0f0f0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: var(--transition-slow);
         }
 
-        .avatar i {
-            font-size: 48px;
-            color: #888;
+        .hero-avatar:hover {
+            transform: scale(1.05) rotate(3deg);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
         }
 
-        /* 核心信息区（克制且简洁） */
-        .profile-info {
-            text-align: center;
-            margin-bottom: 2.5rem;
+        .hero-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .profile-info h1 {
-            font-size: 2rem;
-            font-weight: 500;
-            color: #2d3748;
-            margin-bottom: 0.5rem;
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
         }
 
-        .profile-info p {
-            font-size: 1rem;
-            color: #718096;
+        .hero-subtitle {
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.8);
             max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.8;
+            margin: 0 auto 2rem;
         }
 
-        /* 链接区（极简，仅保留必要入口） */
-        .links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
+        .hero-scroll {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.7);
+            animation: bounce 2s infinite;
         }
 
-        .links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background-color: #f5f5f5;
-            color: #4a5568;
-            text-decoration: none;
-            transition: all 0.2s ease;
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
         }
 
-        .links a:hover {
-            background-color: #6366f1;
+        /* ========== 通用区块样式 ========== */
+        .section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .section-light {
+            background: white;
+        }
+
+        .section-dark {
+            background: var(--dark);
             color: white;
+        }
+
+        .section-gradient {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-light .section-title {
+            color: var(--dark);
+        }
+
+        .section-dark .section-title {
+            color: white;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .section-dark .section-desc {
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* ========== 分区内容样式 ========== */
+        /* 网格布局 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* 卡片通用样式 */
+        .card {
+            background: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-normal);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .section-dark .card {
+            background: #273449;
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: var(--transition-slow);
+        }
+
+        .card:hover .card-img {
             transform: scale(1.05);
         }
 
-        /* 项目展示区（低调展示，不张扬） */
-        .projects {
-            margin-top: 3rem;
-            text-align: center;
+        .card-content {
+            padding: 1.5rem;
         }
 
-        .projects h2 {
+        .card-title {
             font-size: 1.25rem;
-            font-weight: 500;
-            color: #4a5568;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-light .card-title {
+            color: var(--dark);
+        }
+
+        .section-dark .card-title {
+            color: white;
+        }
+
+        .card-title i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .card-desc {
+            color: var(--gray);
+            line-height: 1.7;
             margin-bottom: 1.5rem;
         }
 
-        .project-card {
-            display: inline-block;
-            padding: 1rem 2rem;
-            margin: 0 0.5rem;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: #666;
-            border: 1px solid #eee;
-            transition: all 0.2s ease;
+        .section-dark .card-desc {
+            color: rgba(255,255,255,0.7);
         }
 
-        .project-card:hover {
-            background-color: #f0f0f0;
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
         }
 
-        /* 页脚（极简） */
-        footer {
-            margin-top: 3rem;
+        .tag {
+            padding: 0.3rem 0.8rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .tag-primary {
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--primary);
+        }
+
+        .tag-secondary {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--secondary);
+        }
+
+        .section-dark .tag-primary {
+            background: rgba(79, 70, 229, 0.2);
+        }
+
+        .section-dark .tag-secondary {
+            background: rgba(16, 185, 129, 0.2);
+        }
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            font-weight: 500;
+            transition: var(--transition-fast);
+        }
+
+        .card-link:hover {
+            color: var(--primary-light);
+            transform: translateX(5px);
+        }
+
+        /* 学习数据可视化 */
+        .study-chart {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+        }
+
+        /* ========== 页脚 ========== */
+        .footer {
+            background: var(--dark);
+            color: rgba(255,255,255,0.7);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.25rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-link {
+            color: rgba(255,255,255,0.7);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-link:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+        }
+
+        .footer-social a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
             text-align: center;
-            font-size: 0.875rem;
-            color: #a0aec0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
         }
 
-        /* 响应式适配 */
-        @media (max-width: 600px) {
-            .container {
-                padding: 2.5rem 1.5rem;
+        /* ========== 响应式适配 ========== */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
             }
 
-            .profile-info h1 {
-                font-size: 1.75rem;
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: var(--transition-normal);
+                z-index: 998;
             }
 
-            .links {
-                gap: 1rem;
+            .nav-menu.active {
+                left: 0;
             }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 5rem 0;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .study-chart {
+                padding: 1rem;
+            }
+        }
+
+        /* ========== 动画与过渡 ========== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- 头像（用图标替代真实头像，保护隐私） -->
-        <div class="avatar">
-            <i class="fas fa-user"></i>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-code"></i>
+                <span>LV-ZHU</span>
+            </div>
+            
+            <!-- 桌面端导航菜单 -->
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#music" class="nav-link">Music</a></li>
+                <li><a href="#travel" class="nav-link">Travel</a></li>
+                <li><a href="#game" class="nav-link">Game</a></li>
+                <li><a href="#study" class="nav-link">Study</a></li>
+                <li><a href="#project" class="nav-link">Project</a></li>
+                <li><a href="#tutor" class="nav-link">Tutor</a></li>
+            </ul>
+            
+            <!-- 移动端汉堡菜单 -->
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
+    </nav>
 
-        <!-- 核心信息（仅展示昵称和简短描述） -->
-        <div class="profile-info">
-            <h1>Developer</h1>
-            <p>专注于简洁、高效的代码实现，喜欢探索技术的边界，保持学习的节奏。</p>
+    <!-- 英雄区 -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-pattern"></div>
+        <div class="hero-content">
+            <div class="hero-avatar">
+                <img src="https://avatars.githubusercontent.com/u/你的GitHubID" alt="LV-ZHU">
+            </div>
+            <h1 class="hero-title">LV-ZHU</h1>
+            <p class="hero-subtitle">探索技术与生活的边界，保持热爱，持续成长</p>
         </div>
-
-        <!-- 关键链接（仅保留GitHub，可按需添加） -->
-        <div class="links">
-            <a href="https://github.com/你的用户名" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-            <!-- 如需添加其他链接，参考以下格式（克制添加）
-            <a href="#" target="_blank" title="Email"><i class="fas fa-envelope"></i></a>
-            <a href="#" target="_blank" title="Blog"><i class="fas fa-blog"></i></a>
-            -->
+        <div class="hero-scroll">
+            <i class="fas fa-chevron-down"></i>
         </div>
+    </section>
 
-        <!-- 项目展示（低调展示1-2个即可） -->
-        <div class="projects">
-            <h2>Recent Works</h2>
-            <div class="project-card">Minimal Tools <i class="fas fa-external-link-alt fa-xs"></i></div>
+    <!-- 音乐分区 -->
+    <section class="section section-light fade-in" id="music">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Music</h2>
+                <p class="section-desc">音乐是生活的调味剂，记录那些打动人心的旋律</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Music" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">
+                            <i class="fas fa-music"></i>
+                            收藏歌单
+                        </h3>
+                        <p class="card-desc">整理了不同风格的音乐歌单，涵盖轻音乐、独立民谣、电子音乐等，适合不同场景聆听。</p>
+                        <div class="card-tags">
+                            <span class="tag tag-primary">轻音乐</span>
+                            <span class="tag tag-secondary">民谣</span>
+                            <span class="tag tag-primary">电子</span>
+                        </div>
+                        <a href="#" class="card-link">
+                            查看歌单 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+              
+            </div>
         </div>
+    </section>
 
-        <!-- 页脚 -->
-        <footer>
-            © 2025 · Built with simplicity
-        </footer>
-    </div>
+    <!-- 旅行分区 -->
+    <section class="section section-dark fade-in" id="travel">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Travel</h2>
+                <p class="section-desc">身体和灵魂，总要有一个在路上</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="City Travel" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">
+                            <i class="fas fa-city"></i>
+                            城市漫步
+                        </h3>
+                        <p class="card-desc">记录不同城市的人文与风景，用脚步丈量城市的脉络，发现隐藏在街角的美好。</p>
+                        <div class="card-tags">
+                            <span class="tag tag-primary">上海</span>
+                            <span class="tag tag-secondary">武汉</span>
+                            <span class="tag tag-primary">湖南</span>
+                        </div>
+                        <a href="#" class="card-link">
+                            查看游记 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Nature Travel" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">
+                            <i class="fas fa-mountain"></i>
+                            自然探索
+                        </h3>
+                        <p class="card-desc">走进自然，感受山川湖海的治愈力量，徒步、露营，与自然对话的美好瞬间。</p>
+                        <div class="card-tags">
+                            <span class="tag tag-primary">徒步</span>
+                            <span class="tag tag-secondary">露营</span>
+                            <span class="tag tag-primary">自然风光</span>
+                        </div>
+                        <a href="#" class="card-link">
+                            查看相册 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- 极简脚本：仅添加基础交互，无多余功能 -->
+    <!-- 游戏分区 -->
+    <section class="section section-gradient fade-in" id="game">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Game</h2>
+                <p class="section-desc">游戏是另一种形式的体验，在虚拟世界中探索与成长</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1581803118522-7b72a50f7e9f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Indie Game" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">
+                            <i class="fas fa-gamepad"></i>
+                            独立游戏
+                        </h3>
+                        <p class="card-desc">喜欢尝试各种独立游戏，欣赏独特的游戏设计和叙事方式，记录那些打动人心的独立作品。</p>
+                        <div class="card-tags">
+                            <span class="tag tag-primary">剧情向</span>
+                            <span class="tag tag-secondary">解谜</span>
+                            <span class="tag tag-primary">像素风</span>
+                        </div>
+                        <a href="#" class="card-link">
+                            游戏推荐 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1610824352934-c10d87b700cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Game Dev" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">
+                            <i class="fas fa-code-branch"></i>
+                            游戏开发
+                        </h3>
+                        <p class="card-desc">学习游戏开发的基础知识，尝试用简单的引擎制作小游戏，探索交互设计的可能性。</p>
+                        <div class="card-tags">
+                            <span class="tag tag-primary">Unity</span>
+                            <span class="tag tag-secondary">像素画</span>
+                            <span class="tag tag-primary">小游戏</span>
+                        </div>
+                        <a href="#" class="card-link">
+                            开发笔记 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学习分区 -->
+    <section class="section section-light fade-in" id="study">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Study</h2>
+                <p class="section-desc">持续学习是成长的唯一途径，记录学习轨迹与心得</p>
+            </div>
+            
+            <!-- 学习数据可视化 -->
+            <div class="study-chart">
+                <canvas id="studyChart"></canvas>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Frontend" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">
+                            <i class="fas fa-laptop-code"></i>
+                            学习
+                        </h3>
+                        <p class="card-desc">系统学习开发知识，从HTML/CSS基础到框架应用，记录学习过程中的知识点和踩坑经验。</p>
+                        <div class="card-tags">
+                            <span class="tag tag-primary">JavaScript</span>
+                            <span class="tag tag-secondary">React</span>
+                            <span class="tag tag-primary">Vue</span>
+                        </div>
+                        <a href="#" class="card-link">
+                            学习笔记 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="CS Study" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">
+                            <i class="fas fa-book"></i>
+                            计算机基础
+                        </h3>
+                        <p class="card-desc">巩固计算机基础知识，包括数据结构、算法、计算机网络、计算机组成原理等，打牢技术根基。</p>
+                        <div class="card-tags">
+                            <span class="tag tag-primary">数据结构</span>
+                            <span class="tag tag-secondary">算法</span>
+                            <span class="tag tag-primary">计算机网络</span>
+                            <span class="tag tag-primary">计算机组成原理</span>
+                        </div>
+                        <a href="#" class="card-link">
+                            知识点总结 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目分区 -->
+    <section class="section section-dark fade-in" id="project">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Project</h2>
+                <p class="section-desc">将想法变为现实，记录从构思到实现的完整过程</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Blog" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">
+                            <i class="fas fa-blog"></i>
+                            个人博客
+                        </h3>
+                        <p class="card-desc">基于Jekyll构建的静态博客系统，支持Markdown编辑、标签分类和响应式布局，记录学习与思考。</p>
+                        <div class="card-tags">
+                            <span class="tag tag-primary">Jekyll</span>
+                            <span class="tag tag-secondary">Markdown</span>
+                            <span class="tag tag-primary">静态站点</span>
+                        </div>
+                        <a href="https://github.com/LV-ZHU/blog" target="_blank" class="card-link">
+                            GitHub <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Todo App" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">
+                            <i class="fas fa-list-check"></i>
+                            任务管理应用
+                        </h3>
+                        <p class="card-desc">轻量级的任务管理工具，支持本地存储、任务分类、优先级设置和主题切换，提升效率。</p>
+                        <div class="card-tags">
+                            <span class="tag tag-primary">JavaScript</span>
+                            <span class="tag tag-secondary">LocalStorage</span>
+                            <span class="tag tag-primary">CSS Grid</span>
+                        </div>
+                        <a href="https://github.com/LV-ZHU/todo-app" target="_blank" class="card-link">
+                            GitHub <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 辅导分区 -->
+    <section class="section section-gradient fade-in" id="tutor">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Tutor</h2>
+                <p class="section-desc">高中教培</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Study Guide" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            学习辅导
+                        </h3>
+                        <p class="card-desc">为学弟学妹提供编程基础辅导，包括HTML/CSS/JavaScript入门，帮助他们快速上手编程学习。</p>
+                        <div class="card-tags">
+                            <span class="tag tag-primary">原创题合集</span>
+                            <span class="tag tag-secondary">待更新</span>
+                            <span class="tag tag-primary">答疑解惑</span>
+                        </div>
+                        <a href="#" class="card-link">
+                            辅导资料 <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+               
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>LV-ZHU</h3>
+                    <p>保持热爱，持续学习，探索技术与生活的无限可能</p>
+                    <div class="footer-social">
+                        <a href="https://github.com/LV-ZHU" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="mailto:your@email.com" target="_blank"><i class="fas fa-envelope"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-weixin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>快速导航</h3>
+                    <ul class="footer-links">
+                        <li><a href="#music" class="footer-link"><i class="fas fa-music"></i> 音乐</a></li>
+                        <li><a href="#travel" class="footer-link"><i class="fas fa-mountain"></i> 旅行</a></li>
+                        <li><a href="#game" class="footer-link"><i class="fas fa-gamepad"></i> 游戏</a></li>
+                        <li><a href="#study" class="footer-link"><i class="fas fa-book"></i> 学习</a></li>
+                        <li><a href="#project" class="footer-link"><i class="fas fa-code"></i> 项目</a></li>
+                        <li><a href="#tutor" class="footer-link"><i class="fas fa-chalkboard"></i> 辅导</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>相关链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link"><i class="fas fa-link"></i> 学习资源</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-link"></i> 项目仓库</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-link"></i> 技术博客</a></li>
+                        <li><a href="#" class="footer-link"><i class="fas fa-link"></i> 工具推荐</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 LV-ZHU. All rights reserved. Built with ❤️ and code.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript 交互逻辑 -->
     <script>
-        // 可选：添加页面加载动画（低调）
+        // 汉堡菜单交互
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            // 切换汉堡/关闭图标
+            const icon = hamburger.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.replace('fa-bars', 'fa-times');
+            } else {
+                icon.classList.replace('fa-times', 'fa-bars');
+            }
+        });
+        
+        // 点击导航链接关闭菜单
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.querySelector('i').classList.replace('fa-times', 'fa-bars');
+            });
+        });
+        
+        // 滚动渐入动画
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                const isVisible = (elementTop < window.innerHeight - 100) && (elementBottom > 0);
+                
+                if (isVisible) {
+                    element.classList.add('active');
+                }
+            });
+        };
+        
+        // 初始执行一次
+        fadeInOnScroll();
+        // 滚动时执行
+        window.addEventListener('scroll', fadeInOnScroll);
+        
+        // 学习数据可视化图表
+        const ctx = document.getElementById('studyChart').getContext('2d');
+        const studyChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                datasets: [
+                    {
+                        label: '学习',
+                        data: [20, 35, 45, 60, 75, 85],
+                        borderColor: '#4f46e5',
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: '算法练习',
+                        data: [10, 15, 25, 30, 45, 55],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: '项目实践',
+                        data: [5, 10, 20, 35, 50, 70],
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        
+                        font: {
+                            size: 16
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                          
+                        }
+                    }
+                },
+                animation: {
+                    duration: 2000,
+                    easing: 'easeOutQuart'
+                }
+            }
+        });
+        
+        // 页面加载动画
         document.addEventListener('DOMContentLoaded', () => {
             document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 1s ease';
+            
             setTimeout(() => {
-                document.body.style.transition = 'opacity 0.5s ease';
                 document.body.style.opacity = '1';
-            }, 100);
+            }, 300);
         });
     </script>
 </body>
