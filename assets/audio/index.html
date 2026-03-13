@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LV-ZHU | Personal Space</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--dark) 0%, #0f172a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: patternMove 20s linear infinite;
+        }
+        @keyframes patternMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(30px, 30px); }
+        }
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 1;
+            padding: 2rem;
+        }
+        .hero-avatar {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            border: 4px solid rgba(255,255,255,0.2);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: var(--transition-slow);
+            background: var(--dark-lighter);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-avatar:hover { transform: scale(1.05) rotate(3deg); }
+        .hero-avatar i { font-size: 4rem; color: rgba(255,255,255,0.3); }
+        .hero-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-title { font-size: 3.2rem; font-weight: 700; margin-bottom: 0.8rem; letter-spacing: -1px; }
+        .hero-subtitle { font-size: 1.15rem; font-weight: 300; color: rgba(255,255,255,0.75); max-width: 550px; margin: 0 auto 2.5rem; }
+        .hero-audio {
+            max-width: 420px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: var(--radius-md);
+            padding: 0.9rem 1rem;
+            backdrop-filter: blur(8px);
+        }
+        .hero-audio-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.86rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 0.55rem;
+            justify-content: center;
+        }
+        .hero-audio audio {
+            width: 100%;
+            height: 36px;
+            border-radius: 999px;
+        }
+        .hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.6); animation: bounce 2s infinite; font-size: 1.2rem; }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+        .recent-section { padding: 5rem 0; }
+        .nav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+        .nav-card { background: white; border-radius: var(--radius-md); padding: 2rem 1.5rem; text-align: center; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.05); transition: var(--transition-normal); display: block; }
+        .nav-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+        .nav-card i { font-size: 2.2rem; color: var(--primary); margin-bottom: 1rem; }
+        .nav-card h3 { font-size: 1rem; font-weight: 600; color: var(--dark); margin-bottom: 0.3rem; }
+        .nav-card span { font-size: 0.82rem; color: var(--gray); }
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.2rem; }
+            .nav-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo"><a href="index.html"></i><span>LVZHU</span></a></div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">Recent</a></li>
+                <li><a href="pages/study/index.html" class="nav-link">Study</a></li>
+                <li><a href="pages/projects/index.html" class="nav-link">Projects</a></li>
+                <li><a href="pages/jottings/index.html" class="nav-link">Jottings</a></li>
+                <li><a href="pages/favorites/index.html" class="nav-link">Favorites</a></li>
+                <li><a href="pages/animation/index.html" class="nav-link">Animation</a></li>
+                <li><a href="pages/music/index.html" class="nav-link">Music</a></li>
+                <li><a href="pages/game/index.html" class="nav-link">Game</a></li>
+                <li><a href="pages/travel/index.html" class="nav-link">Travel</a></li>
+                <li><a href="pages/tour/index.html" class="nav-link">Tutoring</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-pattern"></div>
+        <div class="hero-content">
+            <div class="hero-avatar">
+                <img src="assets/images/avatar.jpg" alt="LV-ZHU 头像" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <i class="fas fa-user" style="display:none;"></i>
+            </div>
+            <h1 class="hero-title">LV-ZHU</h1>
+            <p class="hero-subtitle">探索技术与生活的边界，保持热爱，持续成长</p>
+            </div>
+        <div class="hero-scroll"><i class="fas fa-chevron-down"></i></div>
+    </section>
+
+    <section class="recent-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">导航</h2>
+                <p class="section-desc">快速前往各个分区</p>
+            </div>
+            <div class="nav-grid fade-in">
+                <a href="pages/study/index.html" class="nav-card"><i class="fas fa-book"></i><h3>Study</h3><span>学习笔记</span></a>
+                <a href="pages/projects/index.html" class="nav-card"><i class="fas fa-code-branch"></i><h3>Projects</h3><span>项目展示</span></a>
+                <a href="pages/jottings/index.html" class="nav-card"><i class="fas fa-pen-fancy"></i><h3>Jottings</h3><span>随笔</span></a>
+                <a href="pages/favorites/index.html" class="nav-card"><i class="fas fa-star"></i><h3>Favorites</h3><span>收藏链接</span></a>
+                <a href="pages/animation/index.html" class="nav-card"><i class="fas fa-film"></i><h3>Animation</h3><span>动漫</span></a>
+                <a href="pages/music/index.html" class="nav-card"><i class="fas fa-music"></i><h3>Music</h3><span>音乐</span></a>
+                <a href="pages/game/index.html" class="nav-card"><i class="fas fa-gamepad"></i><h3>Game</h3><span>游戏</span></a>
+                <a href="pages/travel/index.html" class="nav-card"><i class="fas fa-map-marked-alt"></i><h3>Travel</h3><span>旅行地图</span></a>
+                <a href="pages/tour/index.html" class="nav-card"><i class="fas fa-chalkboard-teacher"></i><h3>Tutoring</h3><span>教培</span></a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container"><div class="footer-inner">
+            <div class="footer-copy">&copy; 2026 LV-ZHU. Built with code.</div>
+            <div class="footer-social">
+                <a href="https://github.com/LV-ZHU" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+                <a href="mailto:2452487@tongji.edu.cn"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div></div>
+    </footer>
+    <script src="js/common.js"></script>
+</body>
+</html>
