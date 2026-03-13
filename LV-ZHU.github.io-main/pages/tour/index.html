@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour | LV-ZHU</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="../../css/common.css">
+    <style>
+        .pdf-upload-area {
+            background: rgba(79, 70, 229, 0.04); border: 2px dashed var(--gray-light);
+            border-radius: var(--radius-md); padding: 3rem 2rem; text-align: center;
+            margin-top: 2rem; transition: var(--transition-fast);
+        }
+        .pdf-upload-area:hover { border-color: var(--primary); background: rgba(79, 70, 229, 0.06); }
+        .pdf-upload-area i { font-size: 3rem; color: var(--primary); opacity: 0.6; margin-bottom: 1rem; }
+        .pdf-upload-area h3 { font-size: 1.1rem; color: var(--dark); margin-bottom: 0.5rem; }
+        .pdf-upload-area p { font-size: 0.9rem; color: var(--gray); }
+        .pdf-list { margin-top: 2rem; display: grid; gap: 1rem; }
+        .pdf-item {
+            background: white; border-radius: var(--radius-md); padding: 1.2rem 1.5rem;
+            box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.05);
+            display: flex; align-items: center; gap: 1rem; transition: var(--transition-normal);
+        }
+        .pdf-item:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .pdf-item i { font-size: 1.8rem; color: #ef4444; flex-shrink: 0; }
+        .pdf-item .pdf-name { font-weight: 600; color: var(--dark); }
+        .pdf-item .pdf-desc { font-size: 0.85rem; color: var(--gray); margin-top: 0.2rem; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo"><a href="../../index.html"><i class="fas fa-code"></i><span>LV-ZHU</span></a></div>
+            <ul class="nav-menu">
+                <li><a href="../../index.html" class="nav-link">Recent</a></li>
+                <li><a href="../study/index.html" class="nav-link">Study</a></li>
+                <li><a href="../projects/index.html" class="nav-link">Projects</a></li>
+                <li><a href="../jottings/index.html" class="nav-link">Jottings</a></li>
+                <li><a href="../favorites/index.html" class="nav-link">Favorites</a></li>
+                <li><a href="../animation/index.html" class="nav-link">Animation</a></li>
+                <li><a href="../music/index.html" class="nav-link">Music</a></li>
+                <li><a href="../game/index.html" class="nav-link">Game</a></li>
+                <li><a href="../travel/index.html" class="nav-link">Travel</a></li>
+                <li><a href="../tour/index.html" class="nav-link active">Tutoring</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+    <div class="page-wrapper">
+        <div class="page-header">
+            <h1><i class="fas fa-chalkboard-teacher"></i> Tutoring</h1>
+            <p>高中数学家教 · 原创题集与教学资料</p>
+        </div>
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">教学资料</h2>
+                    <p class="section-desc">原创习题集及教学辅导 PDF 资料</p>
+                </div>
+
+                <!-- PDF 文件列表 -->
+                <div class="pdf-list fade-in">
+                    <a href="pdfs/%E5%88%9D%E9%AB%98%E4%B8%AD%E5%8E%9F%E5%88%9B%E8%AF%95%E5%8D%B7%E6%B1%87%E6%80%BB.pdf" target="_blank" class="pdf-item">
+                        <i class="fas fa-file-pdf"></i>
+                        <div>
+                            <div class="pdf-name">初高中原创试卷汇总.pdf</div>
+                            <div class="pdf-desc">初高中数学原创试卷合集</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer class="footer">
+        <div class="container"><div class="footer-inner">
+            <div class="footer-copy">&copy; 2026 LV-ZHU</div>
+            <div class="footer-social"><a href="https://github.com/LV-ZHU" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a></div>
+        </div></div>
+    </footer>
+    <script src="../../js/common.js"></script>
+</body>
+</html>
