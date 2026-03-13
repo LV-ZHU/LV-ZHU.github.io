@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据结构 | 408 | LV-ZHU</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="../../../../css/common.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo"><a href="../../../../index.html"><i class="fas fa-code"></i><span>LV-ZHU</span></a></div>
+            <ul class="nav-menu">
+                <li><a href="../../../../index.html" class="nav-link">Recent</a></li>
+                <li><a href="../../index.html" class="nav-link active">Study</a></li>
+                <li><a href="../../../projects/index.html" class="nav-link">Projects</a></li>
+                <li><a href="../../../jottings/index.html" class="nav-link">Jottings</a></li>
+                <li><a href="../../../favorites/index.html" class="nav-link">Favorites</a></li>
+                <li><a href="../../../animation/index.html" class="nav-link">Animation</a></li>
+                <li><a href="../../../music/index.html" class="nav-link">Music</a></li>
+                <li><a href="../../../game/index.html" class="nav-link">Game</a></li>
+                <li><a href="../../../travel/index.html" class="nav-link">Travel</a></li>
+                <li><a href="../../../tour/index.html" class="nav-link">Tour</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+        </div>
+    </nav>
+
+    <div class="page-wrapper">
+        <div class="page-header">
+            <h1><i class="fas fa-sitemap"></i> 数据结构</h1>
+            <p>线性表、树、图、排序、查找</p>
+        </div>
+
+        <section class="section">
+            <div class="container">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">25261 期末真题回忆</h2>
+                    <p class="section-desc">回忆版</p>
+                </div>
+
+                <div class="text-file-panel fade-in">
+                    <div class="text-file-toolbar">
+                        <div class="text-file-title">25261数据结构期末真题回忆</div>
+                    </div>
+                    <pre id="raw-content" class="text-file-content"></pre>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer"><div class="container"><div class="footer-inner"><div class="footer-copy">&copy; 2026 LV-ZHU</div></div></div></footer>
+    <script src="../../../../js/common.js"></script>
+    <script>
+        document.getElementById('raw-content').textContent = `25261数据结构期末真题回忆（4学分，适用计科和信安）
+题型：15个选择30分，10个填空10分，5道综合40分，程序填空4分，写功能6分，最后一题算法思想和尽量完整的代码实现各5分
+
+一、选择：（2'*15=30'）
+1.下列说法不正确的是（）
+考察逻辑结构、物理结构的概念
+3.以下哪项不能衡量算法（） 有时间复杂度之类的选项
+4.如果频繁的要对无向图边更改，那么适合拿（） A.邻接矩阵 B.邻接表 C.十字链表 D.邻接多重表
+11.往年期末原题，森林和树的转化，问二叉树左子树的个数为多少
+13.判断带头节点的双循环链表只有一个节点的条件是（）A.front->next=NULL B.front=rear C.front->next=rear D.
+14.简单的数组判断错误选项
+15.一个链表常见的操作是在末尾删除和插入节点，最适合使用的链表类型是（） 带/不带头节点的单循环/双循环链表
+
+二、填空：（1'*10=10'）
+1.链栈S为空的判定条件是
+2.递归算法转为非递归算法时经常需要使用
+5. 图的判定
+6. 如果一个图满足     ，那么有拓扑序列
+7. 链表删除元素的时间复杂度为
+8. 无向图V,E用邻接表存储，删去某个节点的时间复杂度为
+9. 3阶B树每个节点关键字的个数不小于
+10. 平衡二叉树的定义是平衡因子的值不大于
+
+三、综合题（5'*8=40'）
+1.和往届大题类似，给出二叉树的中序、后序序列（2'+4'+2'）
+（1）先序序列  (2）画出二叉树 （3）画出先序线索二叉树
+2.给定一些数，（比如12，79，23，54，45，65，68，99）随便编的
+（1）如果折半插入排序，第一趟排序后的结果为 第二趟排序后的结果为（4'）
+（2）如果起泡排序，第一趟排序后的结果为 第二趟排序后的结果为（4'）
+3.哈希表寻址，只考了链地址法，关键字为H(Key)=Keymod11，
+（1）把链地址法表格填满
+（2）计算某个元素放入时的查找长度（没考ASL，只考了一个元素）
+4.DFS的运用，给出图（连通分量为2）
+（1）画出图对应的邻接表，按序从小到大连接  (2）给出DFS序列（2'） （3）把搜索BFS的过程转成树/森林（本题连通分量为2，V1-V6一组，V7-V9一组，自然要转成森林）
+5.堆排序8个数完整写出找出最小（注意是最小）的两个数的过程
+
+四、代码题：（4'+6'=10'）
+背景给的二叉树的数据结构定义，
+typedef struct BiTNode {
+int data;               // 数据域
+struct BiTNode *lchild; // 左孩子指针
+struct BiTNode *rchild; // 右孩子指针
+} BiTNode, *BiTree;
+然后分成两道题：
+
+1. 中序遍历的非递归算法程序填空，2空共4分（PPT上有）
+void inorder(BiTree T){
+SqStack S;  	BiTree P=T;
+InitStack(S);
+do{	while(P){  
+Pop(S);
+填空1; }
+if (S.top){  
+Pop(S);
+printf("%c",P->data);
+填空2；}
+}while((S.top!=S.base) || P);
+}
+2.问程序功能，一个空直接6分，结合队列考代码功能，
+int countNodes(BiTree T) {
+if (T == nullptr) {
+return 0;
+}
+int count = 0;  
+queue<BiTree> q;  
+q.push(T);  
+while (!q.empty()) {
+BiTree current = q.front();  
+q.pop();  
+if (current->lchild != nullptr && current->rchild != nullptr) {
+count++;  
+}
+if (current->lchild != nullptr) {
+q.push(current->lchild);
+}
+if (current->rchild != nullptr) {
+q.push(current->rchild);
+}
+}
+return count;
+}
+上述程序的功能是
+
+五、算法设计题（5'+5'=10'） 数据结构居然是顺序表，没有考后面树/图的代码实现
+数据结构定义：
+typedef struct {
+int *elem;  
+int length;  
+int listsize;
+} SqList;
+已知一个有序顺序表，现在插入新的元素X（不需要考虑空间不够的情况），希望满足：
+（1）如果表里面已经有X了就认为插入失败
+（2）插入后希望数组依然有序
+1.描述算法的实现思想.
+2.尽可能给出完整的代码实现.
+
+------全卷完，以下是算法设计题题解-----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+就用折半查找的思想（比遍历时间复杂度低），先按照查找X的思路，用一个返回类型为bool的函数（因为书里教的C with reference，所以可以写成返回int型），如果查找出来的元素在表里就return false；否则就刚好用折半查找的O(nlongn）的时间复杂度实现了
+位置的查找，然后进行顺序表经典的插入一个元素，时间复杂度为O(n)，参考代码如下：
+bool InsertOrdered(SqList &L, int X)
+{
+// 1. 检查X是否已存在（折半查找）
+int low = 0, high = L.length - 1, mid;
+while (low <= high) {
+mid = (low + high) / 2;
+if (L.elem[mid] == X) {
+return false;  // 元素已存在
+} else if (L.elem[mid] < X) {
+low = mid + 1;
+} else {
+high = mid - 1;
+}
+}
+// 此时low是X应该插入的位置
+// 2.不用判断空间是否够用，元素后移
+for (int i = L.length; i > low; i--) {
+L.elem[i] = L.elem[i - 1];
+}
+// 3. 插入X
+L.elem[low] = X;
+L.length++;
+return true;
+}`;
+    </script>
+</body>
+</html>
