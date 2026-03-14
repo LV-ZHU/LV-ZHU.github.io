@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算机组成原理 | 408 | LV-ZHU</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="../../../../css/common.css">
+    <style>
+        .markdown-wrap {
+            background: #ffffff;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 16px;
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+            padding: 1.4rem;
+            max-width: 1120px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .markdown-content {
+            line-height: 1.85;
+            word-break: break-word;
+            color: #172554;
+            font-size: 16px;
+        }
+
+        .markdown-content h1,
+        .markdown-content h2,
+        .markdown-content h3,
+        .markdown-content h4 {
+            margin-top: 1.55rem;
+            margin-bottom: 0.6rem;
+            color: #0f172a;
+        }
+
+        .markdown-content h1 {
+            font-size: 2rem;
+            border-bottom: 2px solid #dbeafe;
+            padding-bottom: 0.45rem;
+        }
+
+        .markdown-content h2 {
+            font-size: 1.45rem;
+            border-left: 4px solid #2563eb;
+            padding-left: 0.55rem;
+        }
+
+        .markdown-content h3 {
+            font-size: 1.2rem;
+        }
+
+        .markdown-content p,
+        .markdown-content li {
+            margin: 0.45rem 0;
+        }
+
+        .markdown-content ul,
+        .markdown-content ol {
+            padding-left: 1.2rem;
+        }
+
+        .markdown-content pre {
+            overflow-x: auto;
+            background: #0b1020;
+            color: #e9eefc;
+            border-radius: 10px;
+            padding: 0.9rem;
+        }
+
+        .markdown-content pre.plain-md {
+            background: #f8fafc;
+            color: #111827;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            white-space: pre-wrap;
+        }
+
+        .markdown-content code {
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        .markdown-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.8rem 0;
+            display: block;
+            overflow-x: auto;
+        }
+
+        .markdown-content th,
+        .markdown-content td {
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            padding: 0.5rem 0.6rem;
+            text-align: left;
+            white-space: normal;
+        }
+
+        .markdown-content th {
+            background: #eff6ff;
+        }
+
+        .markdown-error {
+            color: #b42318;
+            background: #fee4e2;
+            border: 1px solid #fda29b;
+            border-radius: 10px;
+            padding: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar"></nav>
+
+    <div class="page-wrapper">
+        <div class="page-header">
+            <h1><i class="fas fa-memory"></i> 计算机组成原理</h1>
+            <p>CPU、存储器、总线、I/O</p>
+        </div>
+        <section class="section">
+            <div class="container">
+                <div class="markdown-wrap fade-in">
+                    <div id="md-content" class="markdown-content">正在加载 Markdown 内容...</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer"></footer>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="./content.js"></script>
+    <script src="../../../../js/common.js"></script>
+    <script>
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function renderSimpleMarkdown(markdown) {
+            var lines = markdown.split(/\r?\n/);
+            var html = [];
+            var i = 0;
+            var inCode = false;
+            var inUl = false;
+            var inOl = false;
+
+            function closeLists() {
+                if (inUl) {
+                    html.push('</ul>');
+                    inUl = false;
+                }
+                if (inOl) {
+                    html.push('</ol>');
+                    inOl = false;
+                }
+            }
+
+            while (i < lines.length) {
+                var line = lines[i];
+
+                if (/^```/.test(line)) {
+                    closeLists();
+                    if (!inCode) {
+                        inCode = true;
+                        html.push('<pre><code>');
+                    } else {
+                        inCode = false;
+                        html.push('</code></pre>');
+                    }
+                    i += 1;
+                    continue;
+                }
+
+                if (inCode) {
+                    html.push(escapeHtml(line) + '\n');
+                    i += 1;
+                    continue;
+                }
+
+                if (!line.trim()) {
+                    closeLists();
+                    i += 1;
+                    continue;
+                }
+
+                if (/^\s*\|.*\|\s*$/.test(line) && i + 1 < lines.length && /^\s*\|?\s*[-: ]+\|[-:| ]*\s*$/.test(lines[i + 1])) {
+                    closeLists();
+                    var headerCells = line.split('|').slice(1, -1).map(function (cell) { return '<th>' + escapeHtml(cell.trim()) + '</th>'; }).join('');
+                    html.push('<table><thead><tr>' + headerCells + '</tr></thead><tbody>');
+                    i += 2;
+                    while (i < lines.length && /^\s*\|.*\|\s*$/.test(lines[i])) {
+                        var rowCells = lines[i].split('|').slice(1, -1).map(function (cell) { return '<td>' + escapeHtml(cell.trim()) + '</td>'; }).join('');
+                        html.push('<tr>' + rowCells + '</tr>');
+                        i += 1;
+                    }
+                    html.push('</tbody></table>');
+                    continue;
+                }
+
+                var heading = line.match(/^(#{1,6})\s+(.+)$/);
+                if (heading) {
+                    closeLists();
+                    var level = heading[1].length;
+                    html.push('<h' + level + '>' + escapeHtml(heading[2]) + '</h' + level + '>');
+                    i += 1;
+                    continue;
+                }
+
+                if (/^---+$/.test(line.trim())) {
+                    closeLists();
+                    html.push('<hr>');
+                    i += 1;
+                    continue;
+                }
+
+                var ordered = line.match(/^\d+\.\s+(.+)$/);
+                if (ordered) {
+                    if (inUl) {
+                        html.push('</ul>');
+                        inUl = false;
+                    }
+                    if (!inOl) {
+                        html.push('<ol>');
+                        inOl = true;
+                    }
+                    html.push('<li>' + escapeHtml(ordered[1]) + '</li>');
+                    i += 1;
+                    continue;
+                }
+
+                var unordered = line.match(/^[-*+]\s+(.+)$/);
+                if (unordered) {
+                    if (inOl) {
+                        html.push('</ol>');
+                        inOl = false;
+                    }
+                    if (!inUl) {
+                        html.push('<ul>');
+                        inUl = true;
+                    }
+                    html.push('<li>' + escapeHtml(unordered[1]) + '</li>');
+                    i += 1;
+                    continue;
+                }
+
+                closeLists();
+                html.push('<p>' + escapeHtml(line) + '</p>');
+                i += 1;
+            }
+
+            closeLists();
+            if (inCode) {
+                html.push('</code></pre>');
+            }
+            return html.join('');
+        }
+
+        (function renderMarkdown() {
+            var target = document.getElementById('md-content');
+            try {
+                var markdown = (typeof window.__coMarkdown === 'string') ? window.__coMarkdown : '';
+                if (!markdown) {
+                    throw new Error('未读取到本地内容文件');
+                }
+
+                if (window.marked && typeof window.marked.parse === 'function') {
+                    window.marked.setOptions({ breaks: true, gfm: true });
+                    target.innerHTML = window.marked.parse(markdown);
+                } else {
+                    target.innerHTML = renderSimpleMarkdown(markdown);
+                }
+            } catch (error) {
+                target.innerHTML = '<div class="markdown-error">Markdown 加载失败：' + error.message + '</div>';
+            }
+        })();
+    </script>
+</body>
+</html>

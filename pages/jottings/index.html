@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jottings | LV-ZHU</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="../../css/common.css">
+    <style>
+        .jotting-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        .jotting-item {
+            background: var(--bg-card, #fff);
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: var(--radius-md, 8px);
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .jotting-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.05);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        .jotting-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-main, #1e293b);
+            margin: 0;
+        }
+        .jotting-meta {
+            font-size: 0.9rem;
+            color: var(--text-muted, #64748b);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .jotting-desc {
+            font-size: 1rem;
+            color: var(--text-secondary, #475569);
+            line-height: 1.6;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar"></nav>
+
+    <div class="page-wrapper">
+        <div class="page-header">
+            <h1><i class="fas fa-pen-fancy"></i> Jottings</h1>
+        </div>
+        <section class="section">
+            <div class="container">
+                <div class="jotting-list">
+                    <!-- 【文章列表开始】以后加文章直接复制下面的 <a> 标签块，改链接和内容即可 -->
+                    
+                    <a href="jiqin-fenliu.html" class="jotting-item fade-in">
+                        <h2 class="jotting-title">同济济勤巨类大一生存指北</h2>
+                        <div class="jotting-meta">
+                            <span><i class="far fa-calendar-alt"></i> 2025-7-16</span>
+                            <span><i class="fas fa-tags"></i> 学习 / 经验 / 分流</span>
+                        </div>
+                        </a>
+
+                    <!-- 【文章列表结束】 -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer"></footer>
+    <script src="../../js/common.js"></script>
+</body>
+</html>
