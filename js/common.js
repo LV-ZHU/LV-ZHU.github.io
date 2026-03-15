@@ -90,15 +90,15 @@ document.addEventListener('DOMContentLoaded', () => {
             })),
             { title: 'Projects', path: 'pages/projects/index.html', keywords: '项目 projects' },
             { title: 'Projects / C++ BigHW', path: 'pages/projects/cpp-bighw/index.html', keywords: 'cpp c++ bighw 程序设计 高程 oop 沈坚 sj' },
-            { title: 'Projects / FPGA', path: 'pages/projects/fpga/index.html', keywords: 'fpga 数字逻辑 verilog oled mp3' },
+            { title: 'Projects / FPGA', path: 'pages/projects/fpga/index.html', keywords: 'fpga 数字逻辑 verilog oled mp3 zdd mips246' },
             { title: 'Projects / GPU', path: 'pages/projects/gpu/index.html', keywords: 'gpu 并行 gunrock' },
             { title: 'Projects / QQ Bot', path: 'pages/projects/qq-bot/index.html', keywords: 'qq bot 机器人' },
             { title: 'Music', path: 'pages/music/index.html', keywords: '音乐 music 歌单' },
             { title: 'Favorites', path: 'pages/favorites/index.html', keywords: '收藏 favorites 网址' },
             { title: 'Jottings', path: 'pages/jottings/index.html', keywords: '随笔 jottings' },
-            { title: 'ACGN', path: 'pages/acgn/index.html', keywords: '二次元 动画 游戏 小说 acgn animation game novel 洲 舟 农 瓦 崩 原 go 铁 绝 劫 铲 穿 斗 鸣 尘 柚 ow 杀 邦 轨 植 mc 谷 ut 空 茶 蔚 脑 死 以 塞' },
-            { title: 'Travel', path: 'pages/travel/index.html', keywords: '旅行 travel 开元心 行夫' },
-            { title: 'Tutoring', path: 'pages/tutoring/index.html', keywords: '家教 tutoring pdf' }
+            { title: 'ACGN', path: 'pages/acgn/index.html', keywords: '二次元 动画 游戏 小说 acgn animation game novel 洲 舟 农 瓦 崩 原 go 铁 绝 劫 铲 穿 斗 鸣 尘 柚 ow 杀 邦 轨 植物大战僵尸 mc 谷 ut 空 茶 蔚 脑 死 以 塞' },
+            { title: 'Travel', path: 'pages/travel/index.html', keywords: '旅行 旅游 travel 开元心 行夫' },
+            { title: 'Tutoring', path: 'pages/tutoring/index.html', keywords: '家教 tutoring ' }
         ].map(item => ({
             title: item.title,
             href: buildHref(siteRoot, item.path),
