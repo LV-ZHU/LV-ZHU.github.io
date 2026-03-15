@@ -349,24 +349,23 @@
     <div class="page-wrapper">
         <div class="page-header">
             <h1><i class="fas fa-keyboard"></i> Favorites</h1>
-            <p>键盘上按下字母键即可进入对应主题分区</p>
+            <p>键盘上按下字母键即可进入对应收藏分区</p>
         </div>
 
         <section class="section">
             <div class="container">
                 <div class="keyboard-shell fade-in">
                     <div class="keyboard-head">
-                        <h2>我的快捷键盘</h2>
-                        <p>支持鼠标点击和键盘按键触发</p>
+                        <h2>快捷键盘</h2>
                     </div>
 
                     <div class="controls">
                         <button class="ctrl-btn primary" id="toggleEditBtn" type="button">开启编辑模式</button>
                         <button class="ctrl-btn warning" id="resetConfigBtn" type="button">重置键位配置</button>
-                        <button class="ctrl-btn play-type-btn" id="playTypeBtn" type="button"><i class="fas fa-keyboard"></i> 键盘打字王</button>
-                        <button class="ctrl-btn primary" id="knowledgeQuizBtn" type="button" style="display: none;"><i class="fas fa-question-circle"></i> 知识问答</button>
+                        <button class="ctrl-btn play-type-btn" id="playTypeBtn" type="button"><i class="fas fa-keyboard"></i> 小游戏：键盘打字王 </button>
+                        <button class="ctrl-btn primary" id="knowledgeQuizBtn" type="button" style="display: none;"> 知识问答</button>
                     </div>
-                    <p class="edit-tip" id="editTip">编辑模式关闭。开启后可点击任意字母键自定义标题和跳转地址。</p>
+                    <p class="edit-tip" id="editTip">当前编辑模式关闭。开启后可点击任意字母键自定义标题和跳转地址。</p>
 
                     <div class="type-board" id="typeBoard">
                         <div class="type-word" id="twWord"><span class="tw-done" id="twDone"></span><span class="tw-todo" id="twTodo">KEYBOARD</span></div>
@@ -389,7 +388,7 @@
                             <a class="key linkable general-key" href="E/index.html" data-key="E"><span class="k-label">E</span><span class="k-note">-</span></a>
                             <a class="key linkable general-key" href="R/index.html" data-key="R"><span class="k-label">R</span><span class="k-note">-</span></a>
                             <a class="key linkable study-key" href="T/index.html" data-key="T"><span class="k-label">T</span><span class="k-note">同济网站</span></a>
-                            <a class="key linkable general-key" href="Y/index.html" data-key="Y"><span class="k-label">Y</span><span class="k-note">有趣网站</span></a>
+                            <a class="key linkable general-key" href="Y/index.html" data-key="Y"><span class="k-label">Y</span><span class="k-note">其他网站</span></a>
                             <a class="key linkable general-key" href="U/index.html" data-key="U"><span class="k-label">U</span><span class="k-note">实用工具</span></a>
                             <a class="key linkable general-key" href="I/index.html" data-key="I"><span class="k-label">I</span><span class="k-note">-</span></a>
                             <a class="key linkable general-key" href="O/index.html" data-key="O"><span class="k-label">O</span><span class="k-note">-</span></a>
@@ -415,7 +414,7 @@
                             <div class="spacer"></div>
                             <a class="key linkable general-key" href="Z/index.html" data-key="Z"><span class="k-label">Z</span><span class="k-note">-</span></a>
                             <a class="key linkable general-key" href="X/index.html" data-key="X"><span class="k-label">X</span><span class="k-note">-</span></a>
-                            <a class="key linkable study-key" href="C/index.html" data-key="C"><span class="k-label">C</span><span class="k-note">CSDN 代表</span></a>
+                            <a class="key linkable study-key" href="C/index.html" data-key="C"><span class="k-label">C</span><span class="k-note">CSDN 系列</span></a>
                             <a class="key linkable general-key" href="V/index.html" data-key="V"><span class="k-label">V</span><span class="k-note">-</span></a>
                             <a class="key linkable study-key" href="B/index.html" data-key="B"><span class="k-label">B</span><span class="k-note">学长博客</span></a>
                             <a class="key linkable general-key" href="N/index.html" data-key="N"><span class="k-label">N</span><span class="k-note">-</span></a>
@@ -450,7 +449,7 @@
                         </div>
                     </div>
 
-                    <p class="tip-line">提示：按字母键会按当前配置跳转；方向键切换高亮，回车进入。编辑模式下点击键帽可改标题和地址。</p>
+                    <p class="tip-line">提示：非游戏模式下按回车键/点击鼠标可直接进入当前选择模块；按字母键跳转到对应字母；按方向键可切换当前选择模块。</p>
                 </div>
             </div>
         </section>
@@ -488,7 +487,7 @@
             E: { note: '-', href: 'E/index.html' },
             R: { note: '-', href: 'R/index.html' },
             T: { note: '同济网站', href: 'T/index.html' },
-            Y: { note: '有趣网站', href: 'Y/index.html' },
+            Y: { note: '其他网站', href: 'Y/index.html' },
             U: { note: '实用工具', href: 'U/index.html' },
             I: { note: '-', href: 'I/index.html' },
             O: { note: '-', href: 'O/index.html' },
@@ -504,7 +503,7 @@
             L: { note: '-', href: 'L/index.html' },
             Z: { note: '-', href: 'Z/index.html' },
             X: { note: '-', href: 'X/index.html' },
-            C: { note: 'CSDN 代表', href: 'C/index.html' },
+            C: { note: 'CSDN 系列', href: 'C/index.html' },
             V: { note: '-', href: 'V/index.html' },
             B: { note: '学长博客', href: 'B/index.html' },
             N: { note: '-', href: 'N/index.html' },
@@ -561,7 +560,7 @@
             isEditMode = on;
             document.getElementById('toggleEditBtn').textContent = on ? '关闭编辑模式' : '开启编辑模式';
             document.getElementById('editTip').textContent = on
-                ? '编辑模式已开启：点击任意字母键，依次输入新标题与新地址（可填站内相对路径或完整网址）。'
+                ? '编辑模式已开启：点击任意字母键，依次输入新标题与新地址（可自行选择填写任意站内相对路径或完整网址）。'
                 : '编辑模式关闭。开启后可点击任意字母键自定义标题和跳转地址。';
             keys.forEach(el => el.classList.toggle('editing', on));
         }
@@ -670,7 +669,7 @@
         let activeTag = '';
         let typeIndex = 0;
 
-        // 巨型词库已分离至 type-dict.js 中 (含 500+ 个词汇，全面覆盖408等学科)
+        // 词库已分离至 type-dict.js 中
 
         document.getElementById('playTypeBtn').addEventListener('click', () => {
             if (isEditMode) setEditMode(false);
@@ -783,7 +782,7 @@
             
             // 随机抽取一道题
             if (typeof questionBank === 'undefined' || !questionBank.length) {
-                alert(`⏱️ 时间到！\n\n🎯 你的最终得分是：${typeScore} 分`);
+                alert(`时间到！\n\n  你的最终得分是：${typeScore} 分`);
                 stopTypeGame();
                 return;
             }
@@ -826,19 +825,22 @@
 
             const isCorrect = JSON.stringify(userAns) === JSON.stringify(correctAns);
             if (isCorrect) {
-                alert('🎉 回答正确！奖励 60 秒时间，继续游戏！\n\n解析：' + currentQuestion.analysis);
+                alert('🎉 回答正确！恢复到 60 秒时间，继续游戏！\n\n解析：' + currentQuestion.analysis);
                 document.getElementById('qModal').style.display = 'none';
                 typeTimeLeft = 60;
                 updateTypeStats();
             } else {
-                alert(`❌ 回答错误！游戏结束。\n\n正确答案：${correctAns.join(', ').toUpperCase()}\n你的答案：${userAns.join(', ').toUpperCase()}\n\n解析：${currentQuestion.analysis}\n\n🎯 最终得分：${typeScore}`);
-                document.getElementById('qModal').style.display = 'none';
+                
                 if (typeTimeLeft <= 0) {
+                    alert(`❌ 回答错误！游戏结束。\n\n正确答案：${correctAns.join(', ').toUpperCase()}\n你的答案：${userAns.join(', ').toUpperCase()}\n\n解析：${currentQuestion.analysis}\n   \n  最终得分：${typeScore}`);
+                    document.getElementById('qModal').style.display = 'none';
                     stopTypeGame();
                 } else {
-                    // 如果是主动点击知识问答答错的，可以只提示，不结束游戏，或者扣除一定时间。
-                    // 根据需求这里设计为：即便主动答按也结束游戏
-                    stopTypeGame();
+                    // 因为是主动点击知识问答答错的，只扣除15秒，不立刻结束                    
+                    alert(`回答错误！时间扣除 15 秒`);
+                    document.getElementById('qModal').style.display = 'none';
+                    typeTimeLeft-=15;
+
                 }
             }
         });
@@ -879,7 +881,7 @@
                     updateTypeStats();
                     
                     if (typeIndex >= activeWord.length) {
-                        typeScore += 50; // 完成单词额外奖励
+                        typeScore += 50; // 完成1个单词额外奖励50分
                         updateTypeStats();
                         nextTypeWord();
                     } else {

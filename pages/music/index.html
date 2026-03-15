@@ -124,9 +124,28 @@
             <div class="container">
                 <div class="music-category fade-in">
                     <h3 class="music-category-title"><i class="fas fa-headphones"></i> 国语歌单</h3>
-                    <p class="music-category-desc">优先选B站搜索</p>
-                    <ul class="music-list" id="playlist-list"></ul>
-                    <p class="music-summary" id="playlist-summary"></p>
+                    <ul class="music-list" id="playlist-mandarin"></ul>
+                    <p class="music-summary" id="summary-mandarin"></p>
+                </div>
+                <div class="music-category fade-in">
+                    <h3 class="music-category-title"><i class="fas fa-compact-disc"></i> 粤语歌曲</h3>
+                    <ul class="music-list" id="playlist-cantonese"></ul>
+                    <p class="music-summary" id="summary-cantonese"></p>
+                </div>
+                <div class="music-category fade-in">
+                    <h3 class="music-category-title"><i class="fas fa-globe"></i> 外语歌曲</h3>
+                    <ul class="music-list" id="playlist-foreign"></ul>
+                    <p class="music-summary" id="summary-foreign"></p>
+                </div>
+                <div class="music-category fade-in">
+                    <h3 class="music-category-title"><i class="fas fa-guitar"></i> 纯音乐</h3>
+                    <ul class="music-list" id="playlist-instrumental"></ul>
+                    <p class="music-summary" id="summary-instrumental"></p>
+                </div>
+                <div class="music-category fade-in">
+                    <h3 class="music-category-title"><i class="fas fa-record-vinyl"></i> 其他</h3>
+                    <ul class="music-list" id="playlist-other"></ul>
+                    <p class="music-summary" id="summary-other"></p>
                 </div>
             </div>
         </section>
@@ -140,7 +159,7 @@
     <script src="../../js/common.js"></script>
     <script>
         (function () {
-            var songs = [
+            var songs_mandarin = [
                 { name: "这样很好 (sha's Song)", artist: "陈奕迅" },
                 { name: "稳稳的幸福", artist: "陈奕迅" },
                 { name: "凤凰花开的路口", artist: "林志炫" },
@@ -171,6 +190,7 @@
                 { name: "洋葱", artist: "杨宗纬" },
                 { name: "星星点灯", artist: "郑智化" },
                 { name: "刀剑如梦", artist: "周华健" },
+	        { name: "北京欢迎你", artist: "华语群星" },
                 { name: "特别的爱给特别的你", artist: "伍思凯" },
                 { name: "凡人歌", artist: "李宗盛" },
                 { name: "贝加尔湖畔", artist: "李健" },
@@ -183,7 +203,7 @@
                 { name: "突然好想你", artist: "五月天" },
                 { name: "走在1999", artist: "张学友" },
                 { name: "信仰", artist: "张信哲" },
-                { name: "千里之外 (电台版)", artist: "周杰伦、费玉清" },
+                { name: "千里之外 ", artist: "周杰伦、费玉清" },
                 { name: "那些你很冒险的梦", artist: "林俊杰" },
                 { name: "清明上河图", artist: "李玉刚" },
                 { name: "最远的你是我最近的爱", artist: "车继铃" },
@@ -242,6 +262,135 @@
                 { name: "痒", artist: "黄龄" },
             ];
 
+            var songs_cantonese = [
+                { name: "富士山下", artist: "陈奕迅" },
+                { name: "海阔天空", artist: "Beyond" },
+                { name: "浮夸", artist: "陈奕迅" },
+                { name: "今夜你会不会来", artist: "黎明" },
+                { name: "水中花", artist: "谭咏麟" },
+                { name: "夕阳之歌", artist: "梅艳芳" },
+                { name: "爱多一次痛多一次", artist: "谭咏麟" },
+                { name: "情凭谁来定错对", artist: "谭咏麟" }
+            ];
+
+            var songs_foreign = [
+                { name: "Hayya Hayya (Better Together...", artist: "Trinidad Cardona" },
+		{ name: "The New Dawn", artist: "Nicola Sedda" },
+		{ name: "The Miracle", artist: "Nicola Sedda" },
+		{ name: "You Raise Me Up", artist: "Westlife" },
+		{ name: "Dream It Possible", artist: "Delacey" },
+		{ name: "Colors (Coca-Cola® Anthem, 2018 ...", artist: "Jason Derulo" },
+		{ name: "In Another Life", artist: "Nicola Sedda" },
+		{ name: "Top Of The World (1973 remix)", artist: "Carpenters" },
+		{ name: "The Cup Of Life ", artist: "Ricky Martin" },
+		{ name: "Seasons In The Sun", artist: "Westlife" },
+		{ name: "The Mirror", artist: "Nicola Sedda" },
+		{ name: "Colors", artist: "Nicola Sedda" },
+		{ name: "Dreamers", artist: "Jung Kook、FIFA So..." },
+		{ name: "Yesterday Once More", artist: "Carpenters" },
+		{ name: "If I Fall", artist: "Nicola Sedda" },
+		{ name: "Emotions", artist: "Mariah Carey" },
+		{ name: "Time of Our Lives", artist: "Toni Braxton、Il Divo" },
+		{ name: "We Are the World (Demo)", artist: "Michael Jackson" },
+		{ name: "Whistle", artist: "Flo Rida" },
+		{ name: "Take Me Home, Country Roads", artist: "John Denver" },
+		{ name: "Lemon Tree", artist: "Fool's Garden" },
+		{ name: "This Is It", artist: "Michael Jackson" },
+		{ name: "Gloryland", artist: "Daryl Hall And John Oates" },
+		{ name: "Waka Waka ", artist: "Shakira、Freshlygro..." },
+		{ name: "Dream It Possible ", artist: "melanin band" },
+		{ name: "Sailing On A Shell", artist: "Nicola Sedda" },
+		{ name: "This Girl", artist: "Kungs" },
+		{ name: "Heal The World", artist: "Michael Jackson" },
+		{ name: "You Are Not Alone", artist: "Michael Jackson" },
+		{ name: "The Sounds of Silence", artist: "Simon & Garfunkel" },
+		{ name: "Proud Of You ", artist: "冯曦妤" },
+		{ name: "The Call", artist: "Nicola Sedda" },
+		{ name: "Legends Never Die", artist: "英雄联盟 " },
+		{ name: "Earth Song", artist: "Michael Jackson" },
+		{ name: "Natural", artist: "Imagine Dragons" },
+		{ name: "Talking to the Moon", artist: "Bruno Mars" },
+		{ name: "Bang Bang", artist: "Jessie J" },
+		{ name: "Nothing's Going to Change M...", artist: "Westlife" },
+		{ name: "try try try", artist: "Jason Mraz" },
+		{ name: "Dancing With Your Ghost", artist: "Sasha Alex Sloan" },
+		{ name: "All Falls Down", artist: "Alan Walker." },
+		{ name: "Rhythm Of The Rain", artist: "Jason Donovan" },
+		{ name: "Shed a Light", artist: "Robin Schulz." },
+		{ name: "Nevada", artist: "Vicetone." },
+		{ name: "Wake", artist: "Hillsong" },
+		{ name: "Temple", artist: "Zerky、Liu" },
+		{ name: "Free Loop", artist: "Daniel Powter" },
+		{ name: "Stronger (What Doesn't Kill You)", artist: "Kelly Clarkson" },
+		{ name: "Natural ", artist: "Imagine Dragons" },
+		{ name: "Timber", artist: "CDM Project、Lee O..." },
+		{ name: "Colors Of The Wind (End Title)", artist: "Vanessa Williams" }
+	    ];
+
+            var songs_instrumental = [
+		{ name: "Sunburst", artist: "Tobu、ltro" },
+		{ name: "The First Snowflakes (初雪)", artist: "Bandari" },
+		{ name: "Neptune Illusion", artist: "Dennis Kuo" },
+		{ name: "Trip (Original Mix)", artist: "Axero" },
+		{ name: "比利蒂斯", artist: "Various Artists" },
+		{ name: "Kiss The Rain", artist: "纯音乐" },
+		{ name: "阳光海岸", artist: "Bandari" },
+		{ name: "Croatian Rhapsody", artist: "Maksim" },
+		{ name: "旅人~第1章~", artist: "SM" },
+		{ name: "迷雾森林", artist: "Bandari" },
+		{ name: "Matrimonio De Amor", artist: "Richard Clayderman" },
+		{ name: "Journey", artist: "Capo Productions" },
+		{ name: "Largo", artist: "Camerata Cassovia、Robert Stankov..." },
+		{ name: "TVエンディングテーマ (遥远的...)", artist: "吉田潔" },
+		{ name: "Victory", artist: "纯音乐" },
+		{ name: "Caribbean Blue", artist: "Bandari" },
+		{ name: "A Thousand Miles", artist: "Josh Vietti" },
+		{ name: "Dreams", artist: "14" },
+		{ name: "The magnificent seven", artist: "Elmer Bernstein" },
+		{ name: "The Sounds Of Silence (纯音...", artist: "Bandari" },
+		{ name: "我们别时和见时不同", artist: "纯音乐" },
+		{ name: "比利蒂斯", artist: "余音" },
+		{ name: "Horizon=", artist: "Janji" },
+		{ name: "Illusionary Daytime", artist: "Shirfine" },
+		{ name: "爱琴海的珍珠", artist: "Paul Mauriat" },
+		{ name: "心动讯息", artist: "BLACKDD" },
+		{ name: "Time Back (时光倒流)(钢琴版)", artist: "Bad Style" },
+		{ name: "Xenogenesis", artist: "TheFatRat" },
+		{ name: "Old Threads", artist: "Dec" },
+		{ name: "我在時間尽头等你", artist: "" },
+		{ name: "回家 (萨克斯)", artist: "纯音乐" },
+		{ name: "所念皆星河", artist: "纯音乐" },
+		{ name: "Music Box Dancer (音乐盒舞者)", artist: "Richard Clayderman" },
+		{ name: "The Right Path", artist: "Thomas Greenberg" },
+		{ name: "La Vie Ne Ment Past", artist: "Nick Shatrishvili" },
+		{ name: "Asphyxia (Piano Ver.)", artist: "逆时针向、NSZX" },
+		{ name: "昼下がりの天使たち (午后的天使们)", artist: "大野克夫" },
+		{ name: "愉快 轻松 放松", artist: "Lance、纯音乐" },
+                { name: "彩云追月", artist: "纯音乐" },
+		{ name: "Refrain", artist: "阿南亮子" },
+		{ name: "Caravan", artist: "a_hisa" },
+		{ name: "Yumeji's Theme (Extended Version)", artist: "梅林茂" },
+		{ name: "You", artist: "Approaching Nirvana" },
+		{ name: "Ngẫu Hứng (MonBet Remix)", artist: "Hoaprox、MonBet" },
+		{ name: "Tassel (流苏)", artist: "Cymophane" },
+		{ name: "Despair (绝望)", artist: "SeVen.13" },
+		{ name: "Solstice", artist: "K-391" },
+		{ name: "Spring In My Step", artist: "" },
+		{ name: "Here We Are Again", artist: "Cagnet" },
+		{ name: "Intro", artist: "The xx" },
+		{ name: "River Flows In You (你的心河)", artist: "Yiruma" },
+		{ name: "A Little Story (小故事)", artist: "Valentin" },
+		{ name: "Annie's Wonderland (安妮的仙境)", artist: "Bandari" },
+		{ name: "Sakura Tears (樱花泪)", artist: "Snigellin" },
+		{ name: "Funkytown", artist: "" }
+            ];
+
+            var songs_other = [
+		{ name: "一笑江湖", artist: "闻人听書" },
+                { name: "蜜雪冰城主题曲", artist: "蜜雪冰城" },
+		{ name: "快乐的答案", artist: "奶龙" },
+            ];
+
             function buildUrl(base, query, suffix) {
                 return base + encodeURIComponent(query) + (suffix || '');
             }
@@ -249,6 +398,8 @@
             function renderSong(song, index) {
                 var query = song.name + ' ' + song.artist;
                 var bilibili = buildUrl('https://search.bilibili.com/all?keyword=', query);
+                var netease = buildUrl('https://music.163.com/#/search/m/?s=', query, '&type=1');
+                var kugou = buildUrl('https://www.kugou.com/yy/html/search.html#searchType=song&searchKeyWord=', query);
 
                 return [
                     '<li class="music-item">',
@@ -261,15 +412,27 @@
                     '  </div>',
                     '  <div class="music-actions">',
                     '    <a class="music-link primary" href="' + bilibili + '" target="_blank" rel="noopener noreferrer"><i class="fab fa-bilibili"></i>B站</a>',
+                    '    <a class="music-link" style="border-color: rgba(230, 0, 38, 0.35); background: #fff0f2; color: #c20c0c;" href="' + netease + '" target="_blank" rel="noopener noreferrer"><i class="fas fa-music"></i>网易云</a>',
+                    '    <a class="music-link" style="border-color: rgba(0, 169, 255, 0.35); background: #f0f9ff; color: #0080ff;" href="' + kugou + '" target="_blank" rel="noopener noreferrer"><i class="fas fa-headphones"></i>酷狗</a>',
                     '  </div>',
                     '</li>'
                 ].join('');
             }
 
-            var listNode = document.getElementById('playlist-list');
-            var summaryNode = document.getElementById('playlist-summary');
-            listNode.innerHTML = songs.map(renderSong).join('');
-            summaryNode.textContent = '共 ' + songs.length + ' 首。';
+            function renderList(listId, summaryId, songsData) {
+                var listNode = document.getElementById(listId);
+                var summaryNode = document.getElementById(summaryId);
+                if(listNode && summaryNode) {
+                    listNode.innerHTML = songsData.map(renderSong).join('');
+                    summaryNode.textContent = '共 ' + songsData.length + ' 首。';
+                }
+            }
+
+            renderList('playlist-mandarin', 'summary-mandarin', songs_mandarin);
+            renderList('playlist-cantonese', 'summary-cantonese', songs_cantonese);
+            renderList('playlist-foreign', 'summary-foreign', songs_foreign);
+            renderList('playlist-instrumental', 'summary-instrumental', songs_instrumental);
+            renderList('playlist-other', 'summary-other', songs_other);
         })();
     </script>
 </body>
