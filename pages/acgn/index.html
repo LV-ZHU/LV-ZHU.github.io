@@ -10,38 +10,127 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="../../css/common.css">
     <style>
-        .game-wall {
+
+        .acgn-dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            margin-bottom: 2.5rem;
+        }
+        @media (max-width: 768px) {
+            .acgn-dashboard { grid-template-columns: 1fr; }
+        }
+
+        .acgn-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: var(--transition-normal);
+        }
+        .acgn-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-3px);
+            background: white;
+        }
+        .acgn-header {
+            padding: 1.2rem 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
             gap: 0.8rem;
-            margin-bottom: 2rem;
         }
-        .game-tag {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: linear-gradient(135deg, #6366f1, #3b82f6);
-            color: white;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+        .acgn-header.anime { background: linear-gradient(135deg, #f43f5e 0%, #fb923c 100%); }
+        .acgn-header.novel { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .acgn-header.game  { 
+            background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%); 
+            border-radius: var(--radius-lg); 
+            box-shadow: var(--shadow-md); 
+            color: white; 
+            display: inline-flex; 
+            padding: 0.8rem 1.8rem;
         }
-        .game-tag:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4);
-            background: linear-gradient(135deg, #4f46e5, #2563eb);
-            color: white;
+
+        .acgn-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
         }
-        .section-icon {
-            margin-right: 0.5rem;
-            color: var(--primary-color, #3b82f6);
+
+        .acgn-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 1.2rem;
+            background: var(--light);
+            border-radius: var(--radius-sm);
+            color: var(--dark);
+            font-weight: 600;
+            transition: var(--transition-fast);
+            border-left: 4px solid transparent;
+            text-decoration: none !important;
         }
+        .acgn-item i { opacity: 0.6; font-size: 1.1rem; }
+        .anime .acgn-item:hover { background: #fff1f2; border-left-color: #f43f5e; color: #e11d48; padding-left: 1.5rem; }
+        .anime .acgn-item:hover i { opacity: 1; color: #f43f5e; }
+        .novel .acgn-item:hover { background: #ecfdf5; border-left-color: #10b981; color: #059669; padding-left: 1.5rem; }
+        .novel .acgn-item:hover i { opacity: 1; color: #10b981; }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+        .game-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 1.2rem;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            border-radius: 14px;
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            color: var(--dark-lighter);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition-fast);
+            box-shadow: 0 2px 4px transparent;
+            text-decoration: none !important;
+        }
+        .game-item i {
+            color: #8b5cf6;
+            font-size: 1.2rem;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 24px;
+            text-align: center;
+        }
+        .game-item:hover {
+            border-color: #8b5cf6;
+            background: #fff;
+            color: #4f46e5;
+            box-shadow: 0 8px 16px rgba(139, 92, 246, 0.15);
+            transform: translateY(-3px);
+        }
+        .game-item:hover i {
+            transform: scale(1.3) rotate(15deg);
+            color: #4f46e5;
+        }
+        .section-header-huge {
+            margin: 3.5rem 0 2rem 0;
+            display: flex;
+            align-items: center;
+        }
+
     </style>
 </head>
 <body>
-    <nav class="navbar"></nav>
+        <nav class="navbar"></nav>
 
     <div class="page-wrapper">
         <div class="page-header">
@@ -50,55 +139,74 @@
 
         <section class="section">
             <div class="container">
-                <div class="section-header fade-in">
-                    <h2 class="section-title"><i class="fas fa-layer-group section-icon"></i> 列表</h2>
+                <div class="acgn-dashboard fade-in">
+                    <!-- Anime Card -->
+                    <div class="acgn-card anime">
+                        <div class="acgn-header anime">
+                            <i class="fas fa-tv"></i> 动漫
+                        </div>
+                        <div class="acgn-body">
+                            <a href="https://search.bilibili.com/all?keyword=%E9%98%B3%E5%85%89%E5%92%96%E5%95%A1%E5%8E%85%E4%B9%8B%E6%96%B0%E5%8F%8B%E7%BA%AA" target="_blank" class="acgn-item"><i class="fas fa-play-circle"></i> <span>阳光咖啡厅之新友纪</span></a>
+                            <a href="https://search.bilibili.com/all?keyword=%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97" target="_blank" class="acgn-item"><i class="fas fa-play-circle"></i> <span>你的名字</span></a>
+                        </div>
+                    </div>
+
+                    <!-- Novels Card -->
+                    <div class="acgn-card novel">
+                        <div class="acgn-header novel">
+                            <i class="fas fa-book"></i> 小说
+                        </div>
+                        <div class="acgn-body">
+                            <a href="https://fanqienovel.com/reader/7173216089122439711" target="_blank" class="acgn-item"><i class="fas fa-bookmark"></i> <span>十日终焉</span></a>
+                            <a href="https://fanqienovel.com/reader/7257740371885556224" target="_blank" class="acgn-item"><i class="fas fa-bookmark"></i> <span>诡舍</span></a>
+                        </div>
+                    </div>
                 </div>
-                <div class="game-wall fade-in">
-                    <!-- Anime -->
-                    <a href="https://search.bilibili.com/all?keyword=%E9%98%B3%E5%85%89%E5%92%96%E5%95%A1%E5%8E%85%E4%B9%8B%E6%96%B0%E5%8F%8B%E7%BA%AA" target="_blank" class="game-tag">阳光咖啡厅之新友纪</a>
-                    <a href="https://search.bilibili.com/all?keyword=%E4%BD%A0%E7%9A%84%E5%90%8D%E5%AD%97" target="_blank" class="game-tag">你的名字</a>
-                    
-                    <!-- Novel -->
-                    <a href="https://fanqienovel.com/reader/7173216089122439711" class="game-tag">十日终焉  </a>
-                    <a href="https://fanqienovel.com/reader/7257740371885556224" class="game-tag">诡舍   </a>
-                    
-                    <!-- Game -->
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+bigger+penis" target="_blank" class="game-tag">I wanna bigger penis</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+three+connect" target="_blank" class="game-tag">I wanna three connect</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+have+a+good+wifi" target="_blank" class="game-tag">I wanna have a good wifi</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+go+shopping" target="_blank" class="game-tag">I wanna go shopping</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+conquer+the+blow+game1" target="_blank" class="game-tag">I wanna conquer the blow game</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+conquer+the+blow+game2" target="_blank" class="game-tag">I wanna conquer the blow game 2</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+conquer+the+blow+game3" target="_blank" class="game-tag">I wanna conquer the blow game 3</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=3+traps+in+a+room" target="_blank" class="game-tag">3 traps in a room</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=Spike+flying" target="_blank" class="game-tag">Spike flying</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+be+the+MC" target="_blank" class="game-tag">I wanna be the MC</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+qoqoqo+origin" target="_blank" class="game-tag">I wanna qoqoqo origin</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+use+computer" target="_blank" class="game-tag">I wanna use computer</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+play+summer" target="_blank" class="game-tag">I wanna play summer</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+be+the+air" target="_blank" class="game-tag">I wanna be the air</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=Do+morning+exercises" target="_blank" class="game-tag">Do morning exercises</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+%CA%85%28%C2%B4%E2%97%94%E0%B1%AA%E2%97%94%29%CA%83" target="_blank" class="game-tag">I wanna ʅ(´◔౪◔)ʃ</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+see+the+moon" target="_blank" class="game-tag">I wanna see the moon</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+Wanna+The+Maker+Medley" target="_blank" class="game-tag">I Wanna The Maker Medley</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2014" target="_blank" class="game-tag">Thanks for 2014</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2015" target="_blank" class="game-tag">Thanks for 2015</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2016" target="_blank" class="game-tag">Thanks for 2016</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2017" target="_blank" class="game-tag">Thanks for 2017</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2018" target="_blank" class="game-tag">Thanks for 2018</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2019" target="_blank" class="game-tag">Thanks for 2019</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2020" target="_blank" class="game-tag">Thanks for 2020</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2021" target="_blank" class="game-tag">Thanks for 2021</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2022" target="_blank" class="game-tag">Thanks for 2022</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2023" target="_blank" class="game-tag">Thanks for 2023</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2024" target="_blank" class="game-tag">Thanks for 2024</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2025" target="_blank" class="game-tag">Thanks for 2025</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+fa+trap" target="_blank" class="game-tag">I wanna fa trap</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+climb+the+hill" target="_blank" class="game-tag">I wanna climb the hill</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=Needy+KID+Overdose" target="_blank" class="game-tag">Needy KID Overdose</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+be+the+knight+in+shining+armor" target="_blank" class="game-tag">I wanna be the knight in shining armor</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+kokomi" target="_blank" class="game-tag">I wanna kokomi</a>
-                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+run+the+marathon" target="_blank" class="game-tag">I wanna run the marathon</a>
+
+                <!-- Games Section -->
+                <div class="section-header-huge fade-in">
+                    <div class="acgn-header game">
+                        <i class="fas fa-gamepad"></i> 游戏
+                    </div>
+                </div>
+                
+                <div class="game-grid fade-in">
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+bigger+penis" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna bigger penis</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+three+connect" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna three connect</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+have+a+good+wifi" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna have a good wifi</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+go+shopping" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna go shopping</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+conquer+the+blow+game1" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna conquer the blow game</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+conquer+the+blow+game2" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna conquer the blow game 2</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+conquer+the+blow+game3" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna conquer the blow game 3</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=3+traps+in+a+room" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>3 traps in a room</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=Spike+flying" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>Spike flying</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+be+the+MC" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna be the MC</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+qoqoqo+origin" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna qoqoqo origin</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+use+computer" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna use computer</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+play+summer" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna play summer</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+be+the+air" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna be the air</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=Do+morning+exercises" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>Do morning exercises</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+%CA%85%28%C2%B4%E2%97%94%E0%B1%AA%E2%97%94%29%CA%83" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna ʅ(´◔౪◔)ʃ</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+see+the+moon" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna see the moon</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+Wanna+The+Maker+Medley" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I Wanna The Maker Medley</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2014" target="_blank" class="game-item"><i class="fas fa-calendar-alt"></i> <span>Thanks for 2014</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2015" target="_blank" class="game-item"><i class="fas fa-calendar-alt"></i> <span>Thanks for 2015</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2016" target="_blank" class="game-item"><i class="fas fa-calendar-alt"></i> <span>Thanks for 2016</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2017" target="_blank" class="game-item"><i class="fas fa-calendar-alt"></i> <span>Thanks for 2017</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2018" target="_blank" class="game-item"><i class="fas fa-calendar-alt"></i> <span>Thanks for 2018</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2019" target="_blank" class="game-item"><i class="fas fa-calendar-alt"></i> <span>Thanks for 2019</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2020" target="_blank" class="game-item"><i class="fas fa-calendar-alt"></i> <span>Thanks for 2020</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2021" target="_blank" class="game-item"><i class="fas fa-calendar-alt"></i> <span>Thanks for 2021</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2022" target="_blank" class="game-item"><i class="fas fa-calendar-alt"></i> <span>Thanks for 2022</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2023" target="_blank" class="game-item"><i class="fas fa-calendar-alt"></i> <span>Thanks for 2023</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2024" target="_blank" class="game-item"><i class="fas fa-calendar-alt"></i> <span>Thanks for 2024</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=Thanks+for+2025" target="_blank" class="game-item"><i class="fas fa-calendar-alt"></i> <span>Thanks for 2025</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+fa+trap" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna fa trap</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+climb+the+hill" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna climb the hill</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=Needy+KID+Overdose" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>Needy KID Overdose</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+be+the+knight+in+shining+armor" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna be the knight in shining armor</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+kokomi" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna kokomi</span></a>
+                    <a href="https://delicious-fruit.com/ratings/full.php?s=I+wanna+run+the+marathon" target="_blank" class="game-item"><i class="fas fa-star"></i> <span>I wanna run the marathon</span></a>
                 </div>
             </div>
         </section>

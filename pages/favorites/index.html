@@ -290,7 +290,7 @@
                     <div class="controls">
                         <button class="ctrl-btn primary" id="toggleEditBtn" type="button">开启编辑模式</button>
                         <button class="ctrl-btn warning" id="resetConfigBtn" type="button">重置键位配置</button>
-                        <button class="ctrl-btn play-type-btn" id="playTypeBtn" type="button"><i class="fas fa-keyboard"></i> 小游戏：键盘打字王</button>
+                        <button class="ctrl-btn play-type-btn" id="playTypeBtn" type="button"><i class="fas fa-keyboard"></i> 键盘打字王</button>
                     </div>
                     <p class="edit-tip" id="editTip">编辑模式关闭。开启后可点击任意字母键自定义标题和跳转地址。</p>
 
@@ -316,7 +316,7 @@
                             <a class="key linkable general-key" href="R/index.html" data-key="R"><span class="k-label">R</span><span class="k-note">-</span></a>
                             <a class="key linkable study-key" href="T/index.html" data-key="T"><span class="k-label">T</span><span class="k-note">同济网站</span></a>
                             <a class="key linkable general-key" href="Y/index.html" data-key="Y"><span class="k-label">Y</span><span class="k-note">有趣网站</span></a>
-                            <a class="key linkable general-key" href="U/index.html" data-key="U"><span class="k-label">U</span><span class="k-note">-</span></a>
+                            <a class="key linkable general-key" href="U/index.html" data-key="U"><span class="k-label">U</span><span class="k-note">实用工具</span></a>
                             <a class="key linkable general-key" href="I/index.html" data-key="I"><span class="k-label">I</span><span class="k-note">-</span></a>
                             <a class="key linkable general-key" href="O/index.html" data-key="O"><span class="k-label">O</span><span class="k-note">-</span></a>
                             <a class="key linkable study-key" href="P/index.html" data-key="P"><span class="k-label">P</span><span class="k-note">项目资源</span></a>
@@ -324,7 +324,7 @@
 
                         <div class="key-row row-mid">
                             <div class="spacer"></div>
-                            <a class="key linkable general-key" href="A/index.html" data-key="A"><span class="k-label">A</span><span class="k-note">-</span></a>
+                            <a class="key linkable study-key" href="A/index.html" data-key="A"><span class="k-label">A</span><span class="k-note">代码练习</span></a>
                             <a class="key linkable study-key" href="S/index.html" data-key="S"><span class="k-label">S</span><span class="k-note">学习资源</span></a>
                             <a class="key linkable general-key" href="D/index.html" data-key="D"><span class="k-label">D</span><span class="k-note">-</span></a>
                             <a class="key linkable general-key" href="F/index.html" data-key="F"><span class="k-label">F</span><span class="k-note">-</span></a>
@@ -394,11 +394,11 @@
             R: { note: '-', href: 'R/index.html' },
             T: { note: '同济网站', href: 'T/index.html' },
             Y: { note: '有趣网站', href: 'Y/index.html' },
-            U: { note: '-', href: 'U/index.html' },
+            U: { note: '实用工具', href: 'U/index.html' },
             I: { note: '-', href: 'I/index.html' },
             O: { note: '-', href: 'O/index.html' },
             P: { note: '项目资源', href: 'P/index.html' },
-            A: { note: '-', href: 'A/index.html' },
+            A: { note: '代码练习', href: 'A/index.html' },
             S: { note: '学习资源', href: 'S/index.html' },
             D: { note: '-', href: 'D/index.html' },
             F: { note: '-', href: 'F/index.html' },
@@ -572,6 +572,7 @@
         let typeCombo = 0;
         let activeWord = '';
         let activeHint = '';
+        let activeTag = '';
         let typeIndex = 0;
 
         // 巨型词库已分离至 type-dict.js 中 (含 500+ 个词汇，全面覆盖408等学科)
@@ -625,20 +626,37 @@
 
         function nextTypeWord() {
             const item = typeDict[Math.floor(Math.random() * typeDict.length)];
-            activeWord = item.w.toLowerCase();
+            activeWord = item.w;
             activeHint = item.h;
+            activeTag = item.tag || '';
             typeIndex = 0;
+            while(typeIndex < activeWord.length && activeWord[typeIndex] === ' ') typeIndex++;
             renderTypeWord();
         }
 
         function renderTypeWord() {
-            document.getElementById('twDone').textContent = activeWord.substring(0, typeIndex).toUpperCase();
-            document.getElementById('twTodo').textContent = activeWord.substring(typeIndex).toUpperCase();
-            document.getElementById('twHint').textContent = activeHint;
+            let htmlStr = '';
+            for (let i = 0; i < activeWord.length; i++) {
+                const char = activeWord[i];
+                if (char === ' ') {
+                    htmlStr += '<span class="space">&nbsp;</span>';
+                } else if (i < typeIndex) {
+                    htmlStr += '<span class="tw-done">' + char + '</span>';
+                } else {
+                    htmlStr += '<span class="tw-todo">' + char + '</span>';
+                }
+            }
+            document.getElementById('twWord').innerHTML = htmlStr;
+
+            let hintHtml = activeHint;
+            if (activeTag) {
+                hintHtml = '<span style="background:var(--primary);color:white;padding:0.15rem 0.5rem;border-radius:999px;font-size:0.75rem;margin-right:0.6rem;vertical-align:middle;box-shadow:var(--shadow-sm);">' + activeTag + '</span><span style="vertical-align:middle;">' + activeHint + '</span>';
+            }
+            document.getElementById('twHint').innerHTML = hintHtml;
             
             keys.forEach(k => k.classList.remove('type-target', 'type-error'));
             if (typeIndex < activeWord.length) {
-                const targetChar = activeWord[typeIndex];
+                const targetChar = activeWord[typeIndex].toLowerCase();
                 const targetKey = keys.find(k => k.dataset.key && k.dataset.key.toLowerCase() === targetChar);
                 if (targetKey) {
                     // force reflow to restart animation
@@ -677,11 +695,13 @@
                 if(event.key.length !== 1 || !/[a-zA-Z]/.test(event.key)) return;
                 
                 const typedChar = event.key.toLowerCase();
-                const expectedChar = activeWord[typeIndex];
+                const expectedChar = activeWord[typeIndex].toLowerCase();
                 const activeKeyEl = keys.find(k => k.dataset.key && k.dataset.key.toLowerCase() === expectedChar);
                 
                 if (typedChar === expectedChar) {
                     typeIndex++;
+                    while(typeIndex < activeWord.length && activeWord[typeIndex] === ' ') typeIndex++;
+
                     typeScore += 10 + (Math.floor(typeCombo / 5) * 5); // 每5连击加成5分
                     typeCombo++;
                     updateTypeStats();

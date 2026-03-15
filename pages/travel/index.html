@@ -9,33 +9,46 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="../../css/common.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
     <style>
-        .map-container {
-            max-width: 900px; margin: 0 auto; background: white;
+        .travel-container {
+            max-width: 1000px; margin: 0 auto; background: white;
             border-radius: var(--radius-md); box-shadow: var(--shadow-md); padding: 2rem;
         }
+        
+        .map-tabs {
+            display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;
+        }
+        .map-tab {
+            padding: 0.6rem 1.5rem; border: none; border-radius: 20px;
+            background: var(--gray-light); color: var(--gray); font-weight: 600;
+            cursor: pointer; transition: var(--transition-fast);
+        }
+        .map-tab.active {
+            background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+        }
+
         .map-legend {
             display: flex; gap: 2rem; margin-bottom: 1.5rem;
             justify-content: center; flex-wrap: wrap;
         }
         .legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--gray); }
         .legend-dot { width: 14px; height: 14px; border-radius: 3px; }
-        .legend-dot.visited { background: var(--primary); }
-        .legend-dot.unvisited { background: var(--gray-light); }
-        .legend-dot.want { background: var(--secondary); }
-        .china-map {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); gap: 0.6rem;
+        .legend-dot.visited { background: #4f46e5; box-shadow: 0 0 8px #4f46e5; }
+        .legend-dot.want { background: #10b981; box-shadow: 0 0 8px #10b981; }
+        .legend-dot.unvisited { background: #334155; }
+
+        .echarts-wrapper {
+            background: #0f172a; /* Tech Dark */
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            position: relative;
         }
-        .province {
-            padding: 0.7rem 0.5rem; border-radius: var(--radius-sm); text-align: center;
-            font-size: 0.85rem; font-weight: 500; cursor: pointer;
-            transition: var(--transition-fast); border: 2px solid transparent; user-select: none;
+        #mapChart {
+            width: 100%;
+            height: 600px;
         }
-        .province.unvisited { background: var(--gray-light); color: var(--gray); }
-        .province.visited { background: rgba(79, 70, 229, 0.15); color: var(--primary); border-color: var(--primary); }
-        .province.want { background: rgba(16, 185, 129, 0.12); color: var(--secondary); border-color: var(--secondary); }
-        .province:hover { transform: scale(1.05); box-shadow: var(--shadow-sm); }
-        .province i { display: block; font-size: 1.1rem; margin-bottom: 0.2rem; }
+
         .map-stats {
             display: flex; justify-content: center; gap: 3rem; margin-top: 2rem;
             padding-top: 1.5rem; border-top: 1px solid var(--gray-light);
@@ -44,6 +57,13 @@
         .stat-num { font-size: 2rem; font-weight: 700; color: var(--primary); }
         .stat-label { font-size: 0.85rem; color: var(--gray); margin-top: 0.2rem; }
         .map-tip { text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--gray); }
+        
+        #loadingMsg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+            background: rgba(15, 23, 42, 0.8); color: white; font-size: 1.2rem;
+            z-index: 10; font-weight: 500; border-radius: var(--radius-md);
+        }
     </style>
 </head>
 <body>
@@ -55,17 +75,28 @@
         </div>
         <section class="section">
             <div class="container">
-                <div class="map-container fade-in">
+                <div class="travel-container fade-in">
                     <div class="section-header">
-                        <h2 class="section-title">中国足迹地图</h2>
-                        <p class="section-desc">点击省份可切换状态：未去 → 去过 → 想去</p>
+                        <h2 class="section-title">我的足迹</h2>
+                        <p class="section-desc">点击地图板块可切换状态：未去 → 去过 → 想去</p>
                     </div>
+                    
+                    <div class="map-tabs">
+                        <button class="map-tab active" data-map="china">中国足迹</button>
+                        <button class="map-tab" data-map="world">全球足迹</button>
+                    </div>
+
                     <div class="map-legend">
                         <div class="legend-item"><span class="legend-dot visited"></span> 去过</div>
                         <div class="legend-item"><span class="legend-dot want"></span> 想去</div>
                         <div class="legend-item"><span class="legend-dot unvisited"></span> 未去</div>
                     </div>
-                    <div class="china-map" id="chinaMap"></div>
+
+                    <div class="echarts-wrapper">
+                        <div id="loadingMsg">地图数据加载中...</div>
+                        <div id="mapChart"></div>
+                    </div>
+
                     <div class="map-stats">
                         <div class="stat-item">
                             <div class="stat-num" id="visitedCount">0</div>
@@ -80,7 +111,7 @@
                             <div class="stat-label">总计</div>
                         </div>
                     </div>
-                    <p class="map-tip">💡 点击省份可切换状态，数据保存在浏览器本地</p>
+                    <p class="map-tip">数据保存在浏览器本地。地图支持缩放与拖拽。</p>
                 </div>
             </div>
         </section>
@@ -89,44 +120,159 @@
     <footer class="footer"></footer>
     <script src="../../js/common.js"></script>
     <script>
-        const provinces = [
-            '北京','天津','上海','重庆',
-            '河北','山西','辽宁','吉林','黑龙江',
-            '江苏','浙江','安徽','福建','江西','山东',
-            '河南','湖北','湖南','广东','海南',
-            '四川','贵州','云南','西藏','陕西',
-            '甘肃','青海','内蒙古','广西','宁夏','新疆',
-            '香港','澳门','台湾'
-        ];
-        const states = ['unvisited', 'visited', 'want'];
-        const STORAGE_KEY = 'lv-zhu-travel-map';
-        function loadData() {
-            try { const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : {}; }
+        const STORAGE_CHINA = 'lv-zhu-travel-map';
+        const STORAGE_WORLD = 'lv-zhu-travel-map-world';
+        const STATES = ['unvisited', 'visited', 'want'];
+        
+        let currentMap = 'china'; // 'china' or 'world'
+        let chartInstance = null;
+        let mapDataLoaded = { china: false, world: false };
+
+        const colorMap = {
+            'visited': '#4f46e5',
+            'want': '#10b981',
+            'unvisited': '#334155'
+        };
+
+        function loadData(key) {
+            try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : {}; }
             catch { return {}; }
         }
-        function saveData(data) { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
-        function render() {
-            const map = document.getElementById('chinaMap');
-            const data = loadData();
-            map.innerHTML = '';
-            provinces.forEach(name => {
-                const state = data[name] || 'unvisited';
-                const el = document.createElement('div');
-                el.className = 'province ' + state;
-                el.textContent = name;
-                el.addEventListener('click', () => {
-                    const currentIdx = states.indexOf(data[name] || 'unvisited');
-                    data[name] = states[(currentIdx + 1) % states.length];
-                    saveData(data);
-                    render();
-                });
-                map.appendChild(el);
+        function saveData(key, data) { localStorage.setItem(key, JSON.stringify(data)); }
+
+        async function initMap() {
+            chartInstance = echarts.init(document.getElementById('mapChart'));
+            
+            // Adjust window resize
+            window.addEventListener('resize', () => chartInstance.resize());
+            
+            // Handle clicks
+            chartInstance.on('click', function (params) {
+                if(!params.name) return;
+                const regionName = params.name;
+                const storageKey = currentMap === 'china' ? STORAGE_CHINA : STORAGE_WORLD;
+                const data = loadData(storageKey);
+                
+                const currentState = data[regionName] || 'unvisited';
+                const nextState = STATES[(STATES.indexOf(currentState) + 1) % STATES.length];
+                data[regionName] = nextState;
+                saveData(storageKey, data);
+                
+                updateChartDisplay();
             });
-            const vals = Object.values(data);
+
+            await switchMap('china');
+        }
+
+        async function fetchGeoJSON(type) {
+            const url = type === 'china' 
+                ? 'https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json'
+                : 'https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/json/world.json';
+            const res = await fetch(url);
+            return await res.json();
+        }
+
+        async function switchMap(type) {
+            currentMap = type;
+            document.getElementById('loadingMsg').style.display = 'flex';
+            
+            // Fetch and register if not loaded
+            if (!mapDataLoaded[type]) {
+                try {
+                    const geoJson = await fetchGeoJSON(type);
+                    if (type === 'world') {
+                        // Optional World map translation for better UX
+                        echarts.registerMap('world', geoJson);
+                    } else {
+                        echarts.registerMap('china', geoJson);
+                    }
+                    mapDataLoaded[type] = true;
+                } catch(e) {
+                    document.getElementById('loadingMsg').textContent = '地图加载失败，请检查网络';
+                    return;
+                }
+            }
+            
+            document.getElementById('loadingMsg').style.display = 'none';
+            updateChartDisplay();
+        }
+
+        function updateChartDisplay() {
+            const storageKey = currentMap === 'china' ? STORAGE_CHINA : STORAGE_WORLD;
+            const savedData = loadData(storageKey);
+            
+            // Format data for echarts
+            const seriesData = Object.keys(savedData).map(name => {
+                const state = savedData[name];
+                return {
+                    name: name,
+                    value: state,
+                    itemStyle: {
+                        areaColor: colorMap[state],
+                        shadowColor: state === 'unvisited' ? 'transparent' : colorMap[state],
+                        shadowBlur: state === 'unvisited' ? 0 : 10
+                    }
+                }
+            });
+
+            const option = {
+                backgroundColor: 'transparent',
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function(params) {
+                        const stateStr = { 'visited': '去过', 'want': '想去', 'unvisited': '未去' };
+                        const val = params.data ? params.data.value : 'unvisited';
+                        return params.name + ' : ' + stateStr[val];
+                    }
+                },
+                series: [{
+                    type: 'map',
+                    map: currentMap,
+                    roam: true, // allow zoom/drag
+                    scaleLimit: { min: 1, max: 10 },
+                    itemStyle: {
+                        areaColor: colorMap['unvisited'],
+                        borderColor: '#475569',
+                        borderWidth: 1
+                    },
+                    emphasis: {
+                        itemStyle: {
+                            areaColor: '#64748b'
+                        },
+                        label: { show: true, color: '#fff' }
+                    },
+                    label: {
+                        show: currentMap === 'china',
+                        color: 'rgba(255,255,255,0.5)',
+                        fontSize: 10
+                    },
+                    data: seriesData
+                }]
+            };
+            
+            chartInstance.setOption(option, true);
+            
+            // Update stats
+            const vals = Object.values(savedData);
             document.getElementById('visitedCount').textContent = vals.filter(v => v === 'visited').length;
             document.getElementById('wantCount').textContent = vals.filter(v => v === 'want').length;
+            
+            // Set total based on current map type approximation
+            const totalEles = currentMap === 'china' ? 34 : 210; 
+            document.getElementById('totalCount').textContent = totalEles;
         }
-        render();
+
+        // Tab listeners
+        document.querySelectorAll('.map-tab').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                document.querySelectorAll('.map-tab').forEach(t => t.classList.remove('active'));
+                e.target.classList.add('active');
+                switchMap(e.target.dataset.map);
+            });
+        });
+
+        // Start
+        initMap();
     </script>
 </body>
 </html>

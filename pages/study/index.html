@@ -18,7 +18,8 @@
             border: 1px solid #e2e8f0;
             background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
             box-shadow: 0 20px 36px -8px rgba(15, 23, 42, 0.05);
-            overflow: hidden;
+            overflow-x: auto;
+            overflow-y: hidden;
         }
 
         .knowledge-map::before {
@@ -39,6 +40,7 @@
             gap: 1.5rem 0.5rem;
             align-items: center;
             min-height: 800px;
+            min-width: 1000px;
         }
 
         .km-node {
@@ -185,6 +187,7 @@
         <!-- 页面头部 -->
         <div class="page-header">
             <h1><i class="fas fa-book"></i> Study</h1>
+            <p>持续学习是成长的唯一途径，记录学习轨迹与心得</p>
         </div>
 
         <!-- 学习分类部分 -->
@@ -298,8 +301,8 @@
             }
 
             function draw() {
-                const width = container.clientWidth;
-                const height = container.clientHeight;
+                const width = container.scrollWidth;
+                const height = container.scrollHeight;
                 svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
                 svg.setAttribute('width', width);
                 svg.setAttribute('height', height);

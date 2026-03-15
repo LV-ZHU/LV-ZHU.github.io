@@ -50,8 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { label: '电路理论', path: 'pages/study/circuit-theory/index.html', keywords: '电路理论 电路' },
             { label: '汇编语言', path: 'pages/study/assembly_language_programming/index.html', keywords: '汇编 汇编语言 8086 指令' },
             { label: '数据库', path: 'pages/study/database/index.html', keywords: '数据库 database sql' },
-            { label: '密码学', path: 'pages/study/cryptography/index.html', keywords: '密码学 cryptography' },
-            { label: '济勤分流', path: 'pages/study/jiqin-fenliu/index.html', keywords: '济勤 分流 指北' }
+            { label: '密码学', path: 'pages/study/cryptography/index.html', keywords: '密码学 cryptography' }
         ];
 
         const navItems = [
