@@ -268,6 +268,79 @@
             color: white;
         }
         .play-type-btn:hover { background: #4338ca; color: white; }
+
+        /* 答题 Modal 样式 */
+        .q-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        .q-modal {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .q-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            line-height: 1.5;
+            color: var(--dark);
+        }
+        .q-tag {
+            background: var(--primary);
+            color: white;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        .q-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+        .q-option {
+            display: flex;
+            align-items: flex-start;
+            padding: 0.8rem;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+            line-height: 1.4;
+        }
+        .q-option:hover {
+            background: rgba(79, 70, 229, 0.05);
+            border-color: var(--primary);
+        }
+        .q-option input {
+            margin-top: 0.2rem;
+            margin-right: 0.8rem;
+            cursor: pointer;
+        }
+        .q-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+        .q-btn:hover {
+            background: #4338ca;
+        }
     </style>
 </head>
 <body>
@@ -291,6 +364,7 @@
                         <button class="ctrl-btn primary" id="toggleEditBtn" type="button">开启编辑模式</button>
                         <button class="ctrl-btn warning" id="resetConfigBtn" type="button">重置键位配置</button>
                         <button class="ctrl-btn play-type-btn" id="playTypeBtn" type="button"><i class="fas fa-keyboard"></i> 键盘打字王</button>
+                        <button class="ctrl-btn primary" id="knowledgeQuizBtn" type="button" style="display: none;"><i class="fas fa-question-circle"></i> 知识问答</button>
                     </div>
                     <p class="edit-tip" id="editTip">编辑模式关闭。开启后可点击任意字母键自定义标题和跳转地址。</p>
 
@@ -382,12 +456,33 @@
         </section>
     </div>
 
+    <!-- 答题 Modal -->
+    <div class="q-modal-overlay" id="qModal">
+        <div class="q-modal">
+            <div class="q-title" id="qTitle"></div>
+            <div class="q-options" id="qOptions"></div>
+            <div style="text-align: right;">
+                <button class="q-btn" id="qSubmitBtn">提交答案</button>
+            </div>
+        </div>
+    </div>
+
     <footer class="footer"></footer>
     <script src="../../js/common.js"></script>
     <script src="type-dict.js"></script>
     <script>
         const STORAGE_KEY = 'lv-zhu-favorites-keymap';
         const defaultConfig = {
+            1: { note: '-', href: '1/index.html' },
+            2: { note: '-', href: '2/index.html' },
+            3: { note: '-', href: '3/index.html' },
+            4: { note: '-', href: '4/index.html' },
+            5: { note: '-', href: '5/index.html' },
+            6: { note: '-', href: '6/index.html' },
+            7: { note: '-', href: '7/index.html' },
+            8: { note: '-', href: '8/index.html' },
+            9: { note: '-', href: '9/index.html' },
+            0: { note: '-', href: '0/index.html' },
             Q: { note: 'QQ群号', href: 'Q/index.html' },
             W: { note: '-', href: 'W/index.html' },
             E: { note: '-', href: 'E/index.html' },
@@ -589,6 +684,7 @@
             document.getElementById('toggleEditBtn').style.display = 'none';
             document.getElementById('resetConfigBtn').style.display = 'none';
             document.getElementById('editTip').style.display = 'none';
+            document.getElementById('knowledgeQuizBtn').style.display = 'inline-flex';
             
             typeTimeLeft = 60;
             typeScore = 0;
@@ -600,11 +696,11 @@
             
             clearInterval(typeTimer);
             typeTimer = setInterval(() => {
+                if (document.getElementById('qModal').style.display === 'flex') return; // 答题中暂停倒计时
                 typeTimeLeft--;
                 document.getElementById('twTime').textContent = typeTimeLeft;
                 if (typeTimeLeft <= 0) {
-                    alert(`⏱️ 时间到！\n\n🎯 你的最终得分是：${typeScore} 分\n🔥 最高连击加成起到了很大作用！再来一局？`);
-                    stopTypeGame();
+                    showQuestionModal();
                 }
             }, 1000);
         });
@@ -619,6 +715,7 @@
             document.getElementById('toggleEditBtn').style.display = 'inline-flex';
             document.getElementById('resetConfigBtn').style.display = 'inline-flex';
             document.getElementById('editTip').style.display = 'block';
+            document.getElementById('knowledgeQuizBtn').style.display = 'none';
             
             keys.forEach(k => k.classList.remove('type-target', 'type-error'));
             setCurrent(0);
@@ -672,6 +769,80 @@
             document.getElementById('twTime').textContent = typeTimeLeft;
         }
 
+        // 答题续命逻辑
+        let currentQuestion = null;
+
+        document.getElementById('knowledgeQuizBtn').addEventListener('click', () => {
+            showQuestionModal();
+        });
+
+        function showQuestionModal() {
+            const modal = document.getElementById('qModal');
+            const qTitle = document.getElementById('qTitle');
+            const qOptions = document.getElementById('qOptions');
+            
+            // 随机抽取一道题
+            if (typeof questionBank === 'undefined' || !questionBank.length) {
+                alert(`⏱️ 时间到！\n\n🎯 你的最终得分是：${typeScore} 分`);
+                stopTypeGame();
+                return;
+            }
+            currentQuestion = questionBank[Math.floor(Math.random() * questionBank.length)];
+
+            qTitle.innerHTML = `<span class="q-tag">${currentQuestion.tag}</span> [${currentQuestion.type === 'single' ? '单选' : '多选'}] ${currentQuestion.title}`;
+            
+            qOptions.innerHTML = '';
+            for (const [key, val] of Object.entries(currentQuestion.options)) {
+                const optDiv = document.createElement('div');
+                optDiv.className = 'q-option';
+                const inputType = currentQuestion.type === 'single' ? 'radio' : 'checkbox';
+                optDiv.innerHTML = `<input type="${inputType}" name="qAnswer" value="${key}"> <span>${key.toUpperCase()}. ${val}</span>`;
+                optDiv.addEventListener('click', (e) => {
+                    if (e.target.tagName !== 'INPUT') {
+                        const input = optDiv.querySelector('input');
+                        if (currentQuestion.type === 'single') {
+                            input.checked = true;
+                        } else {
+                            input.checked = !input.checked;
+                        }
+                    }
+                });
+                qOptions.appendChild(optDiv);
+            }
+
+            modal.style.display = 'flex';
+        }
+
+        document.getElementById('qSubmitBtn').addEventListener('click', () => {
+            if (!currentQuestion) return;
+            const inputs = document.querySelectorAll('input[name="qAnswer"]:checked');
+            const userAns = Array.from(inputs).map(inp => inp.value).sort();
+            const correctAns = [...currentQuestion.answer].sort();
+            
+            if (userAns.length === 0) {
+                alert('请选择答案！');
+                return;
+            }
+
+            const isCorrect = JSON.stringify(userAns) === JSON.stringify(correctAns);
+            if (isCorrect) {
+                alert('🎉 回答正确！奖励 60 秒时间，继续游戏！\n\n解析：' + currentQuestion.analysis);
+                document.getElementById('qModal').style.display = 'none';
+                typeTimeLeft = 60;
+                updateTypeStats();
+            } else {
+                alert(`❌ 回答错误！游戏结束。\n\n正确答案：${correctAns.join(', ').toUpperCase()}\n你的答案：${userAns.join(', ').toUpperCase()}\n\n解析：${currentQuestion.analysis}\n\n🎯 最终得分：${typeScore}`);
+                document.getElementById('qModal').style.display = 'none';
+                if (typeTimeLeft <= 0) {
+                    stopTypeGame();
+                } else {
+                    // 如果是主动点击知识问答答错的，可以只提示，不结束游戏，或者扣除一定时间。
+                    // 根据需求这里设计为：即便主动答按也结束游戏
+                    stopTypeGame();
+                }
+            }
+        });
+
         // 游戏时屏蔽鼠标点击跳转
         document.addEventListener('click', (e) => {
             if (isTypeGame && e.target.closest('.key')) {
@@ -685,14 +856,15 @@
             if (tag === 'input' || tag === 'textarea') return;
 
             if (isTypeGame) {
+                if (document.getElementById('qModal').style.display === 'flex') return;
                 event.preventDefault(); // 阻止默认按键滚动等
                 if (event.key === 'Escape') {
                     stopTypeGame();
                     return;
                 }
                 
-                // 忽略非字母按键
-                if(event.key.length !== 1 || !/[a-zA-Z]/.test(event.key)) return;
+                // 忽略非字母和数字按键
+                if(event.key.length !== 1 || !/[a-zA-Z0-9]/.test(event.key)) return;
                 
                 const typedChar = event.key.toLowerCase();
                 const expectedChar = activeWord[typeIndex].toLowerCase();

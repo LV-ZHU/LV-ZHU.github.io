@@ -659,3 +659,290 @@ const typeDict = [
     { w: 'shenduxuexi', h: '深度学习: 机器学习的分支，基于深度神经网络处理复杂数据的技术', tag: '拼音' },
     { w: 'rengongzhineng', h: '人工智能: 研究使计算机模拟人类智能行为的技术，包含机器学习、自然语言处理等', tag: '拼音' }
 ];
+
+// 答题续命题库（1分钟打字结束后弹出）
+const questionBank = [
+  // ---------- 单选题 ----------
+  {
+    id: 1,
+    type: 'single', // 单选
+    title: '以下哪种数据结构遵循"先进先出（FIFO）"原则？',
+    options: {
+      a: '栈（stack）',
+      b: '队列（queue）',
+      c: '链表（linked list）',
+      d: '哈希表（hash map）'
+    },
+    answer: ['b'],
+    analysis: '队列是限定在表尾插入、表头删除的线性表，核心特征是先进先出；栈遵循后进先出（LIFO），链表无固定存取规则，哈希表是键值对映射结构。',
+    tag: '数据结构'
+  },
+  {
+    id: 2,
+    type: 'single',
+    title: 'CPU中负责执行算术运算和逻辑运算的部件是？',
+    options: {
+      a: '控制器（CU）',
+      b: '算术逻辑单元（ALU）',
+      c: '程序计数器（PC）',
+      d: '存储器数据寄存器（MDR）'
+    },
+    answer: ['b'],
+    analysis: 'ALU是CPU的核心运算部件，负责加减乘除等算术运算和与或非等逻辑运算；CU负责生成控制信号，PC存储下一条指令地址，MDR暂存内存数据。',
+    tag: '组成原理'
+  },
+  {
+    id: 3,
+    type: 'single',
+    title: '操作系统中，进程的三种基本状态不包括以下哪一种？',
+    options: {
+      a: '就绪态（ready）',
+      b: '运行态（running）',
+      c: '挂起态（suspended）',
+      d: '阻塞态（waiting）'
+    },
+    answer: ['c'],
+    analysis: '进程的三大核心状态是就绪、运行、阻塞；挂起态是扩展状态，不属于基础三态。',
+    tag: '操作系统'
+  },
+  {
+    id: 4,
+    type: 'single',
+    title: 'TCP协议建立连接时需要进行几次握手？',
+    options: {
+      a: '2次',
+      b: '3次',
+      c: '4次',
+      d: '5次'
+    },
+    answer: ['b'],
+    analysis: 'TCP三次握手是"请求连接-确认连接-确认收到"的过程，目的是确保双方收发能力正常；四次挥手用于关闭连接。',
+    tag: '计算机网络'
+  },
+  {
+    id: 5,
+    type: 'single',
+    title: '数据库事务的ACID特性中，"A"代表的是？',
+    options: {
+      a: '原子性（Atomicity）',
+      b: '一致性（Consistency）',
+      c: '隔离性（Isolation）',
+      d: '持久性（Durability）'
+    },
+    answer: ['a'],
+    analysis: 'ACID分别对应原子性（操作不可拆分）、一致性（事务前后数据合法）、隔离性（多事务互不干扰）、持久性（事务提交后数据永久保存）。',
+    tag: '数据库'
+  },
+  {
+    id: 6,
+    type: 'single',
+    title: '以下哪种排序算法是稳定排序？',
+    options: {
+      a: '快速排序（quick）',
+      b: '选择排序（selection）',
+      c: '冒泡排序（bubble）',
+      d: '堆排序（heap sort）'
+    },
+    answer: ['c'],
+    analysis: '冒泡排序通过相邻交换实现，相等元素相对位置不变，属于稳定排序；快排、选择排序、堆排序均为不稳定排序。',
+    tag: '数据结构'
+  },
+  {
+    id: 7,
+    type: 'single',
+    title: '计算机网络OSI七层模型中，TCP/UDP协议工作在哪一层？',
+    options: {
+      a: '物理层',
+      b: '传输层',
+      c: '网络层',
+      d: '应用层'
+    },
+    answer: ['b'],
+    analysis: '传输层的核心协议是TCP（可靠传输）和UDP（无连接传输）；网络层代表协议是IP，应用层是HTTP/FTP/DNS等。',
+    tag: '计算机网络'
+  },
+  {
+    id: 8,
+    type: 'single',
+    title: '以下哪种内存是易失性存储器（断电数据丢失）？',
+    options: {
+      a: 'ROM',
+      b: 'RAM',
+      c: 'Flash',
+      d: '硬盘（HDD）'
+    },
+    answer: ['b'],
+    analysis: 'RAM（随机存取存储器）是主存核心，断电数据丢失；ROM、Flash、硬盘均为非易失性存储器。',
+    tag: '组成原理'
+  },
+  {
+    id: 9,
+    type: 'single',
+    title: '操作系统中，时间片轮转调度算法主要用于？',
+    options: {
+      a: '批处理系统',
+      b: '分时系统',
+      c: '实时系统',
+      d: '分布式系统'
+    },
+    answer: ['b'],
+    analysis: '时间片轮转是分时系统的核心调度算法，让多个用户终端轮流使用CPU，保证交互性；批处理用FCFS，实时系统用优先级调度。',
+    tag: '操作系统'
+  },
+  {
+    id: 10,
+    type: 'single',
+    title: '二叉树中，叶子节点的度是多少？',
+    options: {
+      a: '0',
+      b: '1',
+      c: '2',
+      d: '不确定'
+    },
+    answer: ['a'],
+    analysis: '节点的度是指其子节点数量，叶子节点无子女，因此度为0；根节点或中间节点的度可能为1或2（二叉树）。',
+    tag: '数据结构'
+  },
+
+  // ---------- 多选题 ----------
+  {
+    id: 11,
+    type: 'multiple', // 多选
+    title: '以下属于数据库事务ACID特性的有？',
+    options: {
+      a: '原子性（Atomicity）',
+      b: '一致性（Consistency）',
+      c: '独立性（Independence）',
+      d: '持久性（Durability）'
+    },
+    answer: ['a', 'b', 'd'],
+    analysis: 'ACID包含原子性、一致性、隔离性（Isolation）、持久性，无"独立性"这一说法。',
+    tag: '数据库'
+  },
+  {
+    id: 12,
+    type: 'multiple',
+    title: '以下哪些属于计算机网络中的常见传输介质？',
+    options: {
+      a: '双绞线',
+      b: '光纤',
+      c: '无线电波（Wi-Fi）',
+      d: 'CPU缓存'
+    },
+    answer: ['a', 'b', 'c'],
+    analysis: '双绞线、光纤是有线传输介质，无线电波是无线传输介质；CPU缓存是处理器内部的高速存储，与网络传输无关。',
+    tag: '计算机网络'
+  },
+  {
+    id: 13,
+    type: 'multiple',
+    title: '以下哪些是操作系统中进程间通信（IPC）的方式？',
+    options: {
+      a: '管道（pipe）',
+      b: '共享内存（shared）',
+      c: '套接字（socket）',
+      d: '栈（stack）'
+    },
+    answer: ['a', 'b', 'c'],
+    analysis: '管道、共享内存、套接字都是经典的IPC方式；栈是进程内的内存结构，用于函数调用，不属于进程间通信。',
+    tag: '操作系统'
+  },
+  {
+    id: 14,
+    type: 'multiple',
+    title: '以下哪些数据结构属于线性结构？',
+    options: {
+      a: '数组（array）',
+      b: '链表（linked list）',
+      c: '树（tree）',
+      d: '队列（queue）'
+    },
+    answer: ['a', 'b', 'd'],
+    analysis: '数组、链表、队列、栈都属于线性结构（数据元素一对一关系）；树是树形结构，属于非线性结构。',
+    tag: '数据结构'
+  },
+  {
+    id: 15,
+    type: 'multiple',
+    title: '以下关于Cache（缓存）的描述正确的有？',
+    options: {
+      a: 'Cache位于CPU和主存之间',
+      b: 'Cache的访问速度比主存快',
+      c: 'Cache命中率越高，系统性能越好',
+      d: 'Cache容量通常比主存大'
+    },
+    answer: ['a', 'b', 'c'],
+    analysis: 'Cache是高速缓冲存储器，速度远快于主存、容量远小于主存，目的是缓解CPU与主存的速度差距；命中率越高，CPU越少访问主存，性能越好。',
+    tag: '组成原理'
+  },
+  {
+    id: 16,
+    type: 'multiple',
+    title: '以下哪些算法属于排序算法？',
+    options: {
+      a: '冒泡排序（bubble）',
+      b: '快速排序（quick）',
+      c: '迪杰斯特拉（dijkstra）',
+      d: '归并排序（merge）'
+    },
+    answer: ['a', 'b', 'd'],
+    analysis: '冒泡、快排、归并都是经典排序算法；迪杰斯特拉是求解单源最短路径的图算法，与排序无关。',
+    tag: '数据结构'
+  },
+  {
+    id: 17,
+    type: 'multiple',
+    title: '以下属于对称加密算法的有？',
+    options: {
+      a: 'AES',
+      b: 'RSA',
+      c: 'DES',
+      d: 'MD5'
+    },
+    answer: ['a', 'c'],
+    analysis: 'AES和DES是对称加密（加密解密用同一密钥）；RSA是非对称加密；MD5是哈希算法，非加密算法。',
+    tag: '密码学/安全'
+  },
+  {
+    id: 18,
+    type: 'multiple',
+    title: '操作系统中，死锁产生的必要条件包括？',
+    options: {
+      a: '互斥条件',
+      b: '请求和保持条件',
+      c: '不可剥夺条件',
+      d: '循环等待条件'
+    },
+    answer: ['a', 'b', 'c', 'd'],
+    analysis: '死锁的四大必要条件：互斥（资源独占）、请求和保持（占着资源要新资源）、不可剥夺（资源不能强制收回）、循环等待（进程形成资源等待环），四个条件同时满足才会产生死锁。',
+    tag: '操作系统'
+  },
+  {
+    id: 19,
+    type: 'multiple',
+    title: '以下关于TCP和UDP的描述正确的有？',
+    options: {
+      a: 'TCP是面向连接的',
+      b: 'UDP是不可靠传输',
+      c: 'TCP支持拥塞控制',
+      d: 'UDP速度比TCP快'
+    },
+    answer: ['a', 'b', 'c', 'd'],
+    analysis: 'TCP面向连接、可靠传输、有拥塞控制和重传机制，开销大；UDP无连接、不可靠、无拥塞控制，开销小、速度快。',
+    tag: '计算机网络'
+  },
+  {
+    id: 20,
+    type: 'multiple',
+    title: '以下属于408计算机学科专业基础综合的科目有？',
+    options: {
+      a: '数据结构',
+      b: '计算机组成原理',
+      c: '操作系统',
+      d: '计算机网络'
+    },
+    answer: ['a', 'b', 'c', 'd'],
+    analysis: '408统考包含四大核心科目：数据结构、计算机组成原理、操作系统、计算机网络，满分150分。',
+    tag: '408名称拼音'
+  }
+];
