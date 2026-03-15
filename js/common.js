@@ -38,19 +38,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Add or update study sections in one place to keep navbar and search in sync.
         const studySections = [
-            { label: '408', path: 'pages/study/408/index.html', keywords: '408 计算机考研' },
+            { label: '408', path: 'pages/study/408/index.html', keywords: '408 计算机 考研 科软 浙软 软微' },
             { label: '408 / 数据结构', path: 'pages/study/408/data-structure/index.html', keywords: '数据结构 data structure' },
-            { label: '408 / 计组', path: 'pages/study/408/computer-organization/index.html', keywords: '计组 组成原理' },
+            { label: '408 / 计组', path: 'pages/study/408/computer-organization/index.html', keywords: '计组 CPU' },
             { label: '408 / 操作系统', path: 'pages/study/408/os/index.html', keywords: '操作系统 os' },
             { label: '408 / 计网', path: 'pages/study/408/computer-network/index.html', keywords: '计网 网络' },
-            { label: '数分高数', path: 'pages/study/math-analysis/index.html', keywords: '数分 高数 微积分 数学分析' },
-            { label: '高代线代', path: 'pages/study/linear-algebra/index.html', keywords: '高代 线代 线性代数 矩阵' },
+            { label: '数分高数', path: 'pages/study/math-analysis/index.html', keywords: '数分 高数 微积分 数学分析 极限 导数' },
+            { label: '高代线代', path: 'pages/study/linear-algebra/index.html', keywords: '高代 线代 线性代数 矩阵 行列式' },
             { label: '离散数学', path: 'pages/study/discrete-math/index.html', keywords: '离散数学 discrete math' },
-            { label: '大学物理', path: 'pages/study/physics/index.html', keywords: '大学物理 物理 电磁学' },
+            { label: '大学物理', path: 'pages/study/physics/index.html', keywords: '大学物理 物理 电磁学 光学 量子力学' },
             { label: '电路理论', path: 'pages/study/circuit-theory/index.html', keywords: '电路理论 电路' },
-            { label: '汇编语言', path: 'pages/study/assembly_language_programming/index.html', keywords: '汇编 汇编语言 8086 指令' },
-            { label: '数据库', path: 'pages/study/database/index.html', keywords: '数据库 database sql' },
-            { label: '密码学', path: 'pages/study/cryptography/index.html', keywords: '密码学 cryptography' }
+            { label: '汇编语言', path: 'pages/study/assembly_language_programming/index.html', keywords: '汇编 汇编语言 8086 指令 x86' },
+            { label: '数据库', path: 'pages/study/database/index.html', keywords: '数据库 database sql oceanbase' },
+            { label: '密码学', path: 'pages/study/cryptography/index.html', keywords: '密码学 cryptography 信安 信息安全' }
         ];
 
         const navItems = [
@@ -89,16 +89,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 keywords: item.keywords
             })),
             { title: 'Projects', path: 'pages/projects/index.html', keywords: '项目 projects' },
-            { title: 'Projects / C++ BigHW', path: 'pages/projects/cpp-bighw/index.html', keywords: 'cpp c++ bighw 程序设计 高程 oop 沈坚 sj' },
+            { title: 'Projects / C++ BigHW', path: 'pages/projects/cpp-bighw/index.html', keywords: 'cpp c++ bighw 程序设计 程设 高程 oop 沈坚 sj' },
             { title: 'Projects / FPGA', path: 'pages/projects/fpga/index.html', keywords: 'fpga 数字逻辑 verilog oled mp3 zdd mips246' },
-            { title: 'Projects / GPU', path: 'pages/projects/gpu/index.html', keywords: 'gpu 并行 gunrock' },
+            { title: 'Projects / GPU', path: 'pages/projects/gpu/index.html', keywords: 'gpu 并行 gunrock 图' },
             { title: 'Projects / QQ Bot', path: 'pages/projects/qq-bot/index.html', keywords: 'qq bot 机器人' },
-            { title: 'Music', path: 'pages/music/index.html', keywords: '音乐 music 歌单' },
+            { title: 'Music', path: 'pages/music/index.html', keywords: '音乐 music 歌单 eason jj' },
             { title: 'Favorites', path: 'pages/favorites/index.html', keywords: '收藏 favorites 网址' },
+            { title: 'Favorites', path: 'pages/favorites/T/index.html', keywords: 't 同济'},
             { title: 'Jottings', path: 'pages/jottings/index.html', keywords: '随笔 jottings' },
-            { title: 'ACGN', path: 'pages/acgn/index.html', keywords: '二次元 动画 游戏 小说 acgn animation game novel 洲 舟 农 瓦 崩 原 go 铁 绝 劫 铲 穿 斗 鸣 尘 柚 ow 杀 邦 轨 植物大战僵尸 mc 谷 ut 空 茶 蔚 脑 死 以 塞' },
-            { title: 'Travel', path: 'pages/travel/index.html', keywords: '旅行 旅游 travel 开元心 行夫' },
-            { title: 'Tutoring', path: 'pages/tutoring/index.html', keywords: '家教 tutoring ' }
+            { title: 'Jottings', path: 'pages/jottings/jiqin-fenliu.html', keywords: '济勤 分流' },   
+            { title: 'ACGN', path: 'pages/acgn/index.html', keywords: '二次元 动画 游戏 小说 acgn animation game novel 植物大战僵尸 wanna 洲 舟 农 瓦 崩 原 go 铁 绝 劫 铲 穿 斗 鸣 尘 柚 ow 杀 邦 轨 mc 谷 ut 空 茶 蔚 脑 死 以 塞' },
+            { title: 'Travel', path: 'pages/travel/index.html', keywords: '旅行 旅游 travel 开元心 行夫 世界' },
+            { title: 'Tutoring', path: 'pages/tutoring/index.html', keywords: '家教 tutoring' }
         ].map(item => ({
             title: item.title,
             href: buildHref(siteRoot, item.path),
