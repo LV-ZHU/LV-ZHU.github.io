@@ -837,7 +837,7 @@
                     stopTypeGame();
                 } else {
                     // 因为是主动点击知识问答答错的，只扣除15秒，不立刻结束                    
-                    alert(`回答错误！时间扣除 15 秒`);
+                    alert(`回答错误！时间扣除 15 秒\n\n正确答案：${correctAns.join(', ').toUpperCase()}\n你的答案：${userAns.join(', ').toUpperCase()}\n\n解析：${currentQuestion.analysis}\n`);
                     document.getElementById('qModal').style.display = 'none';
                     typeTimeLeft-=15;
 
