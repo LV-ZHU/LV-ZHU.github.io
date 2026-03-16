@@ -584,10 +584,10 @@ const typeDict = [
     { w: 'bios',                h: '基本输入输出系统',                                                 },
     { w: 'uefi',                h: '统一可扩展固件接口',                                               },
 
-    { w: 'information security', h: '信息安全，简称is',     tag: '简称' },  
-    { w: 'computer science', h: '计算机科学与技术，简称cs',     tag: '简称' },
-    { w: 'data science', h: '大数据科学与技术，简称ds',     tag: '简称' },
-    { w: 'soft engineering', h: '软件工程，简称se',     tag: '简称' },
+    { w: 'information security', h: '信息安全，简称信安/is',     tag: '简称' },  
+    { w: 'computer science', h: '计算机科学与技术，简称计科/cs',     tag: '简称' },
+    { w: 'data science', h: '数据科学与大数据技术，简称大数据/ds',     tag: '简称' },
+    { w: 'soft engineering', h: '软件工程，简称软工/se',     tag: '简称' },
   
     // ---------- 模电/微电子 (Analog Electronics/Microelectronics) ----------
     { w: 'diode',               h: '二极管: 具有单向导电性的半导体器件，可实现整流、检波等功能',       tag: '微电子' },
