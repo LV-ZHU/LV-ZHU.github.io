@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
 :root {
     --primary: #4f46e5;
     --primary-light: #6366f1;
@@ -30,13 +32,24 @@ img { max-width: 100%; display: block; }
 ::-webkit-scrollbar-thumb { background: var(--gray); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-.navbar { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255, 255, 255, 0.4); transition: var(--transition-normal); }
-.navbar.scrolled { box-shadow: var(--shadow-sm); background: rgba(255, 255, 255, 0.95); }
+.navbar { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.2); transition: var(--transition-normal); }
+.navbar.scrolled { box-shadow: var(--shadow-sm); background: rgba(255, 255, 255, 0.92); border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
 .nav-container { display: flex; justify-content: space-between; align-items: center; height: 75px; }
-.logo { display: flex; align-items: center; gap: 0.6rem; font-size: 1.6rem; font-weight: 800; font-family: 'JetBrains Mono', 'Plus Jakarta Sans', monospace; }
+.logo { display: flex; align-items: center; gap: 0.6rem; }
 .logo i { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.8rem; }
 .logo a { display: flex; align-items: center; gap: 0.6rem; color: inherit; }
-.logo span { background: linear-gradient(135deg, #0f172a 0%, #4f46e5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 0.02em; }
+.logo span { 
+    background: linear-gradient(135deg, #0f172a 0%, #4f46e5 100%); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    font-family: 'Great Vibes', 'JetBrains Mono', 'Plus Jakarta Sans', sans-serif;
+    font-size: 2.6rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    padding-bottom: 0.2rem;
+    line-height: 1;
+    transform: translateY(2px);
+}
 
 .nav-menu { display: flex; list-style: none; gap: 0.3rem; align-items: center; }
 .nav-item { position: relative; }

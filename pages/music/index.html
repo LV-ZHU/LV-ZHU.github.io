@@ -135,27 +135,227 @@
             opacity: 1;
             margin-top: 0.8rem;
         }
+
+        /* --- Music Controls Styling --- */
+        .music-controls-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 2rem;
+            justify-content: space-between;
+        }
+
+        .music-search {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 45%;
+            flex-shrink: 0;
+        }
+
+        .music-search .search-icon {
+            position: absolute;
+            left: 1.2rem;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        #music-search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid rgba(99, 102, 241, 0.15);
+            border-radius: var(--radius-full, 999px);
+            font-size: 1rem;
+            font-family: inherit;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--dark);
+            transition: var(--transition-normal);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        #music-search-input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            background: #fff;
+        }
+
+        .music-search .clear-btn {
+            position: absolute;
+            right: 1.2rem;
+            color: var(--gray);
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.2s;
+        }
+        .music-search .clear-btn:hover { color: var(--primary); }
+
+        .music-randomizer {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 55%;
+            padding-left: 2rem;
+            border-left: 1px dashed rgba(0,0,0,0.08);
+        }
+
+        @media (max-width: 768px) {
+            .music-controls-panel {
+                flex-direction: column;
+            }
+            .music-search, .music-randomizer {
+                width: 100%;
+                border-left: none;
+                padding-left: 0;
+            }
+            .music-randomizer {
+                border-top: 1px dashed rgba(0,0,0,0.08);
+                padding-top: 1.5rem;
+            }
+        }
+
+        .randomizer-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-random {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--radius-sm, 12px);
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: var(--transition-normal);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+            font-family: inherit;
+        }
+
+        .btn-random:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+        }
+        
+        .btn-random:active {
+            transform: translateY(1px);
+        }
+
+        .random-help {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .random-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .random-filters label {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: var(--dark-lighter);
+            background: rgba(255, 255, 255, 0.6);
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius-sm, 12px);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            user-select: none;
+        }
+        .random-filters label:hover {
+            background: #fff;
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .random-result {
+            background: rgba(79, 70, 229, 0.05);
+            border-radius: var(--radius-md, 16px);
+            padding: 1rem 1.5rem;
+            border: 1px dashed rgba(79, 70, 229, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            animation: fadeInDown 0.4s ease;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .random-result-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .random-result-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .random-result-text strong {
+            display: block;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+        .random-result-text span {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .btn-jump {
+            background: white;
+            color: var(--primary);
+            border: 1px solid rgba(79, 70, 229, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+        .btn-jump:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .music-item {
+            scroll-margin-top: 100px;
+        }
+
+        @keyframes selectPulse {
+            0% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4); border-color: rgba(99, 102, 241, 0.5); background: #fff; transform: translateY(-4px) scale(1.02); }
+            50% { box-shadow: 0 0 0 15px rgba(79, 70, 229, 0); border-color: var(--primary); background: rgba(238, 242, 255, 1); transform: translateY(-6px) scale(1.03); }
+            100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0); border-color: rgba(255, 255, 255, 0.8); background: rgba(255, 255, 255, 0.85); transform: translateY(0) scale(1); }
+        }
+
+        .highlight-pulse {
+            animation: selectPulse 2s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 20;
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container nav-container">
-            <div class="logo"><a href="../../index.html"><i class="fas fa-code"></i><span>LV-ZHU</span></a></div>
-            <ul class="nav-menu">
-                <li><a href="../../index.html" class="nav-link">Recent</a></li>
-                <li><a href="../study/index.html" class="nav-link">Study</a></li>
-                <li><a href="../projects/index.html" class="nav-link">Projects</a></li>
-                <li><a href="../jottings/index.html" class="nav-link">Jottings</a></li>
-                <li><a href="../favorites/index.html" class="nav-link">Favorites</a></li>
-                <li><a href="../animation/index.html" class="nav-link">Animation</a></li>
-                <li><a href="../music/index.html" class="nav-link active">Music</a></li>
-                <li><a href="../game/index.html" class="nav-link">Game</a></li>
-                <li><a href="../travel/index.html" class="nav-link">Travel</a></li>
-                <li><a href="../tour/index.html" class="nav-link">Tutoring</a></li>
-            </ul>
-            <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
-        </div>
-    </nav>
+    <nav class="navbar"></nav>
     <div class="page-wrapper">
         <div class="page-header">
             <h1><i class="fas fa-music"></i> Music</h1>
@@ -163,6 +363,31 @@
         </div>
         <section class="section">
             <div class="container">
+            
+                <!-- Music Controls (Search & Randomizer) -->
+                <div class="music-controls-panel fade-in">
+                    <div class="music-search">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="music-search-input" placeholder="搜索歌曲名称、歌手、短评..." autocomplete="off">
+                        <i class="fas fa-times clear-btn" id="music-search-clear" style="display: none;" title="清除搜索"></i>
+                    </div>
+                    
+                    <div class="music-randomizer">
+                        <div class="randomizer-header">
+                            <button id="btn-random-song" class="btn-random"><i class="fas fa-dice"></i> 随机一首</button>
+                            <span class="random-help">支持多选类别</span>
+                        </div>
+                        <div class="random-filters">
+                            <label><input type="checkbox" value="mandarin" checked> <span>国语</span></label>
+                            <label><input type="checkbox" value="cantonese" checked> <span>粤语</span></label>
+                            <label><input type="checkbox" value="foreign" checked> <span>外语</span></label>
+                            <label><input type="checkbox" value="instrumental" checked> <span>纯音乐</span></label>
+                            <label><input type="checkbox" value="other" checked> <span>其他</span></label>
+                        </div>
+                        <div id="random-result" class="random-result" style="display:none;"></div>
+                    </div>
+                </div>
+
                 <div class="music-category fade-in">
                     <h3 class="music-category-title"><i class="fas fa-headphones"></i> 国语歌单</h3>
                     <ul class="music-list" id="playlist-mandarin"></ul>
@@ -873,20 +1098,158 @@
                 ].join('');
             }
 
-            function renderList(listId, summaryId, songsData) {
+            function renderList(listId, summaryId, songsData, prefixId) {
                 var listNode = document.getElementById(listId);
                 var summaryNode = document.getElementById(summaryId);
                 if(listNode && summaryNode) {
-                    listNode.innerHTML = songsData.map(renderSong).join('');
+                    listNode.innerHTML = songsData.map(function(song, index) {
+                        // Inject an id into the HTML for scrolling to it later
+                        var html = renderSong(song, index);
+                        return html.replace('<li class="music-item">', '<li class="music-item" id="song-' + prefixId + '-' + index + '">');
+                    }).join('');
                     summaryNode.textContent = '共 ' + songsData.length + ' 首。';
                 }
             }
 
-            renderList('playlist-mandarin', 'summary-mandarin', songs_mandarin);
-            renderList('playlist-cantonese', 'summary-cantonese', songs_cantonese);
-            renderList('playlist-foreign', 'summary-foreign', songs_foreign);
-            renderList('playlist-instrumental', 'summary-instrumental', songs_instrumental);
-            renderList('playlist-other', 'summary-other', songs_other);
+            function renderAll() {
+                renderList('playlist-mandarin', 'summary-mandarin', songs_mandarin, 'mandarin');
+                renderList('playlist-cantonese', 'summary-cantonese', songs_cantonese, 'cantonese');
+                renderList('playlist-foreign', 'summary-foreign', songs_foreign, 'foreign');
+                renderList('playlist-instrumental', 'summary-instrumental', songs_instrumental, 'instrumental');
+                renderList('playlist-other', 'summary-other', songs_other, 'other');
+
+                // Update category visibility based on whether they have items
+                document.querySelectorAll('.music-category').forEach(function(cat) {
+                    var list = cat.querySelector('.music-list');
+                    if(list && list.children.length === 0) {
+                        cat.style.display = 'none';
+                    } else {
+                        cat.style.display = 'block';
+                    }
+                });
+            }
+
+            var allData = {
+                mandarin: songs_mandarin,
+                cantonese: songs_cantonese,
+                foreign: songs_foreign,
+                instrumental: songs_instrumental,
+                other: songs_other
+            };
+
+            var originalData = {
+                mandarin: songs_mandarin.slice(),
+                cantonese: songs_cantonese.slice(),
+                foreign: songs_foreign.slice(),
+                instrumental: songs_instrumental.slice(),
+                other: songs_other.slice()
+            };
+
+            // Search Functionality
+            var searchInput = document.getElementById('music-search-input');
+            var searchClear = document.getElementById('music-search-clear');
+
+            function performSearch() {
+                var query = searchInput.value.toLowerCase().trim();
+                
+                if (query.length > 0) {
+                    searchClear.style.display = 'block';
+                } else {
+                    searchClear.style.display = 'none';
+                }
+
+                var filterMatches = function(song) {
+                    if(!query) return true;
+                    var nameMatch = (song.name || '').toLowerCase().includes(query);
+                    var artistMatch = (song.artist || '').toLowerCase().includes(query);
+                    var commentMatch = (song.comment || '').toLowerCase().includes(query);
+                    return nameMatch || artistMatch || commentMatch;
+                };
+
+                songs_mandarin = originalData.mandarin.filter(filterMatches);
+                songs_cantonese = originalData.cantonese.filter(filterMatches);
+                songs_foreign = originalData.foreign.filter(filterMatches);
+                songs_instrumental = originalData.instrumental.filter(filterMatches);
+                songs_other = originalData.other.filter(filterMatches);
+
+                renderAll();
+            }
+
+            if(searchInput) {
+                searchInput.addEventListener('input', performSearch);
+            }
+            if(searchClear) {
+                searchClear.addEventListener('click', function() {
+                    searchInput.value = '';
+                    performSearch();
+                });
+            }
+
+            // Randomizer Functionality
+            var btnRandom = document.getElementById('btn-random-song');
+            var resultDiv = document.getElementById('random-result');
+            var filterCheckboxes = document.querySelectorAll('.random-filters input[type="checkbox"]');
+
+            filterCheckboxes.forEach(function(cb) {
+                cb.addEventListener('change', function() {
+                    var checkedFilters = Array.from(document.querySelectorAll('.random-filters input:checked'));
+                    if (checkedFilters.length === 0) {
+                        resultDiv.style.display = 'none';
+                        resultDiv.innerHTML = '';
+                    }
+                });
+            });
+
+            if(btnRandom) {
+                btnRandom.addEventListener('click', function() {
+                    var checkedFilters = Array.from(document.querySelectorAll('.random-filters input:checked')).map(function(cb) { return cb.value });
+                    if(checkedFilters.length === 0) {
+                        resultDiv.style.display = 'none';
+                        resultDiv.innerHTML = '';
+                        return;
+                    }
+
+                    var pool = [];
+                    checkedFilters.forEach(function(filterId) {
+                        // we must associate the original index with the item to be able to scroll to it
+                        var originalItems = originalData[filterId];
+                        if (originalItems) {
+                            originalItems.forEach(function(item, idx) {
+                                pool.push({ data: item, category: filterId, index: idx });
+                            });
+                        }
+                    });
+
+                    if(pool.length === 0) return;
+
+                    var randomChoice = pool[Math.floor(Math.random() * pool.length)];
+                    var song = randomChoice.data;
+                    var elemId = 'song-' + randomChoice.category + '-' + randomChoice.index;
+
+                    // Ensure search is clear to show the song
+                    if(searchInput && searchInput.value.trim() !== '') {
+                        searchInput.value = '';
+                        performSearch();
+                    }
+
+                    resultDiv.style.display = 'flex';
+                    resultDiv.innerHTML = [
+                        '<div class="random-result-info">',
+                        '  <i class="fas fa-compact-disc fa-spin random-result-icon"></i>',
+                        '  <div class="random-result-text">',
+                        '    <strong>' + song.name + '</strong>',
+                        '    <span>' + song.artist + '</span>',
+                        '  </div>',
+                        '</div>',
+                        '<a href="#' + elemId + '" class="btn-jump" onclick="setTimeout(function(){document.getElementById(\'' + elemId + '\').classList.add(\'highlight-pulse\');setTimeout(function(){document.getElementById(\'' + elemId + '\').classList.remove(\'highlight-pulse\')}, 2000)}, 100);"><i class="fas fa-location-arrow"></i> 跳转播放</a>'
+                    ].join('');
+                });
+            }
+
+            // Using setTimeout to avoid blocking the UI immediately upon click navigation
+            setTimeout(function() {
+                renderAll();
+            }, 10);
         })();
     </script>
 </body>
