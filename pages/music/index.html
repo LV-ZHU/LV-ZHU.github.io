@@ -118,7 +118,7 @@
     <div class="page-wrapper">
         <div class="page-header">
             <h1><i class="fas fa-music"></i> Music</h1>
-            <p>音乐总有一种跨越时空的力量，能让你想起生命里的一些瞬间</p>
+            <p>音乐像是时空的存档点，能让你想起生命中的一些瞬间</p>
         </div>
         <section class="section">
             <div class="container">
@@ -161,8 +161,8 @@
         (function () {
             var songs_mandarin = [
                 { name: "再见", artist: "张震岳", comment: "轻装策马青云路，人生从此驭长风。希君生羽翼，一化北冥鱼。毕业季金曲，FM89.9一个时代的落幕" },
-                { name: "北京欢迎你", artist: "华语群星", comment: "奥运会主题曲，歌手云集，背后也有很多故事" },
-                { name: "这样很好 (Isha's Song)", artist: "陈奕迅", comment: "2024年新歌，英雄联盟：双城之战第二季主题曲" },
+                { name: "北京欢迎你", artist: "华语群星", comment: "奥运会主题曲，歌手云集，这首歌的录制背后有很多故事" },
+                { name: "这样很好 (Isha's Song)", artist: "陈奕迅", comment: "英雄联盟：双城之战第二季主题曲" },
                 { name: "江南", artist: "林俊杰", comment: "离愁能有多痛~痛有多浓" },
                 { name: "Don't Break My Heart", artist: "黑豹乐队", comment: "飞跃黄渡理工BGM，怀旧向 https://b23.tv/M4wFAnj" },
                 { name: "水手", artist: "郑智化", comment: "属于70、80后的回忆" },
@@ -196,6 +196,7 @@
                 { name: "菊花台", artist: "周杰伦", comment: "电影《英雄》主题曲" },
                 { name: "星星点灯", artist: "郑智化", comment: "星星点灯~照亮我的家~门~" },
                 { name: "刀剑如梦", artist: "周华健", comment: "侠气" },
+		{ name: "年少有为", artist: "李荣浩", comment: "假如我年少有为不自卑~" },
                 { name: "特别的爱给特别的你", artist: "伍思凯", comment: "特步鞋广告选定曲目" },
                 { name: "凡人歌", artist: "李宗盛", comment: "唱的并非凡人调" },
                 { name: "贝加尔湖畔", artist: "李健", comment: "很平静，仿佛真的在湖畔旁漫步" },
@@ -236,6 +237,7 @@
                 { name: "说谎", artist: "林宥嘉", comment: "平淡，但又悲伤" },
                 { name: "祈愿", artist: "张艺兴", comment: "19年FM89.9限定版" },
                 { name: "大约在冬季", artist: "齐秦", comment: "音乐会曲目" },
+		{ name: "犯贱", artist: "徐良、阿悄", comment: "" },
 	        	{ name: "涛声依旧", artist: "毛宁", comment: "月落乌啼总是千年的风霜~涛声依旧不见当初的夜晚~" },
 		        { name: "不如这样", artist: "陈奕迅", comment: "不如这样~我们一直拥抱到天亮~" },
 		        { name: "路灯下的小姑娘", artist: "杨坤", comment: "亲爱的小妹妹~请你不要不要哭泣~" },
@@ -283,13 +285,20 @@
                 { name: "张三的歌", artist: "蔡琴", comment: "我们要飞~到那遥~远地方~" },
                 { name: "甜蜜蜜", artist: "邓丽君", comment: "童年回忆" },
                 { name: "但愿人长久", artist: "邓丽君", comment: "童年回忆" },
+
                 { name: "又见炊烟", artist: "邓丽君", comment: "又见炊烟升起~勾起我回忆~" },
                 { name: "哭砂", artist: "张惠妹", comment: "风吹来的砂落在悲伤的眼里~谁都看出我在等你~" },
                 { name: "听海", artist: "张惠妹", comment: "听~海哭的声音~" },
                 { name: "渡口", artist: "蔡琴", comment: "而明日~明日~又隔天~~涯~" },
                 { name: "欧若拉", artist: "张韶涵", comment: "帅气开场转音" },
+		{ name: "下一个天亮", artist: "郭静", comment: "希食东精选" },
+		{ name: "美酒加咖啡", artist: "邓丽君", comment: "幼时记忆" },
+		{ name: "最浪漫的事", artist: "赵咏华", comment: "" },
                 { name: "画心", artist: "张靓颖", comment: "爱着你~像心跳~难触摸~画着你~画不出~你的骨骼~" },
                 { name: "痒", artist: "黄龄", comment: "" },
+		{ name: "泡沫", artist: "邓紫棋", comment: "" },
+		
+		{ name: "遇见你的时候所有星星都落到我头上", artist: "高姗", comment: "" },
 		        { name: "High歌", artist: "黄龄", comment: "" },
 		        { name: "路过人间", artist: "郁可唯", comment: "" },
 		        { name: "易燃易爆炸", artist: "陈粒", comment: "" },
@@ -297,6 +306,7 @@
 		        { name: "梦一场", artist: "那英", comment: "" },
 		        { name: "默", artist: "那英", comment: "" },
 		        { name: "日不落", artist: "蔡依林", comment: "" },
+		        { name: "后来", artist: "刘若英", comment: "毕业季神曲" },
 		        { name: "为你我受冷风吹", artist: "林忆莲", comment: "" },
 		        { name: "至少还有你", artist: "林忆莲", comment: "" },
 		        { name: "笑忘书", artist: "王菲", comment: "" },
@@ -315,16 +325,19 @@
                 { name: "孤勇者", artist: "陈奕迅", comment: "英雄联盟：双城之战第一季主题曲，已被小学生攻占" },
 		{ name: "伤不起", artist: "王麟、老猫", comment: "" },
 		{ name: "爸爸去哪儿", artist: "林志颖、KIMI、张亮、天天、...", comment: "" },
-		        { name: "哎呀姑妈", artist: "沙宝亮", comment: "" },
+		        { name: "哎呀姑妈", artist: "沙宝亮", comment: "电影《李茶的姑妈》主题曲" },
 		        { name: "爱的供养", artist: "张杰", comment: "" },
 		        { name: "我的梦", artist: "张靓颖", comment: "华为主题曲" },
 		        { name: "十里洋场之北十五里", artist: "", comment: "调子记忆点很深" },
 		        { name: "当那一天来临", artist: "总政合唱团", comment: "军训" },
 		        { name: "再次与你同行", artist: "熊大 熊二 光头强", comment: "意义非凡的一首歌。万水千山总有成长也总有分离。珍惜当下，过好每一天。" },
+		{ name: "我还有点小糊涂", artist: "刘晨", comment: "熊出没主题曲" },
 		{ name: "开学第一课", artist: "TFBOYS", comment: "" },
 		{ name: "青春修炼手册", artist: "TFBOYS", comment: "" },
 		{ name: "小苹果", artist: "筷子乐队", comment: "" },
-
+		{ name: "早安隆回", artist: "袁树雄", comment: "" },
+		{ name: "隐形的翅膀", artist: "张韶涵", comment: "" },
+ 		{ name: "这世界那么多人", artist: "莫文蔚", comment: "" },
                 { name: "安和桥", artist: "宋冬野", comment: "" },
 		{ name: "生来倔强", artist: "南征北战NZBZ", comment: "" },
 		{ name: "我的未来式", artist: "郭采洁", comment: "" },
@@ -333,16 +346,51 @@
 		{ name: "小美满", artist: "周深", comment: "" },
 		{ name: "总以为来日方长", artist: "梅朵", comment: "" },
 		{ name: "好运来", artist: "祖海", comment: "" },
-		{ name: "童年", artist: "卓依婷", comment: "" }
+		{ name: "童年", artist: "卓依婷", comment: "" },
+		{ name: "感恩的心", artist: "欧阳菲菲", comment: "" },
+		{ name: "平凡之路", artist: "朴树", comment: "" },
+		{ name: "落在生命里的光", artist: "尹昔眠", comment: "" },
+		{ name: "爸爸妈妈", artist: "李荣浩", comment: "" },
+		{ name: "短歌行", artist: "许鹤缤", comment: "" },
+		{ name: "梦想开始的地方", artist: "SNH48", comment: "" },
+		{ name: "少年先锋队队歌", artist: "蓝天合唱团", comment: "" },
+		{ name: "第三套全国小学生广播体操：希望风帆", artist: "纯音乐", comment: "运动会经典伴奏" },
+		{ name: "第三套全国中学生广播体操：舞动青春", artist: "纯音乐", comment: "运动会经典伴奏" },
+		{ name: "别看我只是一只羊", artist: "古倩敏", comment: "喜羊羊与灰太狼主题曲" },
+		{ name: "吉祥三宝", artist: "布仁巴雅尔、乌日娜...", comment: "" },
+{ name: "起风了", artist: "买辣椒也用券", comment: "" },
+{ name: "转身即心痛", artist: "谭维维、黄子弘凡", comment: "" },
+{ name: "鱼我所欲也", artist: "庞岩", comment: "" },
+{ name: "为你放弃全世界", artist: "王琪", comment: "" },
+{ name: "荷塘月色", artist: "凤凰传奇", comment: "" },
+{ name: "最炫民族风", artist: "凤凰传奇", comment: "" },
+		{ name: "外婆的澎湖湾", artist: "潘安邦", comment: "初中跑操伴奏" },
+{ name: "卡路里", artist: "火箭少女101", comment: "" },
+{ name: "布谷鸟", artist: "安子与九妹乐队", comment: "" },
+{ name: "我和我的祖国", artist: "华语群星", comment: "" },
+{ name: "难忘今宵", artist: "李谷一", comment: "春晚指定OP" },
+{ name: "Ring Ring Ring", artist: "不是花火呀", comment: "" },
+{ name: "少年", artist: "梦然", comment: "" },
+{ name: "一路生花", artist: "温奕心", comment: "" },
+{ name: "生僻字", artist: "陈柯宇", comment: "" },
+{ name: "生僻字 (化学版)", artist: "", comment: "拍摄于中国科学院上海有机化学研究所" },
+{ name: "最美的期待", artist: "周笔畅", comment: "" },
+{ name: "夜空中最亮的星", artist: "逃跑计划", comment: "" },
+{ name: "有你真好", artist: "侯磊", comment: "《急诊室故事》主题曲，拍摄于六院" },
+{ name: "墨梅", artist: "王泓翔、犀", comment: "" },
+		{ name: "少年中国说", artist: "张杰", comment: "" },
+{ name: "如果有一天我变得很有钱", artist: "毛不易", comment: "" },
+{ name: "耍大牌", artist: "丁当", comment: "《弈棋耍大牌》片尾曲"}
+
 		
             ];
 
             var songs_cantonese = [
                 { name: "富士山下", artist: "陈奕迅", comment: "谁都只得那双手~靠拥抱亦难任你拥有" },
                 { name: "海阔天空", artist: "Beyond", comment: "广东省省歌的含金量" },
-				{ name: "光辉岁月", artist: "Beyond", comment: "单曲循环榜榜首" },
+		{ name: "光辉岁月", artist: "Beyond", comment: "单曲循环榜榜首" },
                 { name: "浮夸", artist: "陈奕迅", comment: "超高调" },
-                { name: "漫步人生路", artist: "邓丽君", comment: "让疾风吹呀吹~尽管给我俩考研~小雨点放心洒~早已决心向着前~" },
+                { name: "漫步人生路", artist: "邓丽君", comment: "让疾风吹呀吹~尽管给我俩考验~小雨点放心洒~早已决心向着前~" },
                 { name: "七点半钟的阳光", artist: "张天赋", comment: "KFC指定BGM" },
                 { name: "今夜你会不会来", artist: "黎明", comment: "你的爱还在不在~" },
                 { name: "夕阳之歌", artist: "梅艳芳", comment: "梅姐！" },
@@ -356,6 +404,8 @@
                 { name: "Hayya Hayya", artist: "Trinidad Cardona", comment: "2022 World Cup" },
 		        { name: "The New Dawn", artist: "Nicola Sedda", comment: "低沉，但有力量" },
 		{ name: "The Miracle", artist: "Nicola Sedda", comment: "" },
+		{ name: "打上花火", artist: "米津玄师", comment: "" },
+		
 		        { name: "You Raise Me Up", artist: "Westlife", comment: "合唱团曲目" },
 		        { name: "Dream It Possible", artist: "Delacey", comment: "华为主题曲英文版" },
 		        { name: "Colors (Coca-Cola® Anthem)", artist: "Jason Derulo", comment: "2018 World Cup，进球时必放，记得在徐汇日月光听过好几次" },
@@ -376,6 +426,7 @@
                 { name: "Un 'Estate Italiana", artist: "edoardo bennato", comment: "1990 World Cup" },
 		        { name: "Tukoh Taka", artist: "Nicki Minaj", comment: "带感小曲，2022 World Cup" },
 		{ name: "Whistle", artist: "Flo Rida", comment: "" },
+		{ name: "Lone Ranger", artist: "Rachel Platten", comment: "" },
 		{ name: "Take Me Home, Country Roads", artist: "John Denver", comment: "" },
 		{ name: "Lemon Tree", artist: "Fool's Garden", comment: "" },
 		{ name: "This Is It", artist: "Michael Jackson", comment: "" },
@@ -392,12 +443,13 @@
 		{ name: "Earth Song", artist: "Michael Jackson", comment: "" },
 		{ name: "Natural", artist: "Imagine Dragons", comment: "" },
 		{ name: "Talking to the Moon", artist: "Bruno Mars", comment: "" },
-		        { name: "Bang Bang Bang", artist: "Jessie J", comment: "KTV必点带动气氛" },
+		        { name: "Bang Bang Bang", artist: "Jessie J", comment: "KTV必点，带动气氛" },
 		{ name: "Nothing's Going to Change My Love For You", artist: "Westlife", comment: "" },
 		{ name: "try try try", artist: "Jason Mraz", comment: "" },
 		{ name: "Dancing With Your Ghost", artist: "Sasha Alex Sloan", comment: "" },
 		{ name: "All Falls Down", artist: "Alan Walker.", comment: "" },
 		{ name: "Rhythm Of The Rain", artist: "Jason Donovan", comment: "" },
+		{ name: "Pop! Goes the Weasel", artist: "", comment: "吓哭了" },
 		        { name: "We Are One", artist: "Jennifer Lopez", comment: "2014 World Cup" },
 		{ name: "Shed a Light", artist: "Robin Schulz.", comment: "" },
 		{ name: "Nevada", artist: "Vicetone", comment: "" },
@@ -405,19 +457,22 @@
 		{ name: "Wake", artist: "Hillsong", comment: "" },
 		{ name: "Temple", artist: "Zerky、Liu", comment: "麦克阿瑟の小曲" },
 		{ name: "Free Loop", artist: "Daniel Powter", comment: "" },
+		{ name: "Bing Bing Bing", artist: "", comment: "我鞋带开了(bushi" },
 		{ name: "Stronger (What Doesn't Kill You)", artist: "Kelly Clarkson", comment: "" },
 		{ name: "Natural ", artist: "Imagine Dragons", comment: "" },
-		{ name: "Timber", artist: "CDM Project、Lee O...", comment: "" },
+		{ name: "Timber", artist: "CDM Project、Lee Oskar", comment: "" },
 		{ name: "Colors Of The Wind (End Title)", artist: "Vanessa Williams", comment: "" },
 	        	{ name: "A Special Kind of Hero", artist: "Stephanie Lawrence", comment: "1986 World Cup" },
-		        { name: "Sold Out", artist: "Hawk Nelson", comment: "进球的小曲" },
-		{ name: "Wake ", artist: "Hillsong Young & Free", comment: "自律的小曲" },
+		        { name: "Sold Out", artist: "Hawk Nelson", comment: "进球の小曲" },
+		{ name: "Wake ", artist: "Hillsong Young & Free", comment: "自律の小曲" },
 		        { name: "We Will Rock You", artist: "Queen", comment: "强劲的节奏感，1994 World Cup" },
 		{ name: "Jar Of Love (Album Version)", artist: "曲婉婷", comment: "" },
 		{ name: "Take Me Hand", artist: "Dido", comment: "" },
 		{ name: "너의 곁으로 (陪在你身边)", artist: "曹诚模", comment: "幼时记忆" },
 		{ name: "Je M'ppelle Helene (我的名字叫伊莲)", artist: "Hélène Rolles", comment: "" },
-		{ name: "吉祥三宝", artist: "布仁巴雅尔、乌日娜...", comment: "" }
+		{ name: "跑操音乐", artist: "", comment: "" },
+		{ name: "Zombies on Your Lawn", artist: "Laura Shigihara", comment: "PVZ一代通关曲" }, 
+		{ name: "LEVEL5 - Judgelight", artist: "水缘无忆", comment: "超电磁炮OP" }
 	        ];
 
             var songs_instrumental = [
@@ -437,7 +492,7 @@
 		{ name: "阳光海岸", artist: "Bandari", comment: "" },
 		{ name: "Croatian Rhapsody", artist: "Maksim", comment: "" },
 		{ name: "旅人~第1章~", artist: "SM", comment: "" },
-		{ name: "迷雾森林", artist: "Bandari", comment: "" },
+		{ name: "迷雾森林", artist: "Bandari", comment: "Bandari音乐合集" },
 		{ name: "Matrimonio De Amor", artist: "Richard Clayderman", comment: "" },
 		{ name: "Journey", artist: "Capo Productions", comment: "" },
 		{ name: "Largo", artist: "Camerata Cassovia、Robert Stankov...", comment: "" },
@@ -446,15 +501,20 @@
 		{ name: "Caribbean Blue", artist: "Bandari", comment: "" },
 		{ name: "A Thousand Miles", artist: "Josh Vietti", comment: "" },
 		{ name: "Dreams", artist: "14", comment: "qoqoqo origin御用" },
+		{ name: "Largo", artist: "Camerata Cassovia", comment: "" },
             { name: "心里的爱", artist: "小兔子", comment: "空中课堂前奏，一段尘封的往事" },
 		    { name: "The magnificent seven", artist: "Elmer Bernstein", comment: "颁奖の小曲" },
 		    { name: "The Sounds Of Silence", artist: "Bandari", comment: "Bandari纯音乐版本带着一种独特的平静感" },
 		    { name: "我们别时和见时不同", artist: "纯音乐", comment: "Chole小曲" },
 		    { name: "比利蒂斯", artist: "余音", comment: "幼时记忆" },
-		{ name: "Horizon", artist: "Janji", comment: "" },
+		{ name: "Horizon", artist: "Janji", comment: "进球小曲" },
+		{ name: "High Brow Low Down", artist: "Deep East Music", comment: "www.datongbei.com介绍视频配音" },
+		{ name: "Tabata Wod", artist: "Tabata Songs", comment: "空中课堂体育课锻炼配乐" },
+		{ name: "开心茶馆", artist: "曾志豪", comment: "《弈棋耍大牌》配乐" },
 		{ name: "Illusionary Daytime", artist: "Shirfine", comment: "" },
 		    { name: "爱琴海的珍珠", artist: "Paul Mauriat", comment: "幼时记忆" },
 		{ name: "心动讯息", artist: "BLACKDD", comment: "" },
+		{ name: "欢乐斗地主", artist: "", comment: "" },
 		    { name: "Time Back (时光倒流)", artist: "Bad Style", comment: "悬疑小曲，熊猫人动漫常用BGM" },
 		    { name: "Xenogenesis", artist: "TheFatRat", comment: "国象神之一手" },
 		{ name: "Old Threads", artist: "Dec", comment: "" },
@@ -479,6 +539,7 @@
 		{ name: "Solstice", artist: "K-391", comment: "" },
 		{ name: "Spring In My Step", artist: "" },
 		{ name: "Here We Are Again", artist: "Cagnet", comment: "" },
+		{ name: "WAKE UP", artist: "高梨康治", comment: "安徽卫视《男生女生向前冲》主题曲" },
 		{ name: "Intro", artist: "The xx", comment: "" },
 		{ name: "River Flows In You (你的心河)", artist: "Yiruma", comment: "" },
 		{ name: "A Little Story (小故事)", artist: "Valentin", comment: "" },
@@ -486,6 +547,9 @@
 		{ name: "Sakura Tears", artist: "Snigellin", comment: "营销号御用" },
 		{ name: "Funkytown", artist: "旋转の小曲" },
 
+{ name: "推理 (不気味ヴァージョン)",artist: "大野克夫",comment: "破案关键の小曲"},
+{ name: "名探偵コナンメインテーマ",artist: "大野克夫",comment: ""},
+		{ name: "鳥の詩 (纯音乐)", artist: "初音ミク", comment: "" },
 
 		{ name: "Yumeji's Theme", artist: "梅林茂", comment: "电影《花样年华》插曲" },
 		{ name: "attraction", artist: "小澤正澄", comment: "" },
@@ -496,27 +560,112 @@
 
 		{ name: "Star Sky (Instrumental)", artist: "Two Steps From Hell", comment: "" },
 
-		
+		{ name: "Witch Parade Assassin", artist: "Ugress", comment: "鳌太线の小曲" },
 
 		{ name: "Monody (Phantom version)", artist: "Buy a dreamer、TheFatRat", comment: "" },
 
 		{ name: "Horizon (地平线)", artist: "Janji", comment: "" },
+		{ name: "At The Edge", artist: "千坂", comment: "" },
+
+		{ name: "运动员进行曲", artist: "", comment: "运动会经典伴奏" },
+
+		{ name: "III. ALLA turca.Allegretto", artist: "内田光子", comment: "上课铃" },
+
+
+{ name: "Graze the Roof (In-Game)", artist: "Laura Shigihara", comment: "" },
+{ name: "Funky Stars", artist: "Quazar", comment: "" },
+{ name: "Rigor Mormist (In-Game)", artist: "Laura Shigihara", comment: "" },
+{ name: "Crazy Dave (In-Game)", artist: "Laura Shigihara", comment: "" },
+
+{ name: "Watery Graves (In-Game)", artist: "Laura Shigihara", comment: "" },
+{ name: "Cerebrawl (In-Game)", artist: "Laura Shigihara", comment: "" },
+{ name: "Moongrains (In-Game)", artist: "Laura Shigihara", comment: "" },
+{ name: "Watery Graves (Fast Version)", artist: "Laura Shigihara", comment: "" },
+{ name: "Choose Your Seeds (In-Game)", artist: "Laura Shigihara", comment: "" },
+{ name: "Watery Graves (slow)", artist: "Laura Shigihara", comment: "" },
+{ name: "Brainiac Maniac (In-Game)", artist: "Laura Shigihara", comment: "" },
+{ name: "Zen Garden (In-Game)", artist: "Laura Shigihara", comment: "" },
+{ name: "Ultimate Battle (In-Game)", artist: "Laura Shigihara", comment: "" },
+{ name: "Grasswalk (In-Game)", artist: "Laura Shigihara", comment: "" },
+{ name: "Loonboon (In-Game)", artist: "Laura Shigihara", comment: "" },
+{ name: "官方配乐", artist: "PVZ2", comment: "" },
+
+		{ name: "Classic Energy", artist: "Curtis Schwartz", comment: "《案件聚焦》片头曲"},
+
+
+                { name: "Leap News Neutral", artist: "Guillaume de La Chapelle", comment: "《新闻夜线》内容提要曲" },
+                { name: "Transit News Neutral", artist: "Various Artists", comment: "《新闻坊》片尾曲" },
+                { name: "Monument ", artist: "Various Artists", comment: "《上海早晨》内容提要曲" },
+                { name: "Breaking Boundaries", artist: "Various Artists", comment: "《新闻坊》片头曲" },
+		{ name: "Topsy Turvy", artist: "De Wolfe", comment: "《上海早晨》ED" },
+		{ name: "媒体大搜索历年片头", artist: "", comment: "《媒体大搜索》历年片头" },
+                { name: "The Reporter ", artist: "", comment: "《新闻坊》内容提要曲"},
+
+		{ name: "Headlines Now Theme", artist: "", comment: "《观众中来》片头曲"},
+
+		{ name: "夜的钢琴曲5", artist: "石进", comment: "熄灯号"},
+		{ name: "部队起床号", artist: "纯音乐", comment: "请输入文本"},
+		{ name: "上课铃", artist: "未知歌手", comment: ""},
 
 
 
-                { name: "Leap News Neutral", artist: "Guillaume de La Chapelle", comment: "" },
-                { name: "Transit News Neutral (Main Track)", artist: "Various Artists", comment: "" },
-                { name: "Monument (Main Track|Full Length)", artist: "Various Artists", comment: "" },
-                { name: "Breaking Boundaries (Main Track)", artist: "Various Artists", comment: "" },
-                { name: "The Reporter (Main Track|Full Length)", artist: "Various Artists", comment: ""}
+ { name: "埃德尔斯坦国家公园", artist: "原声带", comment: "" },
+{ name: "Apple Woods", artist: "Arata Iiyoshi", comment: "" },
+ { name: "Barren Valley", artist: "Arata Iiyoshi", comment: "" },
+ { name: "Aegis Cave", artist: "Arata Iiyoshi", comment: "" },
+{ name: "Brine Cave", artist: "Arata Iiyoshi", comment: "" },
+ { name: "Monster House!", artist: "Arata Iiyoshi", comment: "" },
+ { name: "Blizzard Island Rescue Team ...", artist: "Arata Iiyoshi", comment: "" },
+{ name: "Vast Ice Mountain Peak", artist: "Arata Iiyoshi", comment: "" },
+ { name: "Pokemon Exploration Team ...", artist: "Arata Iiyoshi", comment: "" },
+ { name: "TVエンディングテーマ.", artist: "吉田潔", comment: "" },
+ { name: "And I Begin To Wonder", artist: "風のクロノアシリーズ サウンドチ...", comment: "" },
+ { name: "Dream Land Days", artist: "Kirby's Dream Band", comment: "" },
+{ name: "Dreams", artist: "14", comment: "" },
+{ name: "Mine Of Lights", artist: "風のクロノアシリーズ サウンドチ...", comment: "" },
+ { name: "Pirate Lagoon", artist: "david wise", comment: "" },
+{ name: "Rainbow Resort", artist: "Arcade Player", comment: "" },
+{ name: "Home Sweet Grave", artist: "石渡太輔", comment: "" },
+ { name: "スペクタクルスペース", artist: "日本群星", comment: "" },
+{ name: "Baladium's Drive", artist: "風のクロノアシリーズ サウンドチ...", comment: "" },
+ { name: "ドロシア ソウル/スターマライ...", artist: "日本群星", comment: "" },
+ { name: "銀河にねがいを", artist: "石川淳", comment: "" },
+ { name: "The Happy Troll (Griefing Theme ...", artist: "D1ofAquavibe", comment: "" },
+ { name: "The Closing Encounter I", artist: "風のクロノアシリーズ サウンドチ...", comment: "" },
+ { name: "飛行砲台カブーラー", artist: "安藤浩和", comment: "" },
+ { name: "Donkey Kong Country 2", artist: "BKNAPP", comment: "" },
+{ name: "神的黄昏 / PinkBeen", artist: "原声带", comment: "" },
+{ name: "ミラクルマター", artist: "いしかわ じゅん", comment: "" },
+ { name: "Fade Away (Deaf Kev Remix)", artist: "Jacob Tillberg、DEA...", comment: "" },
+{ name: "Halloween", artist: "Amc Orchestra", comment: "" },
+ { name: "鳥の詩 (鸟之诗)", artist: "Lia", comment: "" },
+{ name: "Fluffing a Duck", artist: "Kevin MacLeod", comment: "" },
+ { name: "Groovin' King", artist: "Taqumi", comment: "" },
+ { name: "8bit Faith", artist: "eS=S", comment: "" },
+ 
+ { name: "Guitar Battle vs Tom Morello (...", artist: "Tom Morello", comment: "" },
+ { name: "The Moon (Duck Tales OST)(Origin...", artist: "Yoshihiro Sakaguchi", comment: "" },
+ { name: "Black Apple", artist: "AQUAELIE", comment: "" },
+ { name: "パティのテーマ", artist: "神前暁", comment: "" },
+{ name: "Floating Shelter", artist: "ピノキオピー、初音ミク", comment: "" },
+ { name: "Dr.WILY STAGE 1", artist: "纯音乐", comment: "" },
+{ name: "Bad Apple!!", artist: "上海アリス幻樂団", comment: "" },
+{ name: "林中之城", artist: "StudioEIM", comment: "" },
+ { name: "空島", artist: "Nintendo Sound Team", comment: "" },
+ { name: "Luv Letter (情书)", artist: "DJ OKAWARI", comment: "" },
+ { name: "Might Is Right But Tight", artist: "石渡太輔", comment: "" },
+ { name: "Dreaming", artist: "Kozoro", comment: "" }
+
 
             ];
 
             var songs_other = [
+                { name: "for ya", artist: "蒋小呢", comment: "极限国度小曲" },
+                { name: "雪 Distance", artist: "Capper、罗言RollFlash", comment: "" },
 		{ name: "我的滑板鞋", artist: "约瑟翰 庞麦郎", comment: "" },
 		{ name: "Buttercup", artist: "Jack Stauber", comment: "" },
 		{ name: "Trip (Original Mix)", artist: "Axero", comment: "" },
-
+		{ name: "Lemon", artist: "米津玄师", comment: "" },
 { name: "Goyang Ubur Ubur", artist: "Tik Tok Top Music", comment: "" },
 
 { name: "Ngana Rindu? (Adit Sparky Ve...", artist: "DJ Lucu、Adit Sparky", comment: "" },
@@ -622,7 +771,7 @@
 
 { name: "Title Theme", artist: "未知", comment: "" },
 
-{ name: "新宝岛", artist: "未知", comment: "" },
+{ name: "新宝岛", artist: "", comment: "" },
 
 { name: "骨折り損", artist: "神前晓", comment: "" },
 
@@ -633,12 +782,15 @@
 { name: "迈阿密游记", artist: "虞海游Shadow、黑瘦鱼头菌", comment: "" },
 
 { name: "Kak вы (Explicit)", artist: "МиДо", comment: "" },
-
+		{ name: "只因你太美", artist: "SWIN-S", comment: "" },
+		{ name: "爱如火", artist: "爱你娜", comment: "" },
 { name: "Bygone Bumps", artist: "Deep East Music", comment: "" },
-
 { name: "Micmacs à la gare", artist: "Raphaël Beau", comment: "" },
+{ name: "热爱105°C的你", artist: "阿肆", comment: "super idol的笑容~都没你的甜~" },
 
-{ name: "Orgia (Martin Hansen Mix)(变速版)", artist: "Ottomix、Yano", comment: "" },
+			{ name: "我会自己上厕所", artist: "宝宝巴士", comment: "" },
+
+{ name: "Orgia (Martin Hansen Mix)(变速版)", artist: "Ottomix、Yano", comment: "磊哥の小曲" },
 
 		        { name: "一笑江湖", artist: "闻人听書", comment: "科目三原速曲，原速还是挺古风的" },
                 { name: "蜜雪冰城主题曲", artist: "蜜雪冰城", comment: "你爱我~我爱你~蜜雪冰城甜蜜蜜" },
@@ -670,11 +822,11 @@
                     '  </div>',
                     commentHtml,
                     '  <div class="music-actions">',
-                    '    <a class="music-link primary" href="' + bilibili + '" target="_blank" rel="noopener noreferrer"><i class="fab fa-bilibili"></i>B站</a>',
-                    '    <a class="music-link" style="border-color: rgba(230, 0, 38, 0.2); background: #fdf2f4; color: #b03040;" href="' + netease + '" target="_blank" rel="noopener noreferrer"><i class="fas fa-music"></i>网易云</a>',
+                    '    <a class="music-link primary" href="' + bilibili + '" target="_blank" rel="noopener noreferrer"><i class="fab fa-bilibili"></i>Bilibili</a>',
+                    '    <a class="music-link" style="border-color: rgba(155, 0, 38, 0.2); background: #faf2f4; color: #b03040;" href="' + netease + '" target="_blank" rel="noopener noreferrer"><i class="fas fa-music"></i>网易云</a>',
                     '    <a class="music-link" style="border-color: rgba(0, 169, 255, 0.2); background: #eff8ff; color: #1070d0;" href="' + kugou + '" target="_blank" rel="noopener noreferrer"><i class="fas fa-headphones"></i>酷狗</a>',
                     '    <a class="music-link" style="border-color: rgba(30, 200, 100, 0.2); background: #f0fdf4; color: #108040;" href="' + qq + '" target="_blank" rel="noopener noreferrer"><i class="fas fa-music"></i>QQ</a>',
-                    '    <a class="music-link" style="border-color: rgba(255, 0, 0, 0.2); background: #fff1f1; color: #c02020;" href="' + youtube + '" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i>Youtube</a>',
+                   
                     '  </div>',
                     '</li>'
                 ].join('');
