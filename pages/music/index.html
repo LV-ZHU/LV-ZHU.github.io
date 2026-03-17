@@ -34,18 +34,30 @@
             list-style: none;
         }
         .music-item {
-            background: white;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
             border-radius: var(--radius-md);
-            padding: 1.05rem;
+            padding: 1.25rem;
             box-shadow: var(--shadow-sm);
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.8);
             transition: var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
-        .music-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        .music-item:hover { transform: translateY(-4px) scale(1.01); box-shadow: var(--shadow-md); border-color: rgba(99, 102, 241, 0.2); background: #ffffff; z-index: 10; }
         .music-main {
             display: flex;
             align-items: center;
             gap: 0.8rem;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+        .music-item:hover .music-main {
+            transform: translateY(-4px);
         }
         .music-icon {
             width: 40px;
@@ -71,28 +83,57 @@
             display: flex;
             gap: 0.5rem;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+        .music-item:hover .music-actions {
+            transform: translateY(4px);
         }
         .music-link {
             display: inline-flex;
             align-items: center;
             gap: 0.35rem;
             font-size: 0.78rem;
-            padding: 0.28rem 0.52rem;
+            padding: 0.35rem 0.6rem;
             border-radius: 999px;
-            border: 1px solid rgba(0,0,0,0.08);
-            background: #f8fafc;
+            border: 1px solid rgba(0,0,0,0.06);
+            background: rgba(248, 250, 252, 0.7);
             color: #334155;
             white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        .music-link:hover {
+            background: #ffffff;
+            border-color: rgba(99, 102, 241, 0.4);
+            color: var(--primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         .music-link.primary {
             border-color: rgba(251, 114, 153, 0.35);
+            background: rgba(255, 241, 245, 0.7);
+            color: #be185d;
+        }
+        .music-link.primary:hover {
             background: #fff1f5;
+            border-color: #fb7299;
             color: #be185d;
         }
         .music-summary {
-            margin-top: 1rem;
+            max-height: 0;
+            opacity: 0;
+            margin-top: 0;
             color: var(--gray);
             font-size: 0.88rem;
+            overflow: hidden;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 2;
+        }
+        .music-item:hover .music-summary {
+            max-height: 100px;
+            opacity: 1;
+            margin-top: 0.8rem;
         }
     </style>
 </head>
@@ -331,7 +372,7 @@
 		        { name: "十里洋场之北十五里", artist: "", comment: "调子记忆点很深" },
 		        { name: "当那一天来临", artist: "总政合唱团", comment: "军训" },
 		        { name: "再次与你同行", artist: "熊大 熊二 光头强", comment: "意义非凡的一首歌。万水千山总有成长也总有分离。珍惜当下，过好每一天。" },
-		{ name: "我还有点小糊涂", artist: "刘晨", comment: "熊出没主题曲" },
+		{ name: "我还有点小糊涂", artist: "刘晨", comment: "动画片《熊出没》主题曲" },
 		{ name: "开学第一课", artist: "TFBOYS", comment: "" },
 		{ name: "青春修炼手册", artist: "TFBOYS", comment: "" },
 		{ name: "小苹果", artist: "筷子乐队", comment: "" },
@@ -354,9 +395,9 @@
 		{ name: "短歌行", artist: "许鹤缤", comment: "" },
 		{ name: "梦想开始的地方", artist: "SNH48", comment: "" },
 		{ name: "少年先锋队队歌", artist: "蓝天合唱团", comment: "" },
-		{ name: "第三套全国小学生广播体操：希望风帆", artist: "纯音乐", comment: "运动会经典伴奏" },
-		{ name: "第三套全国中学生广播体操：舞动青春", artist: "纯音乐", comment: "运动会经典伴奏" },
-		{ name: "别看我只是一只羊", artist: "古倩敏", comment: "喜羊羊与灰太狼主题曲" },
+		{ name: "希望风帆", artist: "第三套全国小学生广播体操", comment: "" },
+		{ name: "舞动青春", artist: "第三套全国中学生广播体操", comment: "" },
+		{ name: "别看我只是一只羊", artist: "古倩敏", comment: "动画片《喜羊羊与灰太狼》主题曲" },
 		{ name: "吉祥三宝", artist: "布仁巴雅尔、乌日娜...", comment: "" },
 { name: "起风了", artist: "买辣椒也用券", comment: "" },
 { name: "转身即心痛", artist: "谭维维、黄子弘凡", comment: "" },

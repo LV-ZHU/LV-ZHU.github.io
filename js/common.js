@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             navbar.innerHTML = [
                 '<div class="container nav-container">',
-                '  <div class="logo"><a href="' + buildHref(siteRoot, 'index.html') + '"><i class="fas fa-code"></i><span>LV-ZHU</span></a></div>',
+                  '  <div class="logo"><a href="' + buildHref(siteRoot, 'index.html') + '"><i class="fas fa-meteor"></i><span>LV-ZHU</span></a></div>',
                 '  <ul class="nav-menu">' + menuHtml + '</ul>',
                 '  <div class="nav-search" id="nav-search">',
                 '    <i class="fas fa-magnifying-glass nav-search-icon" aria-hidden="true"></i>',
