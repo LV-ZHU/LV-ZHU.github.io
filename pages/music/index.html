@@ -130,6 +130,7 @@
             position: relative;
             z-index: 2;
         }
+        .show-all-comments .music-item .music-summary,
         .music-item:hover .music-summary {
             max-height: 100px;
             opacity: 1;
@@ -375,7 +376,10 @@
                     <div class="music-randomizer">
                         <div class="randomizer-header">
                             <button id="btn-random-song" class="btn-random"><i class="fas fa-dice"></i> 随机一首</button>
-                            <span class="random-help">支持多选类别</span>
+                            <span class="random-help" style="margin-left:auto;">支持多选类别</span>
+                            <label style="display:flex; align-items:center; gap:0.4rem; cursor:pointer; font-size:0.95rem; color:var(--dark-lighter); user-select:none; background:rgba(255,255,255,0.6); padding:0.4rem 0.8rem; border-radius:12px; border:1px solid rgba(0,0,0,0.05);">
+                                <input type="checkbox" id="toggle-all-comments"> <span>显示所有评论</span>
+                            </label>
                         </div>
                         <div class="random-filters">
                             <label><input type="checkbox" value="mandarin" checked> <span>国语</span></label>
@@ -503,51 +507,51 @@
                 { name: "说谎", artist: "林宥嘉", comment: "平淡，但又悲伤" },
                 { name: "祈愿", artist: "张艺兴", comment: "19年FM89.9限定版" },
                 { name: "大约在冬季", artist: "齐秦", comment: "音乐会曲目" },
-		{ name: "犯贱", artist: "徐良、阿悄", comment: "我习惯你走在我的身后~无论什么要求你全都接受~" },
-	        { name: "涛声依旧", artist: "毛宁", comment: "月落乌啼总是千年的风霜~涛声依旧不见当初的夜晚~" },
-		{ name: "不如这样", artist: "陈奕迅", comment: "不如这样~我们一直拥抱到天亮~" },
-		{ name: "路灯下的小姑娘", artist: "杨坤", comment: "亲爱的小妹妹~请你不要不要哭泣~" },
-		{ name: "宽容", artist: "张信哲", comment: "治愈，没有泪的夜~~晚~是~天堂~" },
-		{ name: "忘情水", artist: "刘德华", comment: "上世纪风味,给我一杯忘情水~换我一夜不流泪~" },
+		        { name: "犯贱", artist: "徐良、阿悄", comment: "我习惯你走在我的身后~无论什么要求你全都接受~" },
+	            { name: "涛声依旧", artist: "毛宁", comment: "月落乌啼总是千年的风霜~涛声依旧不见当初的夜晚~" },
+		        { name: "不如这样", artist: "陈奕迅", comment: "不如这样~我们一直拥抱到天亮~" },
+		        { name: "路灯下的小姑娘", artist: "杨坤", comment: "亲爱的小妹妹~请你不要不要哭泣~" },
+		        { name: "宽容", artist: "张信哲", comment: "治愈，没有泪的夜~~晚~是~天堂~" },
+		        { name: "忘情水", artist: "刘德华", comment: "上世纪风味,给我一杯忘情水~换我一夜不流泪~" },
                 { name: "挪威的森林", artist: "伍佰 & China Blue", comment: "那里湖面总是澄清~那里空气充满宁静" },
-		{ name: "一次就好", artist: "杨宗纬", comment: "世界还小~我陪你去到天涯海角~在没有烦恼的角落里停止寻找~" },
-		{ name: "一剪梅", artist: "费玉清", comment: "雪~~花飘飘~北方潇潇~" },
-		{ name: "Mojito", artist: "周杰伦", comment: "20年FM89.9指定版" },
-		{ name: "那些年", artist: "胡夏", comment: "最早是在一个游戏小程序上听到的" },
-		{ name: "轨迹", artist: "周杰伦", comment: "我会发着呆~然后忘记你~接着紧紧闭上眼~，FM89.9指定版" },
-		{ name: "稻香", artist: "周杰伦", comment: "传唱度很高的周董歌曲，平静且有个性，学农晚会歌曲" },
-		{ name: "乡间的小路", artist: "刘文正", comment: "走在乡间的小路上~暮归的老牛是我同伴~" },
-		{ name: "三月里的小雨", artist: "刘文正", comment: "绵长又娓娓道来" },
-		{ name: "海芋恋", artist: "萧敬腾", comment: "18年FM89.9限定版" },
+		        { name: "一次就好", artist: "杨宗纬", comment: "世界还小~我陪你去到天涯海角~在没有烦恼的角落里停止寻找~" },
+		        { name: "一剪梅", artist: "费玉清", comment: "雪~~花飘飘~北方潇潇~" },
+		        { name: "Mojito", artist: "周杰伦", comment: "20年FM89.9指定版" },
+		        { name: "那些年", artist: "胡夏", comment: "最早是在一个游戏小程序上听到的" },
+		        { name: "轨迹", artist: "周杰伦", comment: "我会发着呆~然后忘记你~接着紧紧闭上眼~，FM89.9指定版" },
+		        { name: "稻香", artist: "周杰伦", comment: "传唱度很高的周董歌曲，平静且有个性，学农晚会歌曲" },
+		        { name: "乡间的小路", artist: "刘文正", comment: "走在乡间的小路上~暮归的老牛是我同伴~" },
+		        { name: "三月里的小雨", artist: "刘文正", comment: "绵长又娓娓道来" },
+		        { name: "海芋恋", artist: "萧敬腾", comment: "18年FM89.9限定版" },
                 { name: "爱如潮水", artist: "张信哲", comment: "爱如潮水它将你我包~围~~" },
                 { name: "如果这都不算爱", artist: "张学友", comment: "调子比较欢快" },
                 { name: "朋友", artist: "周华健", comment: "朋友一生一起走~那些日子不再留~一句话~一辈子" },
                 { name: "我", artist: "张国荣", comment: "我就是我~是颜色不一样的烟火~" },
-		{ name: "新贵妃醉酒", artist: "李玉刚", comment: "爱恨就在一瞬间~举杯对月情似天~" },
-		{ name: "死了都要爱", artist: "信乐团", comment: "发自肺腑的歌声" },
-		{ name: "不为谁而作的歌", artist: "林俊杰", comment: "jj特色转音，记忆点很深" },
-		{ name: "对你爱不完", artist: "郭富城", comment: "对你爱爱爱不完~我可以天天月月年年到永远~，四大天王之一的代表作" },
-	        { name: "过火", artist: "张信哲", comment: "怎么忍心怪你犯了错~是我给你自由过了火~" },
+		        { name: "新贵妃醉酒", artist: "李玉刚", comment: "爱恨就在一瞬间~举杯对月情似天~" },
+		        { name: "死了都要爱", artist: "信乐团", comment: "发自肺腑的歌声" },
+		        { name: "不为谁而作的歌", artist: "林俊杰", comment: "jj特色转音，记忆点很深" },
+		        { name: "对你爱不完", artist: "郭富城", comment: "对你爱爱爱不完~我可以天天月月年年到永远~，四大天王之一的代表作" },
+	            { name: "过火", artist: "张信哲", comment: "怎么忍心怪你犯了错~是我给你自由过了火~" },
                 { name: "爱要怎么说出口", artist: "赵传", comment: "第一次握你的手~指尖传来你的温柔~" },      
-	        { name: "青花瓷", artist: "周杰伦", comment: "东航指定下机曲目，天青色等烟雨~而我在等你~" },
-	        { name: "爱的就是你", artist: "王力宏", comment: "FM89.9指定版" },   
-	        { name: "青花", artist: "周传雄", comment: "记忆油膏反复涂抹~无法愈合的伤口~你的回头划伤了沉默~" },
-	        { name: "心雨", artist: "杨钰莹 毛宁", comment: "因为明天~我要成为别人的新娘~ 本歌为男女歌手分界线" },
+	            { name: "青花瓷", artist: "周杰伦", comment: "东航指定下机曲目，天青色等烟雨~而我在等你~" },
+	            { name: "爱的就是你", artist: "王力宏", comment: "FM89.9指定版" },   
+	            { name: "青花", artist: "周传雄", comment: "记忆油膏反复涂抹~无法愈合的伤口~你的回头划伤了沉默~" },
+	            { name: "心雨", artist: "杨钰莹 毛宁", comment: "因为明天~我要成为别人的新娘~ 本歌为男女歌手分界线" },
                 { name: "如愿", artist: "王菲", comment: "21年那阵很火，文艺晚会限定版" },
                 { name: "明天，你好", artist: "牛奶咖啡", comment: "明天你好~含着泪微笑~，23年FM89.9限定版" },
                 { name: "俩俩相忘", artist: "辛晓琪", comment: "副歌记忆点很深，浪涛涛~人渺渺~青春鸟飞去了~" },
                 { name: "冬季到台北来看雨", artist: "孟庭苇", comment: "幼时记忆" },
                 { name: "你看你看月亮的脸", artist: "孟庭苇", comment: "幼时记忆" },
-		{ name: "和你一样", artist: "李宇春", comment: "平静、悠长，21年FM89.9限定版" },
+		        { name: "和你一样", artist: "李宇春", comment: "平静、悠长，21年FM89.9限定版" },
                 { name: "轻轻的告诉你", artist: "杨钰莹", comment: "温柔的嗓音，唱出了少女的心事" },
                 { name: "在水一方", artist: "邓丽君", comment: "我愿逆流而上~依偎在她身旁~" },
-		{ name: "葬花吟", artist: "陈力", comment: "87版《红楼梦》插曲" },
+		        { name: "葬花吟", artist: "陈力", comment: "87版《红楼梦》插曲" },
                 { name: "小城故事", artist: "邓丽君", comment: "谈的谈~说的说~小城故事真不错~" },
                 { name: "我只在乎你", artist: "邓丽君", comment: "幼时记忆" },
-		{ name: "宁夏", artist: "梁静茹", comment: "甜嗓，唱出了宁静的快乐感" },
+		        { name: "宁夏", artist: "梁静茹", comment: "甜嗓，唱出了宁静的快乐感" },
                 { name: "恰似你的温柔", artist: "邓丽君", comment: "幼时记忆" },
                 { name: "路边的野花不要采", artist: "邓丽君", comment: "记着我的情~记着我的爱~记着有我天天在等待~  千万不要把~我来忘怀~" },
-	        { name: "外面的世界", artist: "莫文蔚", comment: "FM89.9指定版" },
+	            { name: "外面的世界", artist: "莫文蔚", comment: "FM89.9指定版" },
                 { name: "张三的歌", artist: "蔡琴", comment: "我们要飞~到那遥~远地方~" },
                 { name: "甜蜜蜜", artist: "邓丽君", comment: "幼时记忆" },
                 { name: "但愿人长久", artist: "邓丽君", comment: "幼时记忆" },
@@ -556,20 +560,20 @@
                 { name: "听海", artist: "张惠妹", comment: "听~海哭的声音~" },
                 { name: "渡口", artist: "蔡琴", comment: "而明日~明日~又隔天~~涯~" },
                 { name: "欧若拉", artist: "张韶涵", comment: "帅气开场转音" },
-		{ name: "下一个天亮", artist: "郭静", comment: "希食东精选" },
-		{ name: "美酒加咖啡", artist: "邓丽君", comment: "幼时记忆" },
-		{ name: "最浪漫的事", artist: "赵咏华", comment: "我能想到最浪漫的事~就是和你一起慢慢变老~" },
+		        { name: "下一个天亮", artist: "郭静", comment: "希食东精选" },
+		        { name: "美酒加咖啡", artist: "邓丽君", comment: "幼时记忆" },
+		        { name: "最浪漫的事", artist: "赵咏华", comment: "我能想到最浪漫的事~就是和你一起慢慢变老~" },
                 { name: "画心", artist: "张靓颖", comment: "爱着你~像心跳~难触摸~画着你~画不出~你的骨骼~" },
                 { name: "痒", artist: "黄龄", comment: "来啊~快活啊~反正有大把时光~" },
-		{ name: "泡沫", artist: "邓紫棋", comment: "代表作，和唱说谎的歌手有故事" },
-		{ name: "遇见你的时候所有星星都落到我头上", artist: "高姗", comment: "学农晚会歌曲" },
-		{ name: "High歌", artist: "黄龄", comment: "一高一低，很有感觉，符合歌名" },
+		        { name: "泡沫", artist: "邓紫棋", comment: "代表作，和唱说谎的歌手有故事" },
+		        { name: "遇见你的时候所有星星都落到我头上", artist: "高姗", comment: "学农晚会歌曲" },
+		        { name: "High歌", artist: "黄龄", comment: "一高一低，很有感觉，符合歌名" },
 		
-		        { name: "易燃易爆炸", artist: "陈粒", comment: "" },
-		        { name: "梦醒了", artist: "那英", comment: "" },
-		        { name: "梦一场", artist: "那英", comment: "" },
+		        { name: "易燃易爆炸", artist: "陈粒", comment: "图我清真~还图我眼波消魂" },
+		        { name: "梦醒了", artist: "那英", comment: "如果梦醒时还在一起~请容许我们相依为命~绚烂也许一时~平淡走完一世~" },
+		        { name: "梦一场", artist: "那英", comment: "早知道是这样~像梦一场~我才不会把爱放在同一个地方~" },
 		        { name: "默", artist: "那英", comment: "" },
-		        { name: "日不落", artist: "蔡依林", comment: "" },
+		        { name: "日不落", artist: "蔡依林", comment: "我要送你日不落的爱恋~心牵着心把世界走遍~" },
 		        { name: "后来", artist: "刘若英", comment: "毕业季神曲" },
 		        { name: "为你我受冷风吹", artist: "林忆莲", comment: "" },
 		        { name: "至少还有你", artist: "林忆莲", comment: "" },
@@ -579,11 +583,11 @@
 		        { name: "百年孤寂", artist: "王菲", comment: "" },
 		        { name: "你快乐所以我快乐", artist: "王菲", comment: "" },
 		        { name: "天空", artist: "王菲", comment: "" },
-		        { name: "风中有朵雨做的云", artist: "孟庭苇", comment: "" },
-		        { name: "真的还是假的", artist: "孟庭苇", comment: "" },
-		        { name: "你究竟有几个好妹妹", artist: "孟庭苇", comment: "" },
-		        { name: "谁的眼泪在飞", artist: "孟庭苇", comment: "" },
-		        { name: "羞答答的玫瑰静悄悄地开", artist: "孟庭苇", comment: "" },
+		        { name: "风中有朵雨做的云", artist: "孟庭苇", comment: "幼时记忆" },
+		        { name: "真的还是假的", artist: "孟庭苇", comment: "幼时记忆" },
+		        { name: "你究竟有几个好妹妹", artist: "孟庭苇", comment: "幼时记忆" },
+		        { name: "谁的眼泪在飞", artist: "孟庭苇", comment: "幼时记忆" },
+		        { name: "羞答答的玫瑰静悄悄地开", artist: "孟庭苇", comment: "幼时记忆" },
 
                 { name: "【十年榜】华语top100", artist: "", comment: "本序号不指向某一首歌曲，起分界线作用，下面的曲目大多只能算是用国语唱的，和早期经典的华语/国语歌曲概念有一定距离" },
                 { name: "孤勇者", artist: "陈奕迅", comment: "英雄联盟：双城之战第一季主题曲，已被小学生攻占" },
@@ -653,8 +657,8 @@
             var songs_cantonese = [
                 { name: "富士山下", artist: "陈奕迅", comment: "谁都只得那双手~靠拥抱亦难任你拥有" },
                 { name: "海阔天空", artist: "Beyond", comment: "广东省省歌的含金量" },
-		{ name: "光辉岁月", artist: "Beyond", comment: "单曲循环榜榜首" },
-                { name: "浮夸", artist: "陈奕迅", comment: "超高调" },
+		{ name: "光辉岁月", artist: "Beyond", comment: "今天只有残留的躯壳~迎接光辉岁月~风雨中抱紧自由~" },
+                { name: "浮夸", artist: "陈奕迅", comment: "调子超高的一首歌" },
                 { name: "漫步人生路", artist: "邓丽君", comment: "让疾风吹呀吹~尽管给我俩考验~小雨点放心洒~早已决心向着前~" },
                 { name: "七点半钟的阳光", artist: "张天赋", comment: "KFC指定BGM" },
                 { name: "今夜你会不会来", artist: "黎明", comment: "你的爱还在不在~" },
@@ -667,14 +671,16 @@
                 { name: "Zoo(From Zootopia 2)", artist: "Disney、Shakira", comment: "电影《疯狂动物城2》主题曲" },
                 { name: "Waka Waka", artist: "Shakira", comment: "2010 World Cup" },
                 { name: "Hayya Hayya", artist: "Trinidad Cardona", comment: "2022 World Cup" },
-		        { name: "The New Dawn", artist: "Nicola Sedda", comment: "低沉，但有力量" },
-		        { name: "The Miracle", artist: "Nicola Sedda", comment: "高音这一块" },
-		        { name: "打上花火", artist: "米津玄师", comment: "那一天的忧郁~忧郁起来~" },
-		        { name: "You Raise Me Up", artist: "Westlife", comment: "合唱团曲目" },
-		        { name: "Dream It Possible", artist: "Delacey", comment: "华为主题曲英文版" },
-		        { name: "Colors (Coca-Cola® Anthem)", artist: "Jason Derulo", comment: "2018 World Cup，进球时必放，记得在徐汇日月光听过好几次" },
+		{ name: "The New Dawn", artist: "Nicola Sedda", comment: "低沉，但有力量" },
+		{ name: "The Miracle", artist: "Nicola Sedda", comment: "高音这一块" },
+		{ name: "打上花火", artist: "米津玄师", comment: "那一天的忧郁~忧郁起来~" },
+		{ name: "You Raise Me Up", artist: "Westlife", comment: "合唱团曲目" },
+		{ name: "Shots", artist: "Imagine Dragons、Broiler", comment: "运动の小曲" },
+
+		{ name: "Dream It Possible", artist: "Delacey", comment: "华为主题曲英文版" },
+		{ name: "Colors (Coca-Cola® Anthem)", artist: "Jason Derulo", comment: "2018 World Cup，进球时放的一曲，那个盛夏在徐汇日月光的屏幕上听过好几次" },
 		        { name: "In Another Life", artist: "Nicola Sedda", comment: "高音这一块" },
-		        { name: "Top Of The World (1973 remix)", artist: "Carpenters", comment: "经典，无需多言" },
+		{ name: "Top Of The World (1973 remix)", artist: "Carpenters", comment: "经典，无需多言，上头" },
 		        { name: "The Cup Of Life ", artist: "Ricky Martin", comment: "1998 World Cup"},
 		        { name: "Seasons In The Sun", artist: "Westlife", comment: "变声期后最适合男生唱的歌之一" },
 		        { name: "The Mirror", artist: "Nicola Sedda", comment: "高音这一块" },
@@ -739,7 +745,7 @@
 	        ];
 
             var songs_instrumental = [
-		        { name: "Galaxy", artist: "ANANYA NABILA", comment: "顿悟の小曲" },
+		       
 		        { name: "名探偵コナンメインテーマ ", artist: "菅野祐悟", comment: "100万ドルの五稜星" },
 		{ name: "ツナ覚醒 (阿纲觉醒)", artist: "佐橋俊彦", comment: "" },
 		        { name: "Mountain stream", artist: "Bandari", comment: "" },
@@ -985,7 +991,7 @@
 { name: "Fade", artist: "Alan Walker", comment: "" },
 
 { name: "听我说谢谢你", artist: "李昕融", comment: "" },
-
+{ name: "Galaxy", artist: "ANANYA NABILA", comment: "顿悟の小曲" },
 { name: "幼女幻奏", artist: "Sing, R. Sing!", comment: "" },
 
 { name: "Pink Panther Theme (Remaster)", artist: "Henry Mancini", comment: "" },
@@ -1235,10 +1241,22 @@
                         '  <div class="random-result-text">',
                         '    <strong>' + song.name + '</strong>',
                         '    <span>' + song.artist + '</span>',
+                        song.comment ? '    <div style="font-size: 0.85rem; color: var(--gray); margin-top: 0.3rem;">' + song.comment + '</div>' : '',
                         '  </div>',
                         '</div>',
                         '<a href="#' + elemId + '" class="btn-jump" onclick="setTimeout(function(){document.getElementById(\'' + elemId + '\').classList.add(\'highlight-pulse\');setTimeout(function(){document.getElementById(\'' + elemId + '\').classList.remove(\'highlight-pulse\')}, 2000)}, 100);"><i class="fas fa-location-arrow"></i> 跳转播放</a>'
                     ].join('');
+                });
+            }
+
+            var toggleComments = document.getElementById('toggle-all-comments');
+            if (toggleComments) {
+                toggleComments.addEventListener('change', function(e) {
+                    if (e.target.checked) {
+                        document.body.classList.add('show-all-comments');
+                    } else {
+                        document.body.classList.remove('show-all-comments');
+                    }
                 });
             }
 

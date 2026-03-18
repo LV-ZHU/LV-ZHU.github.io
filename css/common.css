@@ -46,9 +46,9 @@ img { max-width: 100%; display: block; }
     font-size: 2.6rem;
     font-weight: 400;
     letter-spacing: 2px;
-    padding-bottom: 0.2rem;
-    line-height: 1;
-    transform: translateY(2px);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    line-height: 1.3;
 }
 
 .nav-menu { display: flex; list-style: none; gap: 0.3rem; align-items: center; }

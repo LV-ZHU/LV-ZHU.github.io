@@ -75,7 +75,7 @@
             transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .media-item:hover > a {
+        .media-item:hover > a, body.show-all-comments .media-item > a {
             transform: translateY(-8px);
         }
 
@@ -93,7 +93,7 @@
             font-weight: 500;
         }
 
-        .media-item:hover .media-review {
+        .media-item:hover .media-review, body.show-all-comments .media-review {
             max-height: 150px;
             opacity: 1;
             margin-top: 0.8rem;
@@ -123,8 +123,11 @@
         <nav class="navbar"></nav>
 
     <div class="page-wrapper">
-        <div class="page-header">
+        <div class="page-header" style="position: relative;">
             <h1><i class="fas fa-layer-group"></i> ACGN</h1>
+            <label style="position: absolute; top: 1rem; right: 1.5rem; display:inline-flex; align-items:center; gap:0.3rem; cursor:pointer; font-size:0.75rem; user-select:none; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.9); padding: 0.3rem 0.6rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(4px); z-index: 10;">
+                <input type="checkbox" id="toggle-all-comments"> <span> 显示所有个人评价</span>
+            </label>
         </div>
 
         <section class="section">
@@ -339,5 +342,17 @@
 
     <footer class="footer"></footer>
     <script src="../../js/common.js"></script>
+    <script>
+        var toggleComments = document.getElementById('toggle-all-comments');
+        if (toggleComments) {
+            toggleComments.addEventListener('change', function(e) {
+                if (e.target.checked) {
+                    document.body.classList.add('show-all-comments');
+                } else {
+                    document.body.classList.remove('show-all-comments');
+                }
+            });
+        }
+    </script>
 </body>
 </html>

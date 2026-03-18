@@ -182,6 +182,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 searchInput.addEventListener('keydown', event => {
                     if (event.key === 'Enter') {
+                        const query = searchInput.value.trim().toLowerCase();
+                        const easterEggs = {
+                            'sujia': '宝宝这素什么东东呀',
+                        };
+                        
+                        if (easterEggs[query]) {
+                            event.preventDefault();
+                            alert("" + easterEggs[query]);
+                            searchInput.value = '';
+                            clearResults();
+                            return;
+                        }
+
                         const first = searchResults.querySelector('.nav-search-result');
                         if (first) {
                             event.preventDefault();
