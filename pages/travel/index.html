@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -11,63 +11,32 @@
     <link rel="stylesheet" href="../../css/common.css">
     <script src="https://cdn.staticfile.net/echarts/5.5.0/echarts.min.js"></script>
     <style>
-        .travel-container {
-            max-width: 1000px; margin: 0 auto; background: white;
-            border-radius: var(--radius-md); box-shadow: var(--shadow-md); padding: 2rem;
-        }
-        
-        .map-tabs {
-            display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;
-        }
-        .map-tab {
-            padding: 0.6rem 1.5rem; border: none; border-radius: 20px;
-            background: var(--gray-light); color: var(--gray); font-weight: 600;
-            cursor: pointer; transition: var(--transition-fast);
-        }
-        .map-tab.active {
-            background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
-        }
-
-        .map-legend {
-            display: flex; gap: 2rem; margin-bottom: 1.5rem;
-            justify-content: center; flex-wrap: wrap;
-        }
+        .travel-container { max-width: 1100px; margin: 0 auto; background: white; border-radius: var(--radius-md); box-shadow: var(--shadow-md); padding: 2rem; }
+        .map-tabs { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .map-tab { padding: 0.6rem 1.5rem; border: none; border-radius: 20px; background: var(--gray-light); color: var(--gray); font-weight: 600; cursor: pointer; transition: var(--transition-fast); }
+        .map-tab.active { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3); }
+        .map-legend { display: flex; gap: 2rem; margin-bottom: 1.5rem; justify-content: center; flex-wrap: wrap; }
         .legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--gray); }
         .legend-dot { width: 14px; height: 14px; border-radius: 3px; }
         .legend-dot.visited { background: #4f46e5; box-shadow: 0 0 8px rgba(79, 70, 229, 0.5); }
         .legend-dot.want { background: #10b981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.5); }
-        .legend-dot.unvisited { background: #e2e8f0; border: 1px solid #cbd5e1; }
-
-        .echarts-wrapper {
-            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            position: relative;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.03);
-            border: 1px solid rgba(255,255,255,0.7);
-        }
-        #mapChart {
-            width: 100%;
-            height: 600px;
-        }
-
-        .map-stats {
-            display: flex; justify-content: center; gap: 3rem; margin-top: 2rem;
-            padding-top: 1.5rem; border-top: 1px solid var(--gray-light);
-        }
+        .legend-dot.unvisited { background: #f1f5f9; border: 1px solid #cbd5e1; }
+        .echarts-wrapper { background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%); border-radius: var(--radius-md); overflow: hidden; position: relative; box-shadow: inset 0 2px 10px rgba(0,0,0,0.03); border: 1px solid rgba(255,255,255,0.7); }
+        #mapChart { width: 100%; height: 650px; }
+        .map-stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--gray-light); }
+        .stat-card { background: #f8fafc; border-radius: var(--radius-md); padding: 1.2rem; text-align: center; border: 1px solid #e2e8f0; transition: all 0.3s ease; }
+        .stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-sm); }
+        .stat-card-title { font-weight: 600; color: #475569; font-size: 1.1rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .stat-row { display: flex; justify-content: space-around; align-items: center; }
         .stat-item { text-align: center; }
-        .stat-num { font-size: 2rem; font-weight: 700; color: var(--primary); }
-        .stat-label { font-size: 0.85rem; color: var(--gray); margin-top: 0.2rem; }
-        .map-tip { text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--gray); }
-        
-        #loadingMsg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: none; justify-content: center; align-items: center;
-            background: rgba(255, 255, 255, 0.6); 
-            backdrop-filter: blur(4px);
-            color: var(--primary); font-size: 1.1rem;
-            z-index: 10; font-weight: 600; 
-        }
+        .stat-num { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
+        .stat-num.want { color: #10b981; }
+        .stat-label { font-size: 0.8rem; color: var(--gray); margin-top: 0.2rem; }
+        .map-tip { text-align: center; margin-top: 2rem; font-size: 0.85rem; color: var(--gray); line-height: 1.6;}
+        #loadingMsg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(4px); color: var(--primary); font-size: 1.1rem; z-index: 10; font-weight: 600; }
+        .lds-dual-ring { display: inline-block; width: 24px; height: 24px; margin-right: 12px; position: relative; }
+        .lds-dual-ring:after { content: ""; display: block; position: absolute; width: 20px; height: 20px; margin: 2px; border-radius: 50%; border: 3px solid var(--primary); border-color: var(--primary) transparent var(--primary) transparent; animation: lds-dual-ring 1.2s linear infinite; }
+        @keyframes lds-dual-ring { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -82,11 +51,12 @@
                 <div class="travel-container fade-in">
                     <div class="section-header">
                         <h2 class="section-title">我的足迹</h2>
-                        <p class="section-desc">点击地图行政板块可切换状态：未去 → 去过 → 想去</p>
+                        <p class="section-desc">点击地图行政板块可切换：未去 → 去过  → 想去 </p>
                     </div>
                     
                     <div class="map-tabs">
-                        <button class="map-tab active" data-map="china">中国足迹</button>
+			<button class="map-tab" data-map="shanghai">上海足迹</button>
+                        <button class="map-tab active" data-map="china">中国足迹</button>  
                         <button class="map-tab" data-map="world">全球足迹</button>
                     </div>
 
@@ -97,26 +67,13 @@
                     </div>
 
                     <div class="echarts-wrapper">
-                        <div id="loadingMsg"><i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> 地图数据加载中...</div>
+                        <div id="loadingMsg" style="display:none;"><div class="lds-dual-ring"></div> 获取在线地图中...</div>
                         <div id="mapChart"></div>
                     </div>
 
-                    <div class="map-stats">
-                        <div class="stat-item">
-                            <div class="stat-num" id="visitedCount">0</div>
-                            <div class="stat-label">去过</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-num" id="wantCount">0</div>
-                            <div class="stat-label">想去</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-num" id="totalCount">34</div>
-                            <div class="stat-label">总计板块</div>
-                        </div>
+                    <div class="map-stats-container" id="statsContainer"></div>
+                    
                     </div>
-                    <p class="map-tip">数据保存在浏览器本地。地图支持滚轮缩放与鼠标拖拽。</p>
-                </div>
             </div>
         </section>
     </div>
@@ -126,16 +83,23 @@
     <script>
         const STORAGE_CHINA = 'lv-zhu-travel-map';
         const STORAGE_WORLD = 'lv-zhu-travel-map-world';
+        const STORAGE_SHANGHAI = 'lv-zhu-travel-map-shanghai';
         const STATES = ['unvisited', 'visited', 'want'];
         
         let currentMap = 'china';
         let chartInstance = null;
-        let mapDataLoaded = { china: false, world: false };
+        
+        let geoDataCache = {
+            chinaCities: null,
+            chinaProv: null,
+            shanghai: null,
+            world: null
+        };
 
         const colorMap = {
             'visited': '#4f46e5',
             'want': '#10b981',
-            'unvisited': '#e2e8f0'
+            'unvisited': '#f1f5f9'
         };
 
         function loadData(key) {
@@ -144,19 +108,81 @@
         }
         function saveData(key, data) { localStorage.setItem(key, JSON.stringify(data)); }
 
+        async function fetchExternalGeoJSON() {
+            const loadingMsg = document.getElementById('loadingMsg');
+            loadingMsg.innerHTML = '<div class="lds-dual-ring"></div> 正在加载数据，请稍候...';
+            loadingMsg.style.display = 'flex';
+            
+            try {
+                if (currentMap === 'china') {
+                    if (!geoDataCache.chinaCities || !geoDataCache.chinaProv) {
+                        const [resCities, resProv] = await Promise.all([
+                            fetch('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/china-cities.json'),
+                            fetch('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/china.json')
+                        ]);
+                        geoDataCache.chinaCities = await resCities.json();
+                        geoDataCache.chinaProv = await resProv.json();
+                    }
+                    
+                    let mergedFeatures = [];
+                    geoDataCache.chinaProv.features.forEach(f => {
+                        mergedFeatures.push({ ...f, properties: { ...f.properties, isProv: true } });
+                    });
+                    geoDataCache.chinaCities.features.forEach(f => {
+                        mergedFeatures.push({ ...f, properties: { ...f.properties, isCity: true } });
+                    });
+
+                    echarts.registerMap('china-merged', {
+                        type: 'FeatureCollection',
+                        features: mergedFeatures
+                    });
+
+                } else if (currentMap === 'shanghai') {
+                    if (!geoDataCache.shanghai) {
+                        const res = await fetch('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/province/shanghai.json');
+                        geoDataCache.shanghai = await res.json();
+                    }
+                    echarts.registerMap('shanghai-map', geoDataCache.shanghai);
+                } else if (currentMap === 'world') {
+                    if (!geoDataCache.world) {
+                        const res = await fetch('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/world.json');
+                        geoDataCache.world = await res.json();
+                    }
+                    echarts.registerMap('world', geoDataCache.world);
+                }
+            } catch (e) {
+                loadingMsg.innerHTML = '<i class="fas fa-exclamation-triangle" style="margin-right:8px; color:#ef4444;"></i> 在线地图资源加载失败，请重试';
+                console.error(e);
+                return false;
+            }
+            loadingMsg.style.display = 'none';
+            return true;
+        }
+
         async function initMap() {
             chartInstance = echarts.init(document.getElementById('mapChart'));
             window.addEventListener('resize', () => chartInstance.resize());
             
             chartInstance.on('click', function (params) {
                 if(!params.name) return;
-                const regionName = params.name;
-                const storageKey = currentMap === 'china' ? STORAGE_CHINA : STORAGE_WORLD;
+
+                if (currentMap === 'china') {
+                    const isProv = geoDataCache.chinaProv.features.some(f => f.properties.name === params.name);
+                    if (isProv) return; 
+                }
+
+                const storageKey = currentMap === 'china' ? STORAGE_CHINA 
+                    : (currentMap === 'world' ? STORAGE_WORLD : STORAGE_SHANGHAI);
                 const data = loadData(storageKey);
                 
-                const currentState = data[regionName] || 'unvisited';
+                const currentState = data[params.name] || 'unvisited';
                 const nextState = STATES[(STATES.indexOf(currentState) + 1) % STATES.length];
-                data[regionName] = nextState;
+                
+                if (nextState === 'unvisited') {
+                    delete data[params.name];
+                } else {
+                    data[params.name] = nextState;
+                }
                 saveData(storageKey, data);
                 
                 updateChartDisplay();
@@ -165,121 +191,131 @@
             await switchMap('china');
         }
 
-        async function fetchGeoJSON(type) {
-            const url = type === 'china' 
-                ? 'https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json'
-                : 'https://unpkg.com/echarts@4.9.0/map/json/world.json';
-            const res = await fetch(url);
-            if (!res.ok) throw new Error('Network response was not ok');
-            return await res.json();
-        }
-
         async function switchMap(type) {
             currentMap = type;
-            const loadingMsg = document.getElementById('loadingMsg');
-            loadingMsg.style.display = 'flex';
-            
-            if (!mapDataLoaded[type]) {
-                try {
-                    const geoJson = await fetchGeoJSON(type);
-                    if (type === 'world') {
-                        echarts.registerMap('world', geoJson);
-                    } else {
-                        echarts.registerMap('china', geoJson);
-                    }
-                    mapDataLoaded[type] = true;
-                } catch(e) {
-                    loadingMsg.innerHTML = '<i class="fas fa-exclamation-triangle" style="margin-right:8px; color:#ef4444;"></i> 地图资源加载失败，请检查网络';
-                    return;
-                }
+            const success = await fetchExternalGeoJSON();
+            if (success) {
+                updateChartDisplay();
             }
-            
-            loadingMsg.style.display = 'none';
-            updateChartDisplay();
         }
 
         function updateChartDisplay() {
-            const storageKey = currentMap === 'china' ? STORAGE_CHINA : STORAGE_WORLD;
+            const storageKey = currentMap === 'china' ? STORAGE_CHINA 
+                : (currentMap === 'world' ? STORAGE_WORLD : STORAGE_SHANGHAI);
             const savedData = loadData(storageKey);
-            
-            const seriesData = Object.keys(savedData).map(name => {
+
+            let visitedCount = 0;
+            let wantCount = 0;
+            let maxCount = 0;
+
+            let seriesData = [];
+            Object.keys(savedData).forEach(name => {
                 const state = savedData[name];
-                return {
+                if (state === 'visited') visitedCount++;
+                if (state === 'want') wantCount++;
+                seriesData.push({
                     name: name,
                     value: state,
                     itemStyle: {
                         areaColor: colorMap[state],
-                        shadowColor: state === 'unvisited' ? 'transparent' : 'rgba(0,0,0,0.15)',
-                        shadowBlur: state === 'unvisited' ? 0 : 5
+                        shadowColor: 'rgba(0,0,0,0.15)',
+                        shadowBlur: 3
                     }
-                }
+                });
             });
 
-            const option = {
+            let mapName = currentMap === 'china' ? 'china-merged' : (currentMap === 'world' ? 'world' : 'shanghai-map');
+            let title = '';
+            let labelType = '';
+            
+            if (currentMap === 'world') {
+                maxCount = geoDataCache.world ? geoDataCache.world.features.length : 200;
+                title = '🌎 全球足迹概览';
+                labelType = '国家/地区';
+            } else if (currentMap === 'shanghai') {
+                maxCount = geoDataCache.shanghai ? geoDataCache.shanghai.features.length : 17;
+                title = '🏙️ 上海市区足迹';
+                labelType = '行政区';
+            } else {
+                maxCount = geoDataCache.chinaCities ? geoDataCache.chinaCities.features.length : 344;
+                title = '🗺️ 中国足迹明细';
+                labelType = '地级市';
+
+                geoDataCache.chinaProv.features.forEach(f => {
+                    seriesData.push({
+                        name: f.properties.name,
+                        itemStyle: {
+                            areaColor: 'transparent',
+                            borderColor: '#334155',
+                            borderWidth: 2.2,
+                        },
+                        emphasis: { disabled: true },
+                        tooltip: { show: false }
+                    });
+                });
+            }
+
+            let option = {
                 backgroundColor: 'transparent',
                 tooltip: {
                     trigger: 'item',
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
                     borderColor: 'rgba(79, 70, 229, 0.2)',
                     textStyle: { color: '#334155' },
                     formatter: function(params) {
-                        const stateStr = { 'visited': '🎈 去过', 'want': '🎯 想去', 'unvisited': '☁️ 未去' };
+                        if(currentMap === 'china' && geoDataCache.chinaProv.features.some(f => f.properties.name === params.name)) return '';
+                        const stateStrMap = { 'visited': '🎈 去过', 'want': '🎯 想去', 'unvisited': '☁️ 未去' };
                         let val = params.data && params.data.value ? params.data.value : 'unvisited';
-                        if (isNaN(val)) {
-                            // in case echarts returns the number for values, but ours are strings
-                            // just check safety
-                        }
-                        return '<b>' + params.name + '</b><br/>' + stateStr[val];
+                        if (isNaN(val)) {}
+                        return '<b>' + params.name + '</b><br/><span style="margin-top:4px;display:inline-block;">' + stateStrMap[val] + '</span>';
                     }
                 },
                 series: [{
+                    name: mapName,
                     type: 'map',
-                    map: currentMap,
+                    map: mapName,
                     roam: true,
-                    scaleLimit: { min: 1, max: 10 },
+                    scaleLimit: { min: 1, max: 25 },
                     itemStyle: {
                         areaColor: colorMap['unvisited'],
-                        borderColor: '#ffffff',
-                        borderWidth: 1.5
+                        borderColor: currentMap === 'china' ? '#e2e8f0' : '#cbd5e1', 
+                        borderWidth: currentMap === 'shanghai' ? 0.8 : 0.6
                     },
                     emphasis: {
-                        itemStyle: {
-                            areaColor: '#c7d2fe',
-                            borderColor: '#818cf8',
-                            borderWidth: 1.5
-                        },
+                        itemStyle: { areaColor: '#c7d2fe', borderColor: '#818cf8', borderWidth: 1 },
                         label: { show: true, color: '#334155', fontWeight: 'bold' }
                     },
-                    select: {
-                        disabled: true
-                    },
-                    label: {
-                        show: currentMap === 'china',
-                        color: '#64748b',
-                        fontSize: 10
-                    },
+                    label: { show: false },
                     data: seriesData
                 }]
             };
+
+            document.getElementById('statsContainer').innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-card-title">${title}</div>
+                    <div class="stat-row">
+                        <div class="stat-item"><div class="stat-num">${visitedCount}</div><div class="stat-label">去过</div></div>
+                        <div class="stat-item"><div class="stat-num want">${wantCount}</div><div class="stat-label">想去</div></div>
+                        <div class="stat-item"><div class="stat-num" style="color:#94a3b8">${maxCount}</div><div class="stat-label">${labelType}</div></div>
+                    </div>
+                </div>
+            `;
             
             chartInstance.setOption(option, true);
-            
-            const vals = Object.values(savedData);
-            document.getElementById('visitedCount').textContent = vals.filter(v => v === 'visited').length;
-            document.getElementById('wantCount').textContent = vals.filter(v => v === 'want').length;
-            const totalEles = currentMap === 'china' ? 34 : 213; 
-            document.getElementById('totalCount').textContent = totalEles;
         }
 
         document.querySelectorAll('.map-tab').forEach(tab => {
             tab.addEventListener('click', (e) => {
+                if(e.target.classList.contains('active')) return;
                 document.querySelectorAll('.map-tab').forEach(t => t.classList.remove('active'));
                 e.target.classList.add('active');
+                
+                if(chartInstance) { chartInstance.clear(); }
                 switchMap(e.target.dataset.map);
             });
         });
 
-        initMap();
+        window.addEventListener('DOMContentLoaded', initMap);
     </script>
 </body>
 </html>
