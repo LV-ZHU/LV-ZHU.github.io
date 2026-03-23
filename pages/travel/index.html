@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="../../css/common.css">
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <script src="https://cdn.staticfile.net/echarts/5.5.0/echarts.min.js"></script>
     <style>
         .travel-container {
             max-width: 1000px; margin: 0 auto; background: white;
@@ -34,15 +34,17 @@
         }
         .legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--gray); }
         .legend-dot { width: 14px; height: 14px; border-radius: 3px; }
-        .legend-dot.visited { background: #4f46e5; box-shadow: 0 0 8px #4f46e5; }
-        .legend-dot.want { background: #10b981; box-shadow: 0 0 8px #10b981; }
-        .legend-dot.unvisited { background: #334155; }
+        .legend-dot.visited { background: #4f46e5; box-shadow: 0 0 8px rgba(79, 70, 229, 0.5); }
+        .legend-dot.want { background: #10b981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.5); }
+        .legend-dot.unvisited { background: #e2e8f0; border: 1px solid #cbd5e1; }
 
         .echarts-wrapper {
-            background: #0f172a; /* Tech Dark */
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
             border-radius: var(--radius-md);
             overflow: hidden;
             position: relative;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.03);
+            border: 1px solid rgba(255,255,255,0.7);
         }
         #mapChart {
             width: 100%;
@@ -60,9 +62,11 @@
         
         #loadingMsg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; justify-content: center; align-items: center;
-            background: rgba(15, 23, 42, 0.8); color: white; font-size: 1.2rem;
-            z-index: 10; font-weight: 500; border-radius: var(--radius-md);
+            display: none; justify-content: center; align-items: center;
+            background: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(4px);
+            color: var(--primary); font-size: 1.1rem;
+            z-index: 10; font-weight: 600; 
         }
     </style>
 </head>
@@ -78,7 +82,7 @@
                 <div class="travel-container fade-in">
                     <div class="section-header">
                         <h2 class="section-title">我的足迹</h2>
-                        <p class="section-desc">点击地图板块可切换状态：未去 → 去过 → 想去</p>
+                        <p class="section-desc">点击地图行政板块可切换状态：未去 → 去过 → 想去</p>
                     </div>
                     
                     <div class="map-tabs">
@@ -93,7 +97,7 @@
                     </div>
 
                     <div class="echarts-wrapper">
-                        <div id="loadingMsg">地图数据加载中...</div>
+                        <div id="loadingMsg"><i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> 地图数据加载中...</div>
                         <div id="mapChart"></div>
                     </div>
 
@@ -108,10 +112,10 @@
                         </div>
                         <div class="stat-item">
                             <div class="stat-num" id="totalCount">34</div>
-                            <div class="stat-label">总计</div>
+                            <div class="stat-label">总计板块</div>
                         </div>
                     </div>
-                    <p class="map-tip">数据保存在浏览器本地。地图支持缩放与拖拽。</p>
+                    <p class="map-tip">数据保存在浏览器本地。地图支持滚轮缩放与鼠标拖拽。</p>
                 </div>
             </div>
         </section>
@@ -124,14 +128,14 @@
         const STORAGE_WORLD = 'lv-zhu-travel-map-world';
         const STATES = ['unvisited', 'visited', 'want'];
         
-        let currentMap = 'china'; // 'china' or 'world'
+        let currentMap = 'china';
         let chartInstance = null;
         let mapDataLoaded = { china: false, world: false };
 
         const colorMap = {
             'visited': '#4f46e5',
             'want': '#10b981',
-            'unvisited': '#334155'
+            'unvisited': '#e2e8f0'
         };
 
         function loadData(key) {
@@ -142,11 +146,8 @@
 
         async function initMap() {
             chartInstance = echarts.init(document.getElementById('mapChart'));
-            
-            // Adjust window resize
             window.addEventListener('resize', () => chartInstance.resize());
             
-            // Handle clicks
             chartInstance.on('click', function (params) {
                 if(!params.name) return;
                 const regionName = params.name;
@@ -167,33 +168,33 @@
         async function fetchGeoJSON(type) {
             const url = type === 'china' 
                 ? 'https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json'
-                : 'https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/json/world.json';
+                : 'https://unpkg.com/echarts@4.9.0/map/json/world.json';
             const res = await fetch(url);
+            if (!res.ok) throw new Error('Network response was not ok');
             return await res.json();
         }
 
         async function switchMap(type) {
             currentMap = type;
-            document.getElementById('loadingMsg').style.display = 'flex';
+            const loadingMsg = document.getElementById('loadingMsg');
+            loadingMsg.style.display = 'flex';
             
-            // Fetch and register if not loaded
             if (!mapDataLoaded[type]) {
                 try {
                     const geoJson = await fetchGeoJSON(type);
                     if (type === 'world') {
-                        // Optional World map translation for better UX
                         echarts.registerMap('world', geoJson);
                     } else {
                         echarts.registerMap('china', geoJson);
                     }
                     mapDataLoaded[type] = true;
                 } catch(e) {
-                    document.getElementById('loadingMsg').textContent = '地图加载失败，请检查网络';
+                    loadingMsg.innerHTML = '<i class="fas fa-exclamation-triangle" style="margin-right:8px; color:#ef4444;"></i> 地图资源加载失败，请检查网络';
                     return;
                 }
             }
             
-            document.getElementById('loadingMsg').style.display = 'none';
+            loadingMsg.style.display = 'none';
             updateChartDisplay();
         }
 
@@ -201,7 +202,6 @@
             const storageKey = currentMap === 'china' ? STORAGE_CHINA : STORAGE_WORLD;
             const savedData = loadData(storageKey);
             
-            // Format data for echarts
             const seriesData = Object.keys(savedData).map(name => {
                 const state = savedData[name];
                 return {
@@ -209,8 +209,8 @@
                     value: state,
                     itemStyle: {
                         areaColor: colorMap[state],
-                        shadowColor: state === 'unvisited' ? 'transparent' : colorMap[state],
-                        shadowBlur: state === 'unvisited' ? 0 : 10
+                        shadowColor: state === 'unvisited' ? 'transparent' : 'rgba(0,0,0,0.15)',
+                        shadowBlur: state === 'unvisited' ? 0 : 5
                     }
                 }
             });
@@ -219,31 +219,43 @@
                 backgroundColor: 'transparent',
                 tooltip: {
                     trigger: 'item',
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderColor: 'rgba(79, 70, 229, 0.2)',
+                    textStyle: { color: '#334155' },
                     formatter: function(params) {
-                        const stateStr = { 'visited': '去过', 'want': '想去', 'unvisited': '未去' };
-                        const val = params.data ? params.data.value : 'unvisited';
-                        return params.name + ' : ' + stateStr[val];
+                        const stateStr = { 'visited': '🎈 去过', 'want': '🎯 想去', 'unvisited': '☁️ 未去' };
+                        let val = params.data && params.data.value ? params.data.value : 'unvisited';
+                        if (isNaN(val)) {
+                            // in case echarts returns the number for values, but ours are strings
+                            // just check safety
+                        }
+                        return '<b>' + params.name + '</b><br/>' + stateStr[val];
                     }
                 },
                 series: [{
                     type: 'map',
                     map: currentMap,
-                    roam: true, // allow zoom/drag
+                    roam: true,
                     scaleLimit: { min: 1, max: 10 },
                     itemStyle: {
                         areaColor: colorMap['unvisited'],
-                        borderColor: '#475569',
-                        borderWidth: 1
+                        borderColor: '#ffffff',
+                        borderWidth: 1.5
                     },
                     emphasis: {
                         itemStyle: {
-                            areaColor: '#64748b'
+                            areaColor: '#c7d2fe',
+                            borderColor: '#818cf8',
+                            borderWidth: 1.5
                         },
-                        label: { show: true, color: '#fff' }
+                        label: { show: true, color: '#334155', fontWeight: 'bold' }
+                    },
+                    select: {
+                        disabled: true
                     },
                     label: {
                         show: currentMap === 'china',
-                        color: 'rgba(255,255,255,0.5)',
+                        color: '#64748b',
                         fontSize: 10
                     },
                     data: seriesData
@@ -252,17 +264,13 @@
             
             chartInstance.setOption(option, true);
             
-            // Update stats
             const vals = Object.values(savedData);
             document.getElementById('visitedCount').textContent = vals.filter(v => v === 'visited').length;
             document.getElementById('wantCount').textContent = vals.filter(v => v === 'want').length;
-            
-            // Set total based on current map type approximation
-            const totalEles = currentMap === 'china' ? 34 : 210; 
+            const totalEles = currentMap === 'china' ? 34 : 213; 
             document.getElementById('totalCount').textContent = totalEles;
         }
 
-        // Tab listeners
         document.querySelectorAll('.map-tab').forEach(tab => {
             tab.addEventListener('click', (e) => {
                 document.querySelectorAll('.map-tab').forEach(t => t.classList.remove('active'));
@@ -271,7 +279,6 @@
             });
         });
 
-        // Start
         initMap();
     </script>
 </body>
