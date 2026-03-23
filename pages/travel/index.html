@@ -96,6 +96,9 @@
             world: null
         };
 
+        let cityToProvMap = {};
+        let provLinesData = [];
+
         const colorMap = {
             'visited': '#4f46e5',
             'want': '#10b981',
@@ -122,21 +125,32 @@
                         ]);
                         geoDataCache.chinaCities = await resCities.json();
                         geoDataCache.chinaProv = await resProv.json();
+
+                        let provIdMap = {};
+                        geoDataCache.chinaProv.features.forEach(f => {
+                            let id = String(f.id || (f.properties && f.properties.id) || '');
+                            if(id) provIdMap[id.substring(0, 2)] = f.properties.name;
+                        });
+                        geoDataCache.chinaCities.features.forEach(f => {
+                            let id = String(f.id || (f.properties && f.properties.id) || '');
+                            if(id && id.length >= 2 && provIdMap[id.substring(0, 2)]) {
+                                cityToProvMap[f.properties.name] = provIdMap[id.substring(0, 2)];
+                            }
+                        });
+
+                        provLinesData = [];
+                        geoDataCache.chinaProv.features.forEach(f => {
+                            if (!f.geometry) return;
+                            let coords = f.geometry.coordinates;
+                            if (f.geometry.type === 'Polygon') {
+                                coords.forEach(ring => provLinesData.push({ coords: ring }));
+                            } else if (f.geometry.type === 'MultiPolygon') {
+                                coords.forEach(poly => poly.forEach(ring => provLinesData.push({ coords: ring })));
+                            }
+                        });
+
+                        echarts.registerMap('china-cities', geoDataCache.chinaCities);
                     }
-                    
-                    let mergedFeatures = [];
-                    geoDataCache.chinaProv.features.forEach(f => {
-                        mergedFeatures.push({ ...f, properties: { ...f.properties, isProv: true } });
-                    });
-                    geoDataCache.chinaCities.features.forEach(f => {
-                        mergedFeatures.push({ ...f, properties: { ...f.properties, isCity: true } });
-                    });
-
-                    echarts.registerMap('china-merged', {
-                        type: 'FeatureCollection',
-                        features: mergedFeatures
-                    });
-
                 } else if (currentMap === 'shanghai') {
                     if (!geoDataCache.shanghai) {
                         const res = await fetch('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/province/shanghai.json');
@@ -159,17 +173,12 @@
             return true;
         }
 
-        async function initMap() {
+        function initMap() {
             chartInstance = echarts.init(document.getElementById('mapChart'));
             window.addEventListener('resize', () => chartInstance.resize());
             
             chartInstance.on('click', function (params) {
-                if(!params.name) return;
-
-                if (currentMap === 'china') {
-                    const isProv = geoDataCache.chinaProv.features.some(f => f.properties.name === params.name);
-                    if (isProv) return; 
-                }
+                if(!params.name || params.seriesType === 'lines') return;
 
                 const storageKey = currentMap === 'china' ? STORAGE_CHINA 
                     : (currentMap === 'world' ? STORAGE_WORLD : STORAGE_SHANGHAI);
@@ -188,11 +197,13 @@
                 updateChartDisplay();
             });
 
-            await switchMap('china');
+            renderStatsUI(true);
+            switchMap('china');
         }
 
         async function switchMap(type) {
             currentMap = type;
+            renderStatsUI(true);
             const success = await fetchExternalGeoJSON();
             if (success) {
                 updateChartDisplay();
@@ -204,15 +215,9 @@
                 : (currentMap === 'world' ? STORAGE_WORLD : STORAGE_SHANGHAI);
             const savedData = loadData(storageKey);
 
-            let visitedCount = 0;
-            let wantCount = 0;
-            let maxCount = 0;
-
             let seriesData = [];
             Object.keys(savedData).forEach(name => {
                 const state = savedData[name];
-                if (state === 'visited') visitedCount++;
-                if (state === 'want') wantCount++;
                 seriesData.push({
                     name: name,
                     value: state,
@@ -224,36 +229,7 @@
                 });
             });
 
-            let mapName = currentMap === 'china' ? 'china-merged' : (currentMap === 'world' ? 'world' : 'shanghai-map');
-            let title = '';
-            let labelType = '';
-            
-            if (currentMap === 'world') {
-                maxCount = geoDataCache.world ? geoDataCache.world.features.length : 200;
-                title = '🌎 全球足迹概览';
-                labelType = '国家/地区';
-            } else if (currentMap === 'shanghai') {
-                maxCount = geoDataCache.shanghai ? geoDataCache.shanghai.features.length : 17;
-                title = '🏙️ 上海市区足迹';
-                labelType = '行政区';
-            } else {
-                maxCount = geoDataCache.chinaCities ? geoDataCache.chinaCities.features.length : 344;
-                title = '🗺️ 中国足迹明细';
-                labelType = '地级市';
-
-                geoDataCache.chinaProv.features.forEach(f => {
-                    seriesData.push({
-                        name: f.properties.name,
-                        itemStyle: {
-                            areaColor: 'transparent',
-                            borderColor: '#334155',
-                            borderWidth: 2.2,
-                        },
-                        emphasis: { disabled: true },
-                        tooltip: { show: false }
-                    });
-                });
-            }
+            let mapName = currentMap === 'china' ? 'china-cities' : (currentMap === 'world' ? 'world' : 'shanghai-map');
 
             let option = {
                 backgroundColor: 'transparent',
@@ -263,45 +239,113 @@
                     borderColor: 'rgba(79, 70, 229, 0.2)',
                     textStyle: { color: '#334155' },
                     formatter: function(params) {
-                        if(currentMap === 'china' && geoDataCache.chinaProv.features.some(f => f.properties.name === params.name)) return '';
+                        if(params.seriesType === 'lines') return '';
                         const stateStrMap = { 'visited': '🎈 去过', 'want': '🎯 想去', 'unvisited': '☁️ 未去' };
                         let val = params.data && params.data.value ? params.data.value : 'unvisited';
                         if (isNaN(val)) {}
                         return '<b>' + params.name + '</b><br/><span style="margin-top:4px;display:inline-block;">' + stateStrMap[val] + '</span>';
                     }
                 },
-                series: [{
-                    name: mapName,
-                    type: 'map',
+                geo: {
                     map: mapName,
                     roam: true,
-                    scaleLimit: { min: 1, max: 25 },
+                    scaleLimit: { min: 0.5, max: 25 },
                     itemStyle: {
                         areaColor: colorMap['unvisited'],
                         borderColor: currentMap === 'china' ? '#e2e8f0' : '#cbd5e1', 
                         borderWidth: currentMap === 'shanghai' ? 0.8 : 0.6
                     },
                     emphasis: {
-                        itemStyle: { areaColor: '#c7d2fe', borderColor: '#818cf8', borderWidth: 1 },
-                        label: { show: true, color: '#334155', fontWeight: 'bold' }
-                    },
-                    label: { show: false },
-                    data: seriesData
-                }]
+                        itemStyle: { areaColor: '#c7d2fe', borderColor: '#818cf8', borderWidth: 1 }
+                    }
+                },
+                series: [
+                    {
+                        name: mapName,
+                        type: 'map',
+                        geoIndex: 0,
+                        data: seriesData
+                    }
+                ]
             };
 
-            document.getElementById('statsContainer').innerHTML = `
-                <div class="stat-card">
-                    <div class="stat-card-title">${title}</div>
-                    <div class="stat-row">
-                        <div class="stat-item"><div class="stat-num">${visitedCount}</div><div class="stat-label">去过</div></div>
-                        <div class="stat-item"><div class="stat-num want">${wantCount}</div><div class="stat-label">想去</div></div>
-                        <div class="stat-item"><div class="stat-num" style="color:#94a3b8">${maxCount}</div><div class="stat-label">${labelType}</div></div>
-                    </div>
-                </div>
-            `;
-            
+            if (currentMap === 'china') {
+                option.series.push({
+                    name: 'province-lines',
+                    type: 'lines',
+                    coordinateSystem: 'geo',
+                    polyline: true,
+                    data: provLinesData,
+                    lineStyle: { color: '#475569', width: 2, opacity: 0.8 },
+                    silent: true
+                });
+            }
+
+            renderStatsUI(false);
             chartInstance.setOption(option, true);
+        }
+
+        function renderStatsUI(isLoading) {
+            const storageKey = currentMap === 'china' ? STORAGE_CHINA 
+                : (currentMap === 'world' ? STORAGE_WORLD : STORAGE_SHANGHAI);
+            const savedData = loadData(storageKey);
+
+            if (currentMap === 'world' || currentMap === 'shanghai') {
+                let visitedCount = 0, wantCount = 0;
+                Object.values(savedData).forEach(st => { if(st==='visited') visitedCount++; else wantCount++; });
+                
+                let title = currentMap === 'world' ? '🌎 全球足迹概览' : '🏙️ 上海市区足迹';
+                let labelType = currentMap === 'world' ? '国家/地区' : '行政区';
+                let maxCount = isLoading ? '...' : (currentMap === 'world' ? 
+                    (geoDataCache.world ? geoDataCache.world.features.length : 200) : 
+                    (geoDataCache.shanghai ? geoDataCache.shanghai.features.length : 17));
+
+                document.getElementById('statsContainer').innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-card-title">${title}</div>
+                        <div class="stat-row">
+                            <div class="stat-item"><div class="stat-num">${visitedCount}</div><div class="stat-label">去过</div></div>
+                            <div class="stat-item"><div class="stat-num want">${wantCount}</div><div class="stat-label">想去</div></div>
+                            <div class="stat-item"><div class="stat-num" style="color:#94a3b8">${maxCount}</div><div class="stat-label">${labelType}</div></div>
+                        </div>
+                    </div>`;
+            } else {
+                let vCity = 0, wCity = 0;
+                let vProv = new Set(), wProv = new Set();
+                
+                Object.keys(savedData).forEach(cityName => {
+                    const state = savedData[cityName];
+                    let pName = cityToProvMap[cityName];
+                    if (state === 'visited') {
+                        vCity++;
+                        if (pName) vProv.add(pName);
+                    } else if (state === 'want') {
+                        wCity++;
+                        if (pName) wProv.add(pName);
+                    }
+                });
+
+                let maxCityCount = isLoading ? '...' : (geoDataCache.chinaCities ? geoDataCache.chinaCities.features.length : 344);
+                let maxProvCount = isLoading ? '...' : (geoDataCache.chinaProv ? geoDataCache.chinaProv.features.length : 34);
+
+                document.getElementById('statsContainer').innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-card-title">🗺️ 中国足迹明细 - 地级市</div>
+                        <div class="stat-row">
+                            <div class="stat-item"><div class="stat-num">${vCity}</div><div class="stat-label">去过</div></div>
+                            <div class="stat-item"><div class="stat-num want">${wCity}</div><div class="stat-label">想去</div></div>
+                            <div class="stat-item"><div class="stat-num" style="color:#94a3b8">${maxCityCount}</div><div class="stat-label">地级市</div></div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-title">🗺️ 中国足迹明细 - 省市</div>
+                        <div class="stat-row">
+                            <div class="stat-item"><div class="stat-num">${vProv.size}</div><div class="stat-label">去过</div></div>
+                            <div class="stat-item"><div class="stat-num want">${wProv.size}</div><div class="stat-label">想去</div></div>
+                            <div class="stat-item"><div class="stat-num" style="color:#94a3b8">${maxProvCount}</div><div class="stat-label">省市</div></div>
+                        </div>
+                    </div>`;
+            }
         }
 
         document.querySelectorAll('.map-tab').forEach(tab => {
