@@ -138,18 +138,46 @@
                             }
                         });
 
-                        echarts.registerMap('china-prov-decode', geoDataCache.chinaProv);
-                        let decodedProvMap = echarts.getMap('china-prov-decode');
-                        let decodedProvGeo = decodedProvMap.geoJSON || decodedProvMap.geoJson;
+                        function decodePolygon(coordinate, encodeOffsets) {
+                            let result = [];
+                            let prevX = encodeOffsets[0];
+                            let prevY = encodeOffsets[1];
+                            for (let i = 0; i < coordinate.length; i += 2) {
+                                let x = coordinate.charCodeAt(i) - 64;
+                                let y = coordinate.charCodeAt(i + 1) - 64;
+                                x = (x >> 1) ^ (-(x & 1));
+                                y = (y >> 1) ^ (-(y & 1));
+                                x += prevX;
+                                y += prevY;
+                                prevX = x;
+                                prevY = y;
+                                result.push([x / 1024, y / 1024]);
+                            }
+                            return result;
+                        }
 
                         provLinesData = [];
-                        decodedProvGeo.features.forEach(f => {
+                        let isEncoded = geoDataCache.chinaProv.UTF8Encoding;
+                        geoDataCache.chinaProv.features.forEach(f => {
                             if (!f.geometry) return;
-                            let coords = f.geometry.coordinates;
-                            if (f.geometry.type === 'Polygon') {
-                                coords.forEach(ring => provLinesData.push({ coords: ring }));
-                            } else if (f.geometry.type === 'MultiPolygon') {
-                                coords.forEach(poly => poly.forEach(ring => provLinesData.push({ coords: ring })));
+                            let geomType = f.geometry.type;
+                            let coordinates = f.geometry.coordinates;
+                            let encodeOffsets = f.geometry.encodeOffsets;
+
+                            if (geomType === 'Polygon') {
+                                for(let i = 0; i < coordinates.length; i++) {
+                                    let ring = isEncoded ? decodePolygon(coordinates[i], encodeOffsets[i]) : coordinates[i];
+                                    provLinesData.push({ coords: ring });
+                                }
+                            } else if (geomType === 'MultiPolygon') {
+                                for(let i = 0; i < coordinates.length; i++) {
+                                    let poly = coordinates[i];
+                                    let polyOffsets = encodeOffsets ? encodeOffsets[i] : null;
+                                    for(let j = 0; j < poly.length; j++) {
+                                        let ring = isEncoded ? decodePolygon(poly[j], polyOffsets[j]) : poly[j];
+                                        provLinesData.push({ coords: ring });
+                                    }
+                                }
                             }
                         });
 
@@ -222,6 +250,7 @@
             let seriesData = [];
             Object.keys(savedData).forEach(name => {
                 const state = savedData[name];
+                let empColor = state === 'visited' ? '#4338ca' : '#059669';
                 seriesData.push({
                     name: name,
                     value: state,
@@ -229,6 +258,13 @@
                         areaColor: colorMap[state],
                         shadowColor: 'rgba(0,0,0,0.15)',
                         shadowBlur: 3
+                    },
+                    emphasis: {
+                        itemStyle: {
+                            areaColor: empColor,
+                            borderColor: '#f8fafc',
+                            borderWidth: 1
+                        }
                     }
                 });
             });
@@ -281,7 +317,7 @@
                     coordinateSystem: 'geo',
                     polyline: true,
                     data: provLinesData,
-                    lineStyle: { color: '#334155', width: 20, opacity: 1 },
+                    lineStyle: { color: '#334155', width: 2, opacity: 1 },
                     silent: true
                 });
             }
@@ -299,7 +335,7 @@
                 let visitedCount = 0, wantCount = 0;
                 Object.values(savedData).forEach(st => { if(st==='visited') visitedCount++; else wantCount++; });
                 
-                let title = currentMap === 'world' ? '🌎 全球足迹概览' : '🏙️ 上海市区足迹';
+                let title = currentMap === 'world' ? ' 全球足迹' : ' 上海足迹';
                 let labelType = currentMap === 'world' ? '国家/地区' : '行政区';
                 let maxCount = isLoading ? '...' : (currentMap === 'world' ? 
                     (geoDataCache.world ? geoDataCache.world.features.length : 200) : 
@@ -334,21 +370,22 @@
                 let maxProvCount = isLoading ? '...' : (geoDataCache.chinaProv ? geoDataCache.chinaProv.features.length : 34);
 
                 document.getElementById('statsContainer').innerHTML = `
+		    <div class="stat-card">
+                        <div class="stat-card-title"> 中国足迹-省级行政区</div>
+                        <div class="stat-row">
+                            <div class="stat-item"><div class="stat-num">${vProv.size}</div><div class="stat-label">去过</div></div>
+                            <div class="stat-item"><div class="stat-num want">${wProv.size}</div><div class="stat-label">想去</div></div>
+                            <div class="stat-item"><div class="stat-num" style="color:#94a3b8">${maxProvCount}</div><div class="stat-label">省级行政区</div></div>
+                        </div>
                     <div class="stat-card">
-                        <div class="stat-card-title">🗺️ 中国足迹明细 - 地级市</div>
+                        <div class="stat-card-title"> 中国足迹-地级市</div>
                         <div class="stat-row">
                             <div class="stat-item"><div class="stat-num">${vCity}</div><div class="stat-label">去过</div></div>
                             <div class="stat-item"><div class="stat-num want">${wCity}</div><div class="stat-label">想去</div></div>
                             <div class="stat-item"><div class="stat-num" style="color:#94a3b8">${maxCityCount}</div><div class="stat-label">地级市</div></div>
                         </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-card-title">🗺️ 中国足迹明细 - 省市</div>
-                        <div class="stat-row">
-                            <div class="stat-item"><div class="stat-num">${vProv.size}</div><div class="stat-label">去过</div></div>
-                            <div class="stat-item"><div class="stat-num want">${wProv.size}</div><div class="stat-label">想去</div></div>
-                            <div class="stat-item"><div class="stat-num" style="color:#94a3b8">${maxProvCount}</div><div class="stat-label">省市</div></div>
-                        </div>
+                    
                     </div>`;
             }
         }
