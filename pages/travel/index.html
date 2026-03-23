@@ -20,7 +20,7 @@
         .legend-dot { width: 14px; height: 14px; border-radius: 3px; }
         .legend-dot.visited { background: #4f46e5; box-shadow: 0 0 8px rgba(79, 70, 229, 0.5); }
         .legend-dot.want { background: #10b981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.5); }
-        .legend-dot.unvisited { background: #f1f5f9; border: 1px solid #cbd5e1; }
+        .legend-dot.unvisited { background: #d1d5db; border: 1px solid #94a3b8; }
         .echarts-wrapper { background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%); border-radius: var(--radius-md); overflow: hidden; position: relative; box-shadow: inset 0 2px 10px rgba(0,0,0,0.03); border: 1px solid rgba(255,255,255,0.7); }
         #mapChart { width: 100%; height: 650px; }
         .map-stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--gray-light); }
@@ -102,7 +102,7 @@
         const colorMap = {
             'visited': '#4f46e5',
             'want': '#10b981',
-            'unvisited': '#f1f5f9'
+            'unvisited': '#d1d5db'
         };
 
         function loadData(key) {
@@ -138,8 +138,12 @@
                             }
                         });
 
+                        echarts.registerMap('china-prov-decode', geoDataCache.chinaProv);
+                        let decodedProvMap = echarts.getMap('china-prov-decode');
+                        let decodedProvGeo = decodedProvMap.geoJSON || decodedProvMap.geoJson;
+
                         provLinesData = [];
-                        geoDataCache.chinaProv.features.forEach(f => {
+                        decodedProvGeo.features.forEach(f => {
                             if (!f.geometry) return;
                             let coords = f.geometry.coordinates;
                             if (f.geometry.type === 'Polygon') {
@@ -250,9 +254,10 @@
                     map: mapName,
                     roam: true,
                     scaleLimit: { min: 0.5, max: 25 },
+                    regions: seriesData,
                     itemStyle: {
                         areaColor: colorMap['unvisited'],
-                        borderColor: currentMap === 'china' ? '#e2e8f0' : '#cbd5e1', 
+                        borderColor: currentMap === 'china' ? '#f8fafc' : '#f1f5f9', 
                         borderWidth: currentMap === 'shanghai' ? 0.8 : 0.6
                     },
                     emphasis: {
@@ -276,7 +281,7 @@
                     coordinateSystem: 'geo',
                     polyline: true,
                     data: provLinesData,
-                    lineStyle: { color: '#475569', width: 2, opacity: 0.8 },
+                    lineStyle: { color: '#334155', width: 20, opacity: 1 },
                     silent: true
                 });
             }
