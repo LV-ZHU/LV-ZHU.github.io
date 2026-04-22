@@ -9,27 +9,1163 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="../../../css/common.css">
+    <style>
+        .tech-article {
+            background: #fff;
+            border: 1px solid #e5edf5;
+            border-radius: 14px;
+            box-shadow: 0 12px 30px -18px rgba(15, 23, 42, 0.25);
+            padding: 2rem;
+            color: #2d3a46;
+            line-height: 1.78;
+        }
+
+        .zone-title {
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #dce6f2;
+            font-size: 1.42rem;
+            color: #0f2740;
+        }
+
+        .topic-title {
+            margin-top: 1.15rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.12rem;
+            color: #1f3a55;
+        }
+
+        .muted {
+            color: #5e6c7a;
+            font-size: 0.95rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(260px, 1fr));
+            gap: 0.85rem;
+            margin-top: 0.55rem;
+        }
+
+        .summary-card {
+            border: 1px solid #d9e6f3;
+            border-radius: 12px;
+            background: #fbfdff;
+            padding: 0.85rem 0.9rem;
+        }
+
+        .summary-card h4 {
+            margin: 0 0 0.45rem 0;
+            color: #254769;
+            font-size: 1rem;
+        }
+
+        .summary-card ul {
+            margin: 0.2rem 0 0.2rem 1.15rem;
+            padding: 0;
+        }
+
+        .summary-card li {
+            margin: 0.12rem 0;
+        }
+
+        .arch-map {
+            position: relative;
+            margin-top: 0.85rem;
+            padding: 1.2rem 1rem;
+            border-radius: 18px;
+            border: 1px solid #dce6f1;
+            background: linear-gradient(180deg, #f8fbff 0%, #f2f7fd 100%);
+            box-shadow: 0 16px 30px -20px rgba(15, 23, 42, 0.2);
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .arch-map::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(#d0dbea 0.9px, transparent 0.9px);
+            background-size: 22px 22px;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .arch-board {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(14, minmax(0, 1fr));
+            gap: 1.2rem 0.55rem;
+            min-width: 1120px;
+            min-height: 520px;
+            align-items: center;
+        }
+
+        .arch-lines {
+            position: absolute;
+            z-index: 1;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .arch-lines path {
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 2.1;
+            animation: lineIn 700ms ease both;
+        }
+
+        .arch-lines .strong {
+            stroke: #5d7fa3;
+        }
+
+        .arch-lines .sync {
+            stroke: #87a3bf;
+            stroke-dasharray: 7 6;
+            stroke-width: 1.8;
+        }
+
+        .arch-lines .soft {
+            stroke: #9cb2c9;
+            stroke-width: 1.8;
+        }
+
+        @keyframes lineIn {
+            from {
+                opacity: 0;
+                stroke-dasharray: 800;
+                stroke-dashoffset: 800;
+            }
+            to {
+                opacity: 1;
+                stroke-dasharray: 0;
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .arch-node {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 82px;
+            padding: 0.62rem 0.8rem;
+            border-radius: 14px;
+            border: 1px solid #d4e0ed;
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 7px 16px -10px rgba(15, 23, 42, 0.2);
+            text-decoration: none;
+            transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+        }
+
+        .arch-node:hover {
+            transform: translateY(-2px);
+            border-color: #b7cce2;
+            box-shadow: 0 12px 22px -12px rgba(15, 23, 42, 0.24);
+        }
+
+        .arch-node .node-title {
+            color: #1f3f5f;
+            font-size: 0.98rem;
+            font-weight: 700;
+        }
+
+        .arch-node .node-desc {
+            color: #56708a;
+            font-size: 0.84rem;
+            margin-top: 0.15rem;
+        }
+
+        .node-server {
+            background: linear-gradient(180deg, #f8fcff 0%, #f1f7ff 100%);
+        }
+
+        .node-bridge {
+            background: linear-gradient(180deg, #f6fff9 0%, #edf9f2 100%);
+            border-color: #cbe8d8;
+        }
+
+        .node-local {
+            background: linear-gradient(180deg, #faf9ff 0%, #f4f1ff 100%);
+            border-color: #ddd3ef;
+        }
+
+        .node-im {
+            background: #ffffff;
+        }
+
+        .n-aliyun { grid-column: 1 / 4; grid-row: 1; }
+        .n-baota { grid-column: 4 / 7; grid-row: 1; }
+        .n-astrbot { grid-column: 8 / 11; grid-row: 1; }
+        .n-ding { grid-column: 11 / 13; grid-row: 1; }
+        .n-feishu { grid-column: 13 / 15; grid-row: 1; }
+
+        .n-napcat { grid-column: 8 / 11; grid-row: 2; }
+        .n-qq { grid-column: 11 / 13; grid-row: 2; }
+        .n-wechat { grid-column: 13 / 15; grid-row: 2; }
+
+        .n-win { grid-column: 1 / 5; grid-row: 4; }
+        .n-astr-local { grid-column: 5 / 9; grid-row: 4; }
+        .n-llbot { grid-column: 9 / 13; grid-row: 4; }
+
+        .map-note {
+            margin-top: 0.5rem;
+            color: #5e6f81;
+            font-size: 0.9rem;
+        }
+
+        .table-wrap {
+            margin-top: 0.8rem;
+            border: 1px solid #dce6f1;
+            border-radius: 10px;
+            overflow-x: auto;
+            background: #fff;
+        }
+
+        .arch-table {
+            width: 100%;
+            min-width: 880px;
+            border-collapse: collapse;
+            font-size: 0.94rem;
+        }
+
+        .arch-table th,
+        .arch-table td {
+            border-bottom: 1px solid #e7eef6;
+            padding: 0.66rem 0.7rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .arch-table th {
+            background: #f3f8fe;
+            color: #224565;
+            font-weight: 600;
+        }
+
+        .search-lab {
+            margin-top: 1rem;
+            border: 1px solid #d8e4f1;
+            border-radius: 12px;
+            background: #f8fbff;
+            padding: 0.95rem;
+        }
+
+        .address-bar {
+            display: flex;
+            align-items: center;
+            border: 1px solid #c9d8e8;
+            border-radius: 999px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .address-prefix {
+            border-right: 1px solid #dce7f3;
+            background: #edf4fc;
+            color: #476582;
+            padding: 0.5rem 0.78rem;
+            white-space: nowrap;
+            font-size: 0.9rem;
+        }
+
+        .address-port {
+            flex: 1;
+            border: 0;
+            outline: 0;
+            font-size: 1rem;
+            padding: 0.52rem 0.7rem;
+            color: #27435e;
+            min-width: 90px;
+        }
+
+        .address-btn {
+            border: 0;
+            cursor: pointer;
+            background: #2d5f90;
+            color: #fff;
+            font-weight: 600;
+            padding: 0.52rem 0.92rem;
+        }
+
+        .address-btn:hover {
+            background: #234d79;
+        }
+
+        .port-links {
+            margin-top: 0.62rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.38rem;
+        }
+
+        .port-chip {
+            border: 1px solid #cfe0f2;
+            background: #fff;
+            color: #315777;
+            font-size: 0.84rem;
+            border-radius: 999px;
+            padding: 0.25rem 0.56rem;
+        }
+
+        .ip-check {
+            margin-top: 0.65rem;
+            border: 1px solid #d8e4f1;
+            border-radius: 10px;
+            background: #fbfdff;
+        }
+
+        .ip-check summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 0.58rem 0.72rem;
+            color: #2f5578;
+            border-bottom: 1px solid #e5edf6;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .ip-check summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .feedback {
+            margin-top: 0.55rem;
+            font-size: 0.92rem;
+            color: #375773;
+        }
+
+        .feedback.error {
+            color: #a44242;
+        }
+
+        .issue-card {
+            margin-top: 0.75rem;
+            border: 1px solid #dce7f1;
+            border-radius: 12px;
+            background: #fcfdff;
+            padding: 0.85rem 0.9rem;
+        }
+
+        .issue-card h4 {
+            margin: 0 0 0.45rem 0;
+            color: #23415f;
+            font-size: 1rem;
+        }
+
+        .issue-card p {
+            margin: 0.32rem 0;
+        }
+
+        .issue-card strong {
+            color: #1e4569;
+        }
+
+        .cmd-inline {
+            margin-top: 0.52rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.42rem;
+        }
+
+        .cmd-chip {
+            border: 1px solid #cbddf0;
+            border-radius: 999px;
+            background: #eef5fc;
+            color: #234560;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 0.82rem;
+            padding: 0.24rem 0.56rem;
+        }
+
+        .code-block {
+            margin-top: 0.5rem;
+            border-radius: 10px;
+            background: #1f252c;
+            color: #d5deea;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 0.87rem;
+            line-height: 1.5;
+            padding: 0.85rem;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .plugin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.65rem;
+            font-size: 0.93rem;
+            border: 1px solid #dce7f1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .plugin-table th,
+        .plugin-table td {
+            border-bottom: 1px solid #e7eef6;
+            padding: 0.6rem 0.64rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .plugin-table th {
+            background: #f3f8fe;
+            color: #254668;
+            font-weight: 600;
+        }
+
+        details.qa {
+            margin-top: 0.65rem;
+            border: 1px solid #dce7f1;
+            border-radius: 10px;
+            background: #fcfdff;
+        }
+
+        details.qa > summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 0.62rem 0.78rem;
+            border-bottom: 1px solid #e7eef6;
+            color: #294867;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        details.qa > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .qa-body {
+            padding: 0.75rem 0.8rem;
+        }
+
+        @media (max-width: 1024px) {
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .arch-board {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                min-width: 0;
+                min-height: auto;
+            }
+
+            .arch-lines {
+                display: none;
+            }
+
+            .n-aliyun,
+            .n-baota,
+            .n-astrbot,
+            .n-ding,
+            .n-feishu,
+            .n-napcat,
+            .n-qq,
+            .n-wechat,
+            .n-win,
+            .n-astr-local,
+            .n-llbot {
+                grid-column: auto;
+                grid-row: auto;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .tech-article {
+                padding: 1.1rem;
+            }
+
+            .address-prefix {
+                font-size: 0.8rem;
+                padding: 0.5rem 0.55rem;
+            }
+
+            .address-btn {
+                padding: 0.5rem 0.72rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar"></nav>
 
     <div class="page-wrapper">
         <div class="page-header">
-            <h1><i class="fas fa-robot"></i> QQ-bot</h1>
-            <p>QQ 机器人项目</p>
+            <h1><i class="fas fa-robot"></i> QQ-bot </h1>
         </div>
+
         <section class="section">
             <div class="container">
-                <div class="placeholder-box fade-in">
-                    <i class="fas fa-folder-open"></i>
-                    <h3>内容建设中</h3>
-                    <p>在此页面或文件夹中添加 QQ-bot 项目的文档</p>
-                </div>
+                <article class="tech-article fade-in">
+                    <h2 class="zone-title">从 0 到 1：环境搭建与配置流程</h2>
+
+                    <h3 class="topic-title">一、概要</h3>
+                    <div class="summary-grid">
+                        <div class="summary-card">
+                            <h4>本地部署（Windows）</h4>
+                            <ul>
+                                <li>Astrbot 在本地运行，使用 start.bat 一键启动。</li>
+                                <li>LLbot 使用 LLbot Desktop，WebUI 端口为 3080。</li>
+                                <li>作用：先验证插件与命令，再同步到服务器。</li>
+                            </ul>
+                        </div>
+                        <div class="summary-card">
+                            <h4>服务器部署（Linux）</h4>
+                            <ul>
+                                <li>Astrbot 运行在 Docker 容器内。</li>
+                                <li>NapCat 运行在宿主机上，负责 QQ 协议链路。</li>
+                                <li>作用：无人值守、重启可恢复、长期在线。</li>
+                            </ul>
+                        </div>
+                        <div class="summary-card">
+                            <h4>消息平台</h4>
+                            <ul>
+                                <li>钉钉</li>
+                                <li>飞书</li>
+                                <li>QQ</li>
+                                <li>个人微信</li>
+                            </ul>
+                        </div>
+                        <div class="summary-card">
+                            <h4>说明</h4>
+                            <ul>
+                                <li>新人优惠存在，但活动经常变化，以官网实时页面为准。</li>
+                                <li>文中公网地址统一脱敏为 [公网IP]。</li>
+                                <li>端口示例：6185、6199、8888、6099、3080。</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 class="topic-title">二、要素关联图（平台如何启动并串联）</h3>
+                    <div class="arch-map">
+                        <svg id="arch-lines" class="arch-lines"></svg>
+                        <div id="arch-board" class="arch-board">
+                            <a id="n-aliyun" class="arch-node node-server n-aliyun" href="https://account.aliyun.com/" target="_blank" rel="noopener noreferrer">
+                                <span class="node-title">阿里云 ECS</span>
+                                <span class="node-desc">安全组 / 外网入口</span>
+                            </a>
+
+                            <a id="n-baota" class="arch-node node-server n-baota" href="https://www.bt.cn/new/product_linux.html" target="_blank" rel="noopener noreferrer">
+                                <span class="node-title">宝塔面板 :8888</span>
+                                <span class="node-desc">Docker 管理入口</span>
+                            </a>
+
+                            <a id="n-astrbot" class="arch-node node-server n-astrbot" href="https://docs.astrbot.app/" target="_blank" rel="noopener noreferrer">
+                                <span class="node-title">Astrbot Docker</span>
+                                <span class="node-desc">WebUI :6185 / 反向WS接听 :6199</span>
+                            </a>
+
+                            <div id="n-ding" class="arch-node node-im n-ding">
+                                <span class="node-title">钉钉</span>
+                                <span class="node-desc">平台消息入口</span>
+                            </div>
+
+                            <div id="n-feishu" class="arch-node node-im n-feishu">
+                                <span class="node-title">飞书</span>
+                                <span class="node-desc">平台消息入口</span>
+                            </div>
+
+                            <a id="n-napcat" class="arch-node node-bridge n-napcat" href="https://napneko.github.io/" target="_blank" rel="noopener noreferrer">
+                                <span class="node-title">NapCat 宿主机</span>
+                                <span class="node-desc">WebUI :6099 / WS 拨号端</span>
+                            </a>
+
+                            <div id="n-qq" class="arch-node node-im n-qq">
+                                <span class="node-title">QQ</span>
+                                <span class="node-desc">协议链路</span>
+                            </div>
+
+                            <div id="n-wechat" class="arch-node node-im n-wechat">
+                                <span class="node-title">个人微信</span>
+                                <span class="node-desc">平台消息入口</span>
+                            </div>
+
+                            <div id="n-win" class="arch-node node-local n-win">
+                                <span class="node-title">Windows 本地环境</span>
+                                <span class="node-desc">调试与验证</span>
+                            </div>
+
+                            <div id="n-astr-local" class="arch-node node-local n-astr-local">
+                                <span class="node-title">Astrbot 本地</span>
+                                <span class="node-desc">start.bat 一键启动</span>
+                            </div>
+
+                            <a id="n-llbot" class="arch-node node-local n-llbot" href="https://luckylillia.com/" target="_blank" rel="noopener noreferrer">
+                                <span class="node-title">LLbot Desktop :3080</span>
+                                <span class="node-desc">本地控制台</span>
+                            </a>
+                        </div>
+                    </div>
+                    <p class="map-note">图中节点代表组件，连线表示消息或配置流向，虚线表示本地调试结果同步到服务器。</p>
+
+                    <div class="table-wrap">
+                        <table class="arch-table">
+                            <thead>
+                                <tr>
+                                    <th>组件</th>
+                                    <th>部署位置</th>
+                                    <th>端口</th>
+                                    <th>角色</th>
+                                    <th>说明</th>
+                                    <th>文档</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>阿里云服务器</td>
+                                    <td>云主机</td>
+                                    <td>-</td>
+                                    <td>网络边界</td>
+                                    <td>需放行面板和通信端口</td>
+                                    <td><a href="https://account.aliyun.com/" target="_blank">阿里云控制台</a></td>
+                                </tr>
+                                <tr>
+                                    <td>宝塔面板</td>
+                                    <td>宿主机</td>
+                                    <td>8888</td>
+                                    <td>WebUI</td>
+                                    <td>用于 Docker 与服务管理，Linux 版优先</td>
+                                    <td><a href="https://www.bt.cn/new/product_linux.html" target="_blank">Linux 版</a> / <a href="https://www.bt.cn/new/product_windows.html" target="_blank">Windows 版</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Astrbot</td>
+                                    <td>Docker</td>
+                                    <td>6185 / 6199</td>
+                                    <td>WebUI + 反向WS接听</td>
+                                    <td>主控、模型、插件调度</td>
+                                    <td><a href="https://docs.astrbot.app/" target="_blank">Astrbot 文档</a></td>
+                                </tr>
+                                <tr>
+                                    <td>NapCat</td>
+                                    <td>宿主机</td>
+                                    <td>6099</td>
+                                    <td>WebUI + WS 客户端</td>
+                                    <td>QQ 协议适配与在线状态</td>
+                                    <td><a href="https://napneko.github.io/" target="_blank">NapCat 文档</a></td>
+                                </tr>
+                                <tr>
+                                    <td>LLbot</td>
+                                    <td>本地 Windows</td>
+                                    <td>3080</td>
+                                    <td>WebUI</td>
+                                    <td>本地调试与桌面化操作</td>
+                                    <td><a href="https://luckylillia.com/" target="_blank">LLbot 文档</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="search-lab">
+                        <p class="muted">地址栏检索：输入端口后先显示解释，再跳转官方文档。</p>
+                        <form id="doc-search-form" class="address-bar">
+                            <span class="address-prefix">http://[公网IP]:</span>
+                            <input id="port-input" class="address-port" type="text" inputmode="numeric" maxlength="5" placeholder="例如 6185 / 8888 / 6099 / 3080">
+                            <button class="address-btn" type="submit">搜索</button>
+                        </form>
+                        <div class="port-links">
+                            <span class="port-chip">8888 -> 宝塔 Linux 文档</span>
+                            <span class="port-chip">6185 -> Astrbot 文档</span>
+                            <span class="port-chip">6199 -> Astrbot 文档（反向WS）</span>
+                            <span class="port-chip">6099 -> NapCat 文档</span>
+                            <span class="port-chip">3080 -> LLbot 文档</span>
+                        </div>
+                        <details class="ip-check">
+                            <summary>[判断IP是否合法]</summary>
+                            <div class="code-block">static bool is_ipaddr_valid(const char* const ipstr)
+{
+	int dot_count = 0;
+	for (int i = 0; ipstr[i]; i++) {
+		if (!(ipstr[i] == '.' || (ipstr[i] >= '0' && ipstr[i] <= '9')))
+			return false; // 包含非法字符
+		if (ipstr[i] == '.')
+			dot_count++;
+	}
+	if (dot_count != 3)
+		return false; // 点的数量不等于3，非法，先检查点的数量，避免数组越界
+
+	int dot_index[3] = { 0 };
+	for (int i = 0, j = 0; ipstr[i]; i++) {
+		if (ipstr[i] == '.') {
+			dot_index[j] = i;
+			j++;
+		}
+	}
+	if (dot_index[0] == 0 || dot_index[2] == (int)strlen(ipstr) - 1)
+		return false; // 点在开头或结尾，也非法
+	for (int i = 0; i < 2; i++) {
+		if (dot_index[i + 1] - dot_index[i] == 1)
+			return false; // 说明有连续的点，比如192..168.1.1，也非法
+	}
+
+	int ip_number[4] = { 0 };
+	ip_number[0] = atoi(ipstr); // 从开头直到第一个点停止读取
+	for (int i = 0; i < 3; i++)
+		ip_number[i + 1] = atoi(&ipstr[dot_index[i] + 1]); // 每一段从点直到碰到下一个点停止读取
+	for (int i = 0; i < 4; i++) {
+		if (ip_number[i] < 0 || ip_number[i] > 255)
+			return false;//数字超出合法范围，则非法
+	}
+
+	return true;
+}</div>
+                        </details>
+                        <div id="search-feedback" class="feedback">等待输入端口。</div>
+                    </div>
+
+                    <h3 class="topic-title">三、具体流程与问题展开（服务器为主）</h3>
+
+                    <div class="issue-card">
+                        <h4>步骤1：服务器选型与系统迁移（Windows -> Ubuntu）</h4>
+                        <p><strong>现象：</strong> 默认系统为 Windows Server，部署容器和依赖时效率低。</p>
+                        <p><strong>处理：</strong> 直接用镜像重装 Linux，后续统一在 SSH 下操作；VNC 仅作为应急入口，不作为常规方式。</p>
+                        <p><strong>补充：</strong> 新人优惠有活动窗口，具体套餐按阿里云实时页面为准。</p>
+                        <div class="cmd-inline">
+                            <span class="cmd-chip">ssh-keygen -t ed25519</span>
+                            <span class="cmd-chip">ssh-copy-id [user]@[公网IP]</span>
+                            <span class="cmd-chip">ssh [user]@[公网IP]</span>
+                        </div>
+                    </div>
+
+                    <div class="issue-card">
+                        <h4>步骤2：宝塔面板安装与容器入口建立</h4>
+                        <p><strong>现象：</strong> Windows 版宝塔可用信息少，问题定位成本高。</p>
+                        <p><strong>处理：</strong> 服务器统一使用 Linux 版宝塔，依托 Docker 管理 Astrbot 容器。</p>
+                        <div class="cmd-inline">
+                            <span class="cmd-chip">docker ps</span>
+                            <span class="cmd-chip">docker logs [容器名]</span>
+                            <span class="cmd-chip">docker logs -f [容器名]</span>
+                        </div>
+                    </div>
+
+                    <div class="issue-card">
+                        <h4>步骤3：实例重启后的监听恢复（NapCat TUI 先打通）</h4>
+                        <p><strong>现象：</strong> 重启实例后，协议端恢复慢，常误判为配置文件损坏。</p>
+                        <p><strong>处理：</strong> 先跑 NapCat TUI 监听，确认协议链路正常后再回到 WebUI 和 Astrbot 对接。</p>
+                        <div class="cmd-inline">
+                            <span class="cmd-chip">./napcat.sh -q [QQ号]</span>
+                            <span class="cmd-chip">journalctl -u napcat -f</span>
+                        </div>
+                    </div>
+
+                    <div class="issue-card">
+                        <h4>步骤4：Docker 环境变量与 6199/6200 端口冲突</h4>
+                        <p><strong>现象：</strong> Astrbot 与 NapCat 连接失败，6199 不可达或经常冲突。</p>
+                        <p><strong>原因：</strong> 端口映射、容器监听地址、安全组三方不一致；有时只是 docker-proxy 有响应，容器服务本身未监听。</p>
+                        <p><strong>处理：</strong> 确认容器内监听到 0.0.0.0；必要时将通信端口迁移到 6200，并同步修改双方配置和安全组。</p>
+                        <div class="cmd-inline">
+                            <span class="cmd-chip">docker exec -it [容器ID] netstat -tulnp</span>
+                            <span class="cmd-chip">netstat -tunlp | grep 6199</span>
+                            <span class="cmd-chip">netstat -tunlp | grep 6200</span>
+                        </div>
+                    </div>
+
+                    <div class="issue-card">
+                        <h4>步骤5：NapCat WebUI 状态监控（6099）</h4>
+                        <p><strong>现象：</strong> 机器人偶发离线，但终端日志不一定直接提示根因。</p>
+                        <p><strong>处理：</strong> 通过 6099 WebUI 查看登录态、掉线重连、二维码与 Token 状态。</p>
+                        <div class="cmd-inline">
+                            <span class="cmd-chip">netstat -tunlp | grep 6099</span>
+                            <span class="cmd-chip">journalctl -u napcat -f</span>
+                        </div>
+                    </div>
+
+                    <div class="issue-card">
+                        <h4>步骤6：Linux 自启动守护（systemd）</h4>
+                        <p><strong>现象：</strong> SSH 断开或服务器重启后，NapCat 进程退出。</p>
+                        <p><strong>处理：</strong> 使用 systemd，设置 Restart=always 与开机自启。</p>
+                        <div class="cmd-inline">
+                            <span class="cmd-chip">systemctl daemon-reload</span>
+                            <span class="cmd-chip">systemctl enable napcat</span>
+                            <span class="cmd-chip">systemctl start napcat</span>
+                            <span class="cmd-chip">systemctl status napcat</span>
+                        </div>
+                        <div class="code-block">[Unit]
+Description=NapCat QQ Bot Service
+After=network.target
+
+[Service]
+WorkingDirectory=/root/Napcat/opt/QQ/
+ExecStart=/usr/bin/xvfb-run -a /root/Napcat/opt/QQ/qq --no-sandbox 
+Restart=always
+RestartSec=5
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=napcat
+User=root
+
+[Install]
+WantedBy=multi-user.target</div>
+                    </div>
+
+                    <details class="qa">
+                        <summary>扩展难点A：后台运行后看不到二维码或 Token</summary>
+                        <div class="qa-body">
+                            <p><strong>处理：</strong> 用 journalctl 追踪服务输出；同时检查 NapCat 配置目录中的 WebUI 配置。</p>
+                            <div class="cmd-inline">
+                                <span class="cmd-chip">journalctl -u napcat -f</span>
+                                <span class="cmd-chip">cat /root/Napcat/opt/QQ/resources/app/app_launcher/napcat/config/webui.json</span>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="qa">
+                        <summary>扩展难点B：容器里没有 vi/nano，配置改不动</summary>
+                        <div class="qa-body">
+                            <p><strong>处理：</strong> 使用 Here Document 直接写文件；Astrbot 密码字段使用 32 位小写 MD5，修改后重启容器。</p>
+                            <div class="cmd-inline">
+                                <span class="cmd-chip">cat &lt;&lt;EOF &gt; cmd_config.json</span>
+                                <span class="cmd-chip">docker restart [容器名]</span>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="qa">
+                        <summary>扩展难点C：插件依赖缺失（例如 Playwright）</summary>
+                        <div class="qa-body">
+                            <p><strong>处理：</strong> 依赖必须安装在容器内部，不是宿主机。</p>
+                            <div class="cmd-inline">
+                                <span class="cmd-chip">docker exec -it [容器名] /bin/bash</span>
+                                <span class="cmd-chip">pip install -r requirements.txt</span>
+                                <span class="cmd-chip">playwright install --with-deps chromium</span>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="qa">
+                        <summary>扩展难点D：OneBot 正向/反向角色混淆</summary>
+                        <div class="qa-body">
+                            <p><strong>处理：</strong> 建议 Astrbot 作为反向 WS 服务端，NapCat 作为客户端拨号端。Token 和路径必须一致；必要时先用根路径做最小验证。</p>
+                            <div class="cmd-inline">
+                                <span class="cmd-chip">tail -f /root/.config/QQ/NapCat/logs/[日志文件]</span>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="qa">
+                        <summary>扩展难点E：服务器重启后面板和 Bot 全部失联</summary>
+                        <div class="qa-body">
+                            <p><strong>处理：</strong> 先检查容器重启策略，再查宝塔入口与关键服务状态。</p>
+                            <div class="cmd-inline">
+                                <span class="cmd-chip">docker ps -a</span>
+                                <span class="cmd-chip">bt 14</span>
+                                <span class="cmd-chip">docker start [容器名]</span>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="qa">
+                        <summary>扩展难点F：进程残留导致重复连接或端口占用</summary>
+                        <div class="qa-body">
+                            <p><strong>处理：</strong> 清理残留进程后再重启服务，避免旧连接干扰。</p>
+                            <div class="cmd-inline">
+                                <span class="cmd-chip">ps -ef | grep python</span>
+                                <span class="cmd-chip">pkill -9 qq</span>
+                                <span class="cmd-chip">pkill -9 napcat</span>
+                                <span class="cmd-chip">pkill -9 Xvfb</span>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="qa">
+                        <summary>扩展难点G：文件权限、路径与编辑问题（容器内/宿主机）</summary>
+                        <div class="qa-body">
+                            <p><strong>处理：</strong> 先确认当前目录，再确认脚本可执行权限；需要替换配置时优先用可审计命令。</p>
+                            <div class="cmd-inline">
+                                <span class="cmd-chip">cd [路径]</span>
+                                <span class="cmd-chip">ls</span>
+                                <span class="cmd-chip">ls -F</span>
+                                <span class="cmd-chip">chmod +x [文件名]</span>
+                                <span class="cmd-chip">cat [文件名]</span>
+                                <span class="cmd-chip">nano [文件名]</span>
+                                <span class="cmd-chip">vi [文件名]</span>
+                                <span class="cmd-chip">sed -i 's/旧/新/g' [文件名]</span>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="qa">
+                        <summary>扩展难点H：系统依赖、会话管理与滚动日志</summary>
+                        <div class="qa-body">
+                            <p><strong>处理：</strong> 先补系统依赖再启动协议端；调试期可用 screen 看运行态，正式环境使用 systemd。</p>
+                            <div class="cmd-inline">
+                                <span class="cmd-chip">sudo apt-get update</span>
+                                <span class="cmd-chip">sudo apt-get install -y [包名]</span>
+                                <span class="cmd-chip">screen -ls</span>
+                                <span class="cmd-chip">screen -r [会话名]</span>
+                                <span class="cmd-chip">screen -dmS [会话名] [命令]</span>
+                                <span class="cmd-chip">journalctl -u napcat -f</span>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="qa">
+                        <summary>扩展难点I：Docker 容器生命周期管理</summary>
+                        <div class="qa-body">
+                            <p><strong>处理：</strong> 先确认现有容器状态，再决定重启、删除重建或新增运行。</p>
+                            <div class="cmd-inline">
+                                <span class="cmd-chip">docker ps</span>
+                                <span class="cmd-chip">docker logs [容器名]</span>
+                                <span class="cmd-chip">docker logs -f [容器名]</span>
+                                <span class="cmd-chip">docker rm -f [容器名]</span>
+                                <span class="cmd-chip">docker start [容器名]</span>
+                                <span class="cmd-chip">docker run [参数] [镜像名]</span>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="qa">
+                        <summary>扩展难点J：NapCat 启动模式选择（图形模拟 vs Shell 模式）</summary>
+                        <div class="qa-body">
+                            <p><strong>处理：</strong> 服务器环境优先使用 Shell 模式；图形模拟仅在必要时使用，避免额外资源占用。</p>
+                            <div class="cmd-inline">
+                                <span class="cmd-chip">./napcat.sh -q [QQ号]</span>
+                                <span class="cmd-chip">xvfb-run -a [命令]</span>
+                                <span class="cmd-chip">node ./main.js -q [QQ号]</span>
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="qa">
+                        <summary>扩展难点K：钉钉 401 的细分排查（发布、IP、并发、时钟）</summary>
+                        <div class="qa-body">
+                            <p><strong>排查顺序：</strong> 先确认应用发布版本，再确认真实出口 IP 白名单，再检查是否有旧进程抢占连接，最后核对系统时间。</p>
+                            <div class="cmd-inline">
+                                <span class="cmd-chip">curl ifconfig.me</span>
+                                <span class="cmd-chip">timedatectl</span>
+                                <span class="cmd-chip">ps -ef | grep python</span>
+                                <span class="cmd-chip">kill -9 [PID]</span>
+                            </div>
+                        </div>
+                    </details>
+
+                    <h2 class="zone-title">从 1 到 100：跑通后的扩展路线</h2>
+
+                    <h3 class="topic-title">1) 模型与能力接入</h3>
+                    <p>
+                        建议先接一个模型做最小闭环，再做多模型路由。上线顺序：回复正确性 -> 上下文连续性 -> 限流与降级。
+                    </p>
+
+                    <h3 class="topic-title">2) 插件模板（预留）</h3>
+                    <table class="plugin-table">
+                        <thead>
+                            <tr>
+                                <th>插件名称</th>
+                                <th>功能简介</th>
+                                <th>触发命令</th>
+                                <th>依赖/环境</th>
+                                <th>常见问题与处理</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>示例：网页分析</td>
+                                <td>抓取并提炼网页信息</td>
+                                <td>\web [链接]</td>
+                                <td>容器内 playwright + chromium</td>
+                                <td>依赖缺失时进入容器补装</td>
+                            </tr>
+                            <tr>
+                                <td>待补充</td>
+                                <td>待补充</td>
+                                <td>待补充</td>
+                                <td>待补充</td>
+                                <td>待补充</td>
+                            </tr>
+                            <tr>
+                                <td>待补充</td>
+                                <td>待补充</td>
+                                <td>待补充</td>
+                                <td>待补充</td>
+                                <td>待补充</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3 class="topic-title">3) 钉钉 Stream 401 排查（接入时高频问题）</h3>
+                    <div class="issue-card" style="margin-top: 0.4rem;">
+                        <p><strong>检查点：</strong> 版本是否已发布、IP 白名单是否为真实出口 IP、是否存在旧进程占用连接、重连是否过快。</p>
+                        <div class="cmd-inline">
+                            <span class="cmd-chip">curl ifconfig.me</span>
+                            <span class="cmd-chip">timedatectl</span>
+                            <span class="cmd-chip">ps -ef | grep python</span>
+                            <span class="cmd-chip">kill -9 [PID]</span>
+                        </div>
+                    </div>
+                </article>
             </div>
         </section>
     </div>
 
     <footer class="footer"></footer>
+
     <script src="../../../js/common.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const portMap = {
+                "8888": { url: "https://www.bt.cn/new/product_linux.html", desc: "宝塔 Linux 文档" },
+                "6185": { url: "https://docs.astrbot.app/", desc: "Astrbot 文档（WebUI）" },
+                "6199": { url: "https://docs.astrbot.app/", desc: "Astrbot 文档（反向WS）" },
+                "6099": { url: "https://napneko.github.io/", desc: "NapCat 文档" },
+                "3080": { url: "https://luckylillia.com/", desc: "LLbot 文档" }
+            };
+
+            const form = document.getElementById("doc-search-form");
+            const input = document.getElementById("port-input");
+            const feedback = document.getElementById("search-feedback");
+
+            form.addEventListener("submit", function(event) {
+                event.preventDefault();
+                const port = input.value.trim();
+
+                if (!/^\d{2,5}$/.test(port)) {
+                    feedback.classList.add("error");
+                    feedback.textContent = "请输入合法端口号（2-5位数字）。";
+                    return;
+                }
+
+                const target = portMap[port];
+                if (!target) {
+                    feedback.classList.add("error");
+                    feedback.textContent = "未登记端口：" + port + "。请检查映射或安全组配置。";
+                    return;
+                }
+
+                feedback.classList.remove("error");
+                feedback.textContent = "端口 " + port + " 对应：" + target.desc + "。0.8 秒后跳转。";
+                setTimeout(function() {
+                    window.open(target.url, "_blank", "noopener,noreferrer");
+                }, 800);
+            });
+
+            const board = document.getElementById("arch-board");
+            const svg = document.getElementById("arch-lines");
+            const map = document.querySelector(".arch-map");
+
+            if (!board || !svg || !map) {
+                return;
+            }
+
+            const relations = [
+                ["n-aliyun", "n-baota", "strong"],
+                ["n-baota", "n-astrbot", "strong"],
+                ["n-astrbot", "n-ding", "soft"],
+                ["n-astrbot", "n-feishu", "soft"],
+                ["n-napcat", "n-qq", "strong"],
+                ["n-napcat", "n-wechat", "strong"],
+                ["n-napcat", "n-astrbot", "strong"],
+                ["n-win", "n-astr-local", "soft"],
+                ["n-astr-local", "n-llbot", "soft"],
+                ["n-astr-local", "n-astrbot", "sync"]
+            ];
+
+            const NS = "http://www.w3.org/2000/svg";
+
+            function nodeInfo(id) {
+                const el = document.getElementById(id);
+                if (!el) {
+                    return null;
+                }
+                const nodeRect = el.getBoundingClientRect();
+                const baseRect = svg.getBoundingClientRect();
+                return {
+                    x: nodeRect.left - baseRect.left + nodeRect.width / 2,
+                    y: nodeRect.top - baseRect.top + nodeRect.height / 2,
+                    left: nodeRect.left - baseRect.left,
+                    right: nodeRect.left - baseRect.left + nodeRect.width,
+                    top: nodeRect.top - baseRect.top,
+                    bottom: nodeRect.top - baseRect.top + nodeRect.height,
+                    width: nodeRect.width,
+                    height: nodeRect.height
+                };
+            }
+
+            function anchor(source, target) {
+                const dx = target.x - source.x;
+                const dy = target.y - source.y;
+                const horizontal = Math.abs(dx) * source.height > Math.abs(dy) * source.width * 1.45;
+
+                if (horizontal) {
+                    return {
+                        x: dx >= 0 ? source.right : source.left,
+                        y: source.y
+                    };
+                }
+
+                return {
+                    x: source.x,
+                    y: dy >= 0 ? source.bottom : source.top
+                };
+            }
+
+            function bezierPath(start, end) {
+                const distanceY = Math.abs(end.y - start.y);
+                const lift = Math.max(18, Math.min(70, distanceY * 0.55));
+                const c1x = start.x;
+                const c1y = start.y + (end.y >= start.y ? lift : -lift);
+                const c2x = end.x;
+                const c2y = end.y - (end.y >= start.y ? lift : -lift);
+                return "M " + start.x + " " + start.y + " C " + c1x + " " + c1y + ", " + c2x + " " + c2y + ", " + end.x + " " + end.y;
+            }
+
+            function drawLines() {
+                const width = map.scrollWidth;
+                const height = map.scrollHeight;
+                svg.setAttribute("viewBox", "0 0 " + width + " " + height);
+                svg.setAttribute("width", width);
+                svg.setAttribute("height", height);
+                svg.innerHTML = "";
+
+                const defs = document.createElementNS(NS, "defs");
+                const marker = document.createElementNS(NS, "marker");
+                marker.setAttribute("id", "arrow");
+                marker.setAttribute("viewBox", "0 0 10 10");
+                marker.setAttribute("refX", "8");
+                marker.setAttribute("refY", "5");
+                marker.setAttribute("markerWidth", "6");
+                marker.setAttribute("markerHeight", "6");
+                marker.setAttribute("orient", "auto-start-reverse");
+
+                const markerPath = document.createElementNS(NS, "path");
+                markerPath.setAttribute("d", "M 0 2 L 8 5 L 0 8 z");
+                markerPath.setAttribute("fill", "#87a1bb");
+                marker.appendChild(markerPath);
+                defs.appendChild(marker);
+                svg.appendChild(defs);
+
+                relations.forEach(function(item) {
+                    const from = nodeInfo(item[0]);
+                    const to = nodeInfo(item[1]);
+                    const level = item[2];
+
+                    if (!from || !to) {
+                        return;
+                    }
+
+                    const start = anchor(from, to);
+                    const end = anchor(to, from);
+
+                    const p = document.createElementNS(NS, "path");
+                    p.setAttribute("d", bezierPath(start, end));
+                    p.setAttribute("class", level);
+                    p.setAttribute("marker-end", "url(#arrow)");
+                    svg.appendChild(p);
+                });
+            }
+
+            function debounce(fn, wait) {
+                let timer = null;
+                return function() {
+                    clearTimeout(timer);
+                    timer = setTimeout(fn, wait);
+                };
+            }
+
+            setTimeout(drawLines, 60);
+            window.addEventListener("resize", debounce(drawLines, 120));
+        });
+    </script>
 </body>
 </html>
