@@ -778,14 +778,21 @@
                     </div>
 
                     <h3 class="topic-title"> 连通 QQ 时遇到的问题及解决方案</h3>
-                    <p> 容易出现的问题是 Napcat 和 Astrbot 都成功安装但是消息无法连通，这里会有很多种可能原因（<strong>端口占用/没正确设置反向WS/ws路径不一致/LinuxQQ没登录/QQ登录失败</strong>）需要逐一排查，一定要结合日志具体分析，以端口测试为例: </p>
+                    <p>NapCat 和 AstrBot 都装好了，但消息就是不通。这个问题的原因可能出在链路的任何一环，需要逐一排查，一定要结合日志具体分析。</p>
                     <div class="issue-card">
-                        <h4>Docker Proxy </h4>
-                        <p>在宿主机上测试端口连通性，<code>telnet 127.0.0.1 6199</code> 显示 Connected。但 NapCat 日志里永远是「未启动」。</p>
+                        <h4>排查过程</h4>
+                        <p><strong>1.确认端口是否真正监听。</strong>在宿主机上测试端口连通性，<code>telnet 127.0.0.1 6199</code> 显示 Connected，但 NapCat 日志里永远是「未启动」。宿主机的 docker-proxy 就像个前台，即便后面容器里没人也会先把电话接起来，但数据转发到容器内部后石沉大海。钻进容器里验证：</p>
                         <div class="cmd-inline">
                             <span class="cmd-chip">docker exec -it astrbot netstat -tulnp | grep 6199</span>
                         </div>
-                        <p>返回为空，证明AstrBot 容器内部的 OneBot 服务根本没开，最终利用安装 Napcat 时提供的 token 登录 WebUI 界面成功连通。</p>
+                        <p>返回为空，实锤：AstrBot 容器内部的 OneBot 服务根本没开。</p>
+                        <p><strong>2.检查连接模式——HTTP vs WebSocket。</strong>去 AstrBot 网页端检查 OneBot11 的连接模式，如果被设成了「正向 HTTP」而不是「反向 WebSocket」，AstrBot 在 6199 端口启动的就是 HTTP 服务，而 NapCat 发起的是 WebSocket 握手请求，协议不匹配，连接自然被拒绝。确认 AstrBot 侧设为「反向 WebSocket 服务端」（监听模式），NapCat 保持客户端去连它。</p>
+                        <p><strong>3.检查 WebSocket 路径是否一致。</strong>NapCat 配置里写的 <code>ws://172.17.0.1:6199/ws</code>，但 AstrBot 那边的路径可能没配 <code>/ws</code> 后缀。URL 路径必须严格一致，否则握手阶段直接 404。最终两边都改成根路径 <code>ws://172.17.0.1:6199/</code>（去掉 /ws），连接才通。还有一个附带的坑：AstrBot 在 Docker 容器内不能用 <code>127.0.0.1</code> 访问宿主机上的 NapCat，得用 Docker 网桥地址 <code>172.17.0.1</code>（127.0.0.1 在容器眼里是容器自己，不是宿主机）。</p>
+                        <p><strong>4.检查 Linux QQ 是否已登录。</strong>以上三层都排除后，NapCat 日志里依然是「未启动」。直到看到这一行：<code>快速登录错误：你的用户身份已失效，请重新登录。</code>在 QQ 扫码成功之前，NapCat 的 WebSocket 服务<strong>不会启动</strong>，它不会报错，就安静地显示「未启动」，让你以为是配置问题——QQ 没登录，后面的链路全都不通。扫码登录后，日志里瞬间出现 <code>[info] 登录成功</code> 和 <code>[info] [OneBot11] [WS] 反向 WebSocket 连接成功</code>。教训：<strong>先扫码登录，再排查配置。</strong>顺序反了就是在浪费时间。</p>
+                    </div>
+                    <div class="issue-card">
+                        <h4>排查技巧</h4>
+                        <p>NapCat 的详细日志不在屏幕输出里，真正的错误藏在 <code>/root/.config/QQ/NapCat/logs/</code> 目录下的日志文件中，用 <code>tail -f</code> 实时追踪才能看到 WebSocket 握手失败的具体原因（403 Token 错、404 路径错、ECONNREFUSED 端口没开）。最终利用安装 NapCat 时提供的 token 登录 6099 WebUI 界面成功连通。</p>
                     </div>
 
 
