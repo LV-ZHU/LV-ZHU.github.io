@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QQ-bot | Projects | LV-ZHU</title>
+    <title>LLM聊天机器人 | Projects | LV-ZHU</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,13 +21,15 @@
         }
 
         .zone-title {
-            margin-top: 1.5rem;
+            margin-top: 2rem;
             margin-bottom: 0.8rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid #dce6f2;
             font-size: 1.42rem;
             color: #0f2740;
         }
+
+        .zone-title:first-child { margin-top: 0; }
 
         .topic-title {
             margin-top: 1.15rem;
@@ -40,6 +42,29 @@
             color: #5e6c7a;
             font-size: 0.95rem;
         }
+
+        .platforms-dock {
+            display: flex;
+            gap: 0.65rem;
+            margin: 0.85rem 0;
+            flex-wrap: wrap;
+        }
+
+        .dock-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.45rem 0.85rem;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 50px;
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: #495057;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .dock-item i { font-size: 1.1rem; }
 
         .summary-grid {
             display: grid;
@@ -71,149 +96,133 @@
         }
 
         .arch-map {
-            position: relative;
             margin-top: 0.85rem;
-            padding: 1.2rem 1rem;
+            padding: 1.5rem 1.2rem 2rem;
             border-radius: 18px;
-            border: 1px solid #dce6f1;
-            background: linear-gradient(180deg, #f8fbff 0%, #f2f7fd 100%);
-            box-shadow: 0 16px 30px -20px rgba(15, 23, 42, 0.2);
-            overflow-x: auto;
-            overflow-y: hidden;
-        }
-
-        .arch-map::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-image: radial-gradient(#d0dbea 0.9px, transparent 0.9px);
-            background-size: 22px 22px;
-            opacity: 0.8;
-            pointer-events: none;
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            box-shadow: 0 14px 28px -18px rgba(15, 23, 42, 0.12);
         }
 
         .arch-board {
-            position: relative;
-            z-index: 2;
-            display: grid;
-            grid-template-columns: repeat(14, minmax(0, 1fr));
-            gap: 1.2rem 0.55rem;
-            min-width: 1120px;
-            min-height: 520px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        /* Section labels */
+        .arch-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .arch-section-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        /* Flow row */
+        .arch-flow {
+            display: flex;
             align-items: center;
+            gap: 0.4rem;
+            flex-wrap: wrap;
         }
 
-        .arch-lines {
-            position: absolute;
-            z-index: 1;
-            inset: 0;
-            pointer-events: none;
+        .arch-arrow {
+            color: #9ca3af;
+            font-size: 1rem;
+            flex-shrink: 0;
         }
 
-        .arch-lines path {
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            stroke-width: 2.1;
-            animation: lineIn 700ms ease both;
-        }
-
-        .arch-lines .strong {
-            stroke: #5d7fa3;
-        }
-
-        .arch-lines .sync {
-            stroke: #87a3bf;
-            stroke-dasharray: 7 6;
-            stroke-width: 1.8;
-        }
-
-        .arch-lines .soft {
-            stroke: #9cb2c9;
-            stroke-width: 1.8;
-        }
-
-        @keyframes lineIn {
-            from {
-                opacity: 0;
-                stroke-dasharray: 800;
-                stroke-dashoffset: 800;
-            }
-            to {
-                opacity: 1;
-                stroke-dasharray: 0;
-                stroke-dashoffset: 0;
-            }
-        }
-
+        /* Node base */
         .arch-node {
             display: flex;
             flex-direction: column;
+            align-items: center;
             justify-content: center;
-            min-height: 82px;
-            padding: 0.62rem 0.8rem;
-            border-radius: 14px;
-            border: 1px solid #d4e0ed;
-            background: rgba(255, 255, 255, 0.96);
-            box-shadow: 0 7px 16px -10px rgba(15, 23, 42, 0.2);
+            padding: 0.5rem 0.9rem;
+            border-radius: 8px;
+            border: 1.5px solid #d1d5db;
+            background: #ffffff;
             text-decoration: none;
-            transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+            transition: transform 0.2s, box-shadow 0.2s;
+            min-width: 80px;
+            text-align: center;
         }
 
         .arch-node:hover {
             transform: translateY(-2px);
-            border-color: #b7cce2;
-            box-shadow: 0 12px 22px -12px rgba(15, 23, 42, 0.24);
+            box-shadow: 0 4px 12px -6px rgba(15, 23, 42, 0.12);
         }
 
         .arch-node .node-title {
-            color: #1f3f5f;
-            font-size: 0.98rem;
-            font-weight: 700;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #374151;
         }
 
         .arch-node .node-desc {
-            color: #56708a;
-            font-size: 0.84rem;
-            margin-top: 0.15rem;
+            font-size: 0.7rem;
+            color: #6b7280;
+            margin-top: 0.1rem;
         }
 
-        .node-server {
-            background: linear-gradient(180deg, #f8fcff 0%, #f1f7ff 100%);
+        .node-hub { background: #f3f4f6; border-color: #9ca3af; }
+        .node-server { background: #f9fafb; }
+        .node-im { background: #f9fafb; }
+        .node-local { background: #f9fafb; }
+        .node-adapter { border-style: dashed; border-color: #9ca3af; }
+        .node-adapter .node-desc { font-size: 0.65rem; }
+
+        .arch-platforms {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            padding-top: 0.5rem;
+            margin-top: 0.5rem;
         }
 
-        .node-bridge {
-            background: linear-gradient(180deg, #f6fff9 0%, #edf9f2 100%);
-            border-color: #cbe8d8;
+        .arch-platforms .arch-node {
+            min-width: 75px;
+            padding: 0.4rem 0.7rem;
         }
 
-        .node-local {
-            background: linear-gradient(180deg, #faf9ff 0%, #f4f1ff 100%);
-            border-color: #ddd3ef;
+        .arch-platforms-label {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
         }
 
-        .node-im {
-            background: #ffffff;
+        /* SVG 连接线覆盖层 */
+        .arch-map { position: relative; }
+        #arch-conn {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
-
-        .n-aliyun { grid-column: 1 / 4; grid-row: 1; }
-        .n-baota { grid-column: 4 / 7; grid-row: 1; }
-        .n-astrbot { grid-column: 8 / 11; grid-row: 1; }
-        .n-ding { grid-column: 11 / 13; grid-row: 1; }
-        .n-feishu { grid-column: 13 / 15; grid-row: 1; }
-
-        .n-napcat { grid-column: 8 / 11; grid-row: 2; }
-        .n-qq { grid-column: 11 / 13; grid-row: 2; }
-        .n-wechat { grid-column: 13 / 15; grid-row: 2; }
-
-        .n-win { grid-column: 1 / 5; grid-row: 4; }
-        .n-astr-local { grid-column: 5 / 9; grid-row: 4; }
-        .n-llbot { grid-column: 9 / 13; grid-row: 4; }
+        #arch-conn line {
+            stroke: #b0b8c4;
+            stroke-width: 1.5;
+            stroke-dasharray: 6 3;
+        }
+        .arch-board { position: relative; z-index: 2; }
 
         .map-note {
             margin-top: 0.5rem;
-            color: #5e6f81;
-            font-size: 0.9rem;
+            color: #64748b;
+            font-size: 0.88rem;
         }
 
         .table-wrap {
@@ -226,7 +235,7 @@
 
         .arch-table {
             width: 100%;
-            min-width: 880px;
+            min-width: 680px;
             border-collapse: collapse;
             font-size: 0.94rem;
         }
@@ -245,101 +254,86 @@
             font-weight: 600;
         }
 
-        .search-lab {
-            margin-top: 1rem;
-            border: 1px solid #d8e4f1;
-            border-radius: 12px;
-            background: #f8fbff;
-            padding: 0.95rem;
+        .arch-table a {
+            color: #2563eb;
+            text-decoration: none;
         }
 
-        .address-bar {
+        .arch-table a:hover { text-decoration: underline; }
+
+        .port-section {
+            margin-top: 0.85rem;
             display: flex;
-            align-items: center;
-            border: 1px solid #c9d8e8;
-            border-radius: 999px;
-            overflow: hidden;
-            background: #fff;
+            flex-direction: column;
+            gap: 0.65rem;
         }
 
-        .address-prefix {
-            border-right: 1px solid #dce7f3;
-            background: #edf4fc;
-            color: #476582;
-            padding: 0.5rem 0.78rem;
-            white-space: nowrap;
-            font-size: 0.9rem;
+        .port-row {
+            display: flex;
+            gap: 0.65rem;
+            align-items: stretch;
         }
 
-        .address-port {
+        .port-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.55rem;
             flex: 1;
-            border: 0;
-            outline: 0;
-            font-size: 1rem;
-            padding: 0.52rem 0.7rem;
-            color: #27435e;
-            min-width: 90px;
         }
 
-        .address-btn {
-            border: 0;
-            cursor: pointer;
-            background: #2d5f90;
-            color: #fff;
-            font-weight: 600;
-            padding: 0.52rem 0.92rem;
+        .port-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 0.55rem 0.75rem;
+            background: #f8fafc;
         }
 
-        .address-btn:hover {
-            background: #234d79;
-        }
-
-        .port-links {
-            margin-top: 0.62rem;
+        .port-card-llbot {
+            flex: 0 0 200px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 0.38rem;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .port-chip {
-            border: 1px solid #cfe0f2;
-            background: #fff;
-            color: #315777;
-            font-size: 0.84rem;
-            border-radius: 999px;
-            padding: 0.25rem 0.56rem;
+        .port-label {
+            font-size: 0.78rem;
+            color: #64748b;
+            margin-bottom: 0.2rem;
+        }
+
+        .port-card code {
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 0.88rem;
+            color: #1e40af;
+            font-weight: 600;
+        }
+
+        .port-section .ip-check {
+            margin-top: 0;
         }
 
         .ip-check {
             margin-top: 0.65rem;
-            border: 1px solid #d8e4f1;
+            border: 1px solid #e2e8f0;
             border-radius: 10px;
-            background: #fbfdff;
+            background: #f8fafc;
         }
 
         .ip-check summary {
             list-style: none;
             cursor: pointer;
             padding: 0.58rem 0.72rem;
-            color: #2f5578;
-            border-bottom: 1px solid #e5edf6;
+            color: #334155;
             font-weight: 600;
             font-size: 0.9rem;
         }
 
-        .ip-check summary::-webkit-details-marker {
-            display: none;
+        .ip-check summary i {
+            margin-right: 0.35rem;
+            color: #6366f1;
         }
 
-        .feedback {
-            margin-top: 0.55rem;
-            font-size: 0.92rem;
-            color: #375773;
-        }
-
-        .feedback.error {
-            color: #a44242;
-        }
+        .ip-check summary::-webkit-details-marker { display: none; }
 
         .issue-card {
             margin-top: 0.75rem;
@@ -355,13 +349,8 @@
             font-size: 1rem;
         }
 
-        .issue-card p {
-            margin: 0.32rem 0;
-        }
-
-        .issue-card strong {
-            color: #1e4569;
-        }
+        .issue-card p { margin: 0.32rem 0; }
+        .issue-card strong { color: #1e4569; }
 
         .cmd-inline {
             margin-top: 0.52rem;
@@ -417,6 +406,14 @@
             font-weight: 600;
         }
 
+        .plugin-table code {
+            background: #eef3fa;
+            padding: 0.15rem 0.35rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #1e3a5f;
+        }
+
         details.qa {
             margin-top: 0.65rem;
             border: 1px solid #dce7f1;
@@ -434,58 +431,47 @@
             font-size: 0.95rem;
         }
 
-        details.qa > summary::-webkit-details-marker {
-            display: none;
+        details.qa > summary::-webkit-details-marker { display: none; }
+
+        .qa-body { padding: 0.75rem 0.8rem; }
+
+        .plugin-category {
+            margin-top: 1rem;
+            border: 1px solid #dce7f1;
+            border-radius: 12px;
+            overflow: hidden;
         }
 
-        .qa-body {
-            padding: 0.75rem 0.8rem;
+        .plugin-category-header {
+            background: linear-gradient(135deg, #f3f8fe 0%, #edf4fc 100%);
+            padding: 0.65rem 0.9rem;
+            font-weight: 700;
+            color: #1f3a55;
+            font-size: 1rem;
+            border-bottom: 1px solid #dce7f1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .plugin-category-header i {
+            font-size: 1.1rem;
+            color: #3b82f6;
         }
 
         @media (max-width: 1024px) {
-            .summary-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .arch-board {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                min-width: 0;
-                min-height: auto;
-            }
-
-            .arch-lines {
-                display: none;
-            }
-
-            .n-aliyun,
-            .n-baota,
-            .n-astrbot,
-            .n-ding,
-            .n-feishu,
-            .n-napcat,
-            .n-qq,
-            .n-wechat,
-            .n-win,
-            .n-astr-local,
-            .n-llbot {
-                grid-column: auto;
-                grid-row: auto;
-            }
+            .summary-grid { grid-template-columns: 1fr; }
+            .arch-flow { flex-direction: column; align-items: flex-start; }
+            .arch-arrow { transform: rotate(90deg); }
+            .arch-platforms { flex-wrap: wrap; }
+            .port-row { flex-direction: column; }
+            .port-cards { grid-template-columns: repeat(2, 1fr); }
+            .port-card-llbot { flex: auto; }
         }
 
         @media (max-width: 640px) {
-            .tech-article {
-                padding: 1.1rem;
-            }
-
-            .address-prefix {
-                font-size: 0.8rem;
-                padding: 0.5rem 0.55rem;
-            }
-
-            .address-btn {
-                padding: 0.5rem 0.72rem;
-            }
+            .tech-article { padding: 1.1rem; }
+            .port-cards { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -494,112 +480,156 @@
 
     <div class="page-wrapper">
         <div class="page-header">
-            <h1><i class="fas fa-robot"></i> QQ-bot </h1>
+            <h1><i class="fas fa-robot"></i> LLM 聊天机器人 </h1>
+            <p class="muted">基于 AstrBot 的多平台聊天助手</p>
         </div>
 
         <section class="section">
             <div class="container">
                 <article class="tech-article fade-in">
-                    <h2 class="zone-title">从 0 到 1：环境搭建与配置流程</h2>
 
-                    <h3 class="topic-title">一、概要</h3>
-                    <div class="summary-grid">
-                        <div class="summary-card">
-                            <h4>本地部署（Windows）</h4>
-                            <ul>
-                                <li>Astrbot 在本地运行，使用 start.bat 一键启动。</li>
-                                <li>LLbot 使用 LLbot Desktop，WebUI 端口为 3080。</li>
-                                <li>作用：先验证插件与命令，再同步到服务器。</li>
-                            </ul>
-                        </div>
-                        <div class="summary-card">
-                            <h4>服务器部署（Linux）</h4>
-                            <ul>
-                                <li>Astrbot 运行在 Docker 容器内。</li>
-                                <li>NapCat 运行在宿主机上，负责 QQ 协议链路。</li>
-                                <li>作用：无人值守、重启可恢复、长期在线。</li>
-                            </ul>
-                        </div>
-                        <div class="summary-card">
-                            <h4>消息平台</h4>
-                            <ul>
-                                <li>钉钉</li>
-                                <li>飞书</li>
-                                <li>QQ</li>
-                                <li>个人微信</li>
-                            </ul>
-                        </div>
-                        <div class="summary-card">
-                            <h4>说明</h4>
-                            <ul>
-                                <li>新人优惠存在，但活动经常变化，以官网实时页面为准。</li>
-                                <li>文中公网地址统一脱敏为 [公网IP]。</li>
-                                <li>端口示例：6185、6199、8888、6099、3080。</li>
-                            </ul>
-                        </div>
-                    </div>
+                    <!-- ====== 项目简介 + 架构图 + 端口 + IP 检测 ====== -->
+                    <p>这是一个基于 <a href="https://docs.astrbot.app/" target="_blank" class="ext-link"><i class="fas fa-link"></i> AstrBot </a> 的 LLM 聊天机器人项目，对接QQ、钉钉、飞书、微信等消息平台，可接入各大模型的API。下图展示了各组件间的关系。</p>
 
-                    <h3 class="topic-title">二、要素关联图（平台如何启动并串联）</h3>
-                    <div class="arch-map">
-                        <svg id="arch-lines" class="arch-lines"></svg>
-                        <div id="arch-board" class="arch-board">
-                            <a id="n-aliyun" class="arch-node node-server n-aliyun" href="https://account.aliyun.com/" target="_blank" rel="noopener noreferrer">
-                                <span class="node-title">阿里云 ECS</span>
-                                <span class="node-desc">安全组 / 外网入口</span>
-                            </a>
-
-                            <a id="n-baota" class="arch-node node-server n-baota" href="https://www.bt.cn/new/product_linux.html" target="_blank" rel="noopener noreferrer">
-                                <span class="node-title">宝塔面板 :8888</span>
-                                <span class="node-desc">Docker 管理入口</span>
-                            </a>
-
-                            <a id="n-astrbot" class="arch-node node-server n-astrbot" href="https://docs.astrbot.app/" target="_blank" rel="noopener noreferrer">
-                                <span class="node-title">Astrbot Docker</span>
-                                <span class="node-desc">WebUI :6185 / 反向WS接听 :6199</span>
-                            </a>
-
-                            <div id="n-ding" class="arch-node node-im n-ding">
-                                <span class="node-title">钉钉</span>
-                                <span class="node-desc">平台消息入口</span>
+                    <h2 class="zone-title">架构图</h2>
+                    <div class="arch-map" id="arch-map">
+                        <svg id="arch-conn"></svg>
+                        <div class="arch-board" id="arch-board">
+                            <!-- 本地部署 -->
+                            <div class="arch-section">
+                                <div class="arch-section-title">本地部署</div>
+                                <div class="arch-flow">
+                                    <div class="arch-node node-local">
+                                        <span class="node-title">Windows</span>
+                                    </div>
+                                    <span class="arch-arrow"><i class="fas fa-arrow-right"></i></span>
+                                    <a id="astr-local" class="arch-node node-hub" href="https://docs.astrbot.app/deploy/astrbot/desktop.html" target="_blank" rel="noopener noreferrer">
+                                        <span class="node-title">AstrBot</span>
+                                        <span class="node-desc">本地部署</span>
+                                    </a>
+                                    <span class="arch-arrow"><i class="fas fa-arrow-right"></i></span>
+                                    <a id="llbot" class="arch-node node-adapter" href="https://luckylillia.com/guide/choice_install" target="_blank" rel="noopener noreferrer">
+                                        <span class="node-title">LLBot</span>
+                                        <span class="node-desc">WebSocket 服务端</span>
+                                    </a>
+                                    
+                                    <a class="arch-node node-im" href="https://im.qq.com/" target="_blank" rel="noopener noreferrer">
+                                        <span class="node-title">Windows QQ</span>
+                                    </a>
+                                </div>
                             </div>
 
-                            <div id="n-feishu" class="arch-node node-im n-feishu">
-                                <span class="node-title">飞书</span>
-                                <span class="node-desc">平台消息入口</span>
+                            <!-- 消息平台 -->
+                            <div class="arch-platforms">
+                                <span class="arch-platforms-label">消息平台</span>
+                                <a class="arch-node node-im" href="https://docs.astrbot.app/platform/dingtalk.html" target="_blank" rel="noopener noreferrer">
+                                    <span class="node-title">钉钉</span>
+                                </a>
+                                <a class="arch-node node-im" href="https://docs.astrbot.app/platform/lark.html" target="_blank" rel="noopener noreferrer">
+                                    <span class="node-title">飞书</span>
+                                </a>
+                                <a id="qq-plat" class="arch-node node-im" href="https://docs.astrbot.app/platform/aiocqhttp.html" target="_blank" rel="noopener noreferrer">
+                                    <span class="node-title">QQ</span>
+                                </a>
+                                <a class="arch-node node-im" href="https://docs.astrbot.app/platform/weixin_oc.html" target="_blank" rel="noopener noreferrer">
+                                    <span class="node-title">个人微信</span>
+                                </a>
                             </div>
 
-                            <a id="n-napcat" class="arch-node node-bridge n-napcat" href="https://napneko.github.io/" target="_blank" rel="noopener noreferrer">
-                                <span class="node-title">NapCat 宿主机</span>
-                                <span class="node-desc">WebUI :6099 / WS 拨号端</span>
-                            </a>
-
-                            <div id="n-qq" class="arch-node node-im n-qq">
-                                <span class="node-title">QQ</span>
-                                <span class="node-desc">协议链路</span>
+                            <!-- 云端部署 -->
+                            <div class="arch-section">
+                                <div class="arch-section-title">云端部署</div>
+                                <div class="arch-flow">
+                                    <a class="arch-node node-server" href="https://account.aliyun.com/" target="_blank" rel="noopener noreferrer">
+                                        <span class="node-title">阿里云</span>
+                                        <span class="node-desc">云服务器</span>
+                                    </a>
+                                    <span class="arch-arrow"><i class="fas fa-arrow-right"></i></span>
+                                    <a class="arch-node node-server" href="https://www.bt.cn/new/product_linux.html" target="_blank" rel="noopener noreferrer">
+                                        <span class="node-title">宝塔面板</span>
+                                        <span class="node-desc">容器环境管理</span>
+                                    </a>
+                                    <span class="arch-arrow"><i class="fas fa-arrow-right"></i></span>
+                                    <a id="astr-cloud" class="arch-node node-hub" href="https://docs.astrbot.app/deploy/astrbot/btpanel.html" target="_blank" rel="noopener noreferrer">
+                                        <span class="node-title">AstrBot</span>
+                                        <span class="node-desc">宝塔Docker部署</span>
+                                    </a>
+                                    <span class="arch-arrow"><i class="fas fa-arrow-right"></i></span>
+                                    <a id="napcat" class="arch-node node-adapter" href="https://napneko.github.io/guide/boot/Shell" target="_blank" rel="noopener noreferrer">
+                                        <span class="node-title">NapCat</span>
+                                        <span class="node-desc">WebSocket 服务端</span>
+                                    </a>
+                                   
+                                    <a class="arch-node node-im" href="https://im.qq.com/" target="_blank" rel="noopener noreferrer">
+                                        <span class="node-title">Linux QQ</span>
+                                    </a>
+                                </div>
                             </div>
-
-                            <div id="n-wechat" class="arch-node node-im n-wechat">
-                                <span class="node-title">个人微信</span>
-                                <span class="node-desc">平台消息入口</span>
-                            </div>
-
-                            <div id="n-win" class="arch-node node-local n-win">
-                                <span class="node-title">Windows 本地环境</span>
-                                <span class="node-desc">调试与验证</span>
-                            </div>
-
-                            <div id="n-astr-local" class="arch-node node-local n-astr-local">
-                                <span class="node-title">Astrbot 本地</span>
-                                <span class="node-desc">start.bat 一键启动</span>
-                            </div>
-
-                            <a id="n-llbot" class="arch-node node-local n-llbot" href="https://luckylillia.com/" target="_blank" rel="noopener noreferrer">
-                                <span class="node-title">LLbot Desktop :3080</span>
-                                <span class="node-desc">本地控制台</span>
-                            </a>
                         </div>
                     </div>
-                    <p class="map-note">图中节点代表组件，连线表示消息或配置流向，虚线表示本地调试结果同步到服务器。</p>
+                    <p class="map-note">QQ若想体验更完善的bot功能需要经过反向WS协议接入AstrBot；其他平台直连AstrBot即可。下面的[IP]若采用本地部署填写localhost，若采用服务器部署填写对应IP。</p>
+                    <div class="port-section">
+                        <div class="port-row">
+                            <div class="port-cards">
+                                <div class="port-card">
+                                    <div class="port-label">AstrBot WebUI</div>
+                                    <code>https://[IP]:6185</code>
+                                </div>
+                                <div class="port-card">
+                                    <div class="port-label">宝塔面板 WebUI(初次登录时可能会更改端口)</div>
+                                    <code>https://[IP]:8888</code>
+                                </div>
+                                <div class="port-card">
+                                    <div class="port-label">NapCat WebUI</div>
+                                    <code>https://[IP]:6099</code>
+                                </div>
+                            </div>
+                            <div class="port-card port-card-llbot">
+                                <div class="port-label">LLBot WebUI</div>
+                                <code>http://[IP]:3080</code>
+                            </div>
+                        </div>
+                        <details class="ip-check">
+                            <summary></i> 判断 IPV4 地址合法性的 C 语言风格代码</summary>
+                            <div class="code-block">static bool is_ipaddr_valid(const char* const ipstr)
+{
+    int dot_count = 0;
+    for (int i = 0; ipstr[i]; i++) {
+        if (!(ipstr[i] == '.' || (ipstr[i] >= '0' && ipstr[i] <= '9')))
+            return false;
+        if (ipstr[i] == '.')
+            dot_count++;
+    }
+    if (dot_count != 3)
+        return false;
+
+    int dot_index[3] = { 0 };
+    for (int i = 0, j = 0; ipstr[i]; i++) {
+        if (ipstr[i] == '.') {
+            dot_index[j] = i;
+            j++;
+        }
+    }
+    if (dot_index[0] == 0 || dot_index[2] == (int)strlen(ipstr) - 1)
+        return false;
+    for (int i = 0; i < 2; i++) {
+        if (dot_index[i + 1] - dot_index[i] == 1)
+            return false;
+    }
+
+    int ip_number[4] = { 0 };
+    ip_number[0] = atoi(ipstr);
+    for (int i = 0; i < 3; i++)
+        ip_number[i + 1] = atoi(&ipstr[dot_index[i] + 1]);
+    for (int i = 0; i < 4; i++) {
+        if (ip_number[i] < 0 || ip_number[i] > 255)
+            return false;
+    }
+
+    return true;
+}</div>
+                        </details>
+                    </div>
 
                     <div class="table-wrap">
                         <table class="arch-table">
@@ -608,9 +638,9 @@
                                     <th>组件</th>
                                     <th>部署位置</th>
                                     <th>端口</th>
-                                    <th>角色</th>
+                                    <th>端口内容</th>
                                     <th>说明</th>
-                                    <th>文档</th>
+                                    <th>跳转链接/说明文档</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -618,8 +648,8 @@
                                     <td>阿里云服务器</td>
                                     <td>云主机</td>
                                     <td>-</td>
-                                    <td>网络边界</td>
-                                    <td>需放行面板和通信端口</td>
+                                    <td>服务器</td>
+                                    <td>提供公网服务器环境，注意需放行安全组端口</td>
                                     <td><a href="https://account.aliyun.com/" target="_blank">阿里云控制台</a></td>
                                 </tr>
                                 <tr>
@@ -627,168 +657,157 @@
                                     <td>宿主机</td>
                                     <td>8888</td>
                                     <td>WebUI</td>
-                                    <td>用于 Docker 与服务管理，Linux 版优先</td>
-                                    <td><a href="https://www.bt.cn/new/product_linux.html" target="_blank">Linux 版</a> / <a href="https://www.bt.cn/new/product_windows.html" target="_blank">Windows 版</a></td>
+                                    <td>提供 Docker 环境与服务管理</td>
+                                    <td><a href="https://www.bt.cn/new/product_linux.html" target="_blank">宝塔面板</a></td>
                                 </tr>
                                 <tr>
-                                    <td>Astrbot</td>
+                                    <td>AstrBot</td>
                                     <td>Docker</td>
-                                    <td>6185 / 6199</td>
-                                    <td>WebUI + 反向WS接听</td>
-                                    <td>主控、模型、插件调度</td>
-                                    <td><a href="https://docs.astrbot.app/" target="_blank">Astrbot 文档</a></td>
+                                    <td>6185</td>
+                                    <td>WebUI</td>
+                                    <td>模型调度、平台配置、插件管理</td>
+                                    <td><a href="https://docs.astrbot.app/" target="_blank">AstrBot 文档</a></td>
+                                </tr>
+                                <tr>
+                                    <td>OneBot 连接</td>
+                                    <td>Docker ↔ 宿主机</td>
+                                    <td>6199</td>
+                                    <td>内网 WS</td>
+                                    <td>NapCat/LLBot通过此端口将 QQ 消息转发给 AstrBot</td>
+                                    <td><a href="https://napneko.github.io/onebot/" target="_blank">OneBot 协议</a></td>
                                 </tr>
                                 <tr>
                                     <td>NapCat</td>
-                                    <td>宿主机</td>
+                                    <td>宿主机/本地</td>
                                     <td>6099</td>
-                                    <td>WebUI + WS 客户端</td>
-                                    <td>QQ 协议适配与在线状态</td>
+                                    <td>WebUI</td>
+                                    <td>QQ 协议适配器，OneBot 协议端实现，转发消息给 AstrBot</td>
                                     <td><a href="https://napneko.github.io/" target="_blank">NapCat 文档</a></td>
                                 </tr>
                                 <tr>
-                                    <td>LLbot</td>
-                                    <td>本地 Windows</td>
+                                    <td>LLBot</td>
+                                    <td>本地/宿主机</td>
                                     <td>3080</td>
                                     <td>WebUI</td>
-                                    <td>本地调试与桌面化操作</td>
-                                    <td><a href="https://luckylillia.com/" target="_blank">LLbot 文档</a></td>
+                                    <td>和 NapCat 一致的功能，WebSocket 服务端</td>
+                                    <td><a href="https://luckylillia.com/" target="_blank">LLBot 文档</a></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <div class="search-lab">
-                        <p class="muted">地址栏检索：输入端口后先显示解释，再跳转官方文档。</p>
-                        <form id="doc-search-form" class="address-bar">
-                            <span class="address-prefix">http://[公网IP]:</span>
-                            <input id="port-input" class="address-port" type="text" inputmode="numeric" maxlength="5" placeholder="例如 6185 / 8888 / 6099 / 3080">
-                            <button class="address-btn" type="submit">搜索</button>
-                        </form>
-                        <div class="port-links">
-                            <span class="port-chip">8888 -> 宝塔 Linux 文档</span>
-                            <span class="port-chip">6185 -> Astrbot 文档</span>
-                            <span class="port-chip">6199 -> Astrbot 文档（反向WS）</span>
-                            <span class="port-chip">6099 -> NapCat 文档</span>
-                            <span class="port-chip">3080 -> LLbot 文档</span>
-                        </div>
-                        <details class="ip-check">
-                            <summary>[判断IP是否合法]</summary>
-                            <div class="code-block">static bool is_ipaddr_valid(const char* const ipstr)
-{
-	int dot_count = 0;
-	for (int i = 0; ipstr[i]; i++) {
-		if (!(ipstr[i] == '.' || (ipstr[i] >= '0' && ipstr[i] <= '9')))
-			return false; // 包含非法字符
-		if (ipstr[i] == '.')
-			dot_count++;
-	}
-	if (dot_count != 3)
-		return false; // 点的数量不等于3，非法，先检查点的数量，避免数组越界
+                
 
-	int dot_index[3] = { 0 };
-	for (int i = 0, j = 0; ipstr[i]; i++) {
-		if (ipstr[i] == '.') {
-			dot_index[j] = i;
-			j++;
-		}
-	}
-	if (dot_index[0] == 0 || dot_index[2] == (int)strlen(ipstr) - 1)
-		return false; // 点在开头或结尾，也非法
-	for (int i = 0; i < 2; i++) {
-		if (dot_index[i + 1] - dot_index[i] == 1)
-			return false; // 说明有连续的点，比如192..168.1.1，也非法
-	}
+                    
 
-	int ip_number[4] = { 0 };
-	ip_number[0] = atoi(ipstr); // 从开头直到第一个点停止读取
-	for (int i = 0; i < 3; i++)
-		ip_number[i + 1] = atoi(&ipstr[dot_index[i] + 1]); // 每一段从点直到碰到下一个点停止读取
-	for (int i = 0; i < 4; i++) {
-		if (ip_number[i] < 0 || ip_number[i] > 255)
-			return false;//数字超出合法范围，则非法
-	}
+                    <!-- ====== 从 0 到 1 ====== -->
+                    <h2 class="zone-title">从 0 到 1 完成 bot 版本的 Hello World</h2>
+                    <p>本地部署较为容易，可参考 <a href="https://luckylillia.com/guide/choice_install" target="_blank" class="ext-link"><i class="fas fa-external-link-alt"></i> LLBot 安装指南</a> 和 <a href="https://luckylillia.com/guide/install_astrbot" target="_blank" class="ext-link"><i class="fas fa-external-link-alt"></i> LLbot 对接 AstrBot </a>，安装后启动<code>llbot.exe</code>、登录 QQ 号开始监听消息，再启动 AstrBot 的 <code>start.bat</code> 按终端提示访问 WebUI 即可。下面主要讲讲服务器部署。</p>
 
-	return true;
-}</div>
-                        </details>
-                        <div id="search-feedback" class="feedback">等待输入端口。</div>
+                 
+
+                    <h3 class="topic-title">服务器选型与环境搭建</h3>
+                    <div class="issue-card">
+                        <p>阿里云新账号有300元云服务器ECS免费试用，默认是 Windows Server，但由于 Windows 系统大量资源会消耗在图形化上，且诸如宝塔、1Panel等服务器管理软件普遍对 Linux 系统性更好，于是更换为 Ubuntu 镜像。连接服务器时尽量采用<a href="https://www.xshell.com/zh/free-for-home-school/" target="_blank" class="ext-link"><i class="fas fa-external-link-alt"></i>Xshell</a>连接，若使用阿里云自带连接方式尽量不使用VNC连接实例，VNC对扩展 ASCII 码适配较差，命令行中文会乱码，且会出现英文字母大小写问题。尽量使用<strong>Workbench</strong>或<strong>SSH</strong>连接。另外注意服务器需要按需放行诸如8888、6199、6185、6090、3080等端口。</p>
                     </div>
 
-                    <h3 class="topic-title">三、具体流程与问题展开（服务器为主）</h3>
-
+                    <h3 class="topic-title">Docker 装 AstrBot</h3>
                     <div class="issue-card">
-                        <h4>步骤1：服务器选型与系统迁移（Windows -> Ubuntu）</h4>
-                        <p><strong>现象：</strong> 默认系统为 Windows Server，部署容器和依赖时效率低。</p>
-                        <p><strong>处理：</strong> 直接用镜像重装 Linux，后续统一在 SSH 下操作；VNC 仅作为应急入口，不作为常规方式。</p>
-                        <p><strong>补充：</strong> 新人优惠有活动窗口，具体套餐按阿里云实时页面为准。</p>
-                        <div class="cmd-inline">
-                            <span class="cmd-chip">ssh-keygen -t ed25519</span>
-                            <span class="cmd-chip">ssh-copy-id [user]@[公网IP]</span>
-                            <span class="cmd-chip">ssh [user]@[公网IP]</span>
-                        </div>
+                        <h4>宝塔 Docker 、端口映射</h4>
+                        <p>宝塔面板使服务器更便于管理（本质上是给部分命令行操作提供了WebUI界面），参考<a href="https://docs.astrbot.app/deploy/astrbot/btpanel.html" target="_blank" class="ext-link"><i class="fas fa-external-link-alt"></i> 宝塔面板容器部署astrbot </a>完成操作，一定要注意安装好astrbot容器后进入<strong>容器编排</strong>在配置文件里添加<code>- ${QQ_WS_PORT}:6199 </code>并在对应.env中添加环境变量<code> QQ_WS_PORT=6199</code>，从而使 Napcat 和 Astrbot 的内网通信端口正常工作，也可以用下面的命令行方式:</p> 
+                        <div class="code-block">docker run -d --restart always \
+  -p 6185:6185 -p 6199:6199 \
+  -v ./data:/AstrBot/data \
+  --name astrbot \
+  soulter/astrbot:latest</div>
                     </div>
 
+
+                    <h3 class="topic-title"> 连通钉钉时遇到的问题及解决方案 </h3>
+                    <p>装好了 AstrBot 就可以接入大多数消息平台了，我遇到的问题是钉钉 Stream 模式接入时反复报 <code>401 authFailed</code>。</p>
                     <div class="issue-card">
-                        <h4>步骤2：宝塔面板安装与容器入口建立</h4>
-                        <p><strong>现象：</strong> Windows 版宝塔可用信息少，问题定位成本高。</p>
-                        <p><strong>处理：</strong> 服务器统一使用 Linux 版宝塔，依托 Docker 管理 Astrbot 容器。</p>
+                        <h4>日志现象</h4>
+                        <p>AstrBot 启动后，日志里第一次连接成功获取了 endpoint：</p>
+                        <p><code>endpoint is {'endpoint': 'wss://wss-open-connection-union.dingtalk.com:443/connect', ...}</code></p>
+                        <p>但紧接着几秒后第二次连接就报错了：</p>
+                        <p><code>open connection failed, error=401 Client Error: Unauthorized ... response.text={"code":"authFailed","message":"鉴权失败"}</code></p>
+                        <p>明明 endpoint 已经拿到了，为什么第二次连接会被拒？</p>
+                    </div>
+                    <div class="issue-card">
+                        <h4>排查过程</h4>
+                        <p><strong>1.排除凭证问题。</strong>在终端用 curl 手动测试 AppKey 和 AppSecret：</p>
                         <div class="cmd-inline">
-                            <span class="cmd-chip">docker ps</span>
-                            <span class="cmd-chip">docker logs [容器名]</span>
-                            <span class="cmd-chip">docker logs -f [容器名]</span>
+                            <span class="cmd-chip">curl -X POST "https://api.dingtalk.com/v1.0/oauth2/accessToken" -H "Content-Type: application/json" -d '{"appKey":"...","appSecret":"..."}'</span>
+                        </div>
+                        <p>返回了 accessToken，说明凭证没问题。</p>
+                        <p><strong>2.排除 IP 白名单。</strong>确认服务器出口 IP 与钉钉开发平台上配置的一致：</p>
+                        <div class="cmd-inline">
+                            <span class="cmd-chip">curl ifconfig.me</span>
+                        </div>
+                        <p>返回的 IP 与后台白名单一致，排除。</p>
+                        <p><strong>3.检查系统时钟。</strong>钉钉的鉴权机制基于 Token 签名，对服务器时间非常敏感。如果系统时钟与标准时间偏差过大，生成的签名会直接失效：</p>
+                        <div class="cmd-inline">
+                            <span class="cmd-chip">date</span>
+                            <span class="cmd-chip">ntpdate ntp.aliyun.com</span>
+                        </div>
+                        <p>检查后发现时钟偏差只有 -0.000598 秒，排除。</p>
+                        <p><strong>4.检查发布状态。</strong>在钉钉开放平台，改了 IP 白名单、重置 Secret 或更改权限后，必须去「版本管理与发布」点「确认发布」，不然线上网关跑的还是旧配置。钉钉的 API 校验（curl 拿 token）和长连接网关（Stream Connection）是不同的逻辑，curl 拿 Token 只要 AppKey/Secret 对了就能给，但 connections/open 需要连接网关确认你的应用当前线上版本是否开启了 Stream 能力。发现顶部有黄色警告条"版本发布后，当前修改才能生效"，点击发布。但发布后依然 401。</p>
+                        <p><strong>5.发现问题：多实例并发。</strong>看进程列表：</p>
+                        <div class="cmd-inline">
+                            <span class="cmd-chip">ps -ef | grep python</span>
+                        </div>
+                        <p>发现同一个 main.py 有<strong>多个 PID</strong> 在跑。原因是宝塔面板的「Python 项目管理器」默认开了异常重启——手动 kill 一个进程，它秒级拉起一个新的。新旧连接在钉钉网关处打架，而钉钉 Stream 模式一个 AppKey 只允许<strong>一个并发连接</strong>，多出来的全部返回 401。</p>
+                    </div>
+                    <div class="issue-card">
+                        <h4>解决方案</h4>
+                        <p>先在宝塔面板停止项目、关闭异常重启，然后清掉所有残留进程，等几分钟让钉钉网关释放旧连接，最后手动单次启动成功：</p>
+                        <div class="cmd-inline">
+                            <span class="cmd-chip">pkill -9 -f main.py</span>
+                            <span class="cmd-chip">ps -ef | grep python</span>
                         </div>
                     </div>
 
+                    <h3 class="topic-title">安装 NapCat</h3>
                     <div class="issue-card">
-                        <h4>步骤3：实例重启后的监听恢复（NapCat TUI 先打通）</h4>
-                        <p><strong>现象：</strong> 重启实例后，协议端恢复慢，常误判为配置文件损坏。</p>
-                        <p><strong>处理：</strong> 先跑 NapCat TUI 监听，确认协议链路正常后再回到 WebUI 和 Astrbot 对接。</p>
+                        <h4>Shell 模式 vs Docker 模式</h4>
+                        <p>NapCat 有多种<a href="https://napneko.github.io/guide/boot/Shell" target="_blank" class="ext-link"><i class="fas fa-external-link-alt"></i> 部署方式 </a>，执行一键安装命令后还会提供两种模式选择：Docker 模式（镜像自带完整环境，资源隔离但稍重）和 Shell 模式（直接跑在宿主机上，轻量但依赖系统库）。选了 Shell 模式，官方安装脚本会交互式询问协议类型，注意输入协议名（比如此处就是反向WS <code>reverse_ws</code>），另外不建议装tui，命令行环境下操作可视化界面并不友好效果不如直接输入命令。</p>
+                        <p>Shell 模式还有一些系统依赖要装，按照提示操作，阿里云精简版 Ubuntu 默认不带这些图形渲染库，不装的话 QQ 核心进程无法启动（报 GPU 初始化错误）：</p>
                         <div class="cmd-inline">
-                            <span class="cmd-chip">./napcat.sh -q [QQ号]</span>
-                            <span class="cmd-chip">journalctl -u napcat -f</span>
+                            <span class="cmd-chip">apt-get install -y xvfb libnss3 libasound2 libgbm1 ttf-wqy-zenhei</span>
                         </div>
                     </div>
 
+                    <h3 class="topic-title"> 连通 QQ 时遇到的问题及解决方案</h3>
+                    <p> 容易出现的问题是 Napcat 和 Astrbot 都成功安装但是消息无法连通，这里会有很多种可能原因（<strong>端口占用/没正确设置反向WS/ws路径不一致/LinuxQQ没登录/QQ登录失败</strong>）需要逐一排查，一定要结合日志具体分析，以端口测试为例: </p>
                     <div class="issue-card">
-                        <h4>步骤4：Docker 环境变量与 6199/6200 端口冲突</h4>
-                        <p><strong>现象：</strong> Astrbot 与 NapCat 连接失败，6199 不可达或经常冲突。</p>
-                        <p><strong>原因：</strong> 端口映射、容器监听地址、安全组三方不一致；有时只是 docker-proxy 有响应，容器服务本身未监听。</p>
-                        <p><strong>处理：</strong> 确认容器内监听到 0.0.0.0；必要时将通信端口迁移到 6200，并同步修改双方配置和安全组。</p>
+                        <h4>Docker Proxy </h4>
+                        <p>在宿主机上测试端口连通性，<code>telnet 127.0.0.1 6199</code> 显示 Connected。但 NapCat 日志里永远是「未启动」。</p>
                         <div class="cmd-inline">
-                            <span class="cmd-chip">docker exec -it [容器ID] netstat -tulnp</span>
-                            <span class="cmd-chip">netstat -tunlp | grep 6199</span>
-                            <span class="cmd-chip">netstat -tunlp | grep 6200</span>
+                            <span class="cmd-chip">docker exec -it astrbot netstat -tulnp | grep 6199</span>
                         </div>
+                        <p>返回为空，证明AstrBot 容器内部的 OneBot 服务根本没开，最终利用安装 Napcat 时提供的 token 登录 WebUI 界面成功连通。</p>
                     </div>
 
-                    <div class="issue-card">
-                        <h4>步骤5：NapCat WebUI 状态监控（6099）</h4>
-                        <p><strong>现象：</strong> 机器人偶发离线，但终端日志不一定直接提示根因。</p>
-                        <p><strong>处理：</strong> 通过 6099 WebUI 查看登录态、掉线重连、二维码与 Token 状态。</p>
-                        <div class="cmd-inline">
-                            <span class="cmd-chip">netstat -tunlp | grep 6099</span>
-                            <span class="cmd-chip">journalctl -u napcat -f</span>
-                        </div>
-                    </div>
 
-                    <div class="issue-card">
-                        <h4>步骤6：Linux 自启动守护（systemd）</h4>
-                        <p><strong>现象：</strong> SSH 断开或服务器重启后，NapCat 进程退出。</p>
-                        <p><strong>处理：</strong> 使用 systemd，设置 Restart=always 与开机自启。</p>
-                        <div class="cmd-inline">
-                            <span class="cmd-chip">systemctl daemon-reload</span>
-                            <span class="cmd-chip">systemctl enable napcat</span>
-                            <span class="cmd-chip">systemctl start napcat</span>
-                            <span class="cmd-chip">systemctl status napcat</span>
-                        </div>
-                        <div class="code-block">[Unit]
+                   
+
+                   
+                    <!-- ====== 从 1 到 100 ====== -->
+                    <h2 class="zone-title">从 1 到 100 利用astrbot丰富的扩展生态</h2>
+
+                    
+
+                    <h3 class="topic-title">运维与稳定性</h3>
+                    <h4 class="topic-title" style="font-size:.92rem;">systemd 守护进程</h4>
+                    <p>SSH 一关机器人就掉线，服务器重启更是一切归零，<code>nohup</code> 和 <code>screen</code> 能解决 SSH 断开的问题（<code>screen -dmS napcat</code> 创建后台会话，<code>Ctrl+A</code> 再按 <code>D</code> 退出但不关闭），但服务器重启后它们无法自动恢复——最靠谱的方案是 systemd。</p>
+                    <p>创建服务文件 <code>/etc/systemd/system/napcat.service</code>：</p>
+                    <div class="code-block">[Unit]
 Description=NapCat QQ Bot Service
 After=network.target
 
 [Service]
 WorkingDirectory=/root/Napcat/opt/QQ/
-ExecStart=/usr/bin/xvfb-run -a /root/Napcat/opt/QQ/qq --no-sandbox 
+ExecStart=/usr/bin/xvfb-run -a /root/Napcat/opt/QQ/qq --no-sandbox -q 2913425420
 Restart=always
 RestartSec=5
 StandardOutput=syslog
@@ -798,374 +817,452 @@ User=root
 
 [Install]
 WantedBy=multi-user.target</div>
+                    <p>写这个文件的时候踩了好几个坑。一开始用 nano 编辑，结果把 <code>systemctl daemon-reload</code> 这类终端命令也一起写进了 .service 文件里，导致 systemd 解析失败。后来 nano 异常退出，留下了 <code>.napcat.service.swp</code> 交换文件，再打开时内容全乱了。最终用宝塔面板的文件管理器直接新建文件、粘贴内容、保存，才搞定。</p>
+                    <p>还有一个坑：<code>xvfb-run</code> 的路径问题。service 文件里写的 <code>/usr/bin/xvfb-run</code>，但有些系统装完 xvfb 后可执行文件不在 <code>/usr/bin</code> 下，用 <code>which xvfb-run</code> 确认实际路径，否则 systemd 启动时会报 <code>No such file or directory</code>。</p>
+                    <p>三连命令激活：</p>
+                    <div class="cmd-inline">
+                        <span class="cmd-chip">systemctl daemon-reload</span>
+                        <span class="cmd-chip">systemctl enable napcat</span>
+                        <span class="cmd-chip">systemctl start napcat</span>
+                    </div>
+                    <p>验证状态：</p>
+                    <div class="cmd-inline">
+                        <span class="cmd-chip">systemctl status napcat</span>
+                    </div>
+                    <p>看到绿色的 <code>active (running)</code> 就稳了。之后看日志用 <code>journalctl -u napcat -f</code>，实时滚动输出。</p>
+
+                    <h4 class="topic-title" style="font-size:.92rem;">扫码登录与 Token 获取</h4>
+                    <p>挂成守护进程后，终端里看不到二维码了。三条路找回来：</p>
+                    <div class="issue-card">
+                        <p><strong>1. journalctl 挖日志：</strong><code>journalctl -u napcat -f</code>，实时滚动输出，二维码和 Token 都在里面。</p>
+                        <p><strong>2. 直接看配置文件：</strong><code>cat /root/Napcat/.../config/webui.json</code>，找到 <code>"token": "xxxx"</code>。</p>
+                        <p><strong>3. 6099 WebUI（最优雅）：</strong>浏览器访问 <code>http://公网IP:6099/webui</code>，输入 Token 登录后，QQ 登录状态、掉线重连一目了然。</p>
                     </div>
 
-                    <details class="qa">
-                        <summary>扩展难点A：后台运行后看不到二维码或 Token</summary>
-                        <div class="qa-body">
-                            <p><strong>处理：</strong> 用 journalctl 追踪服务输出；同时检查 NapCat 配置目录中的 WebUI 配置。</p>
-                            <div class="cmd-inline">
-                                <span class="cmd-chip">journalctl -u napcat -f</span>
-                                <span class="cmd-chip">cat /root/Napcat/opt/QQ/resources/app/app_launcher/napcat/config/webui.json</span>
-                            </div>
-                        </div>
-                    </details>
-
-                    <details class="qa">
-                        <summary>扩展难点B：容器里没有 vi/nano，配置改不动</summary>
-                        <div class="qa-body">
-                            <p><strong>处理：</strong> 使用 Here Document 直接写文件；Astrbot 密码字段使用 32 位小写 MD5，修改后重启容器。</p>
-                            <div class="cmd-inline">
-                                <span class="cmd-chip">cat &lt;&lt;EOF &gt; cmd_config.json</span>
-                                <span class="cmd-chip">docker restart [容器名]</span>
-                            </div>
-                        </div>
-                    </details>
-
-                    <details class="qa">
-                        <summary>扩展难点C：插件依赖缺失（例如 Playwright）</summary>
-                        <div class="qa-body">
-                            <p><strong>处理：</strong> 依赖必须安装在容器内部，不是宿主机。</p>
-                            <div class="cmd-inline">
-                                <span class="cmd-chip">docker exec -it [容器名] /bin/bash</span>
-                                <span class="cmd-chip">pip install -r requirements.txt</span>
-                                <span class="cmd-chip">playwright install --with-deps chromium</span>
-                            </div>
-                        </div>
-                    </details>
-
-                    <details class="qa">
-                        <summary>扩展难点D：OneBot 正向/反向角色混淆</summary>
-                        <div class="qa-body">
-                            <p><strong>处理：</strong> 建议 Astrbot 作为反向 WS 服务端，NapCat 作为客户端拨号端。Token 和路径必须一致；必要时先用根路径做最小验证。</p>
-                            <div class="cmd-inline">
-                                <span class="cmd-chip">tail -f /root/.config/QQ/NapCat/logs/[日志文件]</span>
-                            </div>
-                        </div>
-                    </details>
-
-                    <details class="qa">
-                        <summary>扩展难点E：服务器重启后面板和 Bot 全部失联</summary>
-                        <div class="qa-body">
-                            <p><strong>处理：</strong> 先检查容器重启策略，再查宝塔入口与关键服务状态。</p>
-                            <div class="cmd-inline">
-                                <span class="cmd-chip">docker ps -a</span>
-                                <span class="cmd-chip">bt 14</span>
-                                <span class="cmd-chip">docker start [容器名]</span>
-                            </div>
-                        </div>
-                    </details>
-
-                    <details class="qa">
-                        <summary>扩展难点F：进程残留导致重复连接或端口占用</summary>
-                        <div class="qa-body">
-                            <p><strong>处理：</strong> 清理残留进程后再重启服务，避免旧连接干扰。</p>
-                            <div class="cmd-inline">
-                                <span class="cmd-chip">ps -ef | grep python</span>
-                                <span class="cmd-chip">pkill -9 qq</span>
-                                <span class="cmd-chip">pkill -9 napcat</span>
-                                <span class="cmd-chip">pkill -9 Xvfb</span>
-                            </div>
-                        </div>
-                    </details>
-
-                    <details class="qa">
-                        <summary>扩展难点G：文件权限、路径与编辑问题（容器内/宿主机）</summary>
-                        <div class="qa-body">
-                            <p><strong>处理：</strong> 先确认当前目录，再确认脚本可执行权限；需要替换配置时优先用可审计命令。</p>
-                            <div class="cmd-inline">
-                                <span class="cmd-chip">cd [路径]</span>
-                                <span class="cmd-chip">ls</span>
-                                <span class="cmd-chip">ls -F</span>
-                                <span class="cmd-chip">chmod +x [文件名]</span>
-                                <span class="cmd-chip">cat [文件名]</span>
-                                <span class="cmd-chip">nano [文件名]</span>
-                                <span class="cmd-chip">vi [文件名]</span>
-                                <span class="cmd-chip">sed -i 's/旧/新/g' [文件名]</span>
-                            </div>
-                        </div>
-                    </details>
-
-                    <details class="qa">
-                        <summary>扩展难点H：系统依赖、会话管理与滚动日志</summary>
-                        <div class="qa-body">
-                            <p><strong>处理：</strong> 先补系统依赖再启动协议端；调试期可用 screen 看运行态，正式环境使用 systemd。</p>
-                            <div class="cmd-inline">
-                                <span class="cmd-chip">sudo apt-get update</span>
-                                <span class="cmd-chip">sudo apt-get install -y [包名]</span>
-                                <span class="cmd-chip">screen -ls</span>
-                                <span class="cmd-chip">screen -r [会话名]</span>
-                                <span class="cmd-chip">screen -dmS [会话名] [命令]</span>
-                                <span class="cmd-chip">journalctl -u napcat -f</span>
-                            </div>
-                        </div>
-                    </details>
-
-                    <details class="qa">
-                        <summary>扩展难点I：Docker 容器生命周期管理</summary>
-                        <div class="qa-body">
-                            <p><strong>处理：</strong> 先确认现有容器状态，再决定重启、删除重建或新增运行。</p>
-                            <div class="cmd-inline">
-                                <span class="cmd-chip">docker ps</span>
-                                <span class="cmd-chip">docker logs [容器名]</span>
-                                <span class="cmd-chip">docker logs -f [容器名]</span>
-                                <span class="cmd-chip">docker rm -f [容器名]</span>
-                                <span class="cmd-chip">docker start [容器名]</span>
-                                <span class="cmd-chip">docker run [参数] [镜像名]</span>
-                            </div>
-                        </div>
-                    </details>
-
-                    <details class="qa">
-                        <summary>扩展难点J：NapCat 启动模式选择（图形模拟 vs Shell 模式）</summary>
-                        <div class="qa-body">
-                            <p><strong>处理：</strong> 服务器环境优先使用 Shell 模式；图形模拟仅在必要时使用，避免额外资源占用。</p>
-                            <div class="cmd-inline">
-                                <span class="cmd-chip">./napcat.sh -q [QQ号]</span>
-                                <span class="cmd-chip">xvfb-run -a [命令]</span>
-                                <span class="cmd-chip">node ./main.js -q [QQ号]</span>
-                            </div>
-                        </div>
-                    </details>
-
-                    <details class="qa">
-                        <summary>扩展难点K：钉钉 401 的细分排查（发布、IP、并发、时钟）</summary>
-                        <div class="qa-body">
-                            <p><strong>排查顺序：</strong> 先确认应用发布版本，再确认真实出口 IP 白名单，再检查是否有旧进程抢占连接，最后核对系统时间。</p>
-                            <div class="cmd-inline">
-                                <span class="cmd-chip">curl ifconfig.me</span>
-                                <span class="cmd-chip">timedatectl</span>
-                                <span class="cmd-chip">ps -ef | grep python</span>
-                                <span class="cmd-chip">kill -9 [PID]</span>
-                            </div>
-                        </div>
-                    </details>
-
-                    <h2 class="zone-title">从 1 到 100：跑通后的扩展路线</h2>
-
-                    <h3 class="topic-title">1) 模型与能力接入</h3>
-                    <p>
-                        建议先接一个模型做最小闭环，再做多模型路由。上线顺序：回复正确性 -> 上下文连续性 -> 限流与降级。
-                    </p>
-
-                    <h3 class="topic-title">2) 插件模板（预留）</h3>
-                    <table class="plugin-table">
-                        <thead>
-                            <tr>
-                                <th>插件名称</th>
-                                <th>功能简介</th>
-                                <th>触发命令</th>
-                                <th>依赖/环境</th>
-                                <th>常见问题与处理</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>示例：网页分析</td>
-                                <td>抓取并提炼网页信息</td>
-                                <td>\web [链接]</td>
-                                <td>容器内 playwright + chromium</td>
-                                <td>依赖缺失时进入容器补装</td>
-                            </tr>
-                            <tr>
-                                <td>待补充</td>
-                                <td>待补充</td>
-                                <td>待补充</td>
-                                <td>待补充</td>
-                                <td>待补充</td>
-                            </tr>
-                            <tr>
-                                <td>待补充</td>
-                                <td>待补充</td>
-                                <td>待补充</td>
-                                <td>待补充</td>
-                                <td>待补充</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h3 class="topic-title">3) 钉钉 Stream 401 排查（接入时高频问题）</h3>
-                    <div class="issue-card" style="margin-top: 0.4rem;">
-                        <p><strong>检查点：</strong> 版本是否已发布、IP 白名单是否为真实出口 IP、是否存在旧进程占用连接、重连是否过快。</p>
+                    <div class="issue-card">
+                        <h4>QQ 反复掉线的排查</h4>
+                        <p>systemd 配好后，QQ 偶尔会莫名掉线然后一直卡在「未启动」。排查后发现是重启 NapCat 服务时旧进程没杀干净——QQ 核心进程（<code>qq</code>）、NapCat 进程（<code>napcat</code>）和虚拟显示进程（<code>Xvfb</code>）三个可能残留。重新启动前必须先清场：</p>
                         <div class="cmd-inline">
-                            <span class="cmd-chip">curl ifconfig.me</span>
-                            <span class="cmd-chip">timedatectl</span>
-                            <span class="cmd-chip">ps -ef | grep python</span>
-                            <span class="cmd-chip">kill -9 [PID]</span>
+                            <span class="cmd-chip">pkill -9 qq</span>
+                            <span class="cmd-chip">pkill -9 napcat</span>
+                            <span class="cmd-chip">pkill -9 Xvfb</span>
+                        </div>
+                        <p>清完再 <code>systemctl start napcat</code>，否则新旧进程抢端口，QQ 会反复登录又掉线。</p>
+                    </div>
+
+                    <h4 class="topic-title" style="font-size:.92rem;">容器内无编辑器自救</h4>
+                    <div class="issue-card">
+                        <h4>进 AstrBot 容器改配置文件，nano/vi/vim 全 command not found</h4>
+                        <p>精简 Docker 镜像就是这么狠，连个编辑器都不装，终极方案是用 Here Document 直接覆盖文件：</p>
+                        <div class="code-block">cat <<EOF > cmd_config.json
+{
+  "dashboard": {
+    "enable": true,
+    "username": "linux",
+    "password": "f086c50e945a45e7f903458c5d491911",
+    "jwt_secret": "ac666104ba789748e1bccd2d53e06e269331d8b8076d14310ca97a42508d7140",
+    "host": "0.0.0.0",
+    "port": 6185
+  }
+}
+EOF</div>
+                        <p>注意 password 字段必须是 32 位小写 MD5。改完后 <code>exit</code> 退出容器，在宝塔面板重启容器才生效。</p>
+                    </div>
+
+                    <h4 class="topic-title" style="font-size:.92rem;">插件依赖补装</h4>
+                    <div class="issue-card">
+                        <h4>插件报依赖缺失？依赖必须装在容器里面，不是宿主机</h4>
+                        <div class="cmd-inline">
+                            <span class="cmd-chip">docker exec -it astrbot /bin/bash</span>
+                            <span class="cmd-chip">cd /AstrBot/data/plugins/[插件目录]</span>
+                            <span class="cmd-chip">pip install --root-user-action=ignore -r requirements.txt</span>
+                            <span class="cmd-chip">playwright install --with-deps chromium</span>
+                        </div>
+                        <p>Web 分析类插件需要额外装 chromium 浏览器内核，不然会报错。装完重启容器。</p>
+                    </div>
+
+                    <h4 class="topic-title" style="font-size:.92rem;">服务器重启后的恢复</h4>
+                    <div class="issue-card">
+                        <h4>重启后所有面板和 Bot 都打不开？按顺序排查</h4>
+                        <p><strong>1. Docker 容器是否自启：</strong>检查是否设置了 <code>--restart always</code>。没有的话去宝塔 Docker 界面手动启动。</p>
+                        <p><strong>2. 宝塔面板入口：</strong>SSH 登录后执行 <code>bt 14</code> 查看最新入口地址和端口。</p>
+                        <p><strong>3. 安全组是否被重置：</strong>去阿里云控制台确认 6185、6099、6199 等端口是否仍然放行。</p>
+                        <p><strong>4. NapCat 状态：</strong><code>systemctl restart napcat</code>，然后 <code>systemctl status napcat</code> 确认是否恢复。</p>
+                        <div class="cmd-inline">
+                            <span class="cmd-chip">docker ps -a</span>
+                            <span class="cmd-chip">bt 14</span>
+                            <span class="cmd-chip">systemctl restart napcat</span>
+                            <span class="cmd-chip">systemctl restart bt</span>
                         </div>
                     </div>
+
+                    <h3 class="topic-title">模型接入</h3>
+                    <p>AstrBot 支持接入各大厂商的 AI API，通过 <strong>AiHubMix</strong> 等聚合平台统一管理多个模型的调用和计费，一个月成本约 5 元，可根据需要随时切换模型。</p>
+
+                    <h3 class="topic-title">插件生态</h3>
+                    <p>目前共安装了 <strong>32 个插件</strong>，覆盖安全防御、内容分析、群务管理、娱乐互动等场景（AstrBot 的插件系统叫「Star」，装在 <code>data/plugins/</code> 目录下，重启 AstrBot 自动加载），按分类整理如下：</p>
+
+                    <div class="plugin-category">
+                        <div class="plugin-category-header"><i class="fas fa-tools"></i> 管理与工具类</div>
+                        <table class="plugin-table">
+                            <thead>
+                                <tr>
+                                    <th>插件名称</th>
+                                    <th>功能简介</th>
+                                    <th>具体命令</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Anti-Prompt Injector</strong></td>
+                                    <td>提示词安全卫士。通过 PTD 核心与 LLM 复核双重机制，拦截越狱攻击、人设调教及系统覆盖等风险。内置四象防御模式，提供 WebUI 仪表盘实时审计与黑白名单管理。</td>
+                                    <td>
+                                        <code>/切换防护模式</code> 在哨兵/神盾/焦土/拦截模式间轮换<br>
+                                        <code>/切换观察模式 &lt;分钟&gt;</code> 临时切换至哨兵模式<br>
+                                        <code>/拉黑 &lt;ID&gt; [分钟]</code> 手动封禁用户<br>
+                                        <code>/解封 &lt;ID&gt;</code> 解除封禁<br>
+                                        <code>/反注入统计</code> 输出启发式与 LLM 命中数据<br>
+                                        <code>/开启/关闭防骚扰</code> 针对辱骂等行为的检测开关
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>CodeMage（插件生成器）</strong></td>
+                                    <td>AI 驱动的代码魔术师。根据自然语言描述，利用 LLM 自动构建完整的插件代码、元数据及文档。内置代码审查机制与安全过滤。</td>
+                                    <td>
+                                        <code>/生成插件 &lt;功能描述&gt;</code> 自动编写并准备安装新插件<br>
+                                        <code>/插件生成状态</code> 查看 AI 编写进度<br>
+                                        <code>/密码转md5 &lt;密码&gt;</code> 明文转 MD5，用于安全配置
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Markdown 杀手</strong></td>
+                                    <td>清理聊天输出中的 Markdown 格式符号。智能算法保护数学公式和代码变量不受误伤。支持全局过滤模式。</td>
+                                    <td>
+                                        自动过滤，无需手动指令<br>
+                                        <code>/mdk</code> 手动触发清理<br>
+                                        WebUI 开启 <code>enable_global_markdown_killer</code> 实现全局过滤
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>meme_manager</strong></td>
+                                    <td>表情包管理器 3.0，支持 WebUI 管理、目录自动维护及发送频率控制。</td>
+                                    <td>WebUI 管理界面操作</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>recall_cancel</strong></td>
+                                    <td>当用户撤回触发 LLM 回应的消息时，自动取消尚未发送的响应。</td>
+                                    <td>自动触发，无需手动指令</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="plugin-category">
+                        <div class="plugin-category-header"><i class="fas fa-chart-bar"></i> 数据统计与信息类</div>
+                        <table class="plugin-table">
+                            <thead>
+                                <tr>
+                                    <th>插件名称</th>
+                                    <th>功能简介</th>
+                                    <th>具体命令</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>biliVideo 视频总结</strong></td>
+                                    <td>B 站内容深度提取器。自动下载音频、提取字幕并调用 AI 大模型，将视频转化为结构化的暗色主题卡片。支持简洁/详细/专业三种总结风格，具备 UP 主动态订阅功能。</td>
+                                    <td>
+                                        <code>/总结 &lt;链接/BV号&gt;</code> 生成 AI 总结卡片<br>
+                                        <code>/最新视频 &lt;UP主&gt;</code> 获取并总结最新视频<br>
+                                        <code>/订阅 &lt;UP主/UID&gt;</code> 新片发布自动推送总结<br>
+                                        <code>/订阅列表</code> 查看已订阅的 UP 主<br>
+                                        <code>/识别开关</code> 分享链接自动触发识别<br>
+                                        <code>/B站登录</code> 弹出二维码扫码登录
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>群发言统计</strong></td>
+                                    <td>全自动记录群成员发言数据。支持今日/本周/本月/全年多维度排行榜，HTML 模板渲染精美图片排行，具备定时推送机制。</td>
+                                    <td>
+                                        <code>#今日发言榜</code> / <code>#本周发言榜</code><br>
+                                        <code>#发言榜</code> 总发言历史排行<br>
+                                        <code>#去年发言榜</code> / <code>#本年发言榜</code><br>
+                                        <code>#设置发言榜图片 &lt;1/0&gt;</code> 切换图片/文字模式<br>
+                                        <code>#设置发言榜定时时间 [HH:MM]</code> 设定自动推送时间
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>GitHub 助手</strong></td>
+                                    <td>自动识别 GitHub 链接转为精美仓库卡片。支持轮询或 Webhook 两种模式实时推送 Issue、PR、Star、Fork 等动态。</td>
+                                    <td>
+                                        <code>/ghsub &lt;用户名/仓库名&gt;</code> 订阅仓库更新<br>
+                                        <code>/ghlink &lt;on/off&gt;</code> 开关链接自动解析<br>
+                                        <code>/ghlist</code> 列出已订阅仓库<br>
+                                        <code>/ghissue [仓库#]ID</code> 查询 Issue 详情<br>
+                                        <code>/ghreadme &lt;仓库名&gt;</code> 获取 README<br>
+                                        <code>/ghlimit</code> 查看 API 速率限制
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>群分析总结</strong></td>
+                                    <td>多平台群聊日常分析，支持话题分析、用户画像及生成群聊报告。</td>
+                                    <td>群聊内自动触发分析</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>用户画像</strong></td>
+                                    <td>自动从聊天中提取用户信息（昵称、生日、爱好等）进行存储。</td>
+                                    <td>自动提取，无需手动指令</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>人物画像</strong></td>
+                                    <td>提取群聊记录并调用 LLM 分析生成群友画像。</td>
+                                    <td>群聊内触发画像生成</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="plugin-category">
+                        <div class="plugin-category-header"><i class="fas fa-gamepad"></i> 游戏、娱乐与生活类</div>
+                        <table class="plugin-table">
+                            <thead>
+                                <tr>
+                                    <th>插件名称</th>
+                                    <th>功能简介</th>
+                                    <th>具体命令</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>CTF 赛题及赛事推送助手</strong></td>
+                                    <td>赛事情报与刷题专家。集成 CTFTime 全球赛事日历，支持高权重赛事自动提醒（赛前 2 小时及 15 分钟），深度整合 NSSCTF 题库提供多方向随机抽题。</td>
+                                    <td>
+                                        <code>/ctftime</code> 查询高权重国际赛事<br>
+                                        <code>/ctf订阅 &lt;序号/ID&gt;</code> 订阅赛事开启提醒<br>
+                                        <code>/ctf订阅列表</code> 查看已订阅赛事<br>
+                                        <code>/ctf退订 &lt;序号/ID&gt;</code> 取消提醒<br>
+                                        <code>/ctf [方向]</code> 随机跳题（支持 web/pwn/crypto 等）
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Galgame 百宝盒</strong></td>
+                                    <td>集成 VNDB、TouchGal、AnimeTrace 及 Steam 多方数据。支持作品/角色/厂商查询、资源搜索下载、AI 角色图像识别及 Steam 成就拼图。</td>
+                                    <td>
+                                        <code>/旮旯 作品 &lt;名&gt;</code> 搜索游戏信息<br>
+                                        <code>/旮旯 角色 &lt;名&gt;</code> 查询角色资料<br>
+                                        <code>/旮旯 推荐 &lt;标签&gt;</code> 精准推荐（支持多标签）<br>
+                                        <code>/旮旯 下载 &lt;ID/名称&gt;</code> 获取游戏资源<br>
+                                        <code>/旮旯 出处 [图片]</code> 识别二次元角色<br>
+                                        <code>/旮旯 拼图</code> Steam 成就拼图
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>扫雷游戏</strong></td>
+                                    <td>经典扫雷小游戏。</td>
+                                    <td>群聊内触发扫雷</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>模拟炒股</strong></td>
+                                    <td>基于真实行情的模拟炒股，支持实时股价、委托交易与持仓管理。</td>
+                                    <td>模拟交易相关指令</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>海龟汤推理</strong></td>
+                                    <td>海龟汤推理游戏，支持自动生成主题、智能判断与验证系统。</td>
+                                    <td>开始海龟汤推理游戏</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>今日小猪</strong></td>
+                                    <td>抽取属于自己的每日小猪。</td>
+                                    <td>每日触发抽取</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>今日老婆</strong></td>
+                                    <td>抽取群友当老婆，可增加感情并生成恋爱关系图。</td>
+                                    <td>群聊内触发抽取</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>是啊，吃什么</strong></td>
+                                    <td>帮助纠结的大学生解决"今天吃什么"的难题。</td>
+                                    <td>群聊内触发推荐</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="plugin-category">
+                        <div class="plugin-category-header"><i class="fas fa-users"></i> 社交与群务类</div>
+                        <table class="plugin-table">
+                            <thead>
+                                <tr>
+                                    <th>插件名称</th>
+                                    <th>功能简介</th>
+                                    <th>具体命令</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>艾特群友转发</strong></td>
+                                    <td>私聊指挥官。在私聊界面指挥机器人向指定群组转发消息，支持群号或自然语言（群名/昵称识别）匹配，精准 @特定成员。</td>
+                                    <td>
+                                        <code>/send &lt;群号&gt; [@用户] &lt;内容&gt;</code> 基础转发<br>
+                                        <code>去[XX群]告诉[YY]记得开会</code> 自然语言调用
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>QQ 群管</strong></td>
+                                    <td>综合群管插件，支持禁言、踢人、撤回消息、改名片、公告管理等。</td>
+                                    <td>群管权限指令</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>qq_group_sign</strong></td>
+                                    <td>QQ 群打卡插件，支持定时打卡、白名单模式及管理员通知。</td>
+                                    <td>定时打卡指令</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>原神圣经</strong></td>
+                                    <td>氛围组担当。检测"原神"关键词自动回复经典语录，内置冷却控制防刷屏，支持自定义语录库及群聊白名单。</td>
+                                    <td>
+                                        <code>原神</code> 关键词触发<br>
+                                        <code>/op</code> 随机调取语录
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>疯狂星期四</strong></td>
+                                    <td>检测"疯狂星期四"关键词并自动回复文案。</td>
+                                    <td>关键词自动触发</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>群体协作长篇小说</strong></td>
+                                    <td>QQ 群友协作 + AI 辅助写作，支持 EPUB/PDF 导出。</td>
+                                    <td>群聊内协作写作</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>收款码助手</strong></td>
+                                    <td>当 LLM 觉得需要收费时，自动发送预上传的收款码图片。</td>
+                                    <td>LLM 自动触发</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="muted" style="margin-top:0.8rem;">共安装 32 个插件，其余包括知识库、网页分析、Office 助手、LeetCode 每日推题、点歌、群签到等。</p>
+
+                    <!-- ====== 结尾 ====== -->
+                    <h2 class="zone-title">结语</h2>
+                    <p>实际写代码的时间远少于看日志、查文档、和 AI 排错的时间。大部分 debug 卡在「配置看着没问题但就是不通」的阶段，最后发现要么是少点了一个「发布」按钮（钉钉），要么是 Docker 网桥地址写错了（127.0.0.1 vs 172.17.0.1），要么是 QQ 没扫码导致后面的链路全部静默失败。</p>
+
+                    <div class="summary-grid">
+                        <div class="summary-card">
+                            <h4><i class="fas fa-coins"></i> 成本汇总</h4>
+                            <ul>
+                                <li>阿里云 ECS（新人优惠）：99 元/年</li>
+                                <li>域名 lvzhu.top：8-38 元/年</li>
+                                <li>API 调用（各大厂商 API）：约 5 元/月</li>
+                                <li>总成本：不到 200 元/年</li>
+                            </ul>
+                        </div>
+                        <div class="summary-card">
+                            <h4><i class="fas fa-puzzle-piece"></i> 部署成果</h4>
+                            <ul>
+                                <li>四平台接入：QQ / 钉钉 / 飞书 / 微信</li>
+                                <li>32 个插件覆盖安全/统计/娱乐/群务</li>
+                                <li>可接入各大厂商 AI API，月成本约 5 元</li>
+                                <li>7x24 小时在线，服务器重启自动恢复</li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </article>
             </div>
         </section>
     </div>
 
     <footer class="footer"></footer>
-
     <script src="../../../js/common.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const portMap = {
-                "8888": { url: "https://www.bt.cn/new/product_linux.html", desc: "宝塔 Linux 文档" },
-                "6185": { url: "https://docs.astrbot.app/", desc: "Astrbot 文档（WebUI）" },
-                "6199": { url: "https://docs.astrbot.app/", desc: "Astrbot 文档（反向WS）" },
-                "6099": { url: "https://napneko.github.io/", desc: "NapCat 文档" },
-                "3080": { url: "https://luckylillia.com/", desc: "LLbot 文档" }
+    document.addEventListener("DOMContentLoaded", function() {
+        var map = document.getElementById("arch-map");
+        var svg = document.getElementById("arch-conn");
+        var board = document.getElementById("arch-board");
+        if (!map || !svg || !board) return;
+
+        function pos(id) {
+            var el = document.getElementById(id);
+            if (!el) return null;
+            var r = el.getBoundingClientRect();
+            var m = map.getBoundingClientRect();
+            return {
+                cx: r.left - m.left + r.width / 2,
+                cy: r.top - m.top + r.height / 2,
+                top: r.top - m.top,
+                bottom: r.bottom - m.top,
+                left: r.left - m.left,
+                right: r.right - m.left
             };
+        }
 
-            const form = document.getElementById("doc-search-form");
-            const input = document.getElementById("port-input");
-            const feedback = document.getElementById("search-feedback");
+        function line(x1, y1, x2, y2) {
+            var l = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            l.setAttribute("x1", x1);
+            l.setAttribute("y1", y1);
+            l.setAttribute("x2", x2);
+            l.setAttribute("y2", y2);
+            return l;
+        }
 
-            form.addEventListener("submit", function(event) {
-                event.preventDefault();
-                const port = input.value.trim();
+        function draw() {
+            svg.innerHTML = "";
+            var w = map.scrollWidth, h = map.scrollHeight;
+            svg.setAttribute("viewBox", "0 0 " + w + " " + h);
+            svg.setAttribute("width", w);
+            svg.setAttribute("height", h);
 
-                if (!/^\d{2,5}$/.test(port)) {
-                    feedback.classList.add("error");
-                    feedback.textContent = "请输入合法端口号（2-5位数字）。";
-                    return;
-                }
+            var pA = pos("astr-local");
+            var pC = pos("astr-cloud");
+            var pQ = pos("qq-plat");
+            var pL = pos("llbot");
+            var pN = pos("napcat");
 
-                const target = portMap[port];
-                if (!target) {
-                    feedback.classList.add("error");
-                    feedback.textContent = "未登记端口：" + port + "。请检查映射或安全组配置。";
-                    return;
-                }
+            if (!pA || !pC || !pQ) return;
 
-                feedback.classList.remove("error");
-                feedback.textContent = "端口 " + port + " 对应：" + target.desc + "。0.8 秒后跳转。";
-                setTimeout(function() {
-                    window.open(target.url, "_blank", "noopener,noreferrer");
-                }, 800);
+            // 消息平台行所有节点
+            var platNodes = board.querySelectorAll(".arch-platforms .arch-node");
+
+            // AstrBot(本地) → 每个消息平台：从底部垂直向下到平台顶部
+            platNodes.forEach(function(node) {
+                var r = node.getBoundingClientRect();
+                var m = map.getBoundingClientRect();
+                var nx = r.left - m.left + r.width / 2;
+                svg.appendChild(line(pA.cx, pA.bottom, nx, r.top - m.top));
             });
 
-            const board = document.getElementById("arch-board");
-            const svg = document.getElementById("arch-lines");
-            const map = document.querySelector(".arch-map");
+            // AstrBot(云端) → 每个消息平台：从顶部垂直向上到平台底部
+            platNodes.forEach(function(node) {
+                var r = node.getBoundingClientRect();
+                var m = map.getBoundingClientRect();
+                var nx = r.left - m.left + r.width / 2;
+                svg.appendChild(line(pC.cx, pC.top, nx, r.bottom - m.top));
+            });
 
-            if (!board || !svg || !map) {
-                return;
+            // LLBot → QQ 平台：从 LLBot 底部到 QQ 平台顶部
+            if (pL && pQ) {
+                svg.appendChild(line(pL.cx, pL.bottom, pQ.cx, pQ.top));
             }
 
-            const relations = [
-                ["n-aliyun", "n-baota", "strong"],
-                ["n-baota", "n-astrbot", "strong"],
-                ["n-astrbot", "n-ding", "soft"],
-                ["n-astrbot", "n-feishu", "soft"],
-                ["n-napcat", "n-qq", "strong"],
-                ["n-napcat", "n-wechat", "strong"],
-                ["n-napcat", "n-astrbot", "strong"],
-                ["n-win", "n-astr-local", "soft"],
-                ["n-astr-local", "n-llbot", "soft"],
-                ["n-astr-local", "n-astrbot", "sync"]
-            ];
-
-            const NS = "http://www.w3.org/2000/svg";
-
-            function nodeInfo(id) {
-                const el = document.getElementById(id);
-                if (!el) {
-                    return null;
-                }
-                const nodeRect = el.getBoundingClientRect();
-                const baseRect = svg.getBoundingClientRect();
-                return {
-                    x: nodeRect.left - baseRect.left + nodeRect.width / 2,
-                    y: nodeRect.top - baseRect.top + nodeRect.height / 2,
-                    left: nodeRect.left - baseRect.left,
-                    right: nodeRect.left - baseRect.left + nodeRect.width,
-                    top: nodeRect.top - baseRect.top,
-                    bottom: nodeRect.top - baseRect.top + nodeRect.height,
-                    width: nodeRect.width,
-                    height: nodeRect.height
-                };
+            // NapCat → QQ 平台：从 NapCat 顶部到 QQ 平台底部
+            if (pN && pQ) {
+                svg.appendChild(line(pN.cx, pN.top, pQ.cx, pQ.bottom));
             }
+        }
 
-            function anchor(source, target) {
-                const dx = target.x - source.x;
-                const dy = target.y - source.y;
-                const horizontal = Math.abs(dx) * source.height > Math.abs(dy) * source.width * 1.45;
+        function debounce(fn, ms) {
+            var t;
+            return function() { clearTimeout(t); t = setTimeout(fn, ms); };
+        }
 
-                if (horizontal) {
-                    return {
-                        x: dx >= 0 ? source.right : source.left,
-                        y: source.y
-                    };
-                }
-
-                return {
-                    x: source.x,
-                    y: dy >= 0 ? source.bottom : source.top
-                };
-            }
-
-            function bezierPath(start, end) {
-                const distanceY = Math.abs(end.y - start.y);
-                const lift = Math.max(18, Math.min(70, distanceY * 0.55));
-                const c1x = start.x;
-                const c1y = start.y + (end.y >= start.y ? lift : -lift);
-                const c2x = end.x;
-                const c2y = end.y - (end.y >= start.y ? lift : -lift);
-                return "M " + start.x + " " + start.y + " C " + c1x + " " + c1y + ", " + c2x + " " + c2y + ", " + end.x + " " + end.y;
-            }
-
-            function drawLines() {
-                const width = map.scrollWidth;
-                const height = map.scrollHeight;
-                svg.setAttribute("viewBox", "0 0 " + width + " " + height);
-                svg.setAttribute("width", width);
-                svg.setAttribute("height", height);
-                svg.innerHTML = "";
-
-                const defs = document.createElementNS(NS, "defs");
-                const marker = document.createElementNS(NS, "marker");
-                marker.setAttribute("id", "arrow");
-                marker.setAttribute("viewBox", "0 0 10 10");
-                marker.setAttribute("refX", "8");
-                marker.setAttribute("refY", "5");
-                marker.setAttribute("markerWidth", "6");
-                marker.setAttribute("markerHeight", "6");
-                marker.setAttribute("orient", "auto-start-reverse");
-
-                const markerPath = document.createElementNS(NS, "path");
-                markerPath.setAttribute("d", "M 0 2 L 8 5 L 0 8 z");
-                markerPath.setAttribute("fill", "#87a1bb");
-                marker.appendChild(markerPath);
-                defs.appendChild(marker);
-                svg.appendChild(defs);
-
-                relations.forEach(function(item) {
-                    const from = nodeInfo(item[0]);
-                    const to = nodeInfo(item[1]);
-                    const level = item[2];
-
-                    if (!from || !to) {
-                        return;
-                    }
-
-                    const start = anchor(from, to);
-                    const end = anchor(to, from);
-
-                    const p = document.createElementNS(NS, "path");
-                    p.setAttribute("d", bezierPath(start, end));
-                    p.setAttribute("class", level);
-                    p.setAttribute("marker-end", "url(#arrow)");
-                    svg.appendChild(p);
-                });
-            }
-
-            function debounce(fn, wait) {
-                let timer = null;
-                return function() {
-                    clearTimeout(timer);
-                    timer = setTimeout(fn, wait);
-                };
-            }
-
-            setTimeout(drawLines, 60);
-            window.addEventListener("resize", debounce(drawLines, 120));
-        });
+        setTimeout(draw, 100);
+        window.addEventListener("resize", debounce(draw, 150));
+    });
     </script>
 </body>
 </html>

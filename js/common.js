@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     { label: 'C++ BigHW', path: 'pages/projects/cpp-bighw/index.html' },
                     { label: 'FPGA', path: 'pages/projects/fpga/index.html' },
                     { label: 'GPU', path: 'pages/projects/gpu/index.html' },
-                    { label: 'QQ Bot', path: 'pages/projects/qq-bot/index.html' }
+                    { label: 'LLM聊天机器人', path: 'pages/projects/qq-bot/index.html' }
                 ]
             },
             { key: 'jottings', label: 'Jottings', path: 'pages/jottings/index.html' },
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { title: 'Projects / C++ BigHW', path: 'pages/projects/cpp-bighw/index.html', keywords: 'cpp c++ bighw 程序设计 程设 高程 oop 沈坚 sj' },
             { title: 'Projects / FPGA', path: 'pages/projects/fpga/index.html', keywords: 'fpga 数字逻辑 verilog oled mp3 zdd mips246' },
             { title: 'Projects / GPU', path: 'pages/projects/gpu/index.html', keywords: 'gpu 并行 gunrock 图' },
-            { title: 'Projects / QQ Bot', path: 'pages/projects/qq-bot/index.html', keywords: 'qq bot 机器人' },
+            { title: 'Projects / LLM聊天机器人', path: 'pages/projects/qq-bot/index.html', keywords: 'llm 聊天机器人 chatbot astrbot 多平台' },
             { title: 'Music', path: 'pages/music/index.html', keywords: '音乐 music 歌单 eason jj' },
             { title: 'Favorites', path: 'pages/favorites/index.html', keywords: '收藏 favorites 网址' },
             { title: 'Favorites', path: 'pages/favorites/T/index.html', keywords: 't 同济'},

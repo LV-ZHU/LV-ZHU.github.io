@@ -26,6 +26,34 @@
 html { scroll-behavior: smooth; }
 body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--dark); background: var(--bg-gradient); line-height: 1.6; overflow-x: hidden; }
 a { text-decoration: none; color: inherit; transition: var(--transition-fast); }
+.ext-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.15rem 0.6rem;
+    margin: 0 0.15rem;
+    background: rgba(79, 70, 229, 0.08);
+    color: var(--primary);
+    border-radius: 999px;
+    font-size: 0.9em;
+    font-weight: 600;
+    border: 1px solid rgba(79, 70, 229, 0.2);
+    transition: var(--transition-fast);
+    word-break: break-all;
+}
+.ext-link i {
+    font-size: 0.85em;
+    opacity: 0.8;
+}
+.ext-link:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+}
+.ext-link:hover i {
+    opacity: 1;
+}
 img { max-width: 100%; display: block; }
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--light); }
