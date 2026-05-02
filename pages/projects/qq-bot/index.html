@@ -708,7 +708,7 @@
 
                     <h3 class="topic-title">服务器选型与环境搭建</h3>
                     <div class="issue-card">
-                        <p>阿里云新账号有300元云服务器ECS免费试用，默认是 Windows Server，但由于 Windows 系统大量资源会消耗在图形化上，且诸如宝塔、1Panel等服务器管理软件普遍对 Linux 系统性更好，于是更换为 Ubuntu 镜像。连接服务器时尽量采用<a href="https://www.xshell.com/zh/free-for-home-school/" target="_blank" class="ext-link"><i class="fas fa-external-link-alt"></i>Xshell</a>连接，若使用阿里云自带连接方式尽量不使用VNC连接实例，VNC对扩展 ASCII 码适配较差，命令行中文会乱码，且会出现英文字母大小写问题。尽量使用<strong>Workbench</strong>或<strong>SSH</strong>连接。另外注意服务器需要按需放行诸如8888、6199、6185、6090、3080等端口。</p>
+                        <p>阿里云新账号有300元云服务器ECS免费试用，默认是 Windows Server，但由于 Windows 系统大量资源会消耗在图形化上，且诸如宝塔、1Panel等服务器管理软件普遍对 Linux 支持性更好，于是更换为 Ubuntu 镜像。连接服务器时尽量采用<a href="https://www.xshell.com/zh/free-for-home-school/" target="_blank" class="ext-link"><i class="fas fa-external-link-alt"></i>Xshell</a>连接，若使用阿里云自带连接方式尽量不使用VNC连接实例，VNC对扩展 ASCII 码适配较差，命令行中文会乱码，且会出现英文字母大小写问题。尽量使用<strong>Workbench</strong>或<strong>SSH</strong>连接。另外注意服务器需要按需放行诸如8888、6199、6185、6090、3080等端口。</p>
                     </div>
 
                     <h3 class="topic-title">Docker 装 AstrBot</h3>
@@ -724,18 +724,17 @@
 
 
                     <h3 class="topic-title"> 连通钉钉时遇到的问题及解决方案 </h3>
-                    <p>装好了 AstrBot 就可以接入大多数消息平台了，我遇到的问题是钉钉 Stream 模式接入时反复报 <code>401 authFailed</code>。</p>
+                    <p>装好了 AstrBot 就可以接入大多数消息平台了，我遇到的问题是钉钉 Stream 模式接入时反复报 <code>401 authFailed</code></p>
                     <div class="issue-card">
                         <h4>日志现象</h4>
                         <p>AstrBot 启动后，日志里第一次连接成功获取了 endpoint：</p>
                         <p><code>endpoint is {'endpoint': 'wss://wss-open-connection-union.dingtalk.com:443/connect', ...}</code></p>
                         <p>但紧接着几秒后第二次连接就报错了：</p>
                         <p><code>open connection failed, error=401 Client Error: Unauthorized ... response.text={"code":"authFailed","message":"鉴权失败"}</code></p>
-                        <p>明明 endpoint 已经拿到了，为什么第二次连接会被拒？</p>
                     </div>
                     <div class="issue-card">
                         <h4>排查过程</h4>
-                        <p><strong>1.排除凭证问题。</strong>在终端用 curl 手动测试 AppKey 和 AppSecret：</p>
+                        <p><strong>1.排除凭证问题。</strong>在终端用 curl 测试 AppKey 和 AppSecret：</p>
                         <div class="cmd-inline">
                             <span class="cmd-chip">curl -X POST "https://api.dingtalk.com/v1.0/oauth2/accessToken" -H "Content-Type: application/json" -d '{"appKey":"...","appSecret":"..."}'</span>
                         </div>
@@ -747,16 +746,15 @@
                         <p>返回的 IP 与后台白名单一致，排除。</p>
                         <p><strong>3.检查系统时钟。</strong>钉钉的鉴权机制基于 Token 签名，对服务器时间非常敏感。如果系统时钟与标准时间偏差过大，生成的签名会直接失效：</p>
                         <div class="cmd-inline">
-                            <span class="cmd-chip">date</span>
                             <span class="cmd-chip">ntpdate ntp.aliyun.com</span>
                         </div>
                         <p>检查后发现时钟偏差只有 -0.000598 秒，排除。</p>
-                        <p><strong>4.检查发布状态。</strong>在钉钉开放平台，改了 IP 白名单、重置 Secret 或更改权限后，必须去「版本管理与发布」点「确认发布」，不然线上网关跑的还是旧配置。钉钉的 API 校验（curl 拿 token）和长连接网关（Stream Connection）是不同的逻辑，curl 拿 Token 只要 AppKey/Secret 对了就能给，但 connections/open 需要连接网关确认你的应用当前线上版本是否开启了 Stream 能力。发现顶部有黄色警告条"版本发布后，当前修改才能生效"，点击发布。但发布后依然 401。</p>
+                        <p><strong>4.检查发布状态。</strong>在钉钉开放平台，改了 IP 白名单、重置 Secret 或更改权限后，必须去版本管理与发布点确认发布，不然线上网关跑的还是旧配置。钉钉的 API 校验（curl 拿 token）和长连接网关（Stream Connection）是不同的逻辑，curl 拿 Token 只要 AppKey/Secret 对了就能给，但 connections/open 需要连接网关确认你的应用当前线上版本是否开启了 Stream 能力。发现顶部有黄色警告条"版本发布后，当前修改才能生效"，点击发布。但发布后依然 401。</p>
                         <p><strong>5.发现问题：多实例并发。</strong>看进程列表：</p>
                         <div class="cmd-inline">
                             <span class="cmd-chip">ps -ef | grep python</span>
                         </div>
-                        <p>发现同一个 main.py 有<strong>多个 PID</strong> 在跑。原因是宝塔面板的「Python 项目管理器」默认开了异常重启——手动 kill 一个进程，它秒级拉起一个新的。新旧连接在钉钉网关处打架，而钉钉 Stream 模式一个 AppKey 只允许<strong>一个并发连接</strong>，多出来的全部返回 401。</p>
+                        <p>发现同一个 main.py 有<strong>多个 PID</strong> 在跑。原因是宝塔面板的Python 项目管理器默认开了异常重启，只要进程被 kill 就会立刻拉起一个新的，这样钉钉网关就会同时收到多份连接。而钉钉 Stream 模式一个 AppKey 只允许<strong>一个并发连接</strong>，多出来的全部返回 401。</p>
                     </div>
                     <div class="issue-card">
                         <h4>解决方案</h4>
@@ -778,43 +776,28 @@
                     </div>
 
                     <h3 class="topic-title"> 连通 QQ 时遇到的问题及解决方案</h3>
-                    <p>NapCat 和 AstrBot 都装好了，但消息就是不通。这个问题的原因可能出在链路的任何一环，需要逐一排查，一定要结合日志具体分析。</p>
+                    <p>常见现象是 NapCat 和 AstrBot 都装好了，但消息就是不通。可能的原因很多，需要结合日志一个个排查。</p>
                     <div class="issue-card">
-                        <h4>排查过程</h4>
-                        <p><strong>1.确认端口是否真正监听。</strong>在宿主机上测试端口连通性，<code>telnet 127.0.0.1 6199</code> 显示 Connected，但 NapCat 日志里永远是「未启动」。宿主机的 docker-proxy 就像个前台，即便后面容器里没人也会先把电话接起来，但数据转发到容器内部后石沉大海。钻进容器里验证：</p>
-                        <div class="cmd-inline">
-                            <span class="cmd-chip">docker exec -it astrbot netstat -tulnp | grep 6199</span>
-                        </div>
-                        <p>返回为空，实锤：AstrBot 容器内部的 OneBot 服务根本没开。</p>
-                        <p><strong>2.检查连接模式——HTTP vs WebSocket。</strong>去 AstrBot 网页端检查 OneBot11 的连接模式，如果被设成了「正向 HTTP」而不是「反向 WebSocket」，AstrBot 在 6199 端口启动的就是 HTTP 服务，而 NapCat 发起的是 WebSocket 握手请求，协议不匹配，连接自然被拒绝。确认 AstrBot 侧设为「反向 WebSocket 服务端」（监听模式），NapCat 保持客户端去连它。</p>
-                        <p><strong>3.检查 WebSocket 路径是否一致。</strong>NapCat 配置里写的 <code>ws://172.17.0.1:6199/ws</code>，但 AstrBot 那边的路径可能没配 <code>/ws</code> 后缀。URL 路径必须严格一致，否则握手阶段直接 404。最终两边都改成根路径 <code>ws://172.17.0.1:6199/</code>（去掉 /ws），连接才通。还有一个附带的坑：AstrBot 在 Docker 容器内不能用 <code>127.0.0.1</code> 访问宿主机上的 NapCat，得用 Docker 网桥地址 <code>172.17.0.1</code>（127.0.0.1 在容器眼里是容器自己，不是宿主机）。</p>
-                        <p><strong>4.检查 Linux QQ 是否已登录。</strong>以上三层都排除后，NapCat 日志里依然是「未启动」。直到看到这一行：<code>快速登录错误：你的用户身份已失效，请重新登录。</code>在 QQ 扫码成功之前，NapCat 的 WebSocket 服务<strong>不会启动</strong>，它不会报错，就安静地显示「未启动」，让你以为是配置问题——QQ 没登录，后面的链路全都不通。扫码登录后，日志里瞬间出现 <code>[info] 登录成功</code> 和 <code>[info] [OneBot11] [WS] 反向 WebSocket 连接成功</code>。教训：<strong>先扫码登录，再排查配置。</strong>顺序反了就是在浪费时间。</p>
+                        <p><strong>配置文件</strong>方面，反向 WebSocket 一定要配对。NapCat 的配置文件路径在 <code>root/Napcat/opt/QQ/resources/app/app_launcher/napcat/config</code> 下，包括连接类型/ws、Napcat WebUI的 token 都在该目录下。</p>
+                        <p><strong>端口连接</strong>方面，先在安全组放行端口。在容器里运行 <code>telnet 127.0.0.1 6199</code>，看到 Connected 就说明通了；然后可以再模拟 astrbot 的连接行为：<code>docker exec -it astrbot netstat -tulnp | grep 6199</code>。</p>
                     </div>
                     <div class="issue-card">
                         <h4>排查技巧</h4>
-                        <p>NapCat 的详细日志不在屏幕输出里，真正的错误藏在 <code>/root/.config/QQ/NapCat/logs/</code> 目录下的日志文件中，用 <code>tail -f</code> 实时追踪才能看到 WebSocket 握手失败的具体原因（403 Token 错、404 路径错、ECONNREFUSED 端口没开）。最终利用安装 NapCat 时提供的 token 登录 6099 WebUI 界面成功连通。</p>
+                        <p>用安装 NapCat 时提供的 token 登录 WebUI（<code>http://公网IP:6099/webui</code>），可以直观看到 QQ 登录状态、服务端开启情况等信息。</p>
                     </div>
-
-
-                   
-
-                   
-                    <!-- ====== 从 1 到 100 ====== -->
-                    <h2 class="zone-title">从 1 到 100 利用astrbot丰富的扩展生态</h2>
-
-                    
-
-                    <h3 class="topic-title">运维与稳定性</h3>
-                    <h4 class="topic-title" style="font-size:.92rem;">systemd 守护进程</h4>
-                    <p>SSH 一关机器人就掉线，服务器重启更是一切归零，<code>nohup</code> 和 <code>screen</code> 能解决 SSH 断开的问题（<code>screen -dmS napcat</code> 创建后台会话，<code>Ctrl+A</code> 再按 <code>D</code> 退出但不关闭），但服务器重启后它们无法自动恢复——最靠谱的方案是 systemd。</p>
-                    <p>创建服务文件 <code>/etc/systemd/system/napcat.service</code>：</p>
+   
+                    <!-- ====== 从 1 到 10 ====== -->
+                    <h2 class="zone-title">从 1 到 10 确保 bot 稳定在线</h2>
+                    <h3 class="topic-title">开启守护进程</h3>
+                    <p>成功发出消息后最重要的需求就是确保 Astrbot+Napcat 能稳定运行。<code>nohup</code> 和 <code>screen</code> 指令能解决连接断开的问题（<code>screen -dmS napcat</code> 创建后台会话，<code>Ctrl+A</code> 再按 <code>D</code> 退出但不关闭），但服务器重启后它们无法自动恢复。比较好的方案是 systemd 守护进程。</p>
+                    <p>创建服务文件在 <code> /etc/systemd/system/napcat.service </code>目录下，具体的诸如 xvfb-run 的路径可以用<code> where </code>指令查询后替换：</p>
                     <div class="code-block">[Unit]
 Description=NapCat QQ Bot Service
 After=network.target
 
 [Service]
 WorkingDirectory=/root/Napcat/opt/QQ/
-ExecStart=/usr/bin/xvfb-run -a /root/Napcat/opt/QQ/qq --no-sandbox -q 2913425420
+ExecStart=/usr/bin/xvfb-run -a /root/Napcat/opt/QQ/qq --no-sandbox -q <此处替换为机器人要登录的 QQ 号>
 Restart=always
 RestartSec=5
 StandardOutput=syslog
@@ -824,9 +807,7 @@ User=root
 
 [Install]
 WantedBy=multi-user.target</div>
-                    <p>写这个文件的时候踩了好几个坑。一开始用 nano 编辑，结果把 <code>systemctl daemon-reload</code> 这类终端命令也一起写进了 .service 文件里，导致 systemd 解析失败。后来 nano 异常退出，留下了 <code>.napcat.service.swp</code> 交换文件，再打开时内容全乱了。最终用宝塔面板的文件管理器直接新建文件、粘贴内容、保存，才搞定。</p>
-                    <p>还有一个坑：<code>xvfb-run</code> 的路径问题。service 文件里写的 <code>/usr/bin/xvfb-run</code>，但有些系统装完 xvfb 后可执行文件不在 <code>/usr/bin</code> 下，用 <code>which xvfb-run</code> 确认实际路径，否则 systemd 启动时会报 <code>No such file or directory</code>。</p>
-                    <p>三连命令激活：</p>
+                    <p>输入命令激活：</p>
                     <div class="cmd-inline">
                         <span class="cmd-chip">systemctl daemon-reload</span>
                         <span class="cmd-chip">systemctl enable napcat</span>
@@ -836,347 +817,105 @@ WantedBy=multi-user.target</div>
                     <div class="cmd-inline">
                         <span class="cmd-chip">systemctl status napcat</span>
                     </div>
-                    <p>看到绿色的 <code>active (running)</code> 就稳了。之后看日志用 <code>journalctl -u napcat -f</code>，实时滚动输出。</p>
+                    <p>看到绿色的 <code>active (running)</code> 就说明守护进程已经开好了。以后确认 bot 工作状态是否正常可以在 QQ 聊天框里发 #Napcat，如果没有响应，可以用 <code>journalctl -u napcat -f</code>看日志，或者直接登录<code>http://IP地址:6099/webui</code>看 QQ 登录情况。如果连各类 WebUI 都登不上了，可能是服务器实例规格不够的原因，可检查服务器运行状态，升级服务器规格或者强制重启。</p>
+                    <p>排查 bot 问题时如果需要修改配置文件可以在找到对应文件所在目录后<code> cat </code>和重定向命令覆盖。</p>
 
-                    <h4 class="topic-title" style="font-size:.92rem;">扫码登录与 Token 获取</h4>
-                    <p>挂成守护进程后，终端里看不到二维码了。三条路找回来：</p>
-                    <div class="issue-card">
-                        <p><strong>1. journalctl 挖日志：</strong><code>journalctl -u napcat -f</code>，实时滚动输出，二维码和 Token 都在里面。</p>
-                        <p><strong>2. 直接看配置文件：</strong><code>cat /root/Napcat/.../config/webui.json</code>，找到 <code>"token": "xxxx"</code>。</p>
-                        <p><strong>3. 6099 WebUI（最优雅）：</strong>浏览器访问 <code>http://公网IP:6099/webui</code>，输入 Token 登录后，QQ 登录状态、掉线重连一目了然。</p>
-                    </div>
-
-                    <div class="issue-card">
-                        <h4>QQ 反复掉线的排查</h4>
-                        <p>systemd 配好后，QQ 偶尔会莫名掉线然后一直卡在「未启动」。排查后发现是重启 NapCat 服务时旧进程没杀干净——QQ 核心进程（<code>qq</code>）、NapCat 进程（<code>napcat</code>）和虚拟显示进程（<code>Xvfb</code>）三个可能残留。重新启动前必须先清场：</p>
-                        <div class="cmd-inline">
-                            <span class="cmd-chip">pkill -9 qq</span>
-                            <span class="cmd-chip">pkill -9 napcat</span>
-                            <span class="cmd-chip">pkill -9 Xvfb</span>
-                        </div>
-                        <p>清完再 <code>systemctl start napcat</code>，否则新旧进程抢端口，QQ 会反复登录又掉线。</p>
-                    </div>
-
-                    <h4 class="topic-title" style="font-size:.92rem;">容器内无编辑器自救</h4>
-                    <div class="issue-card">
-                        <h4>进 AstrBot 容器改配置文件，nano/vi/vim 全 command not found</h4>
-                        <p>精简 Docker 镜像就是这么狠，连个编辑器都不装，终极方案是用 Here Document 直接覆盖文件：</p>
-                        <div class="code-block">cat <<EOF > cmd_config.json
-{
-  "dashboard": {
-    "enable": true,
-    "username": "linux",
-    "password": "f086c50e945a45e7f903458c5d491911",
-    "jwt_secret": "ac666104ba789748e1bccd2d53e06e269331d8b8076d14310ca97a42508d7140",
-    "host": "0.0.0.0",
-    "port": 6185
-  }
-}
-EOF</div>
-                        <p>注意 password 字段必须是 32 位小写 MD5。改完后 <code>exit</code> 退出容器，在宝塔面板重启容器才生效。</p>
-                    </div>
-
-                    <h4 class="topic-title" style="font-size:.92rem;">插件依赖补装</h4>
-                    <div class="issue-card">
-                        <h4>插件报依赖缺失？依赖必须装在容器里面，不是宿主机</h4>
-                        <div class="cmd-inline">
-                            <span class="cmd-chip">docker exec -it astrbot /bin/bash</span>
-                            <span class="cmd-chip">cd /AstrBot/data/plugins/[插件目录]</span>
-                            <span class="cmd-chip">pip install --root-user-action=ignore -r requirements.txt</span>
-                            <span class="cmd-chip">playwright install --with-deps chromium</span>
-                        </div>
-                        <p>Web 分析类插件需要额外装 chromium 浏览器内核，不然会报错。装完重启容器。</p>
-                    </div>
-
-                    <h4 class="topic-title" style="font-size:.92rem;">服务器重启后的恢复</h4>
-                    <div class="issue-card">
-                        <h4>重启后所有面板和 Bot 都打不开？按顺序排查</h4>
-                        <p><strong>1. Docker 容器是否自启：</strong>检查是否设置了 <code>--restart always</code>。没有的话去宝塔 Docker 界面手动启动。</p>
-                        <p><strong>2. 宝塔面板入口：</strong>SSH 登录后执行 <code>bt 14</code> 查看最新入口地址和端口。</p>
-                        <p><strong>3. 安全组是否被重置：</strong>去阿里云控制台确认 6185、6099、6199 等端口是否仍然放行。</p>
-                        <p><strong>4. NapCat 状态：</strong><code>systemctl restart napcat</code>，然后 <code>systemctl status napcat</code> 确认是否恢复。</p>
-                        <div class="cmd-inline">
-                            <span class="cmd-chip">docker ps -a</span>
-                            <span class="cmd-chip">bt 14</span>
-                            <span class="cmd-chip">systemctl restart napcat</span>
-                            <span class="cmd-chip">systemctl restart bt</span>
-                        </div>
-                    </div>
+                    <!-- ====== 从 10 到 100 ====== -->
+                    <h2 class="zone-title">从 10 到 100 利用 Astrbot 丰富的扩展生态</h2>
 
                     <h3 class="topic-title">模型接入</h3>
-                    <p>AstrBot 支持接入各大厂商的 AI API，通过 <strong>AiHubMix</strong> 等聚合平台统一管理多个模型的调用和计费，一个月成本约 5 元，可根据需要随时切换模型。</p>
-
-                    <h3 class="topic-title">插件生态</h3>
-                    <p>目前共安装了 <strong>32 个插件</strong>，覆盖安全防御、内容分析、群务管理、娱乐互动等场景（AstrBot 的插件系统叫「Star」，装在 <code>data/plugins/</code> 目录下，重启 AstrBot 自动加载），按分类整理如下：</p>
+                    <p>AstrBot 支持接入各大厂商的 AI API，可以参考<a href="https://docs.astrbot.app/providers/start.html" target="_blank" class="ext-link"><i class="fas fa-link"></i> Astrbot 接入 AI </a></p>
+                    <h3 class="topic-title">插件</h3>
+                    <p>AstrBot 有非常丰富的插件系统（名为Star），可以在 WebUI 上挑选插件安装，也可以按需求自己写插件，插件目录在 <code>data/plugins/</code> 目录下。下面列举一部分插件：</p>
 
                     <div class="plugin-category">
-                        <div class="plugin-category-header"><i class="fas fa-tools"></i> 管理与工具类</div>
+                        <div class="plugin-category-header"><i class="fas fa-shield-halved"></i> QQ管理工具</div>
                         <table class="plugin-table">
-                            <thead>
-                                <tr>
-                                    <th>插件名称</th>
-                                    <th>功能简介</th>
-                                    <th>具体命令</th>
-                                </tr>
-                            </thead>
+                            <thead><tr><th>插件名称</th><th>功能简介</th><th>命令举例</th></tr></thead>
                             <tbody>
-                                <tr>
-                                    <td><strong>Anti-Prompt Injector</strong></td>
-                                    <td>提示词安全卫士。通过 PTD 核心与 LLM 复核双重机制，拦截越狱攻击、人设调教及系统覆盖等风险。内置四象防御模式，提供 WebUI 仪表盘实时审计与黑白名单管理。</td>
-                                    <td>
-                                        <code>/切换防护模式</code> 在哨兵/神盾/焦土/拦截模式间轮换<br>
-                                        <code>/切换观察模式 &lt;分钟&gt;</code> 临时切换至哨兵模式<br>
-                                        <code>/拉黑 &lt;ID&gt; [分钟]</code> 手动封禁用户<br>
-                                        <code>/解封 &lt;ID&gt;</code> 解除封禁<br>
-                                        <code>/反注入统计</code> 输出启发式与 LLM 命中数据<br>
-                                        <code>/开启/关闭防骚扰</code> 针对辱骂等行为的检测开关
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>CodeMage（插件生成器）</strong></td>
-                                    <td>AI 驱动的代码魔术师。根据自然语言描述，利用 LLM 自动构建完整的插件代码、元数据及文档。内置代码审查机制与安全过滤。</td>
-                                    <td>
-                                        <code>/生成插件 &lt;功能描述&gt;</code> 自动编写并准备安装新插件<br>
-                                        <code>/插件生成状态</code> 查看 AI 编写进度<br>
-                                        <code>/密码转md5 &lt;密码&gt;</code> 明文转 MD5，用于安全配置
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Markdown 杀手</strong></td>
-                                    <td>清理聊天输出中的 Markdown 格式符号。智能算法保护数学公式和代码变量不受误伤。支持全局过滤模式。</td>
-                                    <td>
-                                        自动过滤，无需手动指令<br>
-                                        <code>/mdk</code> 手动触发清理<br>
-                                        WebUI 开启 <code>enable_global_markdown_killer</code> 实现全局过滤
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>meme_manager</strong></td>
-                                    <td>表情包管理器 3.0，支持 WebUI 管理、目录自动维护及发送频率控制。</td>
-                                    <td>WebUI 管理界面操作</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>recall_cancel</strong></td>
-                                    <td>当用户撤回触发 LLM 回应的消息时，自动取消尚未发送的响应。</td>
-                                    <td>自动触发，无需手动指令</td>
-                                </tr>
+                                <tr><td><strong>艾特群友</strong></td><td>把QQ私聊消息转发到群里，支持@指定用户</td><td><code>/send 群号 [@用户] 要发送的内容</code></td></tr>
+                                <tr><td><strong>QQ群管</strong></td><td>禁言、全体禁言、踢人、拉黑、改群昵称、改头衔、设管理员、设精华、撤回消息、改群头像、改群名、发群公告、整理群友信息</td><td><code>禁言 &lt;秒数&gt; @用户</code> 对指定群员禁言</td></tr>
+                                <tr><td><strong>qq_group_sign</strong></td><td>QQ定时签到</td><td><code>/设置打卡时间 hh:mm:ss</code> 在指定时间打卡</td></tr>
                             </tbody>
                         </table>
                     </div>
 
                     <div class="plugin-category">
-                        <div class="plugin-category-header"><i class="fas fa-chart-bar"></i> 数据统计与信息类</div>
+                        <div class="plugin-category-header"><i class="fas fa-wrench"></i> 工具增强</div>
                         <table class="plugin-table">
-                            <thead>
-                                <tr>
-                                    <th>插件名称</th>
-                                    <th>功能简介</th>
-                                    <th>具体命令</th>
-                                </tr>
-                            </thead>
+                            <thead><tr><th>插件名称</th><th>功能简介</th><th>命令举例</th></tr></thead>
                             <tbody>
-                                <tr>
-                                    <td><strong>biliVideo 视频总结</strong></td>
-                                    <td>B 站内容深度提取器。自动下载音频、提取字幕并调用 AI 大模型，将视频转化为结构化的暗色主题卡片。支持简洁/详细/专业三种总结风格，具备 UP 主动态订阅功能。</td>
-                                    <td>
-                                        <code>/总结 &lt;链接/BV号&gt;</code> 生成 AI 总结卡片<br>
-                                        <code>/最新视频 &lt;UP主&gt;</code> 获取并总结最新视频<br>
-                                        <code>/订阅 &lt;UP主/UID&gt;</code> 新片发布自动推送总结<br>
-                                        <code>/订阅列表</code> 查看已订阅的 UP 主<br>
-                                        <code>/识别开关</code> 分享链接自动触发识别<br>
-                                        <code>/B站登录</code> 弹出二维码扫码登录
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>群发言统计</strong></td>
-                                    <td>全自动记录群成员发言数据。支持今日/本周/本月/全年多维度排行榜，HTML 模板渲染精美图片排行，具备定时推送机制。</td>
-                                    <td>
-                                        <code>#今日发言榜</code> / <code>#本周发言榜</code><br>
-                                        <code>#发言榜</code> 总发言历史排行<br>
-                                        <code>#去年发言榜</code> / <code>#本年发言榜</code><br>
-                                        <code>#设置发言榜图片 &lt;1/0&gt;</code> 切换图片/文字模式<br>
-                                        <code>#设置发言榜定时时间 [HH:MM]</code> 设定自动推送时间
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>GitHub 助手</strong></td>
-                                    <td>自动识别 GitHub 链接转为精美仓库卡片。支持轮询或 Webhook 两种模式实时推送 Issue、PR、Star、Fork 等动态。</td>
-                                    <td>
-                                        <code>/ghsub &lt;用户名/仓库名&gt;</code> 订阅仓库更新<br>
-                                        <code>/ghlink &lt;on/off&gt;</code> 开关链接自动解析<br>
-                                        <code>/ghlist</code> 列出已订阅仓库<br>
-                                        <code>/ghissue [仓库#]ID</code> 查询 Issue 详情<br>
-                                        <code>/ghreadme &lt;仓库名&gt;</code> 获取 README<br>
-                                        <code>/ghlimit</code> 查看 API 速率限制
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>群分析总结</strong></td>
-                                    <td>多平台群聊日常分析，支持话题分析、用户画像及生成群聊报告。</td>
-                                    <td>群聊内自动触发分析</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>用户画像</strong></td>
-                                    <td>自动从聊天中提取用户信息（昵称、生日、爱好等）进行存储。</td>
-                                    <td>自动提取，无需手动指令</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>人物画像</strong></td>
-                                    <td>提取群聊记录并调用 LLM 分析生成群友画像。</td>
-                                    <td>群聊内触发画像生成</td>
-                                </tr>
+                                <tr><td><strong>biliVideo 视频总结</strong></td><td>提供b站视频链接生成视频总结,可订阅up主功能、定时推送最新视频</td><td><code>/总结 &lt;视频链接&gt;</code> 总结视频内容</td></tr>
+                                <tr><td><strong>astrbot_plugin_github_cards</strong></td><td>根据GitHub链接发送GitHub 仓库简介/issue/pr卡片</td><td><code>/ghsub 用户名/仓库名</code> 订阅指定 GitHub 仓库的更新</td></tr>
+                                <tr><td><strong>插件生成器</strong></td><td>可以调用LLM生成自己想要的插件</td><td><code>/生成插件 &lt;插件功能描述&gt;</code> 生成插件</td></tr>
+                                <tr><td><strong>Markdown杀手</strong></td><td>移除输出中的Markdown格式</td><td>LLM智能判断</td></tr>
+                                <tr><td><strong>astrbot_plugin_recall_cancel</strong></td><td>当用户撤回触发LLM回应的消息时，如果回复还未发送则取消发送</td><td>LLM智能判断</td></tr>
+                                <tr><td><strong>meme_manager</strong></td><td>根据回复内容概率额外回复表情包</td><td>LLM智能判断</td></tr>
+                                <tr><td><strong>Anti-Prompt Injector</strong></td><td>防止提示词注入，支持不同强度、拉黑攻击者等操作</td><td><code>/反注入帮助</code> 查看全部指令</td></tr>
                             </tbody>
                         </table>
                     </div>
 
                     <div class="plugin-category">
-                        <div class="plugin-category-header"><i class="fas fa-gamepad"></i> 游戏、娱乐与生活类</div>
+                        <div class="plugin-category-header"><i class="fas fa-chart-bar"></i> 历史消息分析</div>
                         <table class="plugin-table">
-                            <thead>
-                                <tr>
-                                    <th>插件名称</th>
-                                    <th>功能简介</th>
-                                    <th>具体命令</th>
-                                </tr>
-                            </thead>
+                            <thead><tr><th>插件名称</th><th>功能简介</th><th>命令举例</th></tr></thead>
                             <tbody>
-                                <tr>
-                                    <td><strong>CTF 赛题及赛事推送助手</strong></td>
-                                    <td>赛事情报与刷题专家。集成 CTFTime 全球赛事日历，支持高权重赛事自动提醒（赛前 2 小时及 15 分钟），深度整合 NSSCTF 题库提供多方向随机抽题。</td>
-                                    <td>
-                                        <code>/ctftime</code> 查询高权重国际赛事<br>
-                                        <code>/ctf订阅 &lt;序号/ID&gt;</code> 订阅赛事开启提醒<br>
-                                        <code>/ctf订阅列表</code> 查看已订阅赛事<br>
-                                        <code>/ctf退订 &lt;序号/ID&gt;</code> 取消提醒<br>
-                                        <code>/ctf [方向]</code> 随机跳题（支持 web/pwn/crypto 等）
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Galgame 百宝盒</strong></td>
-                                    <td>集成 VNDB、TouchGal、AnimeTrace 及 Steam 多方数据。支持作品/角色/厂商查询、资源搜索下载、AI 角色图像识别及 Steam 成就拼图。</td>
-                                    <td>
-                                        <code>/旮旯 作品 &lt;名&gt;</code> 搜索游戏信息<br>
-                                        <code>/旮旯 角色 &lt;名&gt;</code> 查询角色资料<br>
-                                        <code>/旮旯 推荐 &lt;标签&gt;</code> 精准推荐（支持多标签）<br>
-                                        <code>/旮旯 下载 &lt;ID/名称&gt;</code> 获取游戏资源<br>
-                                        <code>/旮旯 出处 [图片]</code> 识别二次元角色<br>
-                                        <code>/旮旯 拼图</code> Steam 成就拼图
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>扫雷游戏</strong></td>
-                                    <td>经典扫雷小游戏。</td>
-                                    <td>群聊内触发扫雷</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>模拟炒股</strong></td>
-                                    <td>基于真实行情的模拟炒股，支持实时股价、委托交易与持仓管理。</td>
-                                    <td>模拟交易相关指令</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>海龟汤推理</strong></td>
-                                    <td>海龟汤推理游戏，支持自动生成主题、智能判断与验证系统。</td>
-                                    <td>开始海龟汤推理游戏</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>今日小猪</strong></td>
-                                    <td>抽取属于自己的每日小猪。</td>
-                                    <td>每日触发抽取</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>今日老婆</strong></td>
-                                    <td>抽取群友当老婆，可增加感情并生成恋爱关系图。</td>
-                                    <td>群聊内触发抽取</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>是啊，吃什么</strong></td>
-                                    <td>帮助纠结的大学生解决"今天吃什么"的难题。</td>
-                                    <td>群聊内触发推荐</td>
-                                </tr>
+                                <tr><td><strong>astrbot_plugin_message_stats</strong></td><td>QQ群消息统计插件，支持消息数量统计和排行榜生成</td><td><code>#发言榜</code> 查看总发言排行榜</td></tr>
+                                <tr><td><strong>人物画像</strong></td><td>根据聊天记录分析群友画像</td><td><code>画像@群友</code> 分析指定群友画像</td></tr>
+                                <tr><td><strong>群分析总结插件</strong></td><td>群聊内容趣味分析</td><td><code>/群分析 [天数]</code> 分析对应天数内的聊天记录</td></tr>
+                                <tr><td><strong>用户画像</strong></td><td>在聊天中自动提取用户背景信息，起到聊天增强效果</td><td><code>我的画像</code> 查看自己的画像信息</td></tr>
                             </tbody>
                         </table>
                     </div>
 
                     <div class="plugin-category">
-                        <div class="plugin-category-header"><i class="fas fa-users"></i> 社交与群务类</div>
+                        <div class="plugin-category-header"><i class="fas fa-book"></i> 学习</div>
                         <table class="plugin-table">
-                            <thead>
-                                <tr>
-                                    <th>插件名称</th>
-                                    <th>功能简介</th>
-                                    <th>具体命令</th>
-                                </tr>
-                            </thead>
+                            <thead><tr><th>插件名称</th><th>功能简介</th><th>命令举例</th></tr></thead>
                             <tbody>
-                                <tr>
-                                    <td><strong>艾特群友转发</strong></td>
-                                    <td>私聊指挥官。在私聊界面指挥机器人向指定群组转发消息，支持群号或自然语言（群名/昵称识别）匹配，精准 @特定成员。</td>
-                                    <td>
-                                        <code>/send &lt;群号&gt; [@用户] &lt;内容&gt;</code> 基础转发<br>
-                                        <code>去[XX群]告诉[YY]记得开会</code> 自然语言调用
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>QQ 群管</strong></td>
-                                    <td>综合群管插件，支持禁言、踢人、撤回消息、改名片、公告管理等。</td>
-                                    <td>群管权限指令</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>qq_group_sign</strong></td>
-                                    <td>QQ 群打卡插件，支持定时打卡、白名单模式及管理员通知。</td>
-                                    <td>定时打卡指令</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>原神圣经</strong></td>
-                                    <td>氛围组担当。检测"原神"关键词自动回复经典语录，内置冷却控制防刷屏，支持自定义语录库及群聊白名单。</td>
-                                    <td>
-                                        <code>原神</code> 关键词触发<br>
-                                        <code>/op</code> 随机调取语录
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><strong>疯狂星期四</strong></td>
-                                    <td>检测"疯狂星期四"关键词并自动回复文案。</td>
-                                    <td>关键词自动触发</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>群体协作长篇小说</strong></td>
-                                    <td>QQ 群友协作 + AI 辅助写作，支持 EPUB/PDF 导出。</td>
-                                    <td>群聊内协作写作</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>收款码助手</strong></td>
-                                    <td>当 LLM 觉得需要收费时，自动发送预上传的收款码图片。</td>
-                                    <td>LLM 自动触发</td>
-                                </tr>
+                                <tr><td><strong>LeetCode每日亿题</strong></td><td>推送LeetCode每日一题、获取/解答特定编号题目</td><td><code>/lc菜单</code> 查看功能帮助</td></tr>
+                                <tr><td><strong>CTF 赛题及赛事推送助手</strong></td><td>获取 CTFTime 全球即将开始的高质量赛事、题库</td><td><code>/ctf</code> 从nssctf跳题，支持分tag跳题</td></tr>
                             </tbody>
                         </table>
                     </div>
-                    <p class="muted" style="margin-top:0.8rem;">共安装 32 个插件，其余包括知识库、网页分析、Office 助手、LeetCode 每日推题、点歌、群签到等。</p>
 
-                    <!-- ====== 结尾 ====== -->
-                    <h2 class="zone-title">结语</h2>
-                    <p>实际写代码的时间远少于看日志、查文档、和 AI 排错的时间。大部分 debug 卡在「配置看着没问题但就是不通」的阶段，最后发现要么是少点了一个「发布」按钮（钉钉），要么是 Docker 网桥地址写错了（127.0.0.1 vs 172.17.0.1），要么是 QQ 没扫码导致后面的链路全部静默失败。</p>
+                    <div class="plugin-category">
+                        <div class="plugin-category-header"><i class="fas fa-gamepad"></i> 游戏</div>
+                        <table class="plugin-table">
+                            <thead><tr><th>插件名称</th><th>功能简介</th><th>命令举例</th></tr></thead>
+                            <tbody>
+                                <tr><td><strong>扫雷游戏</strong></td><td>经典的扫雷小游戏</td><td><code>扫雷 &lt;行&gt; &lt;列&gt; &lt;雷数&gt; &lt;皮肤序号&gt;</code> 开始扫雷</td></tr>
+                                <tr><td><strong>astrbot_plugin_soupai</strong></td><td>自动生成谜题、智能判断、验证系统、智能提示</td><td><code>/汤</code> 开始海龟汤</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-                    <div class="summary-grid">
-                        <div class="summary-card">
-                            <h4><i class="fas fa-coins"></i> 成本汇总</h4>
-                            <ul>
-                                <li>阿里云 ECS（新人优惠）：99 元/年</li>
-                                <li>域名 lvzhu.top：8-38 元/年</li>
-                                <li>API 调用（各大厂商 API）：约 5 元/月</li>
-                                <li>总成本：不到 200 元/年</li>
-                            </ul>
-                        </div>
-                        <div class="summary-card">
-                            <h4><i class="fas fa-puzzle-piece"></i> 部署成果</h4>
-                            <ul>
-                                <li>四平台接入：QQ / 钉钉 / 飞书 / 微信</li>
-                                <li>32 个插件覆盖安全/统计/娱乐/群务</li>
-                                <li>可接入各大厂商 AI API，月成本约 5 元</li>
-                                <li>7x24 小时在线，服务器重启自动恢复</li>
-                            </ul>
-                        </div>
+                    <div class="plugin-category">
+                        <div class="plugin-category-header"><i class="fas fa-face-laugh-squint"></i> 搞笑</div>
+                        <table class="plugin-table">
+                            <thead><tr><th>插件名称</th><th>功能简介</th><th>命令举例</th></tr></thead>
+                            <tbody>
+                                <tr><td><strong>原神圣经</strong></td><td>检测原神关键词自动回复原神圣经</td><td>LLM智能判断</td></tr>
+                                <tr><td><strong>astrbot_plugin_payqr</strong></td><td>LLM 觉得自己没钱了或提到要别人给钱时，发送用户上传的收款码图片</td><td>LLM智能判断</td></tr>
+                                <tr><td><strong>今日小猪</strong></td><td>抽取属于自己的每日小猪</td><td><code>/今日小猪</code> 抽取小猪</td></tr>
+                                <tr><td><strong>是啊，吃什么</strong></td><td>检测吃什么复读机以及推送推荐食物</td><td>LLM智能判断</td></tr>
+                                <tr><td><strong>今日老婆</strong></td><td>抽取群友当赛博老婆的插件</td><td><code>/今日老婆</code> 抽取群友</td></tr>
+                                <tr><td><strong>疯狂星期四插件</strong></td><td>检测疯狂星期四关键词自动回复文案</td><td>LLM智能判断</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="plugin-category">
+                        <div class="plugin-category-header"><i class="fas fa-ellipsis"></i> 其他</div>
+                        <table class="plugin-table">
+                            <thead><tr><th>插件名称</th><th>功能简介</th><th>命令举例</th></tr></thead>
+                            <tbody>
+                                <tr><td><strong>astrbot_plugin_papertrading</strong></td><td>大A模拟，支持实时股价、委托交易、持仓管理、群内排行</td><td><code>/股价 上证指数</code> 查询大盘指数</td></tr>
+                                <tr><td><strong>Galgame百宝盒</strong></td><td>随机作品、资源下载、角色识别、拼图</td><td><code>/游戏 作品 &lt;作品名&gt;</code> 查阅作品</td></tr>
+                                <tr><td><strong>群体协作长篇小说</strong></td><td>群友协作，AI辅助写作的长篇小说插件</td><td><code>/小说 帮助</code> 显示所有小说指令</td></tr>
+                            </tbody>
+                        </table>
                     </div>
 
                 </article>
