@@ -406,6 +406,14 @@
             font-weight: 600;
         }
 
+        code {
+            background: #eef3fa;
+            padding: 0.15rem 0.35rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #1e3a5f;
+        }
+
         .plugin-table code {
             background: #eef3fa;
             padding: 0.15rem 0.35rem;
@@ -573,15 +581,15 @@
                             <div class="port-cards">
                                 <div class="port-card">
                                     <div class="port-label">AstrBot WebUI</div>
-                                    <code>https://[IP]:6185</code>
+                                    <code>http://[IP]:6185</code>
                                 </div>
                                 <div class="port-card">
                                     <div class="port-label">宝塔面板 WebUI(初次登录时可能会更改端口)</div>
-                                    <code>https://[IP]:8888</code>
+                                    <code>http://[IP]:8888</code>
                                 </div>
                                 <div class="port-card">
                                     <div class="port-label">NapCat WebUI</div>
-                                    <code>https://[IP]:6099</code>
+                                    <code>http://[IP]:6099</code>
                                 </div>
                             </div>
                             <div class="port-card port-card-llbot">
@@ -590,7 +598,7 @@
                             </div>
                         </div>
                         <details class="ip-check">
-                            <summary></i> 判断 IPV4 地址合法性的 C 语言风格代码</summary>
+                            <summary><i class="fas fa-code"></i> 判断 IPV4 地址合法性的 C 语言风格代码</summary>
                             <div class="code-block">static bool is_ipaddr_valid(const char* const ipstr)
 {
     int dot_count = 0;
@@ -708,7 +716,7 @@
 
                     <h3 class="topic-title">服务器选型与环境搭建</h3>
                     <div class="issue-card">
-                        <p>阿里云新账号有300元云服务器ECS免费试用，默认是 Windows Server，但由于 Windows 系统大量资源会消耗在图形化上，且诸如宝塔、1Panel等服务器管理软件普遍对 Linux 支持性更好，于是更换为 Ubuntu 镜像。连接服务器时尽量采用<a href="https://www.xshell.com/zh/free-for-home-school/" target="_blank" class="ext-link"><i class="fas fa-external-link-alt"></i>Xshell</a>连接，若使用阿里云自带连接方式尽量不使用VNC连接实例，VNC对扩展 ASCII 码适配较差，命令行中文会乱码，且会出现英文字母大小写问题。尽量使用<strong>Workbench</strong>或<strong>SSH</strong>连接。另外注意服务器需要按需放行诸如8888、6199、6185、6090、3080等端口。</p>
+                        <p>阿里云新账号有300元云服务器ECS免费试用，默认是 Windows Server，但由于 Windows 系统大量资源会消耗在图形化上，且诸如宝塔、1Panel等服务器管理软件普遍对 Linux 支持性更好，于是更换为 Ubuntu 镜像。连接服务器时尽量采用<a href="https://www.xshell.com/zh/free-for-home-school/" target="_blank" class="ext-link"><i class="fas fa-external-link-alt"></i>Xshell</a>连接，若使用阿里云自带连接方式尽量不使用VNC连接实例，VNC对扩展 ASCII 码适配较差，命令行中文会乱码，且会出现英文字母大小写问题。尽量使用<strong>Workbench</strong>或<strong>SSH</strong>连接。另外注意服务器需要按需放行诸如8888、6199、6185、6099、3080等端口。</p>
                     </div>
 
                     <h3 class="topic-title">Docker 装 AstrBot</h3>
@@ -833,7 +841,7 @@ WantedBy=multi-user.target</div>
                     <p>AstrBot 支持网页搜索，开启后 bot 可以联网检索实时信息，减少幻觉。支持 Tavily、BoCha、百度 AI 搜索和 Brave 四种搜索源，填入对应的 API Key 即可，可以参考<a href="https://docs.astrbot.app/use/websearch.html" target="_blank" class="ext-link"><i class="fas fa-link"></i> Astrbot 网页搜索</a>。</p>
 
                     <h3 class="topic-title">Skills</h3>
-                    <p>AstrBot 的 Skills 功能和 Claude 的 Skill 类似，通过上传包含指令和脚本的模块化文件，让 bot 按需加载执行特定任务，可以参考<a href="https://docs.astrbot.app/use/skills.html" target="_blank" class="ext-link"><i class="fas fa-link"></i> Astrbot Skills</a>。</p>
+                    <p>AstrBot 的 Skills 功能和 Claude 的 Skill 类似，通过上传包含指令和脚本的模块化文件，让 bot 按需加载执行特定任务，可参考<a href="https://docs.astrbot.app/use/skills.html" target="_blank" class="ext-link"><i class="fas fa-link"></i> Astrbot Skills</a>。</p>
 
                     <h3 class="topic-title">插件</h3>
                     <p>AstrBot 有非常丰富的插件系统（名为Star），可以在 WebUI 上挑选插件安装，也可以按需求自己写插件，插件目录在 <code>data/plugins/</code> 目录下。下面列举一部分插件：</p>
