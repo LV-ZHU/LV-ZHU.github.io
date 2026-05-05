@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="../../css/common.css">
-    <script src="https://cdn.staticfile.net/echarts/5.5.0/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
     <style>
         .travel-container { max-width: 1100px; margin: 0 auto; background: white; border-radius: var(--radius-md); box-shadow: var(--shadow-md); padding: 2rem; }
         .map-tabs { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; }
@@ -149,8 +149,8 @@
                 if (currentMap === 'china') {
                     if (!geoDataCache.chinaCities || !geoDataCache.chinaProv) {
                         const [resCities, resProv] = await Promise.all([
-                            fetch('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/china-cities.json'),
-                            fetch('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/china.json')
+                            fetch('https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/json/china-cities.json'),
+                            fetch('https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/json/china.json')
                         ]);
                         geoDataCache.chinaCities = await resCities.json();
                         geoDataCache.chinaProv = await resProv.json();
@@ -214,13 +214,13 @@
                     }
                 } else if (currentMap === 'shanghai') {
                     if (!geoDataCache.shanghai) {
-                        const res = await fetch('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/province/shanghai.json');
+                        const res = await fetch('https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/json/province/shanghai.json');
                         geoDataCache.shanghai = await res.json();
                     }
                     echarts.registerMap('shanghai-map', geoDataCache.shanghai);
                 } else if (currentMap === 'world') {
                     if (!geoDataCache.world) {
-                        const res = await fetch('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/world.json');
+                        const res = await fetch('https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/json/world.json');
                         geoDataCache.world = await res.json();
                     }
                     echarts.registerMap('world', geoDataCache.world);

@@ -3,6 +3,7 @@
     'use strict';
 
     var firebaseReady = false;
+    var signingIn = false;
 
     // 动态加载 Firebase SDK
     function loadScript(src) {
@@ -49,17 +50,24 @@
             alert('Firebase 正在加载，请稍后再试');
             return;
         }
+        if (signingIn) return;
+        signingIn = true;
+
         var provider;
         if (providerName === 'google') {
             provider = new firebase.auth.GoogleAuthProvider();
         } else if (providerName === 'github') {
             provider = new firebase.auth.GithubAuthProvider();
         }
-        if (!provider) return;
+        if (!provider) { signingIn = false; return; }
 
         firebase.auth().signInWithPopup(provider).catch(function (err) {
             console.error('登录失败:', err.code, err.message);
-            alert('登录失败: ' + err.message);
+            if (err.code !== 'auth/cancelled-popup-request') {
+                alert('登录失败: ' + err.message);
+            }
+        }).finally(function () {
+            signingIn = false;
         });
     }
 
