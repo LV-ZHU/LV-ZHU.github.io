@@ -36,11 +36,6 @@
             firebaseReady = true;
             var auth = firebase.auth();
 
-            // 处理 redirect 登录结果（从 Google/GitHub 回来后）
-            auth.getRedirectResult().catch(function (err) {
-                console.error('登录回调失败:', err.code, err.message);
-            });
-
             auth.onAuthStateChanged(function (user) {
                 renderAuthUI(user);
             });
@@ -62,8 +57,10 @@
         }
         if (!provider) return;
 
-        // 使用 redirect 跳转登录，当前页面跳转到 Google/GitHub，登录完自动回来
-        firebase.auth().signInWithRedirect(provider);
+        firebase.auth().signInWithPopup(provider).catch(function (err) {
+            console.error('登录失败:', err.code, err.message);
+            alert('登录失败: ' + err.message);
+        });
     }
 
     function renderAuthUI(user) {
