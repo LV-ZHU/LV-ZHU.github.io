@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="../../css/common.css">
-    <script src="https://cdn.staticfile.net/echarts/5.5.0/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
     <style>
         .travel-container { max-width: 1100px; margin: 0 auto; background: white; border-radius: var(--radius-md); box-shadow: var(--shadow-md); padding: 2rem; }
         .map-tabs { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; }
@@ -599,11 +599,156 @@
             initTravelFirestore();
         }
 
-        // 页面加载：先初始化地图，再挂载 Firestore（隔离错误）
-        window.addEventListener('DOMContentLoaded', function() {
-            initMap();
-            try { setupFirestoreSync(); } catch(e) { console.error('Firestore 同步初始化失败:', e); }
-        });
+        // 地图初始化（保持原始逻辑不变）
+        window.addEventListener('DOMContentLoaded', initMap);
+    </script>
+
+    <!-- Firestore 同步 + 排行榜（独立 script，不影响地图） -->
+    <script>
+        (function() {
+            var travelDb = null;
+            var travelUser = null;
+            var travelNickname = '';
+
+            function escapeHtml(str) {
+                var div = document.createElement('div');
+                div.appendChild(document.createTextNode(str || ''));
+                return div.innerHTML;
+            }
+
+            function countVisited(data) {
+                if (!data) return 0;
+                return Object.values(data).filter(function(v) { return v === 'visited'; }).length;
+            }
+
+            function renderNicknameUI() {
+                var wrap = document.getElementById('nicknameWrap');
+                if (!wrap) return;
+                if (!travelUser) {
+                    wrap.innerHTML = '<span class="nickname-display">登录后可设置昵称、参与排行</span>';
+                    return;
+                }
+                if (travelNickname) {
+                    wrap.innerHTML =
+                        '<span class="nickname-display">昵称: <strong>' + escapeHtml(travelNickname) + '</strong></span>' +
+                        '<button class="nickname-edit" onclick="travelEditNickname()"><i class="fas fa-pen"></i></button>';
+                } else {
+                    wrap.innerHTML =
+                        '<input id="nickname-input" class="nickname-input" placeholder="设置昵称..." maxlength="20" />' +
+                        '<button class="nickname-btn" onclick="travelSaveNickname()">保存</button>';
+                }
+            }
+
+            window.travelEditNickname = function() {
+                var wrap = document.getElementById('nicknameWrap');
+                wrap.innerHTML =
+                    '<input id="nickname-input" class="nickname-input" value="' + escapeHtml(travelNickname) + '" maxlength="20" />' +
+                    '<button class="nickname-btn" onclick="travelSaveNickname()">保存</button>';
+            };
+
+            window.travelSaveNickname = function() {
+                var input = document.getElementById('nickname-input');
+                var name = input.value.trim();
+                if (!name || !travelUser || !travelDb) return;
+                travelNickname = name;
+                travelDb.collection('travelData').doc(travelUser.uid).set({
+                    nickname: name,
+                    photoURL: travelUser.photoURL || '',
+                    displayName: travelUser.displayName || travelUser.email || '用户',
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true }).then(function() { renderNicknameUI(); });
+            };
+
+            function syncTravelToFirestore() {
+                if (!travelUser || !travelDb) return;
+                var china = (typeof loadData !== 'undefined') ? loadData('lv-zhu-travel-map') : {};
+                var world = (typeof loadData !== 'undefined') ? loadData('lv-zhu-travel-map-world') : {};
+                var shanghai = (typeof loadData !== 'undefined') ? loadData('lv-zhu-travel-map-shanghai') : {};
+                var totalVisited = countVisited(china) + countVisited(world) + countVisited(shanghai);
+
+                travelDb.collection('travelData').doc(travelUser.uid).set({
+                    nickname: travelNickname || travelUser.displayName || travelUser.email || '用户',
+                    photoURL: travelUser.photoURL || '',
+                    displayName: travelUser.displayName || travelUser.email || '用户',
+                    china: china, world: world, shanghai: shanghai,
+                    visitedCount: totalVisited,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true }).catch(function(err) { console.error('同步失败:', err); });
+            }
+
+            function loadLeaderboard() {
+                var listEl = document.getElementById('leaderboardList');
+                if (!listEl || !travelDb) return;
+                travelDb.collection('travelData').orderBy('visitedCount', 'desc').limit(20)
+                    .onSnapshot(function(snapshot) {
+                        if (snapshot.empty) { listEl.innerHTML = '<div class="leaderboard-empty">暂无数据</div>'; return; }
+                        var html = '<ul class="leaderboard-list">';
+                        var rank = 0;
+                        snapshot.forEach(function(doc) {
+                            rank++;
+                            var d = doc.data();
+                            var name = d.nickname || d.displayName || '用户';
+                            var avatar = d.photoURL
+                                ? '<img class="leaderboard-avatar" src="' + d.photoURL + '" referrerpolicy="no-referrer" />'
+                                : '<i class="fas fa-user-circle" style="font-size:1.4rem;color:#ccc;"></i>';
+                            var rankClass = rank <= 3 ? 'top' + rank : 'other';
+                            html += '<li class="leaderboard-item">' +
+                                '<span class="leaderboard-rank ' + rankClass + '">' + rank + '</span>' +
+                                avatar + '<span class="leaderboard-name">' + escapeHtml(name) + '</span>' +
+                                '<span class="leaderboard-count">' + (d.visitedCount || 0) + ' 个地方</span></li>';
+                        });
+                        html += '</ul>';
+                        listEl.innerHTML = html;
+                    });
+            }
+
+            function waitForFirebase(cb, retries) {
+                retries = retries || 0;
+                if (typeof firebase !== 'undefined' && firebase.apps && firebase.apps.length) { cb(); return; }
+                if (retries > 50) return;
+                setTimeout(function() { waitForFirebase(cb, retries + 1); }, 200);
+            }
+
+            waitForFirebase(function() {
+                if (!firebase.firestore) {
+                    var s = document.createElement('script');
+                    s.src = 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js';
+                    s.onload = function() { setupFirestore(); };
+                    document.head.appendChild(s);
+                } else {
+                    setupFirestore();
+                }
+
+                function setupFirestore() {
+                    travelDb = firebase.firestore();
+                    firebase.auth().onAuthStateChanged(function(user) {
+                        travelUser = user;
+                        renderNicknameUI();
+                        loadLeaderboard();
+                        if (user) {
+                            travelDb.collection('travelData').doc(user.uid).get().then(function(doc) {
+                                if (doc.exists && doc.data().nickname) {
+                                    travelNickname = doc.data().nickname;
+                                    renderNicknameUI();
+                                }
+                            });
+                        }
+                    });
+
+                    // 地图点击后同步
+                    var checkChart = setInterval(function() {
+                        if (typeof chartInstance !== 'undefined' && chartInstance) {
+                            clearInterval(checkChart);
+                            chartInstance.on('click', function() {
+                                setTimeout(syncTravelToFirestore, 200);
+                            });
+                        }
+                    }, 500);
+                }
+            });
+
+            renderNicknameUI();
+        })();
     </script>
 </body>
 </html>
