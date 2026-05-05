@@ -140,6 +140,13 @@
         }
         function saveData(key, data) { localStorage.setItem(key, JSON.stringify(data)); }
 
+        function fetchWithTimeout(url, timeout) {
+            timeout = timeout || 30000;
+            var controller = new AbortController();
+            var timer = setTimeout(function() { controller.abort(); }, timeout);
+            return fetch(url, { signal: controller.signal }).finally(function() { clearTimeout(timer); });
+        }
+
         async function fetchExternalGeoJSON() {
             const loadingMsg = document.getElementById('loadingMsg');
             loadingMsg.innerHTML = '<div class="lds-dual-ring"></div> 正在加载数据，请稍候...';
@@ -149,8 +156,8 @@
                 if (currentMap === 'china') {
                     if (!geoDataCache.chinaCities || !geoDataCache.chinaProv) {
                         const [resCities, resProv] = await Promise.all([
-                            fetch('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/china-cities.json'),
-                            fetch('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/china.json')
+                            fetchWithTimeout('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/china-cities.json'),
+                            fetchWithTimeout('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/china.json')
                         ]);
                         geoDataCache.chinaCities = await resCities.json();
                         geoDataCache.chinaProv = await resProv.json();
@@ -214,19 +221,20 @@
                     }
                 } else if (currentMap === 'shanghai') {
                     if (!geoDataCache.shanghai) {
-                        var resSh = await fetch('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/province/shanghai.json');
+                        var resSh = await fetchWithTimeout('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/province/shanghai.json');
                         geoDataCache.shanghai = await resSh.json();
                     }
                     echarts.registerMap('shanghai-map', geoDataCache.shanghai);
                 } else if (currentMap === 'world') {
                     if (!geoDataCache.world) {
-                        var resW = await fetch('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/world.json');
+                        var resW = await fetchWithTimeout('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/world.json');
                         geoDataCache.world = await resW.json();
                     }
                     echarts.registerMap('world', geoDataCache.world);
                 }
             } catch (e) {
-                loadingMsg.innerHTML = '<i class="fas fa-exclamation-triangle" style="margin-right:8px; color:#ef4444;"></i> 在线地图资源加载失败，请重试';
+                var hint = e.name === 'AbortError' ? '加载超时（30秒），请检查网络后重试' : '在线地图资源加载失败，请重试';
+                loadingMsg.innerHTML = '<i class="fas fa-exclamation-triangle" style="margin-right:8px; color:#ef4444;"></i> ' + hint;
                 console.error(e);
                 return false;
             }
