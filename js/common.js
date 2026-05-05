@@ -218,6 +218,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const footer = document.querySelector('.footer');
         if (footer) {
+            // 在 footer 前插入评论区
+            var commentsDiv = document.createElement('div');
+            commentsDiv.id = 'comments-section';
+            commentsDiv.className = 'comments-section';
+            footer.parentNode.insertBefore(commentsDiv, footer);
+
             footer.innerHTML = [
                 '<div class="container"><div class="footer-inner">',
                 '  <div class="footer-copy">&copy; 2026 LV-ZHU</div>',
@@ -290,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 动态加载 Firebase 认证模块
     (function loadAuthScripts() {
         var siteRoot = getSiteRootUrl();
-        var scripts = ['js/firebase-config.js', 'js/auth.js'];
+        var scripts = ['js/firebase-config.js', 'js/auth.js', 'js/comments.js'];
         var idx = 0;
         function loadNext() {
             if (idx >= scripts.length) return;
