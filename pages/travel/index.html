@@ -583,24 +583,27 @@
                 });
         }
 
-        // 原始 click handler 里加上 Firestore 同步
-        var origInitMap = initMap;
-        initMap = function() {
-            origInitMap();
-            // 在地图 click 后同步
+        function escapeHtml(str) {
+            var div = document.createElement('div');
+            div.appendChild(document.createTextNode(str || ''));
+            return div.innerHTML;
+        }
+
+        // 在地图 click 后同步 Firestore
+        function setupFirestoreSync() {
             if (chartInstance) {
                 chartInstance.on('click', function() {
                     setTimeout(syncTravelToFirestore, 100);
                 });
             }
             initTravelFirestore();
-        };
-
-        function escapeHtml(str) {
-            var div = document.createElement('div');
-            div.appendChild(document.createTextNode(str || ''));
-            return div.innerHTML;
         }
+
+        // 页面加载：先初始化地图，再挂载 Firestore（隔离错误）
+        window.addEventListener('DOMContentLoaded', function() {
+            initMap();
+            try { setupFirestoreSync(); } catch(e) { console.error('Firestore 同步初始化失败:', e); }
+        });
     </script>
 </body>
 </html>
