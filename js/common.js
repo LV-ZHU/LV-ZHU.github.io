@@ -100,7 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
             { title: 'Jottings', path: 'pages/jottings/jiqin-fenliu.html', keywords: '济勤 分流' },   
             { title: 'ACGN', path: 'pages/acgn/index.html', keywords: '二次元 动画 游戏 小说 acgn animation game novel 植物大战僵尸 wanna 洲 舟 农 瓦 崩 原 go 铁 绝 劫 铲 穿 斗 鸣 尘 柚 ow 杀 邦 轨 mc 谷 ut 空 茶 蔚 脑 死 以 塞' },
             { title: 'Travel', path: 'pages/travel/index.html', keywords: '旅行 旅游 travel 开元心 行夫 世界' },
-            { title: 'Tutoring', path: 'pages/tutoring/index.html', keywords: '家教 tutoring' }
+            { title: 'Tutoring', path: 'pages/tutoring/index.html', keywords: '家教 tutoring' },
+            { title: 'Account', path: 'pages/account/index.html', keywords: '账号 account 个人 昵称 profile 设置' }
         ].map(item => ({
             title: item.title,
             href: buildHref(siteRoot, item.path),

@@ -537,7 +537,7 @@ img { max-width: 100%; display: block; }
 
 /* 已登录用户 */
 .auth-user { display: flex; align-items: center; gap: 0.5rem; }
-.auth-user-info { display: flex; align-items: center; gap: 0.4rem; }
+.auth-user-info { display: flex; align-items: center; gap: 0.4rem; text-decoration: none; color: inherit; cursor: pointer; }
 .auth-avatar {
     width: 28px; height: 28px; border-radius: 50%;
     border: 1.5px solid rgba(255,255,255,0.2); object-fit: cover;

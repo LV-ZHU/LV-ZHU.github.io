@@ -54,15 +54,9 @@
         .leaderboard-count { font-size: 0.9rem; font-weight: 600; color: var(--primary); }
         .leaderboard-empty { font-size: 0.85rem; color: var(--gray); }
         .leaderboard-login-hint { font-size: 0.85rem; color: var(--gray); }
+        .leaderboard-delete { background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 0.8rem; padding: 0.2rem; margin-left: 0.3rem; }
+        .leaderboard-delete:hover { color: #ef4444; }
 
-        /* 昵称 */
-        .nickname-wrap { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
-        .nickname-input { border: 1px solid var(--gray-light); border-radius: 6px; padding: 0.3rem 0.6rem; font-size: 0.85rem; width: 140px; outline: none; }
-        .nickname-input:focus { border-color: var(--primary); }
-        .nickname-btn { padding: 0.3rem 0.8rem; border: none; border-radius: 6px; background: var(--primary); color: #fff; font-size: 0.8rem; cursor: pointer; }
-        .nickname-btn:hover { opacity: 0.9; }
-        .nickname-display { font-size: 0.85rem; color: var(--gray); }
-        .nickname-edit { background: none; border: none; color: var(--primary); cursor: pointer; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -97,7 +91,6 @@
                         <div id="mapChart"></div>
                     </div>
 
-                    <div class="nickname-wrap" id="nicknameWrap"></div>
                     <div class="map-stats-container" id="statsContainer"></div>
 
                     </div>
@@ -170,8 +163,9 @@
                     if (!geoDataCache.chinaCities || !geoDataCache.chinaProv) {
                         const [citiesJson, provJson] = await Promise.all([
                             fetchWithFallback([
-                                'https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json',
-                                'https://registry.npmmirror.com/echarts/4.9.0/files/map/json/china-cities.json'
+				'https://registry.npmmirror.com/echarts/4.9.0/files/map/json/china-cities.json',
+                                'https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json'
+                     
                             ]),
                             fetchWithFallback([
                                 'https://registry.npmmirror.com/echarts/4.9.0/files/map/json/china.json',
@@ -468,7 +462,6 @@
         (function() {
             var travelDb = null;
             var travelUser = null;
-            var travelNickname = '';
 
             function escapeHtml(str) {
                 var div = document.createElement('div');
@@ -481,44 +474,6 @@
                 return Object.values(data).filter(function(v) { return v === 'visited'; }).length;
             }
 
-            function renderNicknameUI() {
-                var wrap = document.getElementById('nicknameWrap');
-                if (!wrap) return;
-                if (!travelUser) {
-                    wrap.innerHTML = '<span class="nickname-display">登录后可设置昵称、参与排行</span>';
-                    return;
-                }
-                if (travelNickname) {
-                    wrap.innerHTML =
-                        '<span class="nickname-display">昵称: <strong>' + escapeHtml(travelNickname) + '</strong></span>' +
-                        '<button class="nickname-edit" onclick="travelEditNickname()"><i class="fas fa-pen"></i></button>';
-                } else {
-                    wrap.innerHTML =
-                        '<input id="nickname-input" class="nickname-input" placeholder="设置昵称..." maxlength="20" />' +
-                        '<button class="nickname-btn" onclick="travelSaveNickname()">保存</button>';
-                }
-            }
-
-            window.travelEditNickname = function() {
-                var wrap = document.getElementById('nicknameWrap');
-                wrap.innerHTML =
-                    '<input id="nickname-input" class="nickname-input" value="' + escapeHtml(travelNickname) + '" maxlength="20" />' +
-                    '<button class="nickname-btn" onclick="travelSaveNickname()">保存</button>';
-            };
-
-            window.travelSaveNickname = function() {
-                var input = document.getElementById('nickname-input');
-                var name = input.value.trim();
-                if (!name || !travelUser || !travelDb) return;
-                travelNickname = name;
-                travelDb.collection('travelData').doc(travelUser.uid).set({
-                    nickname: name,
-                    photoURL: travelUser.photoURL || '',
-                    displayName: travelUser.displayName || travelUser.email || '用户',
-                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                }, { merge: true }).then(function() { renderNicknameUI(); });
-            };
-
             function syncTravelToFirestore() {
                 if (!travelUser || !travelDb) return;
                 var china = (typeof loadData !== 'undefined') ? loadData('lv-zhu-travel-map') : {};
@@ -527,7 +482,6 @@
                 var totalVisited = countVisited(china) + countVisited(world) + countVisited(shanghai);
 
                 travelDb.collection('travelData').doc(travelUser.uid).set({
-                    nickname: travelNickname || travelUser.displayName || travelUser.email || '用户',
                     photoURL: travelUser.photoURL || '',
                     displayName: travelUser.displayName || travelUser.email || '用户',
                     china: china, world: world, shanghai: shanghai,
@@ -542,23 +496,58 @@
                 travelDb.collection('travelData').orderBy('visitedCount', 'desc').limit(20)
                     .onSnapshot(function(snapshot) {
                         if (snapshot.empty) { listEl.innerHTML = '<div class="leaderboard-empty">暂无数据</div>'; return; }
-                        var html = '<ul class="leaderboard-list">';
-                        var rank = 0;
-                        snapshot.forEach(function(doc) {
-                            rank++;
-                            var d = doc.data();
-                            var name = d.nickname || d.displayName || '用户';
-                            var avatar = d.photoURL
-                                ? '<img class="leaderboard-avatar" src="' + d.photoURL + '" referrerpolicy="no-referrer" />'
-                                : '<i class="fas fa-user-circle" style="font-size:1.4rem;color:#ccc;"></i>';
-                            var rankClass = rank <= 3 ? 'top' + rank : 'other';
-                            html += '<li class="leaderboard-item">' +
-                                '<span class="leaderboard-rank ' + rankClass + '">' + rank + '</span>' +
-                                avatar + '<span class="leaderboard-name">' + escapeHtml(name) + '</span>' +
-                                '<span class="leaderboard-count">' + (d.visitedCount || 0) + ' 个地方</span></li>';
+
+                        // 收集所有 uid，批量查 users 集合拿昵称
+                        var docs = [];
+                        snapshot.forEach(function(doc) { docs.push({ id: doc.id, data: doc.data() }); });
+
+                        var uids = docs.map(function(item) { return item.id; });
+                        var nicknameMap = {};
+
+                        // 批量读取 users/{uid}
+                        var promises = uids.map(function(uid) {
+                            return travelDb.collection('users').doc(uid).get().then(function(userDoc) {
+                                if (userDoc.exists && userDoc.data().nickname) {
+                                    nicknameMap[uid] = userDoc.data().nickname;
+                                }
+                            }).catch(function() {});
                         });
-                        html += '</ul>';
-                        listEl.innerHTML = html;
+
+                        Promise.all(promises).then(function() {
+                            var html = '<ul class="leaderboard-list">';
+                            var rank = 0;
+                            docs.forEach(function(item) {
+                                rank++;
+                                var d = item.data;
+                                var uid = item.id;
+                                var name = nicknameMap[uid] || d.displayName || '用户';
+                                var avatar = d.photoURL
+                                    ? '<img class="leaderboard-avatar" src="' + d.photoURL + '" referrerpolicy="no-referrer" />'
+                                    : '<i class="fas fa-user-circle" style="font-size:1.4rem;color:#ccc;"></i>';
+                                var rankClass = rank <= 3 ? 'top' + rank : 'other';
+                                var deleteBtn = (travelUser && travelUser.uid === uid)
+                                    ? ' <button class="leaderboard-delete" data-uid="' + uid + '" title="删除我的记录"><i class="fas fa-times"></i></button>'
+                                    : '';
+                                html += '<li class="leaderboard-item">' +
+                                    '<span class="leaderboard-rank ' + rankClass + '">' + rank + '</span>' +
+                                    avatar + '<span class="leaderboard-name">' + escapeHtml(name) + '</span>' +
+                                    '<span class="leaderboard-count">' + (d.visitedCount || 0) + ' 个地方</span>' +
+                                    deleteBtn + '</li>';
+                            });
+                            html += '</ul>';
+                            listEl.innerHTML = html;
+
+                            listEl.querySelectorAll('.leaderboard-delete').forEach(function(btn) {
+                                btn.addEventListener('click', function() {
+                                    var uid = btn.getAttribute('data-uid');
+                                    if (confirm('确定删除你的排行榜记录？')) {
+                                        travelDb.collection('travelData').doc(uid).delete().catch(function(err) {
+                                            console.error('删除失败:', err);
+                                        });
+                                    }
+                                });
+                            });
+                        });
                     });
             }
 
@@ -583,16 +572,7 @@
                     travelDb = firebase.firestore();
                     firebase.auth().onAuthStateChanged(function(user) {
                         travelUser = user;
-                        renderNicknameUI();
                         loadLeaderboard();
-                        if (user) {
-                            travelDb.collection('travelData').doc(user.uid).get().then(function(doc) {
-                                if (doc.exists && doc.data().nickname) {
-                                    travelNickname = doc.data().nickname;
-                                    renderNicknameUI();
-                                }
-                            });
-                        }
                     });
 
                     // 地图点击后同步
@@ -606,8 +586,6 @@
                     }, 500);
                 }
             });
-
-            renderNicknameUI();
         })();
     </script>
 </body>

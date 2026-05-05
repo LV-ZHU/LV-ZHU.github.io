@@ -63,6 +63,13 @@
         });
     }
 
+    function getAccountUrl() {
+        var script = document.querySelector('script[src*="/js/auth.js"], script[src$="js/auth.js"]');
+        if (!script || !script.src) return './pages/account/index.html';
+        var root = new URL('../', script.src);
+        return new URL('pages/account/index.html', root).href;
+    }
+
     function renderAuthUI(user) {
         var container = document.getElementById('auth-section');
         if (!container) return;
@@ -70,15 +77,16 @@
         if (user) {
             var photoURL = user.photoURL || '';
             var displayName = user.displayName || user.email || '用户';
+            var accountUrl = getAccountUrl();
 
             container.innerHTML =
                 '<div class="auth-user">' +
-                '  <div class="auth-user-info">' +
+                '  <a href="' + accountUrl + '" class="auth-user-info">' +
                 (photoURL
                     ? '<img class="auth-avatar" src="' + photoURL + '" alt="avatar" referrerpolicy="no-referrer" />'
                     : '<i class="fas fa-user-circle auth-avatar-icon"></i>') +
                 '    <span class="auth-name">' + displayName + '</span>' +
-                '  </div>' +
+                '  </a>' +
                 '  <button class="auth-logout-btn" id="auth-logout-btn">' +
                 '    <i class="fas fa-right-from-bracket"></i>' +
                 '  </button>' +
