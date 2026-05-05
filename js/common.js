@@ -143,6 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 '    <input id="nav-search-input" class="nav-search-input" type="search" placeholder="搜索页面..." autocomplete="off" />',
                 '    <div id="nav-search-results" class="nav-search-results" role="listbox" aria-label="站点搜索结果"></div>',
                 '  </div>',
+                '  <div id="auth-section" class="auth-section"></div>',
                 '  <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>',
                 '</div>'
             ].join('');
@@ -285,4 +286,20 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(() => {
         document.body.style.opacity = '1';
     });
+
+    // 动态加载 Firebase 认证模块
+    (function loadAuthScripts() {
+        var siteRoot = getSiteRootUrl();
+        var scripts = ['js/firebase-config.js', 'js/auth.js'];
+        var idx = 0;
+        function loadNext() {
+            if (idx >= scripts.length) return;
+            var s = document.createElement('script');
+            s.src = new URL(scripts[idx], siteRoot).href;
+            s.onload = function () { idx++; loadNext(); };
+            s.onerror = function () { idx++; loadNext(); };
+            document.body.appendChild(s);
+        }
+        loadNext();
+    })();
 });
