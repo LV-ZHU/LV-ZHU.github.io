@@ -37,10 +37,24 @@
         });
     }
 
-    async function initComments() {
+    // 等待 firebase 和 #comments-section 都就绪
+    function waitForReady(callback, retries) {
+        retries = retries || 0;
         var container = document.getElementById('comments-section');
-        if (!container) return;
+        if (container && typeof firebase !== 'undefined' && firebase.apps && firebase.apps.length) {
+            callback(container);
+            return;
+        }
+        if (retries > 50) {
+            console.error('评论系统初始化超时');
+            return;
+        }
+        setTimeout(function () {
+            waitForReady(callback, retries + 1);
+        }, 200);
+    }
 
+    async function initComments(container) {
         try {
             await loadFirestore();
         } catch (e) {
@@ -48,7 +62,7 @@
             return;
         }
 
-        if (typeof firebase === 'undefined' || !firebase.apps.length) return;
+        if (!firebase.apps.length) return;
         db = firebase.firestore();
 
         firebase.auth().onAuthStateChanged(function (user) {
@@ -77,10 +91,9 @@
             formHtml = '<div class="comment-login-hint">登录后可评论</div>';
         }
 
-        // 先保留评论列表区域
         var listEl = container.querySelector('.comment-list');
         container.innerHTML = '<h3 class="comment-title">评论</h3>' + formHtml +
-            (listEl ? listEl.outerHTML : '<div class="comment-list" id="comment-list"></div>');
+            '<div class="comment-list" id="comment-list"></div>';
 
         if (currentUser) {
             document.getElementById('comment-submit').addEventListener('click', submitComment);
@@ -173,9 +186,5 @@
             });
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initComments);
-    } else {
-        initComments();
-    }
+    waitForReady(initComments);
 })();
