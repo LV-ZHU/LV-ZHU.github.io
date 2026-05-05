@@ -25,12 +25,15 @@
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid var(--primary);
-            margin-bottom: 1rem;
+            margin: 0 auto 1rem;
+            display: block;
         }
         .account-avatar-icon {
             font-size: 5rem;
             color: #ccc;
-            margin-bottom: 1rem;
+            margin: 0 auto 1rem;
+            display: block;
+            text-align: center;
         }
         .account-name {
             font-size: 1.3rem;
@@ -138,13 +141,13 @@
 
     <div class="page-wrapper">
         <div class="page-header">
-            <h1><i class="fas fa-user-circle"></i> 账号</h1>
+            <h1><i class="fas fa-user-circle"></i> 账号管理</h1>
         </div>
         <section class="section">
             <div class="container">
                 <div id="accountContent" class="fade-in">
                     <div class="account-not-logged">
-                        <p>请先登录后查看账号信息</p>
+                        <p>请在登录后查看账号信息</p>
                         <a href="../../index.html">返回首页</a>
                     </div>
                 </div>
@@ -200,13 +203,13 @@
                 if (!user) {
                     container.innerHTML =
                         '<div class="account-not-logged">' +
-                        '  <p>请先登录后查看账号信息</p>' +
+                        '  <p>请在登录后查看账号信息</p>' +
                         '  <a href="../../index.html">返回首页</a>' +
                         '</div>';
                     return;
                 }
 
-                try { await loadFirestore(); } catch (e) { console.error('Firestore 加载失败:', e); }
+                try { await loadFirestore(); } catch (e) { console.error('加载失败:', e); }
                 if (firebase.apps.length && firebase.firestore) db = firebase.firestore();
 
                 var photoURL = user.photoURL || '';
@@ -239,7 +242,6 @@
                     '      <input id="account-nickname" class="nickname-input" value="' + escapeHtml(nickname) + '" placeholder="设置你的昵称..." maxlength="20" />' +
                     '      <button id="account-save" class="nickname-save">保存</button>' +
                     '    </div>' +
-                    '    <div class="nickname-hint">昵称会显示在评论和旅行排行榜中</div>' +
                     '    <div id="saveToast" class="save-toast">已保存</div>' +
                     '  </div>' +
                     '</div>';
@@ -267,7 +269,7 @@
                         setTimeout(function () { toast.classList.remove('show'); }, 2000);
                     } catch (e) {
                         console.error('保存失败:', e);
-                        alert('保存失败，请重试');
+                        alert('保存失败: ');
                         btn.textContent = '保存';
                         btn.disabled = false;
                     }

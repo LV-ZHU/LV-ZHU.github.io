@@ -140,19 +140,6 @@
         }
         function saveData(key, data) { localStorage.setItem(key, JSON.stringify(data)); }
 
-        async function fetchWithFallback(urls) {
-            for (var i = 0; i < urls.length; i++) {
-                try {
-                    var controller = new AbortController();
-                    var timer = setTimeout(function() { controller.abort(); }, 20000);
-                    var res = await fetch(urls[i], { signal: controller.signal });
-                    clearTimeout(timer);
-                    if (res.ok) return await res.json();
-                } catch (e) { /* try next */ }
-            }
-            throw new Error('所有数据源均加载失败');
-        }
-
         async function fetchExternalGeoJSON() {
             const loadingMsg = document.getElementById('loadingMsg');
             loadingMsg.innerHTML = '<div class="lds-dual-ring"></div> 正在加载数据，请稍候...';
@@ -161,19 +148,12 @@
             try {
                 if (currentMap === 'china') {
                     if (!geoDataCache.chinaCities || !geoDataCache.chinaProv) {
-                        const [citiesJson, provJson] = await Promise.all([
-                            fetchWithFallback([
-				'https://registry.npmmirror.com/echarts/4.9.0/files/map/json/china-cities.json',
-                                'https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json'
-                     
-                            ]),
-                            fetchWithFallback([
-                                'https://registry.npmmirror.com/echarts/4.9.0/files/map/json/china.json',
-                                'https://geo.datav.aliyun.com/areas_v3/bound/100000.json'
-                            ])
+                        const [resCities, resProv] = await Promise.all([
+                            fetch('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/china-cities.json'),
+                            fetch('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/china.json')
                         ]);
-                        geoDataCache.chinaCities = citiesJson;
-                        geoDataCache.chinaProv = provJson;
+                        geoDataCache.chinaCities = await resCities.json();
+                        geoDataCache.chinaProv = await resProv.json();
 
                         let provIdMap = {};
                         geoDataCache.chinaProv.features.forEach(f => {
@@ -234,18 +214,14 @@
                     }
                 } else if (currentMap === 'shanghai') {
                     if (!geoDataCache.shanghai) {
-                        geoDataCache.shanghai = await fetchWithFallback([
-                            'https://registry.npmmirror.com/echarts/4.9.0/files/map/json/province/shanghai.json',
-                            'https://geo.datav.aliyun.com/areas_v3/bound/310000_full.json'
-                        ]);
+                        var resSh = await fetch('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/province/shanghai.json');
+                        geoDataCache.shanghai = await resSh.json();
                     }
                     echarts.registerMap('shanghai-map', geoDataCache.shanghai);
                 } else if (currentMap === 'world') {
                     if (!geoDataCache.world) {
-                        geoDataCache.world = await fetchWithFallback([
-                            'https://registry.npmmirror.com/echarts/4.9.0/files/map/json/world.json',
-                            'https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/json/world.json'
-                        ]);
+                        var resW = await fetch('https://registry.npmmirror.com/echarts/4.9.0/files/map/json/world.json');
+                        geoDataCache.world = await resW.json();
                     }
                     echarts.registerMap('world', geoDataCache.world);
                 }
