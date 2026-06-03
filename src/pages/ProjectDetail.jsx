@@ -800,6 +800,7 @@ const projectComponents = {
   'fpga': FPGA,
   'gpu': GPU,
   'llm-bot': QQBot,
+  'qq-bot': QQBot,
 }
 
 export default function ProjectDetail() {
