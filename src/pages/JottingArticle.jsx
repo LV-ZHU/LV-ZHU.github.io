@@ -2,11 +2,6 @@ import { useParams, Link } from 'react-router-dom'
 import '../styles/ArticleDetail.css'
 
 const articles = {
-  'jotting1': {
-    title: '先活着，再思考别的',
-    content: `张雪峰3/24因心脏病猝死，网传压力过大+睡眠不足+马拉松，也有说因为吸烟导致。
-如题，先活着，再想别的。该吃吃，该喝喝，啥事别往心里搁。`,
-  },
   'assignment': {
     title: '大二下安排',
     content: `5周：清明假期，周四-周一
