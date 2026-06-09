@@ -92,6 +92,7 @@ const letterData = {
       { title: '浙大导航页', url: 'https://zjuers.com', icon: 'fas fa-university', urlDisplay: 'zjuers.com' },
       { title: '来自东方的神秘力量1', url: 'https://katp7luhifu2zxnpy8cs.wgetcloud.org/', icon: 'fas fa-cloud', urlDisplay: 'wgetcloud.org' },
       { title: '来自东方的神秘力量2', url: 'https://www.xcjs123.com/user', icon: 'fas fa-cloud', urlDisplay: 'www.xcjs123.com/user' },
+      { title: '来自东方的神秘力量3', url: 'https://github.com/cmliu/edgetunnel', icon: 'fas fa-cloud', urlDisplay: 'edgetunnel' },
       { title: '你是人机吗？', url: 'https://neal.fun/not-a-robot', icon: 'fas fa-robot', urlDisplay: 'neal.fun/not-a-robot' },
       { title: '阿里云地图小工具', url: 'https://datav.aliyun.com/portal/school/atlas/area_selector', icon: 'fas fa-map', urlDisplay: 'datav.aliyun.com / atlas area_selector' },
       { title: '神秘读文献方式', url: 'https://www.paper2gal.top/', icon: 'fas fa-file-alt', urlDisplay: 'paper2gal.top' },
