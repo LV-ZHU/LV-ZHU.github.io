@@ -11,7 +11,7 @@ const songs_mandarin = [
     { name: "水手", artist: "郑智化", comment: "属于70、80后的回忆" },
     { name: "好久不见", artist: "陈奕迅", comment: "很治愈的感觉" },
     { name: "你是我的眼", artist: "萧煌奇", comment: "激昂！" },
-    { name: "爱情转移", artist: "陈奕迅", comment: "把一个人的温暖~转移到另一个的胸膛~Eason经典" },
+    { name: "爱情转移", artist: "陈奕迅", comment: "把一个人的温暖~转移到另一个的胸膛~Eason经典，音乐会精选" },
     { name: "王妃", artist: "萧敬腾", comment: "摇晃的红酒杯~嗨起来！" },
     { name: "光阴的故事", artist: "罗大佑", comment: "罗老师的歌一放怀旧感就来了" },
     { name: "暗香", artist: "沙宝亮", comment: "正如歌名，开始很低沉，副歌有种豁然开朗的感觉" },
