@@ -1,4 +1,8 @@
+import { useEffect, useMemo, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import { collection, getDocs, orderBy, query } from 'firebase/firestore'
+import { useAuth } from '../components/AuthProvider'
+import { db } from '../firebase/init'
 import '../styles/Favorites.css'
 
 const letterData = {
@@ -90,9 +94,6 @@ const letterData = {
       { title: '拉导的网站推荐合集', url: 'https://lkssite.vip', icon: 'fas fa-bookmark', urlDisplay: 'lkssite.vip' },
       { title: 'enjoy physics，但不是只有physics', url: 'https://enjoyphysics.cn', icon: 'fas fa-atom', urlDisplay: 'enjoyphysics.cn' },
       { title: '浙大导航页', url: 'https://zjuers.com', icon: 'fas fa-university', urlDisplay: 'zjuers.com' },
-      { title: '来自东方的神秘力量1', url: 'https://katp7luhifu2zxnpy8cs.wgetcloud.org/', icon: 'fas fa-cloud', urlDisplay: 'wgetcloud.org' },
-      { title: '来自东方的神秘力量2', url: 'https://www.xcjs123.com/user', icon: 'fas fa-cloud', urlDisplay: 'www.xcjs123.com/user' },
-      { title: '来自东方的神秘力量3', url: 'https://github.com/cmliu/edgetunnel', icon: 'fas fa-cloud', urlDisplay: 'edgetunnel' },
       { title: '你是人机吗？', url: 'https://neal.fun/not-a-robot', icon: 'fas fa-robot', urlDisplay: 'neal.fun/not-a-robot' },
       { title: '阿里云地图小工具', url: 'https://datav.aliyun.com/portal/school/atlas/area_selector', icon: 'fas fa-map', urlDisplay: 'datav.aliyun.com / atlas area_selector' },
       { title: '神秘读文献方式', url: 'https://www.paper2gal.top/', icon: 'fas fa-file-alt', urlDisplay: 'paper2gal.top' },
@@ -223,11 +224,69 @@ const letterData = {
 }
 
 const placeholderLetters = ['D', 'E', 'F', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'R', 'V', 'W', 'X', 'Y', 'Z']
+const O_PRIVATE_LINK_INSERT_INDEX = 3
+
+function normalizePrivateLink(doc) {
+  const data = doc.data()
+  if (typeof data.title !== 'string' || typeof data.url !== 'string') return null
+
+  return {
+    title: data.title,
+    url: data.url,
+    icon: typeof data.icon === 'string' && data.icon ? data.icon : 'fas fa-cloud',
+    urlDisplay: typeof data.urlDisplay === 'string' && data.urlDisplay ? data.urlDisplay : data.url,
+  }
+}
 
 export default function FavoritesLetter() {
   const { letter } = useParams()
+  const { user } = useAuth()
+  const [privateLinks, setPrivateLinks] = useState([])
   const upperLetter = letter?.toUpperCase()
   const data = letterData[upperLetter]
+  const visibleLinks = useMemo(() => {
+    if (!data?.links) return []
+    if (upperLetter !== 'O' || !user || privateLinks.length === 0) return data.links
+
+    return [
+      ...data.links.slice(0, O_PRIVATE_LINK_INSERT_INDEX),
+      ...privateLinks,
+      ...data.links.slice(O_PRIVATE_LINK_INSERT_INDEX),
+    ]
+  }, [data, privateLinks, upperLetter, user])
+
+  useEffect(() => {
+    let cancelled = false
+
+    if (upperLetter !== 'O' || !user) {
+      setPrivateLinks([])
+      return () => {
+        cancelled = true
+      }
+    }
+
+    async function loadPrivateLinks() {
+      try {
+        const privateLinksQuery = query(
+          collection(db, 'privateLinks', 'favoritesO', 'items'),
+          orderBy('order', 'asc')
+        )
+        const snapshot = await getDocs(privateLinksQuery)
+        if (!cancelled) {
+          setPrivateLinks(snapshot.docs.map(normalizePrivateLink).filter(Boolean))
+        }
+      } catch (error) {
+        console.error('加载私密收藏链接失败:', error)
+        if (!cancelled) setPrivateLinks([])
+      }
+    }
+
+    loadPrivateLinks()
+
+    return () => {
+      cancelled = true
+    }
+  }, [upperLetter, user])
 
   if (!data && !placeholderLetters.includes(upperLetter)) {
     return (
@@ -290,7 +349,7 @@ export default function FavoritesLetter() {
             </div>
           ) : data.links ? (
             <div className="link-grid">
-              {data.links.map((link, i) => (
+              {visibleLinks.map((link, i) => (
                 <a key={i} className="lk" href={link.url} target="_blank" rel="noopener noreferrer">
                   <div className="lk-icon"><i className={link.icon} /></div>
                   <div className="lk-body">
