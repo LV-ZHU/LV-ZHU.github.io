@@ -392,7 +392,7 @@ const subjectData = {
     subtitle: '搜索、推理、机器学习、强化学习',
     content: {
       type: 'exam',
-      sectionTitle: '25261 期末回忆',
+      sectionTitle: '25262 期末回忆',
       panelTitle: '考点回忆',
       text: aiExamText,
     },
@@ -438,7 +438,7 @@ const subjectData = {
     subtitle: '加密、认证、信息安全',
     content: {
       type: 'exam',
-      sectionTitle: '25261 期末回忆',
+      sectionTitle: '25262 期末回忆',
       panelTitle: '考点回忆',
       text: cryptoExamText,
     },
