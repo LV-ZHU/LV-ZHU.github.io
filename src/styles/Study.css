@@ -45,6 +45,12 @@
   stroke-width: 2.5;
 }
 
+.km-svg path.strong-dashed {
+  stroke: #64748b;
+  stroke-dasharray: 6 6;
+  stroke-width: 2.5;
+}
+
 .km-svg path.soft {
   stroke: #cbd5e1;
   stroke-dasharray: 6 6;
