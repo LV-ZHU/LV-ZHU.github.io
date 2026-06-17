@@ -31,7 +31,7 @@ const connections = [
   ['n-linear',  'n-circuit',  'soft'],
   ['n-discrete','n-crypto',   'soft'],
   ['n-discrete','n-ai',       'soft'],
-  ['n-ds',      'n-ai',       'strong-dashed'],
+  ['n-ds',      'n-ai',       'strong'],
   ['n-discrete','n-ds',       'strong'],
   ['n-program', 'n-ds',       'strong'],
   ['n-program', 'n-db',       'soft'],
