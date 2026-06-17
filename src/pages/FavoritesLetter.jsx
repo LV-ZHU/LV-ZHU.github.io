@@ -97,6 +97,7 @@ const letterData = {
       { title: '你是人机吗？', url: 'https://neal.fun/not-a-robot', icon: 'fas fa-robot', urlDisplay: 'neal.fun/not-a-robot' },
       { title: '阿里云地图小工具', url: 'https://datav.aliyun.com/portal/school/atlas/area_selector', icon: 'fas fa-map', urlDisplay: 'datav.aliyun.com / atlas area_selector' },
       { title: '神秘读文献方式', url: 'https://www.paper2gal.top/', icon: 'fas fa-file-alt', urlDisplay: 'paper2gal.top' },
+      { title: '梗百科', url: 'https://wiki.yglsr.com', icon: 'fas fa-book-open', urlDisplay: 'wiki.yglsr.com' },
       { title: 'EmojiMix', url: 'https://tikolu.net/emojimix', icon: 'fas fa-smile', urlDisplay: 'tikolu.net/emojimix' },
       { title: '大同杯', url: 'https://datongbei.com/', icon: 'fas fa-trophy', urlDisplay: 'datongbei.com' },
       { title: '地球Online食物合成表', url: 'https://cook.yunyoujun.cn', icon: 'fas fa-trophy', urlDisplay: 'cook.yunyoujun.cn' },
