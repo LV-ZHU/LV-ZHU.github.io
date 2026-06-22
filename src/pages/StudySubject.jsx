@@ -345,7 +345,7 @@ A.31 B.32 C.2 D.4 E.8 F.16
 
 二、判断（1×18=18）
 1.
-2. 整数as+bt=1，则a与b互素
+2. 整数a、s、b、t满足as+bt=1，则a与b互素
 3. 元素个数相同的有限域未必同构
 4. 阶相同的有限循环群必同构
 5.
@@ -459,8 +459,8 @@ const subjectData = {
   },
   'security-math-foundations': {
     title: '信安数基',
-    icon: 'fas fa-square-root-alt',
-    subtitle: '数论、有限域、椭圆曲线',
+    icon: '',
+    subtitle: '数论、群、原根、二次剩余、素性检测、环、域、椭圆曲线',
     content: {
       type: 'exam',
       sectionTitle: '期末回忆',
@@ -704,7 +704,7 @@ export default function StudySubject({ subject }) {
   return (
     <div className="page-wrapper">
       <div className="page-header">
-        <h1><i className={data.icon} /> {data.title}</h1>
+        <h1>{data.icon && <i className={data.icon} />} {data.title}</h1>
         <p>{data.subtitle}</p>
       </div>
       <section className="section">
