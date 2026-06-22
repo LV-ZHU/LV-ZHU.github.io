@@ -134,6 +134,7 @@
 .km-n-circuit   { grid-column: 11 / 13; grid-row: 2; }
 .km-n-program   { grid-column: 3 / 5;  grid-row: 3; }
 .km-n-ai        { grid-column: 7 / 9;  grid-row: 4; }
+.km-n-sec-math  { grid-column: 10 / 12; grid-row: 3; }
 .km-n-crypto    { grid-column: 8 / 10; grid-row: 3; }
 .km-n-assembly  { grid-column: 12 / 14; grid-row: 3; }
 .km-n-ds        { grid-column: 4 / 6;  grid-row: 4; }
@@ -165,6 +166,7 @@
   .km-n-circuit,
   .km-n-program,
   .km-n-ai,
+  .km-n-sec-math,
   .km-n-crypto,
   .km-n-assembly,
   .km-n-ds,
