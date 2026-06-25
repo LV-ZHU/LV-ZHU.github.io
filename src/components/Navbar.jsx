@@ -10,6 +10,7 @@ const studySections = [
   { label: '数分高数', path: '/study/math-analysis', keywords: '数分 高数 微积分 数学分析 极限 导数' },
   { label: '高代线代', path: '/study/linear-algebra', keywords: '高代 线代 线性代数 矩阵 行列式' },
   { label: '离散数学', path: '/study/discrete-math', keywords: '离散数学 discrete math' },
+  { label: '算法设计', path: '/study/algorithm-design', keywords: '算法设计 算法分析与设计 algorithm design 分治 动态规划 贪心 回溯 分支限界 线性规划' },
   { label: '人工智能', path: '/study/artificial-intelligence', keywords: '人工智能 人工智能原理与应用 AI artificial intelligence 机器学习 深度学习 强化学习' },
   { label: '信安数基', path: '/study/security-math-foundations', keywords: '信安数基 信息安全数学基础 数论 有限域 椭圆曲线' },
   { label: '大学物理', path: '/study/physics', keywords: '大学物理 物理 电磁学 光学 量子力学' },
