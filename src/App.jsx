@@ -29,6 +29,7 @@ export default function App() {
         <Route path="/study/math-analysis" element={<StudySubject subject="math-analysis" />} />
         <Route path="/study/linear-algebra" element={<StudySubject subject="linear-algebra" />} />
         <Route path="/study/discrete-math" element={<StudySubject subject="discrete-math" />} />
+        <Route path="/study/algorithm-design" element={<StudySubject subject="algorithm-design" />} />
         <Route path="/study/artificial-intelligence" element={<StudySubject subject="artificial-intelligence" />} />
         <Route path="/study/security-math-foundations" element={<StudySubject subject="security-math-foundations" />} />
         <Route path="/study/physics" element={<StudySubject subject="physics" />} />

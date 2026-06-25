@@ -138,6 +138,7 @@
 .km-n-crypto    { grid-column: 8 / 10; grid-row: 3; }
 .km-n-assembly  { grid-column: 12 / 14; grid-row: 3; }
 .km-n-ds        { grid-column: 4 / 6;  grid-row: 4; }
+.km-n-algorithm { grid-column: 5 / 7;  grid-row: 5; }
 .km-n-logic     { grid-column: 10 / 12; grid-row: 4; }
 .km-n-db        { grid-column: 2 / 4;  grid-row: 5; }
 .km-n-co        { grid-column: 11 / 13; grid-row: 5; }
@@ -170,6 +171,7 @@
   .km-n-crypto,
   .km-n-assembly,
   .km-n-ds,
+  .km-n-algorithm,
   .km-n-logic,
   .km-n-db,
   .km-n-co,

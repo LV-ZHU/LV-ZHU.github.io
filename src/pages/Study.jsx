@@ -16,6 +16,7 @@ const nodes = [
   { id: 'n-crypto',   text: '密码学',                link: '/study/cryptography',                        is408: false, cls: 'km-n-crypto' },
   { id: 'n-assembly', text: '汇编语言',              link: '/study/assembly_language_programming',       is408: false, cls: 'km-n-assembly' },
   { id: 'n-ds',       text: '数据结构',              link: '/study/data-structure',                      is408: true,  cls: 'km-n-ds' },
+  { id: 'n-algorithm', text: '算法设计',             link: '/study/algorithm-design',                    is408: false, cls: 'km-n-algorithm' },
   { id: 'n-logic',    text: '数字逻辑',              link: '/projects/fpga',                             is408: false, cls: 'km-n-logic' },
   { id: 'n-db',       text: '数据库',                link: '/study/database',                            is408: false, cls: 'km-n-db' },
   { id: 'n-co',       text: '计算机组成原理',        link: '/study/computer-organization',               is408: true,  cls: 'km-n-co' },
@@ -36,11 +37,12 @@ const connections = [
   ['n-ds',      'n-ai',       'strong'],
   ['n-discrete','n-ds',       'strong'],
   ['n-program', 'n-ds',       'strong'],
+  ['n-ds',      'n-algorithm','strong'],
   ['n-program', 'n-db',       'soft'],
   ['n-ds',      'n-db',       'strong'],
   ['n-logic',   'n-co',       'strong'],
   ['n-assembly','n-co',       'strong'],
-  ['n-ds',      'n-os',       'strong'],
+  ['n-ds',      'n-os',       'strong', { fromSide: 'bottom', toSide: 'top', route: 'arc-right' }],
   ['n-co',      'n-os',       'strong'],
   ['n-co',      'n-net',      'strong'],
 ]
@@ -78,7 +80,18 @@ export default function Study() {
       }
     }
 
-    function anchorPoint(source, target) {
+    function sideAnchor(source, side) {
+      if (side === 'top') return { x: source.x, y: source.top }
+      if (side === 'bottom') return { x: source.x, y: source.bottom }
+      if (side === 'left') return { x: source.left, y: source.y }
+      if (side === 'right') return { x: source.right, y: source.y }
+      return null
+    }
+
+    function anchorPoint(source, target, side) {
+      const fixed = sideAnchor(source, side)
+      if (fixed) return fixed
+
       const dx = target.x - source.x
       const dy = target.y - source.y
       const horizontalBias = Math.abs(dx) * source.height > Math.abs(dy) * source.width * 1.5
@@ -95,7 +108,17 @@ export default function Study() {
       }
     }
 
-    function buildPath(a, b) {
+    function buildPath(a, b, options = {}) {
+      const { route } = options
+
+      if (route === 'arc-left' || route === 'arc-right') {
+        const direction = route === 'arc-left' ? -1 : 1
+        const spread = Math.max(58, Math.min(120, Math.abs(b.x - a.x) * 0.45))
+        const cp1x = a.x + direction * spread
+        const cp2x = b.x + direction * spread
+        return `M ${a.x} ${a.y} C ${cp1x} ${a.y}, ${cp2x} ${b.y}, ${b.x} ${b.y}`
+      }
+
       const lift = Math.max(20, Math.min(80, Math.abs(b.y - a.y) * 0.5))
       const cp1x = a.x
       const cp1y = a.y + (b.y >= a.y ? lift : -lift)
@@ -112,16 +135,16 @@ export default function Study() {
     svg.setAttribute('height', height)
     svg.innerHTML = ''
 
-    connections.forEach(([fromId, toId, type]) => {
+    connections.forEach(([fromId, toId, type, options = {}]) => {
       const src = nodeInfo(fromId)
       const dst = nodeInfo(toId)
       if (!src || !dst) return
 
-      const start = anchorPoint(src, dst)
-      const end   = anchorPoint(dst, src)
+      const start = anchorPoint(src, dst, options.fromSide)
+      const end   = anchorPoint(dst, src, options.toSide)
 
       const path = document.createElementNS(ns, 'path')
-      path.setAttribute('d', buildPath(start, end))
+      path.setAttribute('d', buildPath(start, end, options))
       path.setAttribute('class', type)
 
       svg.appendChild(path)
