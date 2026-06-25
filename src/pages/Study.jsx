@@ -42,7 +42,7 @@ const connections = [
   ['n-ds',      'n-db',       'strong'],
   ['n-logic',   'n-co',       'strong'],
   ['n-assembly','n-co',       'strong'],
-  ['n-ds',      'n-os',       'strong', { fromSide: 'bottom', toSide: 'top', route: 'arc-right' }],
+  ['n-ds',      'n-os',       'strong', { fromSide: 'bottom', toSide: 'left', route: 'arc-left' }],
   ['n-co',      'n-os',       'strong'],
   ['n-co',      'n-net',      'strong'],
 ]
