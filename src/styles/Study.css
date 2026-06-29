@@ -191,6 +191,10 @@
 }
 
 /* ===== Markdown content (computer-organization) ===== */
+.subject-content-section + .subject-content-section {
+  margin-top: 3rem;
+}
+
 .markdown-wrap {
   background: #ffffff;
   border: 1px solid rgba(15, 23, 42, 0.08);

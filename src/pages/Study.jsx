@@ -42,7 +42,7 @@ const connections = [
   ['n-ds',      'n-db',       'strong'],
   ['n-logic',   'n-co',       'strong'],
   ['n-assembly','n-co',       'strong'],
-  ['n-ds',      'n-os',       'strong', { fromSide: 'bottom', toSide: 'left', route: 'arc-left' }],
+  ['n-ds',      'n-os',       'strong', { fromSide: 'bottom', toSide: 'left', route: 'dogleg-left' }],
   ['n-co',      'n-os',       'strong'],
   ['n-co',      'n-net',      'strong'],
 ]
@@ -117,6 +117,12 @@ export default function Study() {
         const cp1x = a.x + direction * spread
         const cp2x = b.x + direction * spread
         return `M ${a.x} ${a.y} C ${cp1x} ${a.y}, ${cp2x} ${b.y}, ${b.x} ${b.y}`
+      }
+
+      if (route === 'dogleg-left') {
+        const laneX = Math.min(a.x, b.x) - 50
+        const lowerY = b.y - 56
+        return `M ${a.x} ${a.y} C ${a.x} ${a.y + 28}, ${laneX} ${a.y + 28}, ${laneX} ${a.y + 64} L ${laneX} ${lowerY} C ${laneX} ${b.y - 28}, ${b.x - 42} ${b.y}, ${b.x} ${b.y}`
       }
 
       const lift = Math.max(20, Math.min(80, Math.abs(b.y - a.y) * 0.5))

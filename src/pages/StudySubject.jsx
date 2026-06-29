@@ -159,6 +159,70 @@ L.length++;
 return true;
 }`
 
+const coExamText = `考试时间：120分钟
+满分：100分
+
+一、选择（1×25=25）
+1.冯诺伊曼型计算机最显著的特征是（）
+2.由0和1组成的语言是（）
+3.计算减法的方式是（）
+5.给出a补，b补，计算z=x*2+y/2的值为（）
+6.阶码长、尾数短和阶码短、尾数长的指令相比精度和表示范围（）
+7.给8位数据海明码纠错至少需要的检验位位数是（）
+A.2   B.3   D.4   E.5
+11.字长32位，4MB，则寻址范围为（）
+12.Cache的主要意义是（）
+13.指令周期是指（）
+14.变址寻址，条件相关1000H，2000H，3000H，4000H，则地址为（）
+15.关于RISC说法错误的是（）
+16.微程序存放在（）中
+A.存储寄存器   B.CPU
+17.水平型微指令和垂直型微指令的特点是（）
+A.前者一次一个操作，后者一次多个操作
+B.前者一次多个操作，后者一次一个操作
+C.都一次一个操作
+D.都一次多个操作
+18.分组微指令，有5个互斥组，分别为3、7、14、4、8，则总长为（）
+21.带宽计算
+22.I/O通道
+23.若采用条件转换中断，中断方式为（）
+24.多道程序中断适用的情况是（）
+25.数据7位，其中1位奇偶校验位，1位，1位，已知速率，则带宽是（）
+
+二、填空（1×15=15）
+1.原码乘法符号位计算方法是_____________，
+数值位计算方式是___________
+2.总线判优控制的三种方式是______、_______、_______
+3.SRAM的查询方式有______和______
+4.存放指令的寄存器是_______，存放下一条指令地址的是_______，若计算机采用微程序控制器，则存放微程序指令的是______，存放下一条指令的是_______
+5.中断和DMA的优先级一般_____更高
+6.虚拟存储器里地址的实际地址叫______，计算出的相应地址叫______
+7.设命中率为h，Cache的存储时间为Tc，主存的存取时间为Tm，则平均存取时间为______
+
+三、简答（5×6=30）
+1.从数据传输的角度，解释区分查询、中断、DMA、I/O接口的使用场景
+2.画出4体交叉存储器的模式图
+3.给出平均找道时间ti，转速r，N，n个字，计算总时长
+4.指令长16位，操作码4位，设计三地址码15条、二地址码30条、一地址码31条、零地址码16条的指令数据格式
+5.给出某七位二进制数（如1011101）采用偶检验，计算海明码并指出第6位出错如何纠错
+6.分析中断屏蔽的作用
+
+四、解答（3×10=30）
+1.主存有8组B0-B7，Cache有4组C0-C3，块内有2块，4KB，32字
+给出B1、B2、B0、B7、B4、...访问序列（共10个），使用FIFO
+（1）写出主存组成，以及各段位数
+（2）画出主存到cache的映射图
+（3）计算该访问序列的命中率
+2.给出指令图，23个控制信号，PC不会自动自增，写出下列三个指令对应的微操作（指出每个控制序列）
+（1）(Rd)+R[dist]->Rd
+（2）(Rd)，ALU
+（3）JNZ R[dist]，Z=0
+3.微指令，4096×65，有8个条件判断指令（直接判别法）
+分为微指令字段、判别字段、后地址字段
+（1）计算三者的位数
+（2）画出指令逻辑图
+（3）分析连续执行指令的过程`
+
 const dmExamText = `教材：25261开始换为清华大学出版社第4版
 
 考试纸2张A3，基本上一面2道题
@@ -483,9 +547,20 @@ const subjectData = {
     icon: 'fas fa-memory',
     subtitle: 'CPU、存储器、总线、I/O',
     content: {
-      type: 'markdown',
-      sectionTitle: '知识点整理',
-      text: coMarkdown,
+      type: 'sections',
+      sections: [
+        {
+          type: 'exam',
+          sectionTitle: '期末回忆',
+          panelTitle: '计算机组成原理期末回忆',
+          text: coExamText,
+        },
+        {
+          type: 'markdown',
+          sectionTitle: '知识点整理',
+          text: coMarkdown,
+        },
+      ],
     },
   },
   'os': {
@@ -724,50 +799,39 @@ export default function StudySubject({ subject }) {
     )
   }
 
-  const renderContent = () => {
-    if (!data.content) {
-      return (
-        <FadeIn>
-          <div className="placeholder-box">
-            <i className="fas fa-tools" />
-            <p>内容正在建设中，敬请期待</p>
-          </div>
-        </FadeIn>
-      )
-    }
-
-    if (data.content.type === 'exam') {
+  const renderContentBlock = (content) => {
+    if (content.type === 'exam') {
       return (
         <FadeIn>
           <div className="text-file-panel">
             <div className="text-file-toolbar">
-              <div className="text-file-title">{data.content.panelTitle}</div>
+              <div className="text-file-title">{content.panelTitle}</div>
             </div>
-            <pre className="text-file-content">{data.content.text}</pre>
+            <pre className="text-file-content">{content.text}</pre>
           </div>
         </FadeIn>
       )
     }
 
-    if (data.content.type === 'markdown') {
+    if (content.type === 'markdown') {
       return (
         <FadeIn>
           <div className="markdown-wrap">
             <div
               className="markdown-content"
-              dangerouslySetInnerHTML={{ __html: renderSimpleMarkdown(data.content.text) }}
+              dangerouslySetInnerHTML={{ __html: renderSimpleMarkdown(content.text) }}
             />
           </div>
         </FadeIn>
       )
     }
 
-    if (data.content.type === 'github') {
+    if (content.type === 'github') {
       return (
         <FadeIn>
           <div style={githubBtnWrapStyle}>
             <a
-              href={data.content.url}
+              href={content.url}
               target="_blank"
               rel="noopener noreferrer"
               style={githubBtnStyle}
@@ -782,7 +846,43 @@ export default function StudySubject({ subject }) {
     return null
   }
 
-  const sectionTitle = data.content ? data.content.sectionTitle : data.title
+  const renderContent = () => {
+    if (!data.content) {
+      return (
+        <>
+          <div className="section-header">
+            <h2 className="section-title">{data.title}</h2>
+          </div>
+          <FadeIn>
+            <div className="placeholder-box">
+              <i className="fas fa-tools" />
+              <p>内容正在建设中，敬请期待</p>
+            </div>
+          </FadeIn>
+        </>
+      )
+    }
+
+    if (data.content.type === 'sections') {
+      return data.content.sections.map((section) => (
+        <div className="subject-content-section" key={section.sectionTitle}>
+          <div className="section-header">
+            <h2 className="section-title">{section.sectionTitle}</h2>
+          </div>
+          {renderContentBlock(section)}
+        </div>
+      ))
+    }
+
+    return (
+      <>
+        <div className="section-header">
+          <h2 className="section-title">{data.content.sectionTitle}</h2>
+        </div>
+        {renderContentBlock(data.content)}
+      </>
+    )
+  }
 
   return (
     <div className="page-wrapper">
@@ -792,9 +892,6 @@ export default function StudySubject({ subject }) {
       </div>
       <section className="section">
         <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">{sectionTitle}</h2>
-          </div>
           {renderContent()}
         </div>
       </section>
