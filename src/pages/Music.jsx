@@ -455,7 +455,7 @@ const songs_instrumental = [
 ]
 
 const songs_other = [
-    { name: "The King", artist: "", comment: "最终决战の小曲" },
+    { name: "The King", artist: "Paperman", comment: "最终决战の小曲" },
     { name: "Never Gonna Give You Up", artist: "Rick Astley", comment: "你被骗了" },
     { name: "你看到的我（DJ版）", artist: "黄勇、任书怀", comment: "大哥の小曲" },
     { name: "See you again", artist: "Wiz Khalifa、Charlie Puth", comment: "科比の小曲" },
