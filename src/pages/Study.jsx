@@ -121,8 +121,8 @@ export default function Study() {
 
       if (route === 'dogleg-left') {
         const laneX = Math.min(a.x, b.x) - 50
-        const lowerY = b.y - 56
-        return `M ${a.x} ${a.y} C ${a.x} ${a.y + 28}, ${laneX} ${a.y + 28}, ${laneX} ${a.y + 64} L ${laneX} ${lowerY} C ${laneX} ${b.y - 28}, ${b.x - 42} ${b.y}, ${b.x} ${b.y}`
+        const bendY = b.y - 56
+        return `M ${a.x} ${a.y} C ${a.x} ${a.y + 44}, ${laneX} ${a.y + 56}, ${laneX} ${bendY} C ${laneX} ${b.y - 18}, ${b.x - 72} ${b.y}, ${b.x} ${b.y}`
       }
 
       const lift = Math.max(20, Math.min(80, Math.abs(b.y - a.y) * 0.5))
