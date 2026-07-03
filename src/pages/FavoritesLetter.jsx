@@ -47,7 +47,6 @@ const letterData = {
       { title: '21计科', url: 'https://github.com/italas12138/TongjiUniversity-Course', icon: 'fas fa-folder-open', urlDisplay: 'github.com/italas12138/TongjiUniversity-Course' },
       { title: '21计科', url: 'https://github.com/extreme1228/CS-IN-TJ', icon: 'fas fa-edit', urlDisplay: 'github.com/extreme1228/CS-IN-TJ' },
       { title: '21计科', url: 'https://github.com/BIGPIGFEET', icon: 'fas fa-database', urlDisplay: 'github.com/BIGPIGFEET' },
-      { title: '21计科', url: 'https://github.com/MurkyWorm/TongjiCSHomework', icon: 'fas fa-edit', urlDisplay: 'github.com/MurkyWorm/TongjiCSHomework' },
       { title: '22计科', url: 'https://github.com/yuehuarulian', icon: 'fas fa-blog', urlDisplay: 'github.com/yuehuarulian' },
     ],
   },
