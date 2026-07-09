@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-APP_DIR="/var/www/lv-zhu-blog/current"
+APP_DIR="/www/wwwroot/lv-zhu.top"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONF_SRC="$(cd "$SCRIPT_DIR/.." && pwd)/nginx/lv-zhu-blog.conf"
 CONF_DST="/etc/nginx/conf.d/lv-zhu-blog.conf"

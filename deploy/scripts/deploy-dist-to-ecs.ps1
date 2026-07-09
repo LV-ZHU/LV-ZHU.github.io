@@ -2,7 +2,7 @@ param(
   [string]$HostName = "47.97.56.180",
   [string]$User = "root",
   [int]$Port = 22,
-  [string]$RemoteDir = "/var/www/lv-zhu-blog/current",
+  [string]$RemoteDir = "/www/wwwroot/lv-zhu.top",
   [switch]$SkipUpload
 )
 
