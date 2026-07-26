@@ -55,6 +55,7 @@ const songs_mandarin = [
     { name: "信仰", artist: "张信哲", comment: "你究竟知道吗" },
     { name: "千里之外", artist: "周杰伦、费玉清", comment: "我送你离开~千里之外~你是否还~~~在" },
     { name: "那些你很冒险的梦", artist: "林俊杰", comment: "痛 太痛了" },
+    { name: "美人鱼", artist: "林俊杰", comment: "希食东御用" },
     { name: "清明上河图", artist: "李玉刚", comment: "几秒钟的世界~感叹不平凡的意义~，绝品转音" },
     { name: "最远的你是我最近的爱", artist: "车继铃", comment: "风雨之后~无所谓拥有~萍水相逢（这个逢就很魔性）~你却给我那么（么也是）多" },
     { name: "一千零一夜", artist: "邰正宵", comment: "真的思念啊" },
@@ -230,6 +231,7 @@ const songs_mandarin = [
     { name: "耍大牌", artist: "丁当", comment: "电视节目五星体育《弈棋耍大牌》片尾曲" },
     { name: "铃儿响叮当", artist: "", comment: "音乐会精选" },
     { name: "有你真好", artist: "侯磊", comment: "电视剧《急诊室故事》主题曲，拍摄于六院" },
+    { name: "不说明的默契", artist: "林渝植", comment: "希食东御用，BGM上头" },
 ]
 
 const songs_cantonese = [
@@ -452,6 +454,8 @@ const songs_instrumental = [
     { name: "皇家萌卫", artist: "灵空GTTech", comment: "B站搞笑视频精选，空中课堂御用" },
     { name: "致爱丽丝", artist: "贝多芬", comment: "听力御用，音乐会精选，经典曲目" },
     { name: "欢乐颂 第九交响曲", artist: "贝多芬", comment: "音乐会精选，经典曲目" },
+    { name: "让爱永在旅途 (Flying With Love)", artist: "国航", comment: "国航BGM" },
+    { name: "晴天（纯音乐）", artist: "周杰伦", comment: "吉航BGM" },
 ]
 
 const songs_other = [
