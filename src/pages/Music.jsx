@@ -326,6 +326,7 @@ const songs_foreign = [
     { name: "only my railgun", artist: "fripSide", comment: "超电磁炮OP" },
     { name: "Floating Shelter", artist: "PinocchioP、初音未来", comment: "I wanna be the MC隐藏关配乐，初音神曲" },
     { name: "LEVEL5 - Judgelight", artist: "水缘无忆", comment: "超电磁炮OP" },
+    { name: "It's a small world", artist: "Sherman 兄弟", comment: "洒水车BGM" },
 ]
 
 const songs_instrumental = [
