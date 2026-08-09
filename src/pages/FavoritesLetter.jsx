@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { useAuth } from '../components/AuthProvider'
+import GitHubLink from '../components/GitHubLink'
 import { db } from '../firebase/init'
 import '../styles/Favorites.css'
 
@@ -226,6 +227,15 @@ const letterData = {
 const placeholderLetters = ['D', 'E', 'F', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'R', 'V', 'W', 'X', 'Y', 'Z']
 const O_PRIVATE_LINK_INSERT_INDEX = 3
 
+function isGitHubUrl(url) {
+  try {
+    const hostname = new URL(url).hostname.toLowerCase()
+    return hostname === 'github.com' || hostname === 'www.github.com'
+  } catch {
+    return false
+  }
+}
+
 function normalizePrivateLink(doc) {
   const data = doc.data()
   if (typeof data.title !== 'string' || typeof data.url !== 'string') return null
@@ -350,13 +360,23 @@ export default function FavoritesLetter() {
           ) : data.links ? (
             <div className="link-grid">
               {visibleLinks.map((link, i) => (
-                <a key={i} className="lk" href={link.url} target="_blank" rel="noopener noreferrer">
-                  <div className="lk-icon"><i className={link.icon} /></div>
-                  <div className="lk-body">
-                    <div className="lk-title">{link.title}</div>
-                    <div className="lk-url">{link.urlDisplay}</div>
-                  </div>
-                </a>
+                isGitHubUrl(link.url) ? (
+                  <GitHubLink
+                    key={i}
+                    href={link.url}
+                    title={link.title}
+                    meta={link.urlDisplay}
+                    actionLabel="访问"
+                  />
+                ) : (
+                  <a key={i} className="lk" href={link.url} target="_blank" rel="noopener noreferrer">
+                    <div className="lk-icon"><i className={link.icon} /></div>
+                    <div className="lk-body">
+                      <div className="lk-title">{link.title}</div>
+                      <div className="lk-url">{link.urlDisplay}</div>
+                    </div>
+                  </a>
+                )
               ))}
             </div>
           ) : null}

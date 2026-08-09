@@ -190,109 +190,36 @@
   }
 }
 
-/* ===== Markdown content (computer-organization) ===== */
 .subject-content-section + .subject-content-section {
-  margin-top: 3rem;
+  margin-top: 3.5rem;
 }
 
-.markdown-wrap {
-  background: #ffffff;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  border-radius: 16px;
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
-  padding: 1.4rem;
-  max-width: 1120px;
-  margin: 0 auto;
-  overflow: hidden;
-}
-
-.markdown-content {
-  line-height: 1.85;
-  word-break: break-word;
-  color: #172554;
-  font-size: 16px;
-}
-
-.markdown-content h1,
-.markdown-content h2,
-.markdown-content h3,
-.markdown-content h4 {
-  margin-top: 1.55rem;
-  margin-bottom: 0.6rem;
-  color: #0f172a;
-}
-
-.markdown-content h1 {
-  font-size: 2rem;
-  border-bottom: 2px solid #dbeafe;
-  padding-bottom: 0.45rem;
-}
-
-.markdown-content h2 {
-  font-size: 1.45rem;
-  border-left: 4px solid #2563eb;
-  padding-left: 0.55rem;
-}
-
-.markdown-content h3 {
-  font-size: 1.2rem;
-}
-
-.markdown-content p,
-.markdown-content li {
-  margin: 0.45rem 0;
-}
-
-.markdown-content ul,
-.markdown-content ol {
-  padding-left: 1.2rem;
-}
-
-.markdown-content pre {
-  overflow-x: auto;
-  background: #0b1020;
-  color: #e9eefc;
-  border-radius: 10px;
-  padding: 0.9rem;
-}
-
-.markdown-content pre code {
-  background: transparent;
-  color: inherit;
-  padding: 0;
-}
-
-.markdown-content code {
-  font-family: Consolas, "Courier New", monospace;
-  background: #eef3fa;
-  padding: 0.15rem 0.35rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  color: #1e3a5f;
-}
-
-.markdown-content table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0.8rem 0;
-  display: block;
-  overflow-x: auto;
-}
-
-.markdown-content th,
-.markdown-content td {
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  padding: 0.5rem 0.6rem;
+.section-header.subject-section-header {
+  margin-bottom: 1.35rem;
   text-align: left;
-  white-space: normal;
 }
 
-.markdown-content th {
-  background: #eff6ff;
+.subject-section-header .section-title {
+  margin-bottom: 0;
+  color: #172033;
+  font-size: 1.45rem;
+  letter-spacing: 0;
 }
 
-.markdown-content hr {
-  border: none;
-  border-top: 1px solid #e2e8f0;
-  margin: 1.5rem 0;
+.subject-section-header .section-title::after {
+  bottom: -8px;
+  left: 0;
+  width: 28px;
+  height: 2px;
+  transform: none;
+}
+
+@media (max-width: 768px) {
+  .subject-content-section + .subject-content-section {
+    margin-top: 2.75rem;
+  }
+
+  .subject-section-header .section-title {
+    font-size: 1.25rem;
+  }
 }

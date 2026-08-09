@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
 import FadeIn from '../components/FadeIn'
+import GitHubLink from '../components/GitHubLink'
 import '../styles/ProjectDetail.css'
 
 /* ============================================================
@@ -46,9 +47,12 @@ function CppBigHW() {
             ))}
           </div>
 
-          <p className="repo-note fade-in">
-            代码仓库：<a href="https://github.com/LV-ZHU/OOP" target="_blank" rel="noopener noreferrer">LV-ZHU/OOP</a>。
-          </p>
+          <GitHubLink
+            className="fade-in"
+            href="https://github.com/LV-ZHU/OOP"
+            title="LV-ZHU/OOP"
+            meta="代码仓库"
+          />
 
           <p className="download-note fade-in">
             提示：下载 EXE 时浏览器或系统可能出现安全提示，属于常见现象。                </p>
@@ -75,9 +79,12 @@ function FPGA() {
             <p className="section-desc">基于 MP3 和 OLED 的数字系统设计</p>
           </div>
 
-          <p className="repo-note fade-in">
-            Github仓库：<a href="https://github.com/LV-ZHU/OLED_MP3_PLAYER" target="_blank" rel="noopener noreferrer">LV-ZHU/OLED_MP3_PLAYER</a>。
-          </p>
+          <GitHubLink
+            className="fade-in"
+            href="https://github.com/LV-ZHU/OLED_MP3_PLAYER"
+            title="LV-ZHU/OLED_MP3_PLAYER"
+            meta="代码仓库"
+          />
         </div>
       </section>
     </div>

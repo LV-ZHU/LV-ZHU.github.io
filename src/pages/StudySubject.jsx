@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import FadeIn from '../components/FadeIn'
-import coMarkdown from '../data/co-markdown'
+import GitHubLink from '../components/GitHubLink'
 import '../styles/Study.css'
 
 const dsExamText = `25261数据结构期末真题回忆（4学分，适用计科和信安）
@@ -610,10 +610,22 @@ const subjectData = {
     icon: 'fas fa-code-branch',
     subtitle: '概论、分治、动态规划、贪心、回溯、分支限界、线性规划',
     content: {
-      type: 'exam',
-      sectionTitle: '回忆版真题',
-      panelTitle: '算法设计回忆版真题',
-      text: algorithmExamText,
+      type: 'sections',
+      sections: [
+        {
+          type: 'github',
+          sectionTitle: '课程笔记',
+          title: '算法.pdf',
+          meta: 'PDF 笔记',
+          url: 'https://github.com/LV-ZHU/notes/blob/main/%E7%AE%97%E6%B3%95.pdf',
+        },
+        {
+          type: 'exam',
+          sectionTitle: '回忆版真题',
+          panelTitle: '算法设计回忆版真题',
+          text: algorithmExamText,
+        },
+      ],
     },
   },
   'computer-organization': {
@@ -624,15 +636,17 @@ const subjectData = {
       type: 'sections',
       sections: [
         {
+          type: 'github',
+          sectionTitle: '课程笔记',
+          title: '计组.pdf',
+          meta: 'PDF 笔记',
+          url: 'https://github.com/LV-ZHU/notes/blob/main/%E8%AE%A1%E7%BB%84.pdf',
+        },
+        {
           type: 'exam',
           sectionTitle: '期末回忆',
           panelTitle: '计算机组成原理期末回忆',
           text: coExamText,
-        },
-        {
-          type: 'markdown',
-          sectionTitle: '知识点整理',
-          text: coMarkdown,
         },
       ],
     },
@@ -654,6 +668,8 @@ const subjectData = {
     content: {
       type: 'github',
       sectionTitle: '笔记',
+      title: '数分高数.pdf',
+      meta: 'PDF 笔记',
       url: 'https://github.com/LV-ZHU/notes/blob/main/%E6%95%B0%E5%88%86%E9%AB%98%E6%95%B0.pdf',
     },
   },
@@ -664,6 +680,8 @@ const subjectData = {
     content: {
       type: 'github',
       sectionTitle: '笔记',
+      title: '高代线代.pdf',
+      meta: 'PDF 笔记',
       url: 'https://github.com/LV-ZHU/notes/blob/main/%E9%AB%98%E4%BB%A3%E7%BA%BF%E4%BB%A3.pdf',
     },
   },
@@ -694,10 +712,22 @@ const subjectData = {
     icon: '',
     subtitle: '数论、群、原根、二次剩余、素性检测、环、域、椭圆曲线',
     content: {
-      type: 'exam',
-      sectionTitle: '期末回忆',
-      panelTitle: '考点回忆',
-      text: securityMathExamText,
+      type: 'sections',
+      sections: [
+        {
+          type: 'github',
+          sectionTitle: '课程笔记',
+          title: '信安数基.pdf',
+          meta: 'PDF 笔记',
+          url: 'https://github.com/LV-ZHU/notes/blob/main/%E4%BF%A1%E5%AE%89%E6%95%B0%E5%9F%BA.pdf',
+        },
+        {
+          type: 'exam',
+          sectionTitle: '期末回忆',
+          panelTitle: '考点回忆',
+          text: securityMathExamText,
+        },
+      ],
     },
   },
   'physics': {
@@ -707,6 +737,8 @@ const subjectData = {
     content: {
       type: 'github',
       sectionTitle: '笔记',
+      title: '大物.pdf',
+      meta: 'PDF 笔记',
       url: 'https://github.com/LV-ZHU/notes/blob/main/%E5%A4%A7%E7%89%A9.pdf',
     },
   },
@@ -717,6 +749,8 @@ const subjectData = {
     content: {
       type: 'github',
       sectionTitle: '100 个常见问题',
+      title: '电路理论.pdf',
+      meta: 'PDF · 100 个常见问题',
       url: 'https://github.com/LV-ZHU/notes/blob/main/%E7%94%B5%E8%B7%AF%E7%90%86%E8%AE%BA.pdf',
     },
   },
@@ -727,6 +761,8 @@ const subjectData = {
     content: {
       type: 'github',
       sectionTitle: '24252 期末试卷',
+      title: 'assembly_language_programming',
+      meta: 'GitHub 仓库',
       url: 'https://github.com/LV-ZHU/assembly_language_programming',
     },
   },
@@ -735,10 +771,22 @@ const subjectData = {
     icon: 'fas fa-database',
     subtitle: '关系代数、SQL、E-R图、正则覆盖、索引、查询优化、事务、并发控制、恢复系统',
     content: {
-      type: 'exam',
-      sectionTitle: '25262期末回忆',
-      panelTitle: '数据库期末总结',
-      text: databaseExamText,
+      type: 'sections',
+      sections: [
+        {
+          type: 'github',
+          sectionTitle: '课程笔记',
+          title: '数据库.pdf',
+          meta: 'PDF 笔记',
+          url: 'https://github.com/LV-ZHU/notes/blob/main/%E6%95%B0%E6%8D%AE%E5%BA%93.pdf',
+        },
+        {
+          type: 'exam',
+          sectionTitle: '25262期末回忆',
+          panelTitle: '数据库期末总结',
+          text: databaseExamText,
+        },
+      ],
     },
   },
   'cryptography': {
@@ -746,116 +794,24 @@ const subjectData = {
     icon: 'fas fa-lock',
     subtitle: '加密、认证、信息安全',
     content: {
-      type: 'exam',
-      sectionTitle: '25262 期末回忆',
-      panelTitle: '考点回忆',
-      text: cryptoExamText,
+      type: 'sections',
+      sections: [
+        {
+          type: 'github',
+          sectionTitle: '课程笔记',
+          title: '现代密码学.pdf',
+          meta: 'PDF 笔记',
+          url: 'https://github.com/LV-ZHU/notes/blob/main/%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6.pdf',
+        },
+        {
+          type: 'exam',
+          sectionTitle: '25262 期末回忆',
+          panelTitle: '考点回忆',
+          text: cryptoExamText,
+        },
+      ],
     },
   },
-}
-
-function escapeHtml(text) {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;')
-}
-
-function renderSimpleMarkdown(markdown) {
-  const lines = markdown.split(/\r?\n/)
-  const html = []
-  let i = 0
-  let inCode = false
-  let inUl = false
-  let inOl = false
-
-  function closeLists() {
-    if (inUl) { html.push('</ul>'); inUl = false }
-    if (inOl) { html.push('</ol>'); inOl = false }
-  }
-
-  while (i < lines.length) {
-    const line = lines[i]
-
-    if (/^```/.test(line)) {
-      closeLists()
-      if (!inCode) { inCode = true; html.push('<pre><code>') }
-      else { inCode = false; html.push('</code></pre>') }
-      i += 1; continue
-    }
-    if (inCode) { html.push(escapeHtml(line) + '\n'); i += 1; continue }
-    if (!line.trim()) { closeLists(); i += 1; continue }
-
-    if (/^\s*\|.*\|\s*$/.test(line) && i + 1 < lines.length && /^\s*\|?\s*[-: ]+\|[-:| ]*\s*$/.test(lines[i + 1])) {
-      closeLists()
-      const headerCells = line.split('|').slice(1, -1).map(c => '<th>' + escapeHtml(c.trim()) + '</th>').join('')
-      html.push('<table><thead><tr>' + headerCells + '</tr></thead><tbody>')
-      i += 2
-      while (i < lines.length && /^\s*\|.*\|\s*$/.test(lines[i])) {
-        const rowCells = lines[i].split('|').slice(1, -1).map(c => '<td>' + escapeHtml(c.trim()) + '</td>').join('')
-        html.push('<tr>' + rowCells + '</tr>')
-        i += 1
-      }
-      html.push('</tbody></table>')
-      continue
-    }
-
-    const heading = line.match(/^(#{1,6})\s+(.+)$/)
-    if (heading) {
-      closeLists()
-      const level = heading[1].length
-      html.push('<h' + level + '>' + escapeHtml(heading[2]) + '</h' + level + '>')
-      i += 1; continue
-    }
-
-    if (/^---+$/.test(line.trim())) { closeLists(); html.push('<hr>'); i += 1; continue }
-
-    const ordered = line.match(/^\d+\.\s+(.+)$/)
-    if (ordered) {
-      if (inUl) { html.push('</ul>'); inUl = false }
-      if (!inOl) { html.push('<ol>'); inOl = true }
-      html.push('<li>' + escapeHtml(ordered[1]) + '</li>')
-      i += 1; continue
-    }
-
-    const unordered = line.match(/^[-*+]\s+(.+)$/)
-    if (unordered) {
-      if (inOl) { html.push('</ol>'); inOl = false }
-      if (!inUl) { html.push('<ul>'); inUl = true }
-      html.push('<li>' + escapeHtml(unordered[1]) + '</li>')
-      i += 1; continue
-    }
-
-    closeLists()
-    html.push('<p>' + escapeHtml(line) + '</p>')
-    i += 1
-  }
-
-  closeLists()
-  if (inCode) html.push('</code></pre>')
-  return html.join('')
-}
-
-const githubBtnWrapStyle = {
-  textAlign: 'center',
-  padding: '40px',
-  background: 'rgba(255, 255, 255, 0.02)',
-  borderRadius: '8px',
-  border: '1px solid rgba(255, 255, 255, 0.1)',
-}
-
-const githubBtnStyle = {
-  display: 'inline-flex',
-  alignItems: 'center',
-  gap: '8px',
-  padding: '12px 24px',
-  backgroundColor: '#24292e',
-  color: '#fff',
-  textDecoration: 'none',
-  borderRadius: '6px',
-  fontWeight: 500,
 }
 
 export default function StudySubject({ subject }) {
@@ -893,32 +849,14 @@ export default function StudySubject({ subject }) {
       )
     }
 
-    if (content.type === 'markdown') {
-      return (
-        <FadeIn>
-          <div className="markdown-wrap">
-            <div
-              className="markdown-content"
-              dangerouslySetInnerHTML={{ __html: renderSimpleMarkdown(content.text) }}
-            />
-          </div>
-        </FadeIn>
-      )
-    }
-
     if (content.type === 'github') {
       return (
         <FadeIn>
-          <div style={githubBtnWrapStyle}>
-            <a
-              href={content.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={githubBtnStyle}
-            >
-              <i className="fab fa-github" /> 跳转到GitHub仓库查看
-            </a>
-          </div>
+          <GitHubLink
+            href={content.url}
+            title={content.title || content.sectionTitle}
+            meta={content.meta}
+          />
         </FadeIn>
       )
     }
@@ -930,7 +868,7 @@ export default function StudySubject({ subject }) {
     if (!data.content) {
       return (
         <>
-          <div className="section-header">
+          <div className="section-header subject-section-header">
             <h2 className="section-title">{data.title}</h2>
           </div>
           <FadeIn>
@@ -946,7 +884,7 @@ export default function StudySubject({ subject }) {
     if (data.content.type === 'sections') {
       return data.content.sections.map((section) => (
         <div className="subject-content-section" key={section.sectionTitle}>
-          <div className="section-header">
+          <div className="section-header subject-section-header">
             <h2 className="section-title">{section.sectionTitle}</h2>
           </div>
           {renderContentBlock(section)}
@@ -956,7 +894,7 @@ export default function StudySubject({ subject }) {
 
     return (
       <>
-        <div className="section-header">
+        <div className="section-header subject-section-header">
           <h2 className="section-title">{data.content.sectionTitle}</h2>
         </div>
         {renderContentBlock(data.content)}

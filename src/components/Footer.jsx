@@ -1,3 +1,5 @@
+import GitHubLink from './GitHubLink'
+
 export default function Footer() {
   return (
     <footer className="footer">
@@ -5,9 +7,12 @@ export default function Footer() {
         <div className="footer-inner">
           <div className="footer-copy">&copy; 2026 LV-ZHU</div>
           <div className="footer-social">
-            <a href="https://github.com/LV-ZHU" target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-github" />
-            </a>
+            <GitHubLink
+              compact
+              href="https://github.com/LV-ZHU"
+              title="LV-ZHU"
+              meta="GitHub"
+            />
           </div>
         </div>
       </div>
