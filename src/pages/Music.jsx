@@ -133,6 +133,7 @@ const songs_mandarin = [
     { name: "又见炊烟", artist: "邓丽君", comment: "又见炊烟升起~勾起我回忆~" },
     { name: "哭砂", artist: "张惠妹", comment: "风吹来的砂落在悲伤的眼里~谁都看出我在等你~" },
     { name: "听海", artist: "张惠妹", comment: "听~海哭的声音~" },
+    { name: "雨爱", artist: "杨丞琳", comment: "窗外的雨滴~一滴滴累积，希食东精选" },
     { name: "渡口", artist: "蔡琴", comment: "而明日~明日~又隔天~~涯~" },
     { name: "欧若拉", artist: "张韶涵", comment: "帅气开场转音" },
     { name: "下一个天亮", artist: "郭静", comment: "希食东精选" },
