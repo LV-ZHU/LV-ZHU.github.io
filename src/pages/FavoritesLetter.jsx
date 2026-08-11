@@ -190,6 +190,7 @@ const letterData = {
       { title: '新 C++ 教学', url: 'http://10.80.42.185', icon: 'fas fa-laptop-code', urlDisplay: '10.80.42.185' },
       { title: '思政课平台', url: 'https://shsj.tongji.edu.cn', icon: 'fas fa-hand-holding-heart', urlDisplay: 'shsj.tongji.edu.cn' },
       { title: '财务处缴费网站', url: 'https://paycwc.tongji.edu.cn', icon: 'fas fa-credit-card', urlDisplay: 'paycwc.tongji.edu.cn' },
+      { title: '校园风景、PPT网站', url: 'https://photo.tongji.edu.cn', icon: 'fas fa-credit-card', urlDisplay: 'photo.tongji.edu.cn' },
     ],
   },
   U: {
