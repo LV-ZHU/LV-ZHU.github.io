@@ -161,6 +161,9 @@ const letterData = {
       { title: '现代C++参数解析工具', url: 'https://github.com/p-ranav/argparse', icon: 'fas fa-tools', urlDisplay: 'github.com/p-ranav/argparse' },
       { title: '网道开发合集', url: 'https://wangdoc.com/', icon: 'fas fa-tools', urlDisplay: 'wangdoc.com' },
       { title: 'Oceanbase数据库的简化版-MiniOB', url: 'https://oceanbase.github.io/miniob/', icon: 'fas fa-tools', urlDisplay: 'oceanbase.github.io/miniob/' },
+      { title: 'Codex宠物站1', url: 'https://petdex.crafter.run/zh', icon: 'fas fa-tools', urlDisplay: 'petdex.crafter.run/zh'},
+      { title: 'Codex宠物站2', url: 'https://codexpet.xyz/', icon: 'fas fa-tools', urlDisplay: 'codexpet.xyz'},
+      
     ],
   },
   T: {
@@ -179,7 +182,6 @@ const letterData = {
       { title: '计算机学院', url: 'https://cs.tongji.edu.cn', icon: 'fas fa-tasks', urlDisplay: 'cs.tongji.edu.cn' },
       { title: '课程公告、作业', url: 'https://canvas.tongji.edu.cn', icon: 'fas fa-tasks', urlDisplay: 'canvas.tongji.edu.cn' },
       { title: '济你太美导航页', url: 'https://tongji.icu', icon: 'fas fa-map-signs', urlDisplay: 'tongji.icu' },
-      { title: '乌龙茶选课社区', url: 'https://1.tongji.icu', icon: 'fas fa-calendar-alt', urlDisplay: '1.tongji.icu' },
       { title: '排课助手', url: 'https://xk.xialing.icu', icon: 'fas fa-sort', urlDisplay: 'xk.xialing.icu' },
       { title: '模拟选课系统', url: 'https://course.f1Justin.com', icon: 'fas fa-mouse-pointer', urlDisplay: 'course.f1Justin.com' },
       { title: '自助服务 ', url: 'https://zzfw.tongji.edu.cn/wec-self-print-app-console/mobile.html#/mobile/orderDetail?id=1798312171055091713', icon: 'fas fa-print', urlDisplay: 'zzfw.tongji.edu.cn' },
