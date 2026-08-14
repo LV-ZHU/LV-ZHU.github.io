@@ -541,6 +541,7 @@ const songs_other = [
     { name: "Tassel (流苏)", artist: "Cymophane", comment: "营销号御用" },
     { name: "Despair (绝望)", artist: "SeVen.13", comment: "营销号御用，歌名叫绝望但是绝望中也带着希望" },
     { name: "Solstice", artist: "K-391", comment: "营销号御用，生活小妙招の小曲，电音" },
+    { name: "SummerTime", artist: "K-391", comment: "魔性电音，Fade的灵感来源，中国人能飞采样の小曲" },
     { name: "Spring In My Step", artist: "", comment: "营销号御用，生活小妙招の小曲" },
     { name: "Here We Are Again", artist: "Cagnet", comment: "营销号御用，电影《喜剧之王》插曲" },
     { name: "A Thousand Miles", artist: "Josh Vietti", comment: "营销号御用" },
@@ -555,6 +556,7 @@ const songs_other = [
     { name: "一笑江湖", artist: "闻人听书", comment: "科目三原速曲，原速还是挺古风的" },
     { name: "蜜雪冰城主题曲", artist: "蜜雪冰城", comment: "你爱我~我爱你~蜜雪冰城甜蜜蜜" },
     { name: "快乐的答案", artist: "奶龙", comment: "浦江郊野公园奶龙主题BGM" },
+    { name: "中国人能飞", artist: "Chalky Wong", comment: "中国人能飞~黄皮肤才对~讲中文才飞~中国就是美，SummerTime再焕新春这一块" },
 ]
 
 const categories = [
