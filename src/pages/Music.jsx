@@ -556,7 +556,7 @@ const songs_other = [
     { name: "一笑江湖", artist: "闻人听书", comment: "科目三原速曲，原速还是挺古风的" },
     { name: "蜜雪冰城主题曲", artist: "蜜雪冰城", comment: "你爱我~我爱你~蜜雪冰城甜蜜蜜" },
     { name: "快乐的答案", artist: "奶龙", comment: "浦江郊野公园奶龙主题BGM" },
-    { name: "中国人能飞", artist: "Chalky Wong", comment: "中国人能飞~黄皮肤才对~讲中文才飞~中国就是美，SummerTime再焕新春这一块" },
+    { name: "中国人能飞", artist: "Chalky Wong、揽佬SKAI ISYOURGOD", comment: "SummerTime再焕新春这一块，中国人能飞~黄皮肤才对~讲中文才飞~中国就是美" },
 ]
 
 const categories = [
