@@ -244,7 +244,7 @@ const songs_mandarin = [
 ]
 
 const songs_cantonese = [
-    { name: "富士山下", artist: "陈奕迅", comment: "谁都只得那双手~靠拥抱亦难任你拥有" },
+    { name: "富士山下", artist: "陈奕迅", comment: "谁都只得那双手~靠拥抱亦难任你拥有，音乐演唱曲目" },
     { name: "七点半钟的阳光", artist: "张天赋", comment: "KFC指定BGM" },
     { name: "海阔天空", artist: "Beyond", comment: "广东省省歌的含金量" },
     { name: "浮夸", artist: "陈奕迅", comment: "调子超高的一首歌" },
