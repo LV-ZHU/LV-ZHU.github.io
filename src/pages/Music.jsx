@@ -240,6 +240,7 @@ const songs_mandarin = [
     { name: "像我这样的人", artist: "毛不易", comment: "手机铃声，电影《二手杰作》主题曲" },
     { name: "后继者", artist: "任然", comment: "时间真是像是长了脚的妖怪~跑的飞快~" },
     { name: "当你孤单你会想起谁", artist: "郭美美", comment: "你的快乐伤悲~只有我能体会~让我再陪你走一回~" },
+    { name: "晚安", artist: "颜人中", comment: "几人份的畅谈~道三两句晚安，希食东精选" },
 ]
 
 const songs_cantonese = [
@@ -261,6 +262,7 @@ const songs_foreign = [
     { name: "Zoo(From Zootopia 2)", artist: "Disney、Shakira", comment: "电影《疯狂动物城2》主题曲" },
     { name: "Waka Waka", artist: "Shakira", comment: "2010 World Cup" },
     { name: "Hayya Hayya", artist: "Trinidad Cardona", comment: "2022 World Cup" },
+    { name: "Rolling in the deep", artist: "Adele 阿黛尔", comment: "超高转音，高中文艺晚会精选" },
     { name: "The New Dawn", artist: "Nicola Sedda", comment: "低沉，但有力量" },
     { name: "The Miracle", artist: "Nicola Sedda", comment: "高音这一块" },
     { name: "打上花火", artist: "米津玄师", comment: "那一天的忧郁~忧郁起来~" },
