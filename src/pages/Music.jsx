@@ -161,6 +161,7 @@ const songs_mandarin = [
     { name: "百年孤寂", artist: "王菲", comment: "悲哀是真的~泪是假的~本来没因果~" },
     { name: "你快乐所以我快乐", artist: "王菲", comment: "平淡，但声音有一种漂浮感" },
     { name: "天空", artist: "王菲", comment: "空灵、细腻" },
+    { name: "世界赠予我的", artist: "王菲", comment: "春晚曲目" },
     { name: "童年", artist: "卓依婷", comment: "经典童年歌曲，活泼欢快" },
     { name: "风中有朵雨做的云", artist: "孟庭苇", comment: "幼时记忆" },
     { name: "谁的眼泪在飞", artist: "孟庭苇", comment: "幼时记忆" },
@@ -234,6 +235,11 @@ const songs_mandarin = [
     { name: "铃儿响叮当", artist: "", comment: "音乐会精选" },
     { name: "有你真好", artist: "侯磊", comment: "电视剧《急诊室故事》主题曲，拍摄于六院" },
     { name: "不说明的默契", artist: "林渝植", comment: "希食东精选，BGM上头" },
+    { name: "海屿你", artist: "马_Crabbit", comment: "这回忆的漩涡~快要把我吞没~求你别离开我~因为~我欠你太多" },
+    { name: "飞鸟和蝉", artist: "任然", comment: "北纬线的思念被季风吹远~吹远默念的侧脸~吹远鸣唱的诗篇~" },
+    { name: "像我这样的人", artist: "毛不易", comment: "手机铃声，电影《二手杰作》主题曲" },
+    { name: "后继者", artist: "任然", comment: "时间真是像是长了脚的妖怪~跑的飞快~" },
+    { name: "当你孤单你会想起谁", artist: "郭美美", comment: "你的快乐伤悲~只有我能体会~让我再陪你走一回~" },
 ]
 
 const songs_cantonese = [
@@ -250,8 +256,8 @@ const songs_cantonese = [
 ]
 
 const songs_foreign = [
-    { name: "Dai Dai", artist: "Shakira、Burna Boy", comment: "2026 World Cup" },
-    { name: "Lighter", artist: "Jelly Roll、Carin Leon", comment: "2026 World Cup震撼首发, 让我们相约在落基山、尼亚加拉瀑布、尤卡坦半岛，让我们一起去玛雅文明曾经存在过的地方。" },
+    { name: "Dai Dai", artist: "Shakira、Burna Boy", comment: "2026 World Cup主题曲，塞万提斯的梦骑士的精神，协作、纪律和共同信念铸就的伟大，Vamosssss!" },
+    { name: "Lighter", artist: "Jelly Roll、Carin Leon", comment: "2026 World Cup震撼首发, 让我们相约在落基山、尼亚加拉瀑布、尤卡坦半岛，让我们一起去玛雅文明曾经存在过的地方" },
     { name: "Zoo(From Zootopia 2)", artist: "Disney、Shakira", comment: "电影《疯狂动物城2》主题曲" },
     { name: "Waka Waka", artist: "Shakira", comment: "2010 World Cup" },
     { name: "Hayya Hayya", artist: "Trinidad Cardona", comment: "2022 World Cup" },
@@ -328,7 +334,7 @@ const songs_foreign = [
     { name: "only my railgun", artist: "fripSide", comment: "超电磁炮OP" },
     { name: "Floating Shelter", artist: "PinocchioP、初音未来", comment: "I wanna be the MC隐藏关配乐，初音神曲" },
     { name: "LEVEL5 - Judgelight", artist: "水缘无忆", comment: "超电磁炮OP" },
-    { name: "It's a small world", artist: "Sherman 兄弟", comment: "洒水车BGM" },
+    { name: "It's a small world", artist: "Sherman 兄弟", comment: "洒水车BGM，幼时记忆" },
 ]
 
 const songs_instrumental = [
@@ -473,6 +479,7 @@ const songs_other = [
     { name: "雪 Distance", artist: "Capper、罗言RollFlash", comment: "耸肩の小曲，高中学农回忆" },
     { name: "Groovin' King", artist: "Taqumi", comment: "B站搞笑视频精选" },
     { name: "我的滑板鞋", artist: "约瑟翰 庞麦郎", comment: "摩擦~摩擦~在这光滑的地上摩擦~重庆合川回忆" },
+    { name: "以下范上", artist: "C-BLOCK", comment: "懂你意思，西班牙巴塞罗那回忆" },
     { name: "Buttercup", artist: "Jack Stauber", comment: "B站搞笑视频精选，抱枕组准备" },
     { name: "Lemon", artist: "米津玄师", comment: "那一天的忧郁~忧郁起来" },
     { name: "春庭雪 (0.9x版DJ Wave版)", artist: "邓寓君(等什么君)", comment: "抖音神曲" },
@@ -556,6 +563,7 @@ const songs_other = [
     { name: "一笑江湖", artist: "闻人听书", comment: "科目三原速曲，原速还是挺古风的" },
     { name: "蜜雪冰城主题曲", artist: "蜜雪冰城", comment: "你爱我~我爱你~蜜雪冰城甜蜜蜜" },
     { name: "快乐的答案", artist: "奶龙", comment: "浦江郊野公园奶龙主题BGM" },
+    { name: "念张师", artist: "AI", comment: "张雪峰老师~我还记得你~，中国版See you again" },
     { name: "中国人能飞", artist: "Chalky Wong、揽佬SKAI ISYOURGOD", comment: "SummerTime再焕新春这一块，中国人能飞~黄皮肤才对~讲中文才飞~中国就是美" },
 ]
 
