@@ -257,7 +257,7 @@ const songs_cantonese = [
 ]
 
 const songs_foreign = [
-    { name: "Dai Dai", artist: "Shakira、Burna Boy", comment: "2026 World Cup主题曲，塞万提斯笔下的梦骑士的精神，协作、纪律和共同信念铸就的伟大，Vamosssss!" },
+    { name: "Dai Dai", artist: "Shakira、Burna Boy", comment: "2026 World Cup主题曲，塞万提斯笔下的梦骑士的精神，协作、纪律和共同信念铸就的伟大，Vamossss!" },
     { name: "Lighter", artist: "Jelly Roll、Carin Leon", comment: "2026 World Cup震撼首发, 让我们相约在落基山、尼亚加拉瀑布、尤卡坦半岛，让我们一起去玛雅文明曾经存在过的地方" },
     { name: "Zoo(From Zootopia 2)", artist: "Disney、Shakira", comment: "电影《疯狂动物城2》主题曲" },
     { name: "Waka Waka", artist: "Shakira", comment: "2010 World Cup" },
