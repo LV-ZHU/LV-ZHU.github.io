@@ -347,6 +347,7 @@ const songs_instrumental = [
     { name: "Mountain stream", artist: "Bandari", comment: "舒心，平静" },
     { name: "Arms Dealer", artist: "Pokecale", comment: "车祸警示录第三阶段BGM" },
     { name: "Sunburst", artist: "Tobu、Itro", comment: "充满阳光，充满希望" },
+    { name: "平沙落雁", artist: "丝路萧埙音乐天地", comment: "音乐线上智慧树精选" },
     { name: "The First Snowflakes (初雪)", artist: "Bandari", comment: "宁静，高中听力御用BGM" },
     { name: "Neptune Illusion", artist: "Dennis Kuo", comment: "qoqoqo origin精选" },
     { name: "比利蒂斯", artist: "", comment: "幼时记忆" },
