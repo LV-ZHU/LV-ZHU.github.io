@@ -166,6 +166,7 @@ const songs_mandarin = [
     { name: "风中有朵雨做的云", artist: "孟庭苇", comment: "幼时记忆" },
     { name: "谁的眼泪在飞", artist: "孟庭苇", comment: "幼时记忆" },
     { name: "羞答答的玫瑰静悄悄地开", artist: "孟庭苇", comment: "幼时记忆" },
+    { name: "伊犁欢迎你", artist: "胡瑛", comment: "夏塔BGM" },
     { name: "【十年榜】华语top100", artist: "", comment: "本序号不指向某一首歌曲，起分界线作用，下面的曲目大多只能算是用国语唱的，和早期经典的华语/国语歌曲概念有一定距离" },
     { name: "孤勇者", artist: "陈奕迅", comment: "英雄联盟：双城之战第一季主题曲，已被小学生攻占" },
     { name: "伤不起", artist: "王麟、老猫", comment: "电话打给你~美女又在你怀里~" },
