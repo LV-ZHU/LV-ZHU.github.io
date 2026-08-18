@@ -494,6 +494,7 @@ const songs_other = [
     { name: "The Happy Troll", artist: "D1ofAquavibe", comment: "B站搞笑视频精选" },
     { name: "The Party Troll", artist: "D1ofAquavibe", comment: "B站搞笑视频精选" },
     { name: "Funkytown", artist: "Lipps Inc.", comment: "旋转の小曲" },
+    { name: "Funk Caravan", artist: "Mango Audio", comment: "B站搞笑视频精选" },
     { name: "神经病之歌", artist: "小胡仙儿", comment: "B站搞笑视频精选" },
     { name: "狂妄之呎", artist: "鬼畜", comment: "B站搞笑视频精选" },
     { name: "Monkeys Spinning Monkeys", artist: "Kevin MacLeod", comment: "B站搞笑视频精选" },
