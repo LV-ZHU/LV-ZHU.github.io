@@ -1,10 +1,15 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import * as echarts from 'echarts'
+import * as echarts from 'echarts/core'
+import { LinesChart, MapChart } from 'echarts/charts'
+import { GeoComponent, TooltipComponent } from 'echarts/components'
+import { CanvasRenderer } from 'echarts/renderers'
 import { collection, doc, setDoc, deleteDoc, onSnapshot, query, orderBy, limit, getDoc } from 'firebase/firestore'
 import { db } from '../firebase/init'
 import { useAuth } from '../components/AuthProvider'
 import FadeIn from '../components/FadeIn'
 import '../styles/Travel.css'
+
+echarts.use([MapChart, LinesChart, GeoComponent, TooltipComponent, CanvasRenderer])
 
 const STORAGE_CHINA = 'lv-zhu-travel-map'
 const STORAGE_WORLD = 'lv-zhu-travel-map-world'
