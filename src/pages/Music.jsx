@@ -3,9 +3,9 @@ import FadeIn from '../components/FadeIn'
 import '../styles/Music.css'
 
 const songs_mandarin = [
-    { name: "再见", artist: "张震岳", comment: "轻装策马青云路，人生从此驭长风。希君生羽翼，一化北冥鱼。毕业季金曲，FM89.9一个时代的落幕", searchKeywords: "" },
-    { name: "北京欢迎你", artist: "华语群星", comment: "奥运会主题曲，歌手云集，这首歌的录制背后有很多故事", searchKeywords: "" },
-    { name: "水手", artist: "郑智化", comment: "属于70、80后的回忆", searchKeywords: "" },
+    { name: "再见", artist: "张震岳", comment: "轻装策马青云路，人生从此驭长风。希君生羽翼，一化北冥鱼。毕业季金曲，FM89.9一个时代的落幕", searchKeywords: "高考 听力 电台 2024" },
+    { name: "北京欢迎你", artist: "华语群星", comment: "奥运会主题曲，歌手云集，这首歌的录制背后有很多故事", searchKeywords: "陈天佳 2008 刘欢 那英 韩红 孙楠 成龙 王力宏 蔡依林 谢霆锋 周华健 孙燕姿 汪峰 谭晶 李宇春 周笔畅 张靓颖 羽泉 黄晓明 陈坤 林俊杰 容祖儿 任贤齐 陈奕迅 莫文蔚 梁咏琪 韦唯 韩庚" },
+    { name: "水手", artist: "郑智化", comment: "属于70、80后的回忆", searchKeywords: "擦干泪 不要怕" },
     { name: "黄昏", artist: "周传雄", comment: "依然记得从你口中说出再见坚决如铁~传奇金曲，调子挺高的", searchKeywords: "" },
     { name: "江南", artist: "林俊杰", comment: "离愁能有多痛~痛有多浓", searchKeywords: "" },
     { name: "Don't Break My Heart", artist: "黑豹乐队", comment: "飞跃黄渡理工BGM，怀旧向 https://b23.tv/M4wFAnj", searchKeywords: "" },
