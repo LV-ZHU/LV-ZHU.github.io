@@ -23,7 +23,7 @@ const songs_mandarin = [
     { name: "凤凰花开的路口", artist: "林志炫", comment: "毕业季经典歌曲，22年FM89.9指定版", searchKeywords: "" },
     { name: "十年", artist: "陈奕迅", comment: "十年之前~我不认识你~你不属于我，Eason伪装走音的一曲", searchKeywords: "" },
     { name: "一场游戏一场梦", artist: "王杰", comment: "抑扬顿挫", searchKeywords: "" },
-    { name: "稳稳的幸福", artist: "陈奕迅", comment: "肾宝片金曲，我要稳稳的幸福~", searchKeywords: "" },
+    { name: "稳稳的幸福", artist: "陈奕迅", comment: "肾宝片金曲，我要稳稳的幸福~", searchKeywords: "广告" },
     { name: "口是心非", artist: "张雨生", comment: "代表作，一路生花抄了这首歌的调子", searchKeywords: "" },
     { name: "我期待", artist: "张雨生", comment: "净化心灵，涤荡灵魂", searchKeywords: "" },
     { name: "情非得已", artist: "庾澄庆", comment: "磁性情歌这一块", searchKeywords: "" },
