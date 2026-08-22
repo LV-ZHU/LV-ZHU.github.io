@@ -261,6 +261,7 @@ const songs_foreign = [
     { name: "Dai Dai", artist: "Shakira、Burna Boy", comment: "2026 World Cup主题曲，塞万提斯笔下的梦骑士的精神，协作、纪律和共同信念铸就的伟大，Vamossss!", searchKeywords: "" },
     { name: "Lighter", artist: "Jelly Roll、Carin Leon", comment: "2026 World Cup震撼首发, 让我们相约在落基山、尼亚加拉瀑布、尤卡坦半岛，让我们一起去玛雅文明曾经存在过的地方", searchKeywords: "" },
     { name: "Zoo(From Zootopia 2)", artist: "Disney、Shakira", comment: "电影《疯狂动物城2》主题曲", searchKeywords: "" },
+    { name: "When I'm Home", artist: "Travis Scott", comment: "电影《奥德赛》片尾曲", searchKeywords: "" },
     { name: "Waka Waka", artist: "Shakira", comment: "2010 World Cup", searchKeywords: "" },
     { name: "Hayya Hayya", artist: "Trinidad Cardona", comment: "2022 World Cup", searchKeywords: "" },
     { name: "Rolling in the deep", artist: "Adele 阿黛尔", comment: "超高转音，高中文艺晚会精选", searchKeywords: "" },
@@ -341,6 +342,7 @@ const songs_foreign = [
 ]
 
 const songs_instrumental = [
+    { name: "The Trial of the Bow / Vengeance", artist: "Ludwig Göransson", comment: "开杀！", searchKeywords: "电影 奥德赛" },
     { name: "Yumeji's Theme", artist: "梅林茂", comment: "电影《花样年华》插曲", searchKeywords: "" },
     { name: "名探侦コナンメインテーマ", artist: "菅野祐悟", comment: "电影《100万ドルの五稜星》主题曲", searchKeywords: "" },
     { name: "ツナ覚醒 (阿纲觉醒)", artist: "佐橋俊彦", comment: "军事の小曲，动漫《家庭教师》的配乐，激昂", searchKeywords: "" },
