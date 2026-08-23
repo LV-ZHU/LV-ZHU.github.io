@@ -271,6 +271,7 @@ const songs_foreign = [
     { name: "打上花火", artist: "米津玄师", comment: "那一天的忧郁~忧郁起来~", searchKeywords: "" },
     { name: "You Raise Me Up", artist: "Westlife", comment: "合唱团曲目", searchKeywords: "" },
     { name: "Shots", artist: "Imagine Dragons、Broiler", comment: "运动の小曲", searchKeywords: "" },
+    { name: "HandClap", artist: "Fitz and The Tantrums", comment: "非常有节奏感", searchKeywords: "大奔 2018 98k" },
     { name: "Dream It Possible", artist: "Delacey", comment: "华为主题曲英文版", searchKeywords: "" },
     { name: "Colors (Coca-Cola Anthem)", artist: "Jason Derulo", comment: "2018 World Cup，进球时放的一曲，那个盛夏在徐汇日月光的屏幕上听过好几次", searchKeywords: "" },
     { name: "In Another Life", artist: "Nicola Sedda", comment: "高音这一块", searchKeywords: "" },
