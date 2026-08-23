@@ -262,6 +262,7 @@ const songs_foreign = [
     { name: "Lighter", artist: "Jelly Roll、Carin Leon", comment: "2026 World Cup震撼首发, 让我们相约在落基山、尼亚加拉瀑布、尤卡坦半岛，让我们一起去玛雅文明曾经存在过的地方", searchKeywords: "" },
     { name: "Zoo(From Zootopia 2)", artist: "Disney、Shakira", comment: "电影《疯狂动物城2》主题曲", searchKeywords: "" },
     { name: "When I'm Home", artist: "Travis Scott", comment: "电影《奥德赛》片尾曲", searchKeywords: "" },
+    { name: "oh yeah?", artist: "Steve Lacy", comment: "电影《蜘蛛侠》主题曲", searchKeywords: "" },
     { name: "Waka Waka", artist: "Shakira", comment: "2010 World Cup", searchKeywords: "" },
     { name: "Hayya Hayya", artist: "Trinidad Cardona", comment: "2022 World Cup", searchKeywords: "" },
     { name: "Rolling in the deep", artist: "Adele 阿黛尔", comment: "超高转音，高中文艺晚会精选", searchKeywords: "" },
