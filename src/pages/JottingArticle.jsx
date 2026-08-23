@@ -18,17 +18,13 @@ export default function JottingArticle() {
 
   if (!article) {
     return (
-      <div className="page-wrapper">
-        <div className="page-header">
-          <h1><i className="fas fa-book-open" /> 文章详情</h1>
-          <p>Jottings / 随笔空间</p>
-        </div>
+      <div className="page-wrapper page-direct">
         <section className="section">
           <div className="container">
-            <Link to="/jottings" className="article-back"><i className="fas fa-arrow-left" />返回随笔列表</Link>
-            <div className="card" style={{ padding: '2rem' }}>
+            <Link to="/jottings" className="article-back">← 返回随笔列表</Link>
+            <div className="card article-paper">
               <div className="card-content">
-                <div className="card-title"><i className="fas fa-info-circle" />文章未找到</div>
+                <div className="card-title">文章未找到</div>
               </div>
             </div>
           </div>
@@ -45,17 +41,13 @@ export default function JottingArticle() {
   }
 
   return (
-    <div className="page-wrapper">
-      <div className="page-header">
-        <h1><i className="fas fa-book-open" /> 文章详情</h1>
-        <p>Jottings / 随笔空间</p>
-      </div>
+    <div className="page-wrapper page-direct">
       <section className="section">
         <div className="container">
-          <Link to="/jottings" className="article-back"><i className="fas fa-arrow-left" />返回随笔列表</Link>
-          <div className="card" style={{ padding: '2rem' }}>
+          <Link to="/jottings" className="article-back">← 返回随笔列表</Link>
+          <div className="card article-paper">
             <div className="card-content">
-              <div className="card-title"><i className="fas fa-info-circle" />{article.title}</div>
+              <div className="card-title">{article.title}</div>
               <div className="card-desc" style={{ whiteSpace: 'pre-line', lineHeight: 1.9 }}>{article.content}</div>
             </div>
           </div>
@@ -65,21 +57,29 @@ export default function JottingArticle() {
   )
 }
 
+function renderLongArticle(text) {
+  return text.split('\n').map((line, index) => {
+    const value = line.trim()
+    if (!value) return null
+    if (/^§\d+\./.test(value)) return <h2 key={index}>{value}</h2>
+    if (/^\d+\.\d+\s/.test(value)) return <h3 key={index}>{value}</h3>
+    if (/^[^\s]{2,8}：$/.test(value)) return <h4 key={index}>{value}</h4>
+    const listLike = /^(?:（\d+）|\d+\.)/.test(value)
+    return <p key={index} className={listLike ? 'jiqin-list-line' : undefined}>{value}</p>
+  })
+}
+
 function JiqinFenliu() {
   return (
-    <div className="page-wrapper">
-      <div className="page-header">
-        <h1><i className="fas fa-book-open" /> 文章详情</h1>
-        <p>Jottings / 随笔空间</p>
-      </div>
+    <div className="page-wrapper page-direct">
       <section className="section">
         <div className="container">
-          <Link to="/jottings" className="article-back"><i className="fas fa-arrow-left" />返回随笔列表</Link>
-          <div className="card" style={{ padding: '2rem' }}>
+          <Link to="/jottings" className="article-back">← 返回随笔列表</Link>
+          <div className="card article-paper">
             <div className="card-content">
-              <div className="card-title"><i className="fas fa-info-circle" />济勤分流</div>
-              <div className="card-desc" style={{ whiteSpace: 'pre-line', lineHeight: 1.9 }}>
-{`§0.开篇
+              <div className="card-title">济勤分流</div>
+              <div className="jiqin-content">
+{renderLongArticle(`§0.开篇
 必须在开始就明确的是，大学学习的方式与高中有很大的差异。就我个人而言，济勤整个大一最重要是：（注意，以下内容基于对随录取通知书下发的各种小册子有了解的基础上（可参考24级https://docs.qq.com/doc/DTEJ0SkxJY2pUZUhw?nlc=1））信息差。这个词汇在各种互联网上的大学学习经验分享中间反复出现，除了需要了解所有大学生都需要了解的学业相关的名词，比如逐一搜索以下名词（注意要找同济相关的，比如搜索"同济绩点制度"）："绩点""学分""rank（简称rk）" "分流""保研率""考研""出国深造""培养方案""给分（详见乌龙茶网站tongji.icu）" "学院""专业""红课""水课""刷锻"等等，更重要的是和大类分流密切相关的内容，要有自己从各种渠道（各种官网、各类民间QQ群、校圈小程序、xhs、知乎等互联网平台）搜集信息的能力，下文也会提到一些；在有信息差的基础上对很多事情提前产生认知，领跑时间线。挖掘学长的一些"圣遗物"，少走不必要的弯路。
 §1.概述
 当前的大一分流主要参考大一两个学期，具体占比如下：注意：以下内容基于24年情况，请注意关注1系统，以实际情况为准。
@@ -203,7 +203,7 @@ function JiqinFenliu() {
 高级语言程序设计（2学分，简称高程）及实验（1学分，简称高程实验）可视作一个整体，是大类所有课程中最为特殊的一门。一方面，它起到码类启蒙的作用，配备了几乎是整个大学期间所有课程中最完整的助教体系（助教分为两部分：一部分是大二上过这门课的学长，一部分是研究生助教甚至是更早毕业的学长），授课内容也经过将近10年的反复打磨、迭代，无论以后选择什么专业你都会在各种其他课程里面看到这门课曾经教给你的知识/理念，至少从听课角度看一定是会有收获的（讲的非常细致甚至过于细致了，以至于这门课完全不需要推荐任何其他网上的课程，如果想要提前学/预复习只需要在look.tongji.edu.cn上看回放即可）；另一方面，作为一门3学分的课程（学分压的太狠了）它几乎有着至少10学分的作业容量（以后会明白，该课程有太多"独特"之处，也因此让很多人生恨，这里不完全剧透），。文件的命名格式为24252（24到25年第二学期）-0a0b0c（0a为章节名，0b0c按作业顺序依次排列）-W0a0d（W为week，表示第几周发的作业，0a仍然为模块名，0d表示第d个作业）。高程无论你选了哪个老师，最终主管的都是sj，所有以上文件均来自sj为群主的一个超过1000人的、涵盖所有选了这门课的学生、助教、老师、掌管所有作业下发的QQ群。该课程的总评组成标准如下：2学分的高程理论课，5%签到（几乎人人送满），35%每周作业，30%大作业，30%机考（17周考试）；1学分的高程实验课，5%机房签到（有详细规定，届时关注QQ群，这里不再赘述），35%每周作业（和理论课得分一样），30%大作业（和理论课得分一样），30%文档作业。因为两门课成绩高度相关，所以通常将两门课程放在一起讨论。可以看到，这是一门平时需要投入巨量时间，且考试周也有任务的课程。按sj老师自己的评价，这门课的最大特点是"学分少事多"，如果从纯功利的角度学习这门课一定是不划算的。然而在大一下压力显著大于大一上的情况下（电路的杀伤力远强于线代，高数的杀伤力也更大，前文已经提过），仍有很多同学投入大量时间学习高程，这里我觉得还是看你个人的学习体验。如果你确实觉得学这门课没什么帮助，且确实纯从绩点角度看性价比不高，那有些作业你可以不做（单个小作业的成绩对总评影响很小）；但是如果你觉得你从这门课中还是有些收获的/有和上其他无论是硬课/水课不一样的体验的，那你也可以不要那么完全为了绩点而学习（大一期末成绩出来你就会发现这门课对总成绩的影响真的不大。这里稍微多说两句：就算是有所谓分流的压力且本文档也几乎极致面向纯功利化的学习，绩点也绝不是大学唯一值得追求的目标，很多课的成绩的评判因素不再像高考一样这么单一，许多课的评价是很主观的，没必要太纠结，并且所谓的培养方案、课程安排并非完全合理，可以关注up主那些无名之辈以及观察一下高程群里学长的多样性就会慢慢明白），总之请自行决定（以上并非意味着必须花很多时间在高程上，只是希望能挖掘出自己感兴趣的领域（不是一定要和学科相关）然后投入其中即可）。
 除了上述提到的官方QQ群外，还会拉一个群成员是官方QQ群的子集的欢乐群，建议加入，在群里除了有各类QQ吹水群里的日常聊天/抽象言论/各类主机游戏、手游/美食/鉴证/出行/二次元/选课/寝室/高中、初中、小学生活回忆（全国各地版）/高考、招生吃瓜/各类兄弟学校的瓜/校园内学生、老师八卦/卖弱/狗叫/调戏bot/各类搞笑文案等内容之外，你会看到包括但不限于来自各专业大二/大三/大四学长的学习/实习/工作体验/全校不同专业的跨选、转专业学长/提前了解各专业区别（不局限于本大类）/群主、助教、当过助教的围观学长的日常工作、生活/同届同学的各类课程答疑和锐评（以高程为主，但也有电路、大物、高数、大物实验、德法、英语、体育、人工智能导论等）/和同届同学同步课程、考试等安排/官方群各项功能（如查刀、查行数）的预售版/总群禁言时的保留吃瓜通道/分流面试经验之谈/分流志愿民间填报统计/分流后的搬宿舍/后续oop课程/更深层次的专业知识的讨论。
 选老师方面，尽管差异不大（课件相同），但还是尽量抢sj本人的课（注意相应课号，但如果完全忍受不了拖堂的那不要选他），上机的实验课全部由sj讲解（由于是录播课，不会拖堂），sj有一个20年疫情时候线上加课的B站账号，账号名为shenjian_tj，内容与现在教的不完全一样，但也可以关注提前看看讲授风格看看是否适应，也同时有个心理预期；实验课往往信息密度并不小于理论课，建议自行录屏以便回看。
-这门课还有很多彩蛋/细节，鉴于配套有事无巨细的QQ群，这里不进行一一详述、讨论（比如AI工具并不能解决这门课的许多作业；上课时各种内容/理念的深度讨论），在经历的过程中自然会明白。`}
+这门课还有很多彩蛋/细节，鉴于配套有事无巨细的QQ群，这里不进行一一详述、讨论（比如AI工具并不能解决这门课的许多作业；上课时各种内容/理念的深度讨论），在经历的过程中自然会明白。`)}
               </div>
             </div>
           </div>
@@ -360,48 +360,40 @@ function InterviewPage() {
   ]
 
   return (
-    <div className="page-wrapper">
-      <div className="page-header">
-        <h1><i className="fas fa-book-open" /> 文章详情</h1>
-        <p>Jottings / 随笔空间</p>
-      </div>
+    <div className="page-wrapper page-direct">
       <section className="section">
         <div className="container">
-          <Link to="/jottings" className="article-back"><i className="fas fa-arrow-left" />返回随笔列表</Link>
-          <div className="card" style={{ padding: '1.8rem' }}>
+          <Link to="/jottings" className="article-back">← 返回随笔列表</Link>
+          <div className="card article-paper">
             <div className="card-content">
-              <div className="card-title"><i className="fas fa-info-circle" />大学面试、答辩记录</div>
-              <div style={{ marginBottom: '1.5rem', padding: '0.8rem 1rem', background: 'rgba(79, 70, 229, 0.05)', borderRadius: '8px', borderLeft: '3px solid var(--primary)', fontSize: '0.9rem', color: 'var(--gray)', lineHeight: 1.7 }}>
+              <div className="card-title">大学面试、答辩记录</div>
+              <div className="interview-note">
                 写在前面：多数面试无完整记录，主要根据回忆内容整理，且多数面试为半结构化面试与个人介绍强相关，内容仅供参考
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+              <div className="interview-list">
                 {interviews.map((iv, idx) => (
-                  <div key={idx} style={{ background: '#fff', border: '1px solid rgba(0,0,0,0.06)', borderRadius: 'var(--radius-md)', padding: '1.2rem', boxShadow: 'var(--shadow-sm)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.6rem' }}>
-                      <i className={iv.icon} style={{ color: 'var(--primary)', fontSize: '1.1rem' }} />
-                      <span style={{ fontWeight: 700, fontSize: '1.05rem', color: 'var(--dark)' }}>{iv.title}</span>
+                  <section className="interview-record" key={idx}>
+                    <div className="interview-heading">
+                      <span>{iv.title}</span>
                     </div>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.8rem' }}>
+                    <div className="interview-meta">
                       {iv.meta.map((m, mi) => (
-                        <span key={mi} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', padding: '0.15rem 0.6rem', background: 'rgba(79, 70, 229, 0.06)', borderRadius: '999px', fontSize: '0.82rem', color: 'var(--gray)' }}>
-                          <i className={m.icon} style={{ fontSize: '0.8rem' }} />{m.text}
-                        </span>
+                        <span className="interview-meta-item" key={mi}>{m.text}</span>
                       ))}
                     </div>
-                    <ul style={{ paddingLeft: '1.2rem', margin: 0, listStyle: 'none' }}>
+                    <ul className="interview-questions">
                       {iv.questions.map((q, qi) => (
-                        <li key={qi} style={{ position: 'relative', paddingLeft: '1rem', marginBottom: '0.4rem', fontSize: '0.92rem', color: '#334155', lineHeight: 1.6 }}>
-                          <span style={{ position: 'absolute', left: 0 }}>•</span>
+                        <li className="interview-question" key={qi}>
                           {q.text}
                           {q.appends && q.appends.map((a, ai) => (
-                            <div key={ai} style={{ marginTop: '0.3rem', fontSize: '0.88rem', color: '#64748b' }}>
+                            <div className="interview-append" key={ai}>
                               📌 {a}
                             </div>
                           ))}
                         </li>
                       ))}
                     </ul>
-                  </div>
+                  </section>
                 ))}
               </div>
             </div>

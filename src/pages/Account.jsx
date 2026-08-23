@@ -54,7 +54,7 @@ export default function Account() {
   return (
     <div className="page-wrapper">
       <div className="page-header">
-        <h1><i className="fas fa-user-circle" /> 账号管理</h1>
+        <h1>账号管理</h1>
       </div>
       <section className="section">
         <div className="container">

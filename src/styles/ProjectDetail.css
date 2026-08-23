@@ -141,35 +141,6 @@
 
 .dock-item i { font-size: 1.1rem; }
 
-.summary-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(260px, 1fr));
-    gap: 0.85rem;
-    margin-top: 0.55rem;
-}
-
-.summary-card {
-    border: 1px solid #d9e6f3;
-    border-radius: 12px;
-    background: #fbfdff;
-    padding: 0.85rem 0.9rem;
-}
-
-.summary-card h4 {
-    margin: 0 0 0.45rem 0;
-    color: #254769;
-    font-size: 1rem;
-}
-
-.summary-card ul {
-    margin: 0.2rem 0 0.2rem 1.15rem;
-    padding: 0;
-}
-
-.summary-card li {
-    margin: 0.12rem 0;
-}
-
 .arch-map {
     margin-top: 0.85rem;
     padding: 1.5rem 1.2rem 2rem;
@@ -489,27 +460,6 @@
     font-size: 0.85rem;
     color: #1e3a5f;
 }
-
-details.qa {
-    margin-top: 0.65rem;
-    border: 1px solid #dce7f1;
-    border-radius: 10px;
-    background: #fcfdff;
-}
-
-details.qa > summary {
-    list-style: none;
-    cursor: pointer;
-    padding: 0.62rem 0.78rem;
-    border-bottom: 1px solid #e7eef6;
-    color: #294867;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-details.qa > summary::-webkit-details-marker { display: none; }
-
-.qa-body { padding: 0.75rem 0.8rem; }
 
 .plugin-category {
     margin-top: 1rem;

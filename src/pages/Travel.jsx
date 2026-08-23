@@ -6,6 +6,7 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { collection, doc, setDoc, deleteDoc, onSnapshot, query, orderBy, limit, getDoc } from 'firebase/firestore'
 import { db } from '../firebase/init'
 import { useAuth } from '../components/AuthProvider'
+import { useTheme } from '../components/ThemeProvider'
 import FadeIn from '../components/FadeIn'
 import '../styles/Travel.css'
 
@@ -54,6 +55,7 @@ function escapeHtml(str) {
 
 export default function Travel() {
   const { user } = useAuth()
+  const { isDark } = useTheme()
   const [currentMap, setCurrentMap] = useState('china')
   const [loading, setLoading] = useState(true)
   const [loadingText, setLoadingText] = useState('获取在线地图中...')
@@ -191,6 +193,27 @@ export default function Travel() {
   const updateChartDisplay = useCallback((mapType) => {
     const storageKey = getStorageKey(mapType)
     const savedData = loadData(storageKey)
+    const mapColors = isDark
+      ? {
+          unvisited: '#2b3442',
+          border: '#111722',
+          hover: '#3a4660',
+          hoverBorder: '#9b93ff',
+          provinceLine: '#9aa7b8',
+          tooltipBg: 'rgba(21, 26, 34, .97)',
+          tooltipBorder: '#3a4658',
+          tooltipText: '#e7ecf3',
+        }
+      : {
+          unvisited: colorMap.unvisited,
+          border: mapType === 'china' ? '#f8fafc' : '#f1f5f9',
+          hover: '#c7d2fe',
+          hoverBorder: '#818cf8',
+          provinceLine: '#334155',
+          tooltipBg: 'rgba(255, 255, 255, .97)',
+          tooltipBorder: 'rgba(79, 70, 229, .2)',
+          tooltipText: '#334155',
+        }
 
     const seriesData = []
     Object.keys(savedData).forEach((name) => {
@@ -225,9 +248,9 @@ export default function Travel() {
       backgroundColor: 'transparent',
       tooltip: {
         trigger: 'item',
-        backgroundColor: 'rgba(255, 255, 255, 0.95)',
-        borderColor: 'rgba(79, 70, 229, 0.2)',
-        textStyle: { color: '#334155' },
+        backgroundColor: mapColors.tooltipBg,
+        borderColor: mapColors.tooltipBorder,
+        textStyle: { color: mapColors.tooltipText },
         formatter(params) {
           if (params.seriesType === 'lines') return ''
           const stateStrMap = {
@@ -251,12 +274,12 @@ export default function Travel() {
         scaleLimit: { min: 0.5, max: 25 },
         regions: seriesData,
         itemStyle: {
-          areaColor: colorMap.unvisited,
-          borderColor: mapType === 'china' ? '#f8fafc' : '#f1f5f9',
+          areaColor: mapColors.unvisited,
+          borderColor: mapColors.border,
           borderWidth: mapType === 'shanghai' ? 0.8 : 0.6,
         },
         emphasis: {
-          itemStyle: { areaColor: '#c7d2fe', borderColor: '#818cf8', borderWidth: 1 },
+          itemStyle: { areaColor: mapColors.hover, borderColor: mapColors.hoverBorder, borderWidth: 1 },
         },
       },
       series: [
@@ -276,7 +299,7 @@ export default function Travel() {
         coordinateSystem: 'geo',
         polyline: true,
         data: provLinesData.current,
-        lineStyle: { color: '#334155', width: 2, opacity: 1 },
+        lineStyle: { color: mapColors.provinceLine, width: 2, opacity: 1 },
         silent: true,
       })
     }
@@ -284,7 +307,7 @@ export default function Travel() {
     if (chartInstance.current) {
       chartInstance.current.setOption(option, true)
     }
-  }, [])
+  }, [isDark])
 
   // Render stats based on current map and data
   const renderStats = useCallback(
@@ -473,6 +496,12 @@ export default function Travel() {
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    if (!loading && chartInstance.current) {
+      updateChartDisplay(currentMapRef.current)
+    }
+  }, [isDark, loading, updateChartDisplay])
+
   // Leaderboard: real-time listener from Firestore
   useEffect(() => {
     const q = query(
@@ -551,7 +580,7 @@ export default function Travel() {
                 <div className="stat-label">想去</div>
               </div>
               <div className="stat-item">
-                <div className="stat-num" style={{ color: '#94a3b8' }}>
+                <div className="stat-num unvisited">
                   {stats.provTotal}
                 </div>
                 <div className="stat-label">总数</div>
@@ -570,7 +599,7 @@ export default function Travel() {
                 <div className="stat-label">想去</div>
               </div>
               <div className="stat-item">
-                <div className="stat-num" style={{ color: '#94a3b8' }}>
+                <div className="stat-num unvisited">
                   {stats.cityTotal}
                 </div>
                 <div className="stat-label">总数</div>
@@ -595,7 +624,7 @@ export default function Travel() {
               <div className="stat-label">想去</div>
             </div>
             <div className="stat-item">
-              <div className="stat-num" style={{ color: '#94a3b8' }}>
+              <div className="stat-num unvisited">
                 {stats.total}
               </div>
               <div className="stat-label">总数</div>
@@ -607,13 +636,7 @@ export default function Travel() {
   }
 
   return (
-    <div className="page-wrapper">
-      <div className="page-header">
-        <h1>
-          <i className="fas fa-map-marked-alt"></i> Travel
-        </h1>
-      </div>
-
+    <div className="page-wrapper page-direct">
       <section className="section">
         <div className="container">
           <FadeIn className="travel-container">

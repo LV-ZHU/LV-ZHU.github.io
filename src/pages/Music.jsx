@@ -3,9 +3,9 @@ import FadeIn from '../components/FadeIn'
 import '../styles/Music.css'
 
 const songs_mandarin = [
-    { name: "再见", artist: "张震岳", comment: "轻装策马青云路，人生从此驭长风。希君生羽翼，一化北冥鱼。毕业季金曲，FM89.9一个时代的落幕", searchKeywords: "" },
-    { name: "北京欢迎你", artist: "华语群星", comment: "奥运会主题曲，歌手云集，这首歌的录制背后有很多故事", searchKeywords: "" },
-    { name: "水手", artist: "郑智化", comment: "属于70、80后的回忆", searchKeywords: "" },
+    { name: "再见", artist: "张震岳", comment: "轻装策马青云路，人生从此驭长风。希君生羽翼，一化北冥鱼。毕业季金曲，FM89.9一个时代的落幕", searchKeywords: "高考 听力 电台 2024" },
+    { name: "北京欢迎你", artist: "华语群星", comment: "奥运会主题曲，歌手云集，这首歌的录制背后有很多故事", searchKeywords: "陈天佳 2008 刘欢 那英 韩红 孙楠 成龙 王力宏 蔡依林 谢霆锋 周华健 孙燕姿 汪峰 谭晶 李宇春 周笔畅 张靓颖 羽泉 黄晓明 陈坤 林俊杰 容祖儿 任贤齐 陈奕迅 莫文蔚 梁咏琪 韦唯 韩庚" },
+    { name: "水手", artist: "郑智化", comment: "属于70、80后的回忆", searchKeywords: "擦干泪 不要怕" },
     { name: "黄昏", artist: "周传雄", comment: "依然记得从你口中说出再见坚决如铁~传奇金曲，调子挺高的", searchKeywords: "" },
     { name: "江南", artist: "林俊杰", comment: "离愁能有多痛~痛有多浓", searchKeywords: "" },
     { name: "Don't Break My Heart", artist: "黑豹乐队", comment: "飞跃黄渡理工BGM，怀旧向 https://b23.tv/M4wFAnj", searchKeywords: "" },
@@ -23,7 +23,7 @@ const songs_mandarin = [
     { name: "凤凰花开的路口", artist: "林志炫", comment: "毕业季经典歌曲，22年FM89.9指定版", searchKeywords: "" },
     { name: "十年", artist: "陈奕迅", comment: "十年之前~我不认识你~你不属于我，Eason伪装走音的一曲", searchKeywords: "" },
     { name: "一场游戏一场梦", artist: "王杰", comment: "抑扬顿挫", searchKeywords: "" },
-    { name: "稳稳的幸福", artist: "陈奕迅", comment: "肾宝片金曲，我要稳稳的幸福~", searchKeywords: "" },
+    { name: "稳稳的幸福", artist: "陈奕迅", comment: "肾宝片金曲，我要稳稳的幸福~", searchKeywords: "广告" },
     { name: "口是心非", artist: "张雨生", comment: "代表作，一路生花抄了这首歌的调子", searchKeywords: "" },
     { name: "我期待", artist: "张雨生", comment: "净化心灵，涤荡灵魂", searchKeywords: "" },
     { name: "情非得已", artist: "庾澄庆", comment: "磁性情歌这一块", searchKeywords: "" },
@@ -261,6 +261,7 @@ const songs_foreign = [
     { name: "Dai Dai", artist: "Shakira、Burna Boy", comment: "2026 World Cup主题曲，塞万提斯笔下的梦骑士的精神，协作、纪律和共同信念铸就的伟大，Vamossss!", searchKeywords: "" },
     { name: "Lighter", artist: "Jelly Roll、Carin Leon", comment: "2026 World Cup震撼首发, 让我们相约在落基山、尼亚加拉瀑布、尤卡坦半岛，让我们一起去玛雅文明曾经存在过的地方", searchKeywords: "" },
     { name: "Zoo(From Zootopia 2)", artist: "Disney、Shakira", comment: "电影《疯狂动物城2》主题曲", searchKeywords: "" },
+    { name: "When I'm Home", artist: "Travis Scott", comment: "电影《奥德赛》片尾曲", searchKeywords: "" },
     { name: "Waka Waka", artist: "Shakira", comment: "2010 World Cup", searchKeywords: "" },
     { name: "Hayya Hayya", artist: "Trinidad Cardona", comment: "2022 World Cup", searchKeywords: "" },
     { name: "Rolling in the deep", artist: "Adele 阿黛尔", comment: "超高转音，高中文艺晚会精选", searchKeywords: "" },
@@ -341,6 +342,8 @@ const songs_foreign = [
 ]
 
 const songs_instrumental = [
+    { name: "Troy", artist: "Ludwig Göransson", comment: "节奏逐渐加速，电影《奥德赛》夜晚偷袭特洛伊时的配乐", searchKeywords: "电影 奥德赛 听觉陷阱" },
+    { name: "The Trial of the Bow / Vengeance", artist: "Ludwig Göransson", comment: "开杀！", searchKeywords: "电影 奥德赛" },
     { name: "Yumeji's Theme", artist: "梅林茂", comment: "电影《花样年华》插曲", searchKeywords: "" },
     { name: "名探侦コナンメインテーマ", artist: "菅野祐悟", comment: "电影《100万ドルの五稜星》主题曲", searchKeywords: "" },
     { name: "ツナ覚醒 (阿纲觉醒)", artist: "佐橋俊彦", comment: "军事の小曲，动漫《家庭教师》的配乐，激昂", searchKeywords: "" },
@@ -599,7 +602,6 @@ function SongItem({ song, index, category }) {
     return (
         <li className="music-item" id={id}>
             <div className="music-main">
-                <div className="music-icon"><i className="fas fa-music"></i></div>
                 <div className="music-info">
                     <div className="music-name">{index + 1}. {song.name}</div>
                     <div className="music-artist">{song.artist}</div>
@@ -607,35 +609,32 @@ function SongItem({ song, index, category }) {
             </div>
             {song.comment && <div className="music-summary">{song.comment}</div>}
             <div className="music-actions">
-                <a className="music-link primary" href={bilibili} target="_blank" rel="noopener noreferrer">
-                    <i className="fab fa-bilibili"></i>Bilibili
+                <a className="music-link service-bilibili" href={bilibili} target="_blank" rel="noopener noreferrer">
+                    Bilibili
                 </a>
                 <a
-                    className="music-link"
-                    style={{ borderColor: 'rgba(155, 0, 38, 0.2)', background: '#faf2f4', color: '#b03040' }}
+                    className="music-link service-netease"
                     href={netease}
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <i className="fas fa-music"></i>网易云
+                    网易云
                 </a>
                 <a
-                    className="music-link"
-                    style={{ borderColor: 'rgba(0, 169, 255, 0.2)', background: '#eff8ff', color: '#1070d0' }}
+                    className="music-link service-kugou"
                     href={kugou}
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <i className="fas fa-headphones"></i>酷狗
+                    酷狗
                 </a>
                 <a
-                    className="music-link"
-                    style={{ borderColor: 'rgba(30, 200, 100, 0.2)', background: '#f0fdf4', color: '#108040' }}
+                    className="music-link service-qq"
                     href={qq}
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <i className="fas fa-music"></i>QQ
+                    QQ
                 </a>
             </div>
         </li>
@@ -718,11 +717,7 @@ export default function Music() {
     }
 
     return (
-        <div className="page-wrapper">
-            <div className="page-header">
-                <h1><i className="fas fa-music"></i> Music</h1>
-                <p>音乐像是时空的存档点，总能让你想起生命中的一些瞬间</p>
-            </div>
+        <div className="page-wrapper page-direct">
             <section className="section">
                 <div className="container">
                     <FadeIn className="music-controls-panel">
@@ -742,7 +737,7 @@ export default function Music() {
                                     onClick={() => setSearchQuery('')}
                                     title="清除搜索"
                                 >
-                                    <i className="fas fa-times"></i>
+                                    <span aria-hidden="true">×</span>
                                 </button>
                             )}
                         </div>
@@ -750,7 +745,7 @@ export default function Music() {
                         <div className="music-randomizer">
                             <div className="randomizer-header">
                                 <button className="btn-random" onClick={handleRandom}>
-                                    <i className="fas fa-dice"></i> 随机一首
+                                    随机一首
                                 </button>
                                 <span className="random-help" style={{ marginLeft: 'auto' }}>支持多选类别</span>
                                 <label className="toggle-comments-label">
@@ -777,7 +772,6 @@ export default function Music() {
                             {randomResult && (
                                 <div className="random-result" ref={resultRef}>
                                     <div className="random-result-info">
-                                        <i className="fas fa-compact-disc fa-spin random-result-icon"></i>
                                         <div className="random-result-text">
                                             <strong>{randomResult.data.name}</strong>
                                             <span>{randomResult.data.artist}</span>
@@ -808,7 +802,7 @@ export default function Music() {
                     {filteredCategories.map(cat => (
                         <FadeIn key={cat.id} className="music-category">
                             <h3 className="music-category-title">
-                                <i className={cat.icon}></i> {cat.label}
+                                {cat.label}
                             </h3>
                             <ul className="music-list">
                                 {cat.data.map((song, idx) => (

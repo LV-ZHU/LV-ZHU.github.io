@@ -77,6 +77,17 @@
   border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
+:root[data-theme='dark'] .echarts-wrapper {
+  border-color: var(--line);
+  background: #111722;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .025);
+}
+
+:root[data-theme='dark'] .loading-overlay {
+  color: var(--accent);
+  background: rgba(17, 23, 34, .82);
+}
+
 .map-chart-container {
   width: 100%;
   height: 650px;

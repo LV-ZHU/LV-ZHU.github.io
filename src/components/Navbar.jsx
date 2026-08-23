@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import AuthButton from './AuthButton'
 import { useTheme } from './ThemeProvider'
@@ -21,57 +21,46 @@ const studySections = [
   { label: '密码学', path: '/study/cryptography', keywords: '密码学 cryptography 信安 信息安全' },
 ]
 
-const projectSections = [
-  { label: 'LLM 聊天机器人', path: '/projects/llm-bot' },
-  { label: 'C++ BigHW', path: '/projects/cpp-bighw' },
-  { label: 'FPGA', path: '/projects/fpga' },
-  { label: 'GPU', path: '/projects/gpu' },
-]
-
-const navGroups = [
-  { key: 'home', label: '首页', path: '/' },
-  { key: 'study', label: '学习', path: '/study', children: [{ label: '知识地图', path: '/study' }, ...studySections] },
-  { key: 'projects', label: '项目', path: '/projects', children: [{ label: '项目总览', path: '/projects' }, ...projectSections] },
-  { key: 'records', label: '记录', path: '/jottings', children: [
-    { label: '随笔', path: '/jottings' },
-    { label: '音乐档案', path: '/music' },
-    { label: '旅行足迹', path: '/travel' },
-  ] },
-  { key: 'collections', label: '收藏', path: '/favorites', children: [
-    { label: 'Favorites', path: '/favorites' },
-    { label: 'ACGN', path: '/acgn' },
-    { label: 'Tutoring', path: '/tutoring' },
-  ] },
+const navItems = [
+  { key: 'home', label: 'Home', path: '/' },
+  { key: 'study', label: 'Study', path: '/study', children: studySections.map((s) => ({ label: s.label, path: s.path })) },
+  {
+    key: 'projects', label: 'Projects', path: '/projects',
+    children: [
+      { label: 'C++ BigHW', path: '/projects/cpp-bighw' },
+      { label: 'FPGA', path: '/projects/fpga' },
+      { label: 'GPU', path: '/projects/gpu' },
+      { label: 'LLM聊天机器人', path: '/projects/llm-bot' },
+    ],
+  },
+  { key: 'jottings', label: 'Jottings', path: '/jottings' },
+  { key: 'favorites', label: 'Favorites', path: '/favorites' },
+  { key: 'acgn', label: 'ACGN', path: '/acgn' },
+  { key: 'music', label: 'Music', path: '/music' },
+  { key: 'travel', label: 'Travel', path: '/travel' },
+  { key: 'tutoring', label: 'Tutoring', path: '/tutoring' },
 ]
 
 const searchIndex = [
   { title: 'Home', path: '/', keywords: '主页 首页 home personal space' },
   { title: 'Study', path: '/study', keywords: '学习 study 课程 408 知识地图' },
-  ...studySections.map((item) => ({ title: `Study / ${item.label}`, path: item.path, keywords: item.keywords })),
+  ...studySections.map((s) => ({ title: 'Study / ' + s.label, path: s.path, keywords: s.keywords })),
   { title: 'Projects', path: '/projects', keywords: '项目 projects' },
   { title: 'Projects / C++ BigHW', path: '/projects/cpp-bighw', keywords: 'cpp c++ bighw 程序设计 程设 高程 oop 沈坚 sj' },
   { title: 'Projects / FPGA', path: '/projects/fpga', keywords: 'fpga 数字逻辑 verilog oled mp3 zdd mips246' },
   { title: 'Projects / GPU', path: '/projects/gpu', keywords: 'gpu 并行 gunrock 图' },
   { title: 'Projects / LLM聊天机器人', path: '/projects/llm-bot', keywords: 'llm 聊天机器人 chatbot astrbot 多平台 qq bot' },
+  { title: 'Music', path: '/music', keywords: '音乐 music 歌单 eason jj' },
+  { title: 'Favorites', path: '/favorites', keywords: '收藏 favorites 网址 键盘 打字 问答' },
+  { title: 'Favorites / T', path: '/favorites/T', keywords: 't 同济' },
   { title: 'Jottings', path: '/jottings', keywords: '随笔 jottings' },
   { title: '同济济勤巨类大一生存指北', path: '/jottings/jiqin-fenliu', keywords: '济勤 分流 同济 生存指北' },
   { title: '面试合集', path: '/jottings/interview', keywords: '面试 答辩 interview' },
-  { title: 'Favorites', path: '/favorites', keywords: '收藏 favorites 网址 键盘 打字 问答' },
-  { title: 'Favorites / T', path: '/favorites/T', keywords: 't 同济' },
-  { title: 'Music', path: '/music', keywords: '音乐 music 歌单 eason jj' },
+  { title: 'ACGN', path: '/acgn', keywords: '二次元 动画 游戏 小说 acgn animation game novel 植物大战僵尸 wanna 洲 舟 农 瓦 崩 原 go 铁 绝 劫 铲 穿 斗 鸣 尘 柚 ow 杀 邦 轨 mc 谷 ut 空 茶 蔚 脑 死 以 塞' },
   { title: 'Travel', path: '/travel', keywords: '旅行 旅游 travel 开元心 行夫 世界 地图' },
-  { title: 'ACGN', path: '/acgn', keywords: '二次元 动画 游戏 小说 acgn animation game novel 植物大战僵尸 wanna' },
   { title: 'Tutoring', path: '/tutoring', keywords: '家教 tutoring 原创试题' },
   { title: 'Account', path: '/account', keywords: '账号 account 个人 昵称 profile 设置' },
-].map((item) => ({ ...item, searchable: `${item.title} ${item.keywords}`.toLowerCase() }))
-
-function getActiveKey(pathname) {
-  if (pathname.startsWith('/study')) return 'study'
-  if (pathname.startsWith('/projects')) return 'projects'
-  if (pathname.startsWith('/jottings') || pathname.startsWith('/music') || pathname.startsWith('/travel')) return 'records'
-  if (pathname.startsWith('/favorites') || pathname.startsWith('/acgn') || pathname.startsWith('/tutoring')) return 'collections'
-  return 'home'
-}
+].map((item) => ({ ...item, searchable: (item.title + ' ' + item.keywords).toLowerCase() }))
 
 export default function Navbar() {
   const location = useLocation()
@@ -79,158 +68,138 @@ export default function Navbar() {
   const { isDark, toggleTheme } = useTheme()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [openGroup, setOpenGroup] = useState(null)
-  const [searchOpen, setSearchOpen] = useState(false)
+  const [mobileGroup, setMobileGroup] = useState(null)
   const [query, setQuery] = useState('')
-  const [activeResult, setActiveResult] = useState(0)
-  const searchInputRef = useRef(null)
-  const activeKey = getActiveKey(location.pathname.toLowerCase())
+  const [results, setResults] = useState([])
+  const searchRef = useRef(null)
 
-  const results = useMemo(() => {
-    const normalized = query.trim().toLowerCase()
-    if (!normalized) return searchIndex.slice(0, 7)
-    return searchIndex.filter((item) => item.searchable.includes(normalized)).slice(0, 9)
-  }, [query])
+  const activeKey = (() => {
+    const p = location.pathname.toLowerCase()
+    if (p.startsWith('/study')) return 'study'
+    if (p.startsWith('/projects')) return 'projects'
+    if (p.startsWith('/jottings')) return 'jottings'
+    if (p.startsWith('/favorites')) return 'favorites'
+    if (p.startsWith('/acgn')) return 'acgn'
+    if (p.startsWith('/music')) return 'music'
+    if (p.startsWith('/travel')) return 'travel'
+    if (p.startsWith('/tutoring')) return 'tutoring'
+    if (p.startsWith('/account')) return 'account'
+    return 'home'
+  })()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
+    const onScroll = () => setScrolled(window.scrollY > 10)
+    window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   useEffect(() => {
     setMenuOpen(false)
-    setOpenGroup(null)
-    setSearchOpen(false)
+    setMobileGroup(null)
   }, [location.pathname])
 
   useEffect(() => {
-    const onKeyDown = (event) => {
-      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
-        event.preventDefault()
-        setSearchOpen(true)
-      }
-      if (event.key === 'Escape') {
-        setSearchOpen(false)
-        setMenuOpen(false)
-        setOpenGroup(null)
-      }
+    function handleClick(e) {
+      if (searchRef.current && !searchRef.current.contains(e.target)) setResults([])
     }
-    window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
+    document.addEventListener('click', handleClick)
+    return () => document.removeEventListener('click', handleClick)
   }, [])
 
-  useEffect(() => {
-    if (!searchOpen) return
-    setActiveResult(0)
-    requestAnimationFrame(() => searchInputRef.current?.focus())
-  }, [searchOpen])
-
-  useEffect(() => {
-    document.body.classList.toggle('nav-open', menuOpen || searchOpen)
-    return () => document.body.classList.remove('nav-open')
-  }, [menuOpen, searchOpen])
-
-  function goToResult(item) {
-    if (!item) return
-    navigate(item.path)
-    setQuery('')
-    setSearchOpen(false)
+  function handleSearch(val) {
+    setQuery(val)
+    const q = val.trim().toLowerCase()
+    if (!q) { setResults([]); return }
+    setResults(searchIndex.filter((i) => i.searchable.includes(q)).slice(0, 8))
   }
 
-  function handleSearchKeyDown(event) {
-    if (event.key === 'ArrowDown') {
-      event.preventDefault()
-      setActiveResult((index) => Math.min(index + 1, results.length - 1))
-    } else if (event.key === 'ArrowUp') {
-      event.preventDefault()
-      setActiveResult((index) => Math.max(index - 1, 0))
-    } else if (event.key === 'Enter') {
-      const normalized = query.trim().toLowerCase()
-      if (normalized === 'sujia') {
-        event.preventDefault()
-        alert('宝宝这素什么东东呀')
+  function handleSearchKey(e) {
+    if (e.key === 'Enter') {
+      const q = query.trim().toLowerCase()
+      const easterEggs = { sujia: '宝宝这素什么东东呀' }
+      if (easterEggs[q]) {
+        e.preventDefault()
+        alert(easterEggs[q])
         setQuery('')
+        setResults([])
         return
       }
-      event.preventDefault()
-      goToResult(results[activeResult])
+      if (results.length) {
+        e.preventDefault()
+        navigate(results[0].path)
+        setQuery('')
+        setResults([])
+      }
+    }
+    if (e.key === 'Escape') {
+      setResults([])
+      e.target.blur()
     }
   }
 
   return (
-    <>
-      <nav className={`navbar${scrolled ? ' scrolled' : ''}`} aria-label="主导航">
-        <div className="container nav-container">
-          <Link to="/" className="brand" aria-label="LV-ZHU 首页">
-            <span className="brand-mark" aria-hidden="true">LZ</span>
-            <span className="brand-copy"><strong>LV—ZHU</strong><small>PERSONAL SPACE</small></span>
-          </Link>
-
-          <div className={`nav-menu${menuOpen ? ' active' : ''}`} id="site-menu">
-            {navGroups.map((group) => {
-              const isActive = group.key === activeKey
-              if (!group.children) {
-                return <Link key={group.key} to={group.path} className={`nav-link${isActive ? ' active' : ''}`} aria-current={isActive ? 'page' : undefined}>{group.label}</Link>
-              }
-
-              const expanded = openGroup === group.key
-              return (
-                <div className={`nav-cluster${expanded ? ' expanded' : ''}`} key={group.key} onMouseEnter={() => setOpenGroup(group.key)} onMouseLeave={() => setOpenGroup(null)}>
-                  <div className="nav-cluster-trigger">
-                    <Link to={group.path} className={`nav-link${isActive ? ' active' : ''}`} aria-current={isActive ? 'page' : undefined}>{group.label}</Link>
-                    <button type="button" className="nav-cluster-toggle" aria-label={`展开${group.label}菜单`} aria-expanded={expanded} onClick={() => setOpenGroup(expanded ? null : group.key)}>
-                      <i className="fas fa-chevron-down" aria-hidden="true" />
-                    </button>
-                  </div>
-                  <div className="dropdown-menu" hidden={!expanded}>
-                    {group.children.map((child) => <Link key={child.path} to={child.path} className={`dropdown-link${location.pathname === child.path ? ' active' : ''}`}>{child.label}</Link>)}
-                  </div>
+    <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
+      <div className="container nav-container">
+        <div className="logo">
+          <Link to="/"><i className="fas fa-meteor" /><span>Lv Zhu</span></Link>
+        </div>
+        <ul id="primary-navigation" className={`nav-menu${menuOpen ? ' active' : ''}`}>
+          {navItems.map((item) => {
+            const cls = item.key === activeKey ? 'nav-link active' : 'nav-link'
+            if (!item.children) {
+              return <li className="nav-item" key={item.key}><Link to={item.path} className={cls}>{item.label}</Link></li>
+            }
+            return (
+              <li className={`nav-item nav-dropdown${mobileGroup === item.key ? ' mobile-expanded' : ''}`} key={item.key}>
+                <div className="nav-dropdown-trigger">
+                  <Link to={item.path} className={cls}>{item.label} <i className="fas fa-chevron-down nav-caret" /></Link>
+                  <button
+                    type="button"
+                    className="nav-dropdown-toggle"
+                    aria-label={`展开 ${item.label}`}
+                    aria-expanded={mobileGroup === item.key}
+                    onClick={() => setMobileGroup((current) => current === item.key ? null : item.key)}
+                  >
+                    <i className="fas fa-chevron-down" aria-hidden="true" />
+                  </button>
                 </div>
-              )
-            })}
-            <button type="button" className="mobile-search-entry" onClick={() => setSearchOpen(true)}><i className="fas fa-magnifying-glass" aria-hidden="true" />搜索全站内容</button>
-          </div>
-
-          <div className="nav-actions">
-            <button type="button" className="nav-action search-trigger" onClick={() => setSearchOpen(true)} aria-label="搜索全站内容">
-              <i className="fas fa-magnifying-glass" aria-hidden="true" /><span>搜索</span><kbd>⌘K</kbd>
-            </button>
-            <button type="button" className="nav-action icon-action" onClick={toggleTheme} aria-label={isDark ? '切换到浅色主题' : '切换到深色主题'}>
-              <i className={`fas ${isDark ? 'fa-sun' : 'fa-moon'}`} aria-hidden="true" />
-            </button>
-            <div className="auth-section"><AuthButton /></div>
-            <button type="button" className="hamburger" aria-label={menuOpen ? '关闭导航菜单' : '打开导航菜单'} aria-expanded={menuOpen} aria-controls="site-menu" onClick={() => setMenuOpen((open) => !open)}>
-              <i className={`fas ${menuOpen ? 'fa-times' : 'fa-bars'}`} aria-hidden="true" />
-            </button>
+                <div className="dropdown-menu">
+                  {item.children.map((child) => (
+                    <Link key={child.path} to={child.path} className={`dropdown-link${location.pathname === child.path ? ' active' : ''}`}>{child.label}</Link>
+                  ))}
+                </div>
+              </li>
+            )
+          })}
+        </ul>
+        <div className="nav-search" id="nav-search" ref={searchRef}>
+          <i className="fas fa-magnifying-glass nav-search-icon" aria-hidden="true" />
+          <input id="nav-search-input" className="nav-search-input" type="search" placeholder="搜索页面..." autoComplete="off" value={query} onChange={(e) => handleSearch(e.target.value)} onKeyDown={handleSearchKey} />
+          <div id="nav-search-results" className={`nav-search-results${results.length ? ' active' : ''}`} role="listbox" aria-label="站点搜索结果">
+            {results.map((r) => <Link key={r.path + r.title} className="nav-search-result" to={r.path}>{r.title}</Link>)}
           </div>
         </div>
-      </nav>
-
-      {searchOpen && (
-        <div className="command-overlay" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setSearchOpen(false) }}>
-          <section className="command-panel" role="dialog" aria-modal="true" aria-labelledby="command-title">
-            <div className="command-heading">
-              <div><span className="command-kicker">SEARCH</span><h2 id="command-title">搜索</h2></div>
-              <button type="button" className="command-close" onClick={() => setSearchOpen(false)} aria-label="关闭搜索"><i className="fas fa-times" aria-hidden="true" /></button>
-            </div>
-            <label className="command-search">
-              <i className="fas fa-magnifying-glass" aria-hidden="true" /><span className="sr-only">搜索页面、课程、项目或收藏</span>
-              <input ref={searchInputRef} value={query} onChange={(event) => { setQuery(event.target.value); setActiveResult(0) }} onKeyDown={handleSearchKeyDown} placeholder="搜索页面、课程、项目或收藏…" role="combobox" aria-expanded="true" aria-controls="command-results" aria-autocomplete="list" />
-            </label>
-            <div className="command-results" id="command-results" role="listbox" aria-label="搜索结果">
-              {results.length ? results.map((item, index) => (
-                <button type="button" key={`${item.path}-${item.title}`} className={`command-result${index === activeResult ? ' active' : ''}`} role="option" aria-selected={index === activeResult} onMouseEnter={() => setActiveResult(index)} onClick={() => goToResult(item)}>
-                  <span className="command-result-icon"><i className="fas fa-arrow-right" aria-hidden="true" /></span>
-                  <span><strong>{item.title}</strong><small>{item.path}</small></span>
-                </button>
-              )) : <div className="command-empty">没有找到对应内容</div>}
-            </div>
-            <div className="command-help"><span>↑↓ 选择</span><span>Enter 前往</span><span>Esc 关闭</span></div>
-          </section>
-        </div>
-      )}
-    </>
+        <button
+          type="button"
+          className="theme-toggle"
+          onClick={toggleTheme}
+          aria-label={isDark ? '切换到日间模式' : '切换到夜间模式'}
+        >
+          <i className={`fas ${isDark ? 'fa-sun' : 'fa-moon'}`} aria-hidden="true" />
+        </button>
+        <div id="auth-section" className="auth-section"><AuthButton /></div>
+        <button
+          type="button"
+          className="hamburger"
+          id="hamburger"
+          aria-label={menuOpen ? '关闭导航菜单' : '打开导航菜单'}
+          aria-expanded={menuOpen}
+          aria-controls="primary-navigation"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <i className={`fas ${menuOpen ? 'fa-times' : 'fa-bars'}`} aria-hidden="true" />
+        </button>
+      </div>
+    </nav>
   )
 }

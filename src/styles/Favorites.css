@@ -366,7 +366,6 @@
 .lk-icon i { color: var(--primary); font-size: 1.1rem; }
 .lk-body { min-width: 0; }
 .lk-title { font-weight: 600; font-size: 0.95rem; color: var(--dark); margin-bottom: 0.2rem; }
-.lk-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.45; }
 .lk-url { font-size: 0.78rem; color: var(--gray); opacity: 0.75; margin-top: 0.15rem; word-break: break-all; }
 .qq-item {
     background: white;

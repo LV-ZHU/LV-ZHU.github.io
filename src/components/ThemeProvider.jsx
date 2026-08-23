@@ -5,7 +5,7 @@ const ThemeContext = createContext(null)
 function getInitialTheme() {
   const saved = localStorage.getItem('lv-zhu-theme')
   if (saved === 'light' || saved === 'dark') return saved
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  return 'dark'
 }
 
 export function useTheme() {

@@ -9,10 +9,7 @@ const articles = [
 
 export default function Jottings() {
   return (
-    <div className="page-wrapper">
-      <div className="page-header">
-        <h1><i className="fas fa-pen-fancy" /> Jottings</h1>
-      </div>
+    <div className="page-wrapper page-direct">
       <section className="section">
         <div className="container">
           <div className="jotting-list">
@@ -21,8 +18,8 @@ export default function Jottings() {
                 <Link to={`/jottings/${a.slug}`} className="jotting-item">
                   <div className="jotting-title">{a.title}</div>
                   <div className="jotting-meta">
-                    <span><i className="far fa-calendar-alt" />{a.date}</span>
-                    <span><i className="fas fa-tags" />{a.tags}</span>
+                    <span>{a.date}</span>
+                    <span>{a.tags}</span>
                   </div>
                 </Link>
               </FadeIn>

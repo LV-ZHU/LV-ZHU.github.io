@@ -867,17 +867,12 @@ export default function StudySubject({ subject }) {
   const renderContent = () => {
     if (!data.content) {
       return (
-        <>
-          <div className="section-header subject-section-header">
-            <h2 className="section-title">{data.title}</h2>
+        <FadeIn>
+          <div className="placeholder-box">
+            <i className="fas fa-tools" />
+            <p>内容正在建设中，敬请期待</p>
           </div>
-          <FadeIn>
-            <div className="placeholder-box">
-              <i className="fas fa-tools" />
-              <p>内容正在建设中，敬请期待</p>
-            </div>
-          </FadeIn>
-        </>
+        </FadeIn>
       )
     }
 
@@ -905,7 +900,7 @@ export default function StudySubject({ subject }) {
   return (
     <div className="page-wrapper">
       <div className="page-header">
-        <h1>{data.icon && <i className={data.icon} />} {data.title}</h1>
+        <h1>{data.title}</h1>
         <p>{data.subtitle}</p>
       </div>
       <section className="section">

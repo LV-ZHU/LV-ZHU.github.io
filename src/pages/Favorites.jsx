@@ -400,12 +400,7 @@ export default function Favorites() {
   }, [isTypeGame])
 
   return (
-    <div className="page-wrapper">
-      <div className="page-header">
-        <h1><i className="fas fa-keyboard" /> Favorites</h1>
-        <p>键盘上按下字母键即可进入对应收藏分区</p>
-      </div>
-
+    <div className="page-wrapper page-direct">
       <section className="section">
         <div className="container">
           <div className="keyboard-shell">

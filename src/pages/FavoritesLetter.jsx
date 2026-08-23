@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { useAuth } from '../components/AuthProvider'
-import GitHubLink from '../components/GitHubLink'
 import { db } from '../firebase/init'
 import '../styles/Favorites.css'
 
@@ -230,15 +229,6 @@ const letterData = {
 const placeholderLetters = ['D', 'E', 'F', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'R', 'V', 'W', 'X', 'Y', 'Z']
 const O_PRIVATE_LINK_INSERT_INDEX = 3
 
-function isGitHubUrl(url) {
-  try {
-    const hostname = new URL(url).hostname.toLowerCase()
-    return hostname === 'github.com' || hostname === 'www.github.com'
-  } catch {
-    return false
-  }
-}
-
 function normalizePrivateLink(doc) {
   const data = doc.data()
   if (typeof data.title !== 'string' || typeof data.url !== 'string') return null
@@ -303,7 +293,7 @@ export default function FavoritesLetter() {
 
   if (!data && !placeholderLetters.includes(upperLetter)) {
     return (
-      <div className="page-wrapper">
+      <div className="page-wrapper page-direct">
         <div className="page-header">
           <h1><i className="fas fa-keyboard" /> {upperLetter}</h1>
         </div>
@@ -323,7 +313,7 @@ export default function FavoritesLetter() {
   // Placeholder page
   if (!data) {
     return (
-      <div className="page-wrapper">
+      <div className="page-wrapper page-direct">
         <div className="page-header">
           <h1><i className="fas fa-keyboard" /> {upperLetter} 键 | 待配置</h1>
           <p>当前分区还未配置内容，可在 Favorites 键盘页中开启编辑模式快速修改此键说明和跳转。</p>
@@ -343,11 +333,7 @@ export default function FavoritesLetter() {
   }
 
   return (
-    <div className="page-wrapper">
-      <div className="page-header">
-        <h1><i className={data.icon} /> {data.title}</h1>
-        <p>{data.subtitle}</p>
-      </div>
+    <div className="page-wrapper page-direct">
       <section className="section">
         <div className="container">
           <Link to="/favorites" className="back-btn"><i className="fas fa-arrow-left" /> 返回键盘</Link>
@@ -363,23 +349,12 @@ export default function FavoritesLetter() {
           ) : data.links ? (
             <div className="link-grid">
               {visibleLinks.map((link, i) => (
-                isGitHubUrl(link.url) ? (
-                  <GitHubLink
-                    key={i}
-                    href={link.url}
-                    title={link.title}
-                    meta={link.urlDisplay}
-                    actionLabel="访问"
-                  />
-                ) : (
-                  <a key={i} className="lk" href={link.url} target="_blank" rel="noopener noreferrer">
-                    <div className="lk-icon"><i className={link.icon} /></div>
-                    <div className="lk-body">
-                      <div className="lk-title">{link.title}</div>
-                      <div className="lk-url">{link.urlDisplay}</div>
-                    </div>
-                  </a>
-                )
+                <a key={i} className="lk" href={link.url} target="_blank" rel="noopener noreferrer">
+                  <div className="lk-body">
+                    <div className="lk-title">{link.title}</div>
+                    <div className="lk-url">{link.urlDisplay}</div>
+                  </div>
+                </a>
               ))}
             </div>
           ) : null}

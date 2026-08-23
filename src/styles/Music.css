@@ -10,11 +10,6 @@
     gap: 0.5rem;
 }
 .music-category-title i { color: var(--primary); }
-.music-category-desc {
-    color: var(--gray);
-    font-size: 0.92rem;
-    margin-bottom: 1.2rem;
-}
 .music-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -49,17 +44,6 @@
 .music-item:hover .music-main {
     transform: translateY(-4px);
 }
-.music-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(79, 70, 229, 0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-.music-icon i { color: var(--primary); font-size: 1.1rem; }
 .music-info { min-width: 0; }
 .music-name {
     font-weight: 600;

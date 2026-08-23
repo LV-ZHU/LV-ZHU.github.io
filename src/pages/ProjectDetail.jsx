@@ -18,12 +18,12 @@ function CppBigHW() {
 
   return (
     <div>
-      <div className="page-header">
-        <h1><i className="fas fa-laptop-code" /> C++ BigHW</h1>
-        <p>C++部分作业项目</p>
-      </div>
       <section className="section">
         <div className="container">
+          <header className="project-heading">
+            <h1>C++ BigHW</h1>
+            <p>C++部分作业项目</p>
+          </header>
           <div className="section-header fade-in">
             <h2 className="section-title">程序下载</h2>
             <p className="section-desc">注意要在cmd窗口下运行</p>
@@ -68,12 +68,12 @@ function CppBigHW() {
 function FPGA() {
   return (
     <div>
-      <div className="page-header">
-        <h1><i className="fas fa-microchip" /> FPGA 开发</h1>
-        <p>Verliog编写</p>
-      </div>
       <section className="section">
         <div className="container">
+          <header className="project-heading">
+            <h1>FPGA 开发</h1>
+            <p>Verliog编写</p>
+          </header>
           <div className="section-header fade-in">
             <h2 className="section-title">数字逻辑实验</h2>
             <p className="section-desc">基于 MP3 和 OLED 的数字系统设计</p>
@@ -99,12 +99,12 @@ function GPU() {
 
   return (
     <div>
-      <div className="page-header">
-        <h1><i className="fas fa-server" /> GPU</h1>
-        <p>GPU 相关项目</p>
-      </div>
       <section className="section">
         <div className="container">
+          <header className="project-heading">
+            <h1>GPU</h1>
+            <p>GPU 相关项目</p>
+          </header>
           <div className="section-header fade-in">
             <h2 className="section-title">GPU资料</h2>
             <p className="section-desc">介数中心性</p>
@@ -242,14 +242,13 @@ function QQBot() {
 
   return (
     <div>
-      <div className="page-header">
-        <h1><i className="fas fa-robot" /> LLM 聊天机器人 </h1>
-        <p className="muted">基于 AstrBot 的多平台聊天助手</p>
-      </div>
-
       <section className="section">
         <div className="container">
-          <article className="tech-article fade-in">
+          <header className="project-heading">
+            <h1>LLM 聊天机器人</h1>
+            <p>基于 AstrBot 的多平台聊天助手</p>
+          </header>
+          <article className="tech-article">
 
             {/* Project intro + architecture + ports + IP check */}
             <p>这是一个基于 <a href="https://docs.astrbot.app/" target="_blank" className="ext-link"><i className="fas fa-link" /> AstrBot </a> 的 LLM 聊天机器人项目，对接QQ、钉钉、飞书、微信等消息平台，可接入各大模型的API。下图展示了各组件间的关系。</p>
@@ -835,19 +834,13 @@ export default function ProjectDetail() {
 
   if (!ProjectComponent) {
     return (
-      <div className="page-wrapper">
-        <div className="page-header">
-          <h1><i className="fas fa-code-branch" /> Projects</h1>
-        </div>
+      <div className="page-wrapper page-direct">
         <section className="section">
           <div className="container">
             <Link to="/projects" className="article-back" style={{ color: 'var(--primary)', marginBottom: '1rem', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
               <i className="fas fa-arrow-left" />返回项目列表
             </Link>
-            <div className="placeholder-box">
-              <i className="fas fa-ghost" />
-              <p>项目未找到</p>
-            </div>
+            <div className="empty-state"><p>项目未找到</p></div>
           </div>
         </section>
       </div>
@@ -855,7 +848,7 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="page-wrapper" ref={wrapperRef}>
+    <div className="page-wrapper page-direct" ref={wrapperRef}>
       <ProjectComponent />
     </div>
   )

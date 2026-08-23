@@ -178,17 +178,9 @@ export default function Study() {
   }, [drawLines])
 
   return (
-    <div className="page-wrapper">
-      <div className="page-header">
-        <h1><i className="fas fa-book" /> Study</h1>
-      </div>
-
+    <div className="page-wrapper page-direct">
       <section className="section">
         <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">学习分区</h2>
-          </div>
-
           <FadeIn>
             <div className="knowledge-map">
               {/* SVG overlay for connection lines */}

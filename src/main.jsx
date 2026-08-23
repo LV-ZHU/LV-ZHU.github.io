@@ -8,19 +8,12 @@ import './styles/tokens.css'
 import './styles/shell.css'
 import './styles/atlas-pages.css'
 
-document.body.style.opacity = '0'
-document.body.style.transition = 'opacity 0.5s ease'
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider>
-      <BrowserRouter>
+      <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <App />
       </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>
 )
-
-requestAnimationFrame(() => {
-  document.body.style.opacity = '1'
-})

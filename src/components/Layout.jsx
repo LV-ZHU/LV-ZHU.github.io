@@ -23,18 +23,21 @@ function ScrollToTop() {
 }
 
 export default function Layout() {
+  const { pathname } = useLocation()
+  const isHome = pathname === '/'
+  const showComments = !isHome
   return (
     <AuthProvider>
       <ScrollToTop />
       <a className="skip-link" href="#main-content">跳到主要内容</a>
-      <div className="app-shell">
+      <div className={`app-shell${isHome ? ' home-shell' : ''}`}>
         <div className="ambient-backdrop" aria-hidden="true" />
         <Navbar />
-        <div id="main-content" className="app-content">
+        <main id="main-content" className="app-content">
           <Outlet />
-        </div>
-        <Comments />
-        <Footer />
+        </main>
+        {showComments && <Comments />}
+        {!isHome && <Footer />}
       </div>
     </AuthProvider>
   )

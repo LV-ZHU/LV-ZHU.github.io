@@ -76,25 +76,21 @@ export default function Acgn() {
   }
 
   return (
-    <div className="page-wrapper">
-      <label className="acgn-toggle">
-        <input type="checkbox" checked={showAll} onChange={handleToggle} />
-        显示所有个人评价
-      </label>
-      <div className="page-header">
-        <h1><i className="fas fa-gamepad" /> ACGN</h1>
-      </div>
+    <div className="page-wrapper page-direct">
       <section className="section">
         <div className="container">
+          <label className="acgn-toggle">
+            <input type="checkbox" checked={showAll} onChange={handleToggle} />
+            显示所有个人评价
+          </label>
           <div className="acgn-section">
             <div className="acgn-header game">
-              <i className="fas fa-gamepad" /> 游戏
+              游戏
             </div>
             <FadeIn className="media-grid">
               {games.map((item, index) => (
                 <div key={index} className="media-item game">
                   <a href={item.url} target="_blank" rel="noopener noreferrer">
-                    <i className={item.icon} />
                     <span>{item.name}</span>
                   </a>
                   {item.review && <div className="media-review">{item.review}</div>}
@@ -105,13 +101,12 @@ export default function Acgn() {
 
           <div className="acgn-section">
             <div className="acgn-header anime">
-              <i className="fas fa-film" /> 动漫
+              动漫
             </div>
             <FadeIn className="media-grid">
               {anime.map((item, index) => (
                 <div key={index} className="media-item anime">
                   <a href={item.url} target="_blank" rel="noopener noreferrer">
-                    <i className={item.icon} />
                     <span>{item.name}</span>
                   </a>
                   {item.review && <div className="media-review">{item.review}</div>}
@@ -122,13 +117,12 @@ export default function Acgn() {
 
           <div className="acgn-section">
             <div className="acgn-header novel">
-              <i className="fas fa-book" /> 小说
+              小说
             </div>
             <FadeIn className="media-grid">
               {novels.map((item, index) => (
                 <div key={index} className="media-item novel">
                   <a href={item.url} target="_blank" rel="noopener noreferrer">
-                    <i className={item.icon} />
                     <span>{item.name}</span>
                   </a>
                   {item.review && <div className="media-review">{item.review}</div>}

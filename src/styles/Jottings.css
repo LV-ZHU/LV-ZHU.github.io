@@ -34,9 +34,3 @@
   gap: 1rem;
 }
 .jotting-meta i { margin-right: 0.3rem; }
-.jotting-desc {
-  font-size: 0.92rem;
-  color: var(--gray);
-  margin-top: 0.6rem;
-  line-height: 1.6;
-}
