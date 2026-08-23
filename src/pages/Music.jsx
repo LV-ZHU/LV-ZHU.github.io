@@ -342,6 +342,7 @@ const songs_foreign = [
 ]
 
 const songs_instrumental = [
+    { name: "Troy", artist: "Ludwig Göransson", comment: "节奏逐渐加速，电影《奥德赛》夜晚偷袭特洛伊时的配乐", searchKeywords: "电影 奥德赛 听觉陷阱" },
     { name: "The Trial of the Bow / Vengeance", artist: "Ludwig Göransson", comment: "开杀！", searchKeywords: "电影 奥德赛" },
     { name: "Yumeji's Theme", artist: "梅林茂", comment: "电影《花样年华》插曲", searchKeywords: "" },
     { name: "名探侦コナンメインテーマ", artist: "菅野祐悟", comment: "电影《100万ドルの五稜星》主题曲", searchKeywords: "" },
