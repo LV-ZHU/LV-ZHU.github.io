@@ -106,6 +106,7 @@ const letterData = {
       { title: 'B站视频总结', url: 'https://bibigpt.co/', icon: 'fas fa-trophy', urlDisplay: 'bibigpt.co' },
       { title: '华山景区', url: 'https://3d.explorerglobal.cn/model/zl3ep7xr', icon: 'fas fa-picture-o', urlDisplay: '3d.explorerglobal.cn' },
       { title: '寻找蜘蛛侠', url: 'https://spideytracker.net/', icon: 'fas fa-picture-o', urlDisplay: 'spideytracker.net' },
+      { title: '不同影厅参数选择', url: 'https://cinema.gaoliang.me/', icon: 'fas fa-picture-o', urlDisplay: 'cinema.gaoliang.me' },
     ],
   },
   P: {
