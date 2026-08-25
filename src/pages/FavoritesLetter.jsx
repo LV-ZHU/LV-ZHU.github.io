@@ -107,6 +107,7 @@ const letterData = {
       { title: '华山景区', url: 'https://3d.explorerglobal.cn/model/zl3ep7xr', icon: 'fas fa-picture-o', urlDisplay: '3d.explorerglobal.cn' },
       { title: '寻找蜘蛛侠', url: 'https://spideytracker.net/', icon: 'fas fa-picture-o', urlDisplay: 'spideytracker.net' },
       { title: '不同影厅参数选择', url: 'https://cinema.gaoliang.me/', icon: 'fas fa-picture-o', urlDisplay: 'cinema.gaoliang.me' },
+      { title: '毕导发布的影香肠效应焦散模拟器', url: 'https://www.bilibili.com/toy/shadow-sausage-bidao/index.html', icon: 'fas fa-picture-o', urlDisplay: 'shadow-sausage-bidao/index.html' },
     ],
   },
   P: {
