@@ -115,8 +115,8 @@ function HomeTerminal() {
     const entry = (
       <div className="term-entry" key={nextId()}>
         {typeof content === 'string' && typing
-          ? <TypingText text={' ' + content} className={className} />
-          : <span className={className}>&nbsp;{content}</span>}
+          ? <TypingText text={content} className={className} />
+          : <span className={className}>{content}</span>}
       </div>
     )
     setEntries(prev => [...prev, entry])
@@ -126,7 +126,8 @@ function HomeTerminal() {
   function addLine(typed) {
     setEntries(prev => [...prev, (
       <div className="term-entry term-line" key={nextId()}>
-        <span className="term-prompt"><span className="t-user">lv-zhu</span>@<span className="t-host">lv-zhu</span><span className="t-colon">:~$ </span></span>
+        <span className="term-prompt"><span className="t-user">lv-zhu</span>@<span className="t-host">lv-zhu</span><span className="t-colon">:~$</span></span>
+        &nbsp;
         <span className="t-typed">{typed}</span>
       </div>
     )])
@@ -308,7 +309,8 @@ function HomeTerminal() {
           </div>
         )}
         <div className="term-input-line">
-          <span className="term-prompt"><span className="t-user">lv-zhu</span>@<span className="t-host">lv-zhu</span><span className="t-colon">:~$ </span></span>
+          <span className="term-prompt"><span className="t-user">lv-zhu</span>@<span className="t-host">lv-zhu</span><span className="t-colon">:~$</span></span>
+          &nbsp;
           <input
             ref={inputRef}
             className="term-input"
