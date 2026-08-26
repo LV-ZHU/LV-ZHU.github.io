@@ -113,10 +113,10 @@ function HomeTerminal() {
   // 添加输出条目：默认直接显示；typing=true 时用打字机效果（仅信息类长文本用）
   function addOut(content, { className = '', typing = false } = {}) {
     const entry = (
-      <div className="term-entry term-out" key={nextId()}>
+      <div className="term-entry" key={nextId()}>
         {typeof content === 'string' && typing
-          ? <TypingText text={content} className={className} />
-          : <span className={className}>{content}</span>}
+          ? <TypingText text={' ' + content} className={className} />
+          : <span className={className}>&nbsp;{content}</span>}
       </div>
     )
     setEntries(prev => [...prev, entry])

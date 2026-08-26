@@ -81,7 +81,6 @@
 .term-body::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
 
 .term-entry { white-space: pre-wrap; word-break: break-word; margin: 0 0 .5rem; }
-.term-out { padding-left: 2ch; }
 .term-line { margin: 0 0 .15rem; }
 .term-prompt .t-user { color: var(--signal); font-weight: 600; }
 .t-host { color: var(--accent); font-weight: 600; }
