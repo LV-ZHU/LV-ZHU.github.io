@@ -16,11 +16,13 @@ const sections = [
 
 const AUDIO_SRC = '/assets/audio/proxima-estacion.mp3'
 
-// ----- 命令表定义 -----
-const CORE_COMMANDS = ['about', 'open', 'contact', 'play']
-const TOOL_COMMANDS = ['ls', 'help', 'clear']
-const EASTER_EGG_COMMANDS = ['whoami', 'neofetch', 'sudo', 'echo', 'exit', 'reboot']
-const ALL_COMMANDS = [...CORE_COMMANDS, ...TOOL_COMMANDS, ...EASTER_EGG_COMMANDS]
+// ----- 命令表 -----
+const ALL_COMMANDS = [
+  'ls', 'help', 'clear',
+  'about', 'whoami', 'neofetch',
+  'open', 'contact', 'play', 'stop', 'pause',
+  'echo', 'exit', 'reboot', 'sudo',
+]
 
 // ----- 工具函数 -----
 function fmtTime(t) {
@@ -32,21 +34,17 @@ function fmtTime(t) {
 
 function levenshteinDistance(a, b) {
   const matrix = []
-  for (let i = 0; i <= b.length; i++) {
-    matrix[i] = [i]
-  }
-  for (let j = 0; j <= a.length; j++) {
-    matrix[0][j] = j
-  }
+  for (let i = 0; i <= b.length; i++) matrix[i] = [i]
+  for (let j = 0; j <= a.length; j++) matrix[0][j] = j
   for (let i = 1; i <= b.length; i++) {
     for (let j = 1; j <= a.length; j++) {
-      if (b[i-1] === a[j-1]) {
-        matrix[i][j] = matrix[i-1][j-1]
+      if (b[i - 1] === a[j - 1]) {
+        matrix[i][j] = matrix[i - 1][j - 1]
       } else {
         matrix[i][j] = Math.min(
-          matrix[i-1][j-1] + 1,
-          matrix[i][j-1] + 1,
-          matrix[i-1][j] + 1
+          matrix[i - 1][j - 1] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j] + 1
         )
       }
     }
@@ -54,21 +52,21 @@ function levenshteinDistance(a, b) {
   return matrix[b.length][a.length]
 }
 
-function fuzzyMatch(input, candidates) {
+function closestCommand(input) {
   let best = null
   let bestDist = Infinity
-  for (const cmd of candidates) {
+  for (const cmd of ALL_COMMANDS) {
     const dist = levenshteinDistance(input, cmd)
     if (dist < bestDist) {
       bestDist = dist
       best = cmd
     }
   }
-  return bestDist <= 2 ? best : null
+  return { cmd: best, dist: bestDist }
 }
 
-// ----- 打字机效果组件 -----
-function TypingText({ text, className = '', delay = 25, onComplete }) {
+// ----- 打字机效果组件（仅用于信息类长文本） -----
+function TypingText({ text, className = '', delay = 28, onComplete }) {
   const [displayed, setDisplayed] = useState('')
   const [index, setIndex] = useState(0)
 
@@ -112,20 +110,16 @@ function HomeTerminal() {
     }
   }
 
-  // 添加输出条目：支持直接 JSX 或带样式的纯文本（自动打字）
-  function addOut(content, className = '') {
-    if (typeof content === 'string') {
-      // 纯文本 → 打字效果
-      const entry = (
-        <div className="term-entry" key={nextId()}>
-          <TypingText text={content} className={className} />
-        </div>
-      )
-      setEntries(prev => [...prev, entry])
-    } else {
-      // JSX → 直接显示
-      setEntries(prev => [...prev, <div className="term-entry" key={nextId()}>{content}</div>])
-    }
+  // 添加输出条目：默认直接显示；typing=true 时用打字机效果（仅信息类长文本用）
+  function addOut(content, { className = '', typing = false } = {}) {
+    const entry = (
+      <div className="term-entry" key={nextId()}>
+        {typeof content === 'string' && typing
+          ? <TypingText text={content} className={className} />
+          : <span className={className}>{content}</span>}
+      </div>
+    )
+    setEntries(prev => [...prev, entry])
   }
 
   // 添加命令输入行
@@ -154,7 +148,7 @@ function HomeTerminal() {
     }
 
     if (cmd === 'play') {
-      addOut('▶ now playing: Próxima Estación', 'term-np')
+      addOut('▶ now playing: Próxima Estación', { className: 'term-np' })
       setPlaying(true)
       audioRef.current?.play?.().catch(() => {})
       return
@@ -163,23 +157,23 @@ function HomeTerminal() {
     if (cmd === 'stop' || cmd === 'pause') {
       setPlaying(false)
       audioRef.current?.pause?.()
-      addOut('stopped', 't-dim')
+      addOut('stopped', { className: 't-dim' })
       return
     }
 
     if (cmd === 'open') {
       const path = args[0]
       if (!path) {
-        addOut('Usage: open [path] (e.g. open /favorites)', 't-err')
+        addOut('Usage: open [path] (e.g. open /favorites)', { className: 't-err' })
       } else {
-        addOut(`Opening ${path} ...`, 't-dim')
+        addOut(`Opening ${path} ...`, { className: 't-dim' })
         navigate(path)
       }
       return
     }
 
     if (cmd === 'exit') {
-      addOut('logout', 't-dim')
+      addOut('logout', { className: 't-dim' })
       setTimeout(() => resetTerminal(), 1500)
       return
     }
@@ -188,7 +182,7 @@ function HomeTerminal() {
       // 清屏并显示重启信息
       setEntries([])
       setTimeout(() => {
-        addOut('Rebooting...', 't-dim')
+        addOut('Rebooting...', { className: 't-dim' })
         setTimeout(() => resetTerminal(), 2000)
       }, 100)
       return
@@ -196,29 +190,32 @@ function HomeTerminal() {
 
     if (cmd === 'echo') {
       const rest = args.join(' ')
-      addOut(rest, '')
+      addOut(rest)
       return
     }
 
     // ----- 通过 getOutput 处理 -----
-    const output = getOutput(cmd)
-    if (output !== null) {
-      // output 可能是 JSX 或字符串，由 addOut 处理
-      if (typeof output === 'string') {
-        addOut(output, '')
+    const result = getOutput(cmd)
+    if (result !== null) {
+      // result: { content, typing? } 或直接 JSX / string
+      if (result && typeof result === 'object' && 'content' in result) {
+        addOut(result.content, { typing: result.typing })
+      } else if (typeof result === 'string') {
+        addOut(result)
       } else {
-        addOut(output)
+        addOut(result)
       }
       return
     }
 
     // ----- 未知命令 -----
-    const suggestion = fuzzyMatch(cmd, ALL_COMMANDS)
-    addOut(`zsh: command not found: ${val}`, 't-err')
-    if (suggestion) {
-      addOut(`Did you mean '${suggestion}'?`, 't-dim')
+    addOut(`zsh: command not found: ${val}`, { className: 't-err' })
+    const { cmd: suggestion, dist } = closestCommand(cmd)
+    if (dist === 1 && suggestion) {
+      addOut(`Did you mean '${suggestion}'?`, { className: 't-dim' })
+    } else if (dist > 1) {
+      addOut("Try 'help'.", { className: 't-dim' })
     }
-    addOut("Try 'help'.", 't-dim')
   }
 
   // ----- getOutput 定义 -----
@@ -241,17 +238,22 @@ function HomeTerminal() {
       case 'whoami':
         return 'lv-zhu'
       case 'about':
-        return "I'm lv-zhu, an Information Security student at Tongji CS. Currently navigating the next station of my journey."
+        return {
+          content: "I'm lv-zhu, an Information Security student at Tongji CS. Currently navigating the next station of my journey.",
+          typing: true,
+        }
       case 'contact':
-        return <a className="t-url" href="https://github.com/LV-ZHU" target="_blank" rel="noopener noreferrer">GitHub → https://github.com/LV-ZHU</a>
+        return <a className="t-url" href="https://github.com/LV-ZHU" target="_blank" rel="noopener noreferrer"> Github </a>
       case 'neofetch':
-        return (
-          <>
-            <div>OS:       Personal Site v1.0</div>
-            <div>Host:     Tongji University's School of Computer Science and Technology</div>
-            <div>Major:    Information Security</div>
-          </>
-        )
+        return {
+          content: [
+            'OS:       Personal Site v1.0',
+            'Host:     Tongji University',
+            'College:  School of Computer Science and Technology',
+            'Major:    Information Security',
+          ].join('\n'),
+          typing: true,
+        }
       case 'sudo':
         return 'Nice try.'
       default:

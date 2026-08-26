@@ -385,7 +385,7 @@ const songs_instrumental = [
     { name: "Time Back (时光倒流)", artist: "Bad Style", comment: "悬疑小曲，熊猫人动漫常用BGM", searchKeywords: "" },
     { name: "Xenogenesis", artist: "TheFatRat", comment: "国象の神之一手", searchKeywords: "" },
     { name: "我在時間尽头等你", artist: "纯音乐", comment: "Chole严选", searchKeywords: "" },
-    { name: "回家 (萨克斯)", artist: "纯音乐", comment: "常见于放学场景", searchKeywords: "" },
+    { name: "回家 (萨克斯)", artist: "纯音乐", comment: "常见于放学场景，图书馆闭馆音乐1", searchKeywords: "" },
     { name: "所念皆星河", artist: "纯音乐", comment: "Chole严选", searchKeywords: "" },
     { name: "Music Box Dancer (音乐盒舞者)", artist: "Richard Clayderman", comment: "经典下课铃/考试御用BGM", searchKeywords: "" },
     { name: "地铁跑酷_希腊", artist: "纯音乐", comment: "2023.7《地铁跑酷》BGM", searchKeywords: "" },
@@ -475,6 +475,8 @@ const songs_instrumental = [
     { name: "欢乐颂 第九交响曲", artist: "贝多芬", comment: "音乐会精选，经典曲目", searchKeywords: "" },
     { name: "让爱永在旅途 (Flying With Love)", artist: "国航", comment: "国航BGM", searchKeywords: "" },
     { name: "晴天（纯音乐）", artist: "周杰伦", comment: "吉航BGM", searchKeywords: "" },
+    { name: "always with me", artist: "", comment: "图书馆闭馆音乐2，《千与千寻》片尾曲", searchKeywords: "" },
+    
 ]
 
 const songs_other = [
