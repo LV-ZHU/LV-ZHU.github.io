@@ -318,7 +318,7 @@ function HomeTerminal() {
             autoComplete="off"
             autoCapitalize="off"
             spellCheck="false"
-            placeholder="type something…"
+            placeholder=""
             aria-label="终端输入"
             value={input}
             onChange={e => setInput(e.target.value)}

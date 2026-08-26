@@ -1,18 +1,18 @@
-import { useState, useCallback, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import FadeIn from '../components/FadeIn'
 import '../styles/Music.css'
 
 const songs_mandarin = [
     { name: "再见", artist: "张震岳", comment: "轻装策马青云路，人生从此驭长风。希君生羽翼，一化北冥鱼。毕业季金曲，FM89.9一个时代的落幕", searchKeywords: "高考 听力 电台 2024" },
-    { name: "北京欢迎你", artist: "华语群星", comment: "奥运会主题曲，歌手云集，这首歌的录制背后有很多故事", searchKeywords: "陈天佳 2008 刘欢 那英 韩红 孙楠 成龙 王力宏 Leehom 蔡依林 Jolin 谢霆锋 Nicholas 周华健 孙燕姿 Stefanie 汪峰 谭晶 李宇春 周笔畅 张靓颖 羽泉 黄晓明 陈坤 林俊杰 JJ 容祖儿 Joey 任贤齐 陈奕迅 Eason 莫文蔚 Karen 梁咏琪 Gigi 韦唯 韩庚" },
+    { name: "北京欢迎你", artist: "华语群星", comment: "奥运会主题曲，歌手云集，这首歌的录制背后有很多故事", searchKeywords: "2008", contributors: ["陈天佳", "刘欢", "那英", "韩红", "孙楠", "成龙", "王力宏", "蔡依林", "谢霆锋", "周华健", "孙燕姿", "汪峰", "谭晶", "李宇春", "周笔畅", "张靓颖", "羽泉", "黄晓明", "陈坤", "林俊杰", "容祖儿", "任贤齐", "陈奕迅", "莫文蔚", "梁咏琪", "韦唯", "韩庚"] },
     { name: "水手", artist: "郑智化", comment: "属于70、80后的回忆", searchKeywords: "擦干泪 不要怕" },
-    { name: "黄昏", artist: "周传雄", comment: "依然记得从你口中说出再见坚决如铁~传奇金曲，调子挺高的", searchKeywords: "小刚 过完整个夏天 黄昏的地平线 爱情进入永夜" },
-    { name: "江南", artist: "林俊杰", comment: "离愁能有多痛~痛有多浓", searchKeywords: "JJ 圈圈圆圆圈圈 相信爱一天抵过永远 风到这里就是黏 不懂爱恨情愁煎熬" },
-    { name: "Don't Break My Heart", artist: "黑豹乐队", comment: "飞跃黄渡理工BGM，怀旧向", searchKeywords: "大学 同济 航拍 嘉定 窦唯 也许是我 https://b23.tv/M4wFAnj" },
-    { name: "好久不见", artist: "陈奕迅", comment: "很治愈的感觉", searchKeywords: "Eason " },
-    { name: "这样很好 (Isha's Song)", artist: "陈奕迅", comment: "英雄联盟：双城之战第二季主题曲", searchKeywords: "Eason " },
+    { name: "黄昏", artist: "周传雄", comment: "依然记得从你口中说出再见坚决如铁~传奇金曲，调子挺高的", searchKeywords: "过完整个夏天 黄昏的地平线 爱情进入永夜" },
+    { name: "江南", artist: "林俊杰", comment: "离愁能有多痛~痛有多浓", searchKeywords: "圈圈圆圆圈圈 相信爱一天抵过永远 风到这里就是黏 不懂爱恨情愁煎熬" },
+    { name: "Don't Break My Heart", artist: "黑豹乐队", comment: "飞跃黄渡理工BGM，怀旧向", searchKeywords: "大学 同济 航拍 嘉定 窦唯 也许是我", sourceUrl: "https://b23.tv/M4wFAnj" },
+    { name: "好久不见", artist: "陈奕迅", comment: "很治愈的感觉", searchKeywords: "" },
+    { name: "这样很好 (Isha's Song)", artist: "陈奕迅", comment: "英雄联盟：双城之战第二季主题曲", searchKeywords: "" },
     { name: "你是我的眼", artist: "萧煌奇", comment: "激昂！", searchKeywords: "" },
-    { name: "爱情转移", artist: "陈奕迅", comment: "把一个人的温暖~转移到另一个的胸膛~", searchKeywords: "Eason 音乐艺术概论" },
+    { name: "爱情转移", artist: "陈奕迅", comment: "把一个人的温暖~转移到另一个的胸膛~", searchKeywords: "音乐艺术概论" },
     { name: "王妃", artist: "萧敬腾", comment: "摇晃的红酒杯~嗨起来！", searchKeywords: "" },
     { name: "光阴的故事", artist: "罗大佑", comment: "罗老师的歌一放怀旧感就来了", searchKeywords: "" },
     { name: "暗香", artist: "沙宝亮", comment: "正如歌名，开始很低沉，副歌有种豁然开朗的感觉", searchKeywords: "" },
@@ -21,9 +21,9 @@ const songs_mandarin = [
     { name: "男人KTV", artist: "胡彦斌", comment: "内含吻别+你的背包歌词", searchKeywords: "" },
     { name: "烦恼歌", artist: "张学友", comment: "活泼、诙谐还带点禅意", searchKeywords: "" },
     { name: "凤凰花开的路口", artist: "林志炫", comment: "毕业季经典歌曲，22年FM89.9指定版", searchKeywords: "" },
-    { name: "十年", artist: "陈奕迅", comment: "十年之前~我不认识你~你不属于我，Eason伪装走音的一曲", searchKeywords: "Eason " },
+    { name: "十年", artist: "陈奕迅", comment: "十年之前~我不认识你~你不属于我，Eason伪装走音的一曲", searchKeywords: "" },
     { name: "一场游戏一场梦", artist: "王杰", comment: "抑扬顿挫", searchKeywords: "" },
-    { name: "稳稳的幸福", artist: "陈奕迅", comment: "肾宝片金曲，我要稳稳的幸福~", searchKeywords: "Eason 广告 肾宝片 电视" },
+    { name: "稳稳的幸福", artist: "陈奕迅", comment: "肾宝片金曲，我要稳稳的幸福~", searchKeywords: "广告 电视" },
     { name: "口是心非", artist: "张雨生", comment: "代表作，一路生花抄了这首歌的调子", searchKeywords: "" },
     { name: "我期待", artist: "张雨生", comment: "净化心灵，涤荡灵魂", searchKeywords: "" },
     { name: "情非得已", artist: "庾澄庆", comment: "磁性情歌这一块", searchKeywords: "" },
@@ -33,7 +33,7 @@ const songs_mandarin = [
     { name: "伤心太平洋", artist: "任贤齐", comment: "我等的船还不来~我等的人还不明白~", searchKeywords: "" },
     { name: "就是现在", artist: "王力宏", comment: "史上最绝转音", searchKeywords: "" },
     { name: "告白气球", artist: "周杰伦", comment: "板载曲目", searchKeywords: "" },
-    { name: "寂寞沙洲冷", artist: "周传雄", comment: "比黄昏调子低，容易哼唱", searchKeywords: "小刚 " },
+    { name: "寂寞沙洲冷", artist: "周传雄", comment: "比黄昏调子低，容易哼唱", searchKeywords: "" },
     { name: "童年", artist: "罗大佑", comment: "还真是童年时期听的", searchKeywords: "" },
     { name: "洋葱", artist: "杨宗纬", comment: "如果你愿意一层一层一层地剥开我的心~", searchKeywords: "" },
     { name: "菊花台", artist: "周杰伦", comment: "电影《英雄》主题曲，音乐会精选", searchKeywords: "" },
@@ -54,8 +54,8 @@ const songs_mandarin = [
     { name: "走过1999", artist: "张学友", comment: "走过1999世纪最末一分钟~跨世纪", searchKeywords: "" },
     { name: "信仰", artist: "张信哲", comment: "你究竟知道吗", searchKeywords: "" },
     { name: "千里之外", artist: "周杰伦、费玉清", comment: "我送你离开~千里之外~你是否还~~~在", searchKeywords: "" },
-    { name: "那些你很冒险的梦", artist: "林俊杰", comment: "痛 太痛了", searchKeywords: "JJ" },
-    { name: "美人鱼", artist: "林俊杰", comment: "希食东精选", searchKeywords: "JJ" },
+    { name: "那些你很冒险的梦", artist: "林俊杰", comment: "痛 太痛了", searchKeywords: "" },
+    { name: "美人鱼", artist: "林俊杰", comment: "希食东精选", searchKeywords: "" },
     { name: "清明上河图", artist: "李玉刚", comment: "几秒钟的世界~感叹不平凡的意义~，绝品转音", searchKeywords: "" },
     { name: "最远的你是我最近的爱", artist: "车继铃", comment: "风雨之后~无所谓拥有~萍水相逢（这个逢就很魔性）~你却给我那么（么也是）多", searchKeywords: "" },
     { name: "一千零一夜", artist: "邰正宵", comment: "真的思念啊", searchKeywords: "" },
@@ -64,21 +64,21 @@ const songs_mandarin = [
     { name: "情网", artist: "张学友", comment: "令人心碎的歌声", searchKeywords: "" },
     { name: "我是一只小小鸟", artist: "赵传", comment: "想要飞却怎么样也飞不高~", searchKeywords: "" },
     { name: "刚好遇见你", artist: "李玉刚", comment: "魔性，因为我刚好遇见你这一句不断换调", searchKeywords: "" },
-    { name: "花心", artist: "周传雄", comment: "九十年代大街小巷传播的又一首歌曲", searchKeywords: "小刚 " },
+    { name: "花心", artist: "周传雄", comment: "九十年代大街小巷传播的又一首歌曲", searchKeywords: "" },
     { name: "一路向北", artist: "周杰伦", comment: "我一路向北~离开有你的季节", searchKeywords: "" },
     { name: "千万次的问", artist: "刘欢", comment: "Time and time again ~ you ask me", searchKeywords: "" },
     { name: "找一个字代替", artist: "邰正宵", comment: "想你就乱、乱、乱头绪~不想又伤、伤、伤自己", searchKeywords: "" },
     { name: "安妮", artist: "王杰", comment: "安妮~我不能失去你", searchKeywords: "" },
     { name: "空城", artist: "杨坤", comment: "这城市那么空~这回忆那么凶 Along~Along~Along", searchKeywords: "" },
     { name: "月亮之上", artist: "凤凰传奇", comment: "我在仰望~月亮~之~上，电台金曲", searchKeywords: "" },
-    { name: "我还想她", artist: "林俊杰", comment: "当泪水堵住了胸口~就让沉默~代替所有回答", searchKeywords: "JJ" },
+    { name: "我还想她", artist: "林俊杰", comment: "当泪水堵住了胸口~就让沉默~代替所有回答", searchKeywords: "" },
     { name: "别怕我伤心", artist: "张信哲", comment: "一颗爱~你~的心~时时刻刻为你转不停", searchKeywords: "" },
     { name: "爱相随", artist: "周华健", comment: "人分飞~爱相随~哪怕用一生去追", searchKeywords: "" },
     { name: "月亮代表我的心", artist: "邓丽君", comment: "一曲打动我的心~，音乐会精选", searchKeywords: "" },
     { name: "恋曲1990", artist: "罗大佑", comment: "属于中年人的爱情曲", searchKeywords: "" },
     { name: "花海", artist: "周杰伦", comment: "周董经典曲目", searchKeywords: "" },
     { name: "消愁", artist: "毛不易", comment: "高中文艺晚会精选，一杯敬朝阳~一杯敬月光", searchKeywords: "" },
-    { name: "修炼爱情", artist: "林俊杰", comment: "修炼爱情的悲欢~我们这些努力不简单", searchKeywords: "JJ" },
+    { name: "修炼爱情", artist: "林俊杰", comment: "修炼爱情的悲欢~我们这些努力不简单", searchKeywords: "" },
     { name: "说谎", artist: "林宥嘉", comment: "平淡，但又悲伤", searchKeywords: "" },
     { name: "祈愿", artist: "张艺兴", comment: "19年FM89.9限定版", searchKeywords: "" },
     { name: "大约在冬季", artist: "齐秦", comment: "音乐会曲目", searchKeywords: "" },
@@ -105,12 +105,12 @@ const songs_mandarin = [
     { name: "我", artist: "张国荣", comment: "我就是我~是颜色不一样的烟火~", searchKeywords: "" },
     { name: "新贵妃醉酒", artist: "李玉刚", comment: "爱恨就在一瞬间~举杯对月情似天~", searchKeywords: "" },
     { name: "死了都要爱", artist: "信乐团", comment: "发自肺腑的歌声", searchKeywords: "" },
-    { name: "不为谁而作的歌", artist: "林俊杰", comment: "jj特色转音，记忆点很深", searchKeywords: "JJ" },
+    { name: "不为谁而作的歌", artist: "林俊杰", comment: "jj特色转音，记忆点很深", searchKeywords: "" },
     { name: "对你爱不完", artist: "郭富城", comment: "对你爱爱爱不完~我可以天天月月年年到永远~，四大天王之一的代表作", searchKeywords: "" },
     { name: "爱要怎么说出口", artist: "赵传", comment: "第一次握你的手~指尖传来你的温柔~", searchKeywords: "" },
     { name: "青花瓷", artist: "周杰伦", comment: "东航指定下机曲目，天青色等烟雨~而我在等你~", searchKeywords: "" },
     { name: "爱的就是你", artist: "王力宏", comment: "FM89.9指定版", searchKeywords: "" },
-    { name: "青花", artist: "周传雄", comment: "记忆油膏反复涂抹~无法愈合的伤口~你的回头划伤了沉默~", searchKeywords: "小刚" },
+    { name: "青花", artist: "周传雄", comment: "记忆油膏反复涂抹~无法愈合的伤口~你的回头划伤了沉默~", searchKeywords: "" },
     { name: "心雨", artist: "杨钰莹 毛宁", comment: "因为明天~我要成为别人的新娘~ 本歌为男女歌手分界线", searchKeywords: "" },
     { name: "如愿", artist: "王菲", comment: "21年那阵很火，高中文艺晚会限定版", searchKeywords: "" },
     { name: "明天，你好", artist: "牛奶咖啡", comment: "明天你好~含着泪微笑~，23年FM89.9限定版", searchKeywords: "" },
@@ -582,6 +582,52 @@ const songs_other = [
     { name: "中国人能飞", artist: "Chalky Wong、揽佬SKAI ISYOURGOD", comment: "SummerTime再焕新春这一块，中国人能飞~黄皮肤才对~讲中文才飞~中国就是美", searchKeywords: "" },
 ]
 
+// 可复用的歌手别名集中维护；searchKeywords 只记录页面上看不到的个别线索。
+const artistAliases = {
+    "王力宏": ["Leehom"],
+    "蔡依林": ["Jolin"],
+    "谢霆锋": ["Nicholas"],
+    "孙燕姿": ["Stefanie"],
+    "林俊杰": ["JJ"],
+    "容祖儿": ["Joey"],
+    "陈奕迅": ["Eason"],
+    "莫文蔚": ["Karen"],
+    "梁咏琪": ["Gigi"],
+    "周传雄": ["小刚"],
+}
+
+function flattenSearchValue(value) {
+    return Array.isArray(value) ? value.join(' ') : (value || '')
+}
+
+function normalizeSearchText(value) {
+    return String(value || '').normalize('NFKC').toLowerCase().trim()
+}
+
+function getArtistAliasText(song) {
+    const creditedArtists = `${song.artist || ''} ${flattenSearchValue(song.contributors)}`
+    return Object.entries(artistAliases)
+        .filter(([artist]) => creditedArtists.includes(artist))
+        .flatMap(([, aliases]) => aliases)
+        .join(' ')
+}
+
+function matchesSearch(song, query) {
+    const terms = normalizeSearchText(query).split(/\s+/).filter(Boolean)
+    if (terms.length === 0) return true
+
+    const searchableText = normalizeSearchText([
+        song.name,
+        song.artist,
+        song.comment,
+        flattenSearchValue(song.contributors),
+        flattenSearchValue(song.searchKeywords),
+        getArtistAliasText(song),
+    ].join(' '))
+
+    return terms.every(term => searchableText.includes(term))
+}
+
 const categories = [
     { id: 'mandarin', label: '国语歌单', icon: 'fas fa-headphones', data: songs_mandarin },
     { id: 'cantonese', label: '粤语歌曲', icon: 'fas fa-compact-disc', data: songs_cantonese },
@@ -643,6 +689,16 @@ function SongItem({ song, index, category }) {
                 >
                     QQ
                 </a>
+                {song.sourceUrl && (
+                    <a
+                        className="music-link"
+                        href={song.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        相关来源
+                    </a>
+                )}
             </div>
         </li>
     )
@@ -666,23 +722,11 @@ export default function Music() {
         return () => document.body.classList.remove('show-all-comments')
     }, [showAllComments])
 
-    const query = searchQuery.toLowerCase().trim()
-
-    const filterMatches = useCallback((song) => {
-        if (!query) return true
-        const nameMatch = (song.name || '').toLowerCase().includes(query)
-        const artistMatch = (song.artist || '').toLowerCase().includes(query)
-        const commentMatch = (song.comment || '').toLowerCase().includes(query)
-        const hiddenKeywords = Array.isArray(song.searchKeywords)
-            ? song.searchKeywords.join(' ')
-            : (song.searchKeywords || '')
-        const hiddenKeywordMatch = hiddenKeywords.toLowerCase().includes(query)
-        return nameMatch || artistMatch || commentMatch || hiddenKeywordMatch
-    }, [query])
-
     const filteredCategories = categories.map(cat => ({
         ...cat,
-        data: categoryFilters[cat.id] ? cat.data.filter(filterMatches) : [],
+        data: categoryFilters[cat.id]
+            ? cat.data.filter(song => matchesSearch(song, searchQuery))
+            : [],
     }))
 
     const handleFilterChange = (categoryId) => {
