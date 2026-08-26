@@ -210,12 +210,12 @@ function HomeTerminal() {
     }
 
     // ----- 未知命令 -----
-    addOut(`zsh: command not found: ${val}`, { className: 't-err' })
+    addOut(`${val}: command not found`, { className: 't-err' })
     const { cmd: suggestion, dist } = closestCommand(cmd)
     if (dist === 1 && suggestion) {
       addOut(`Did you mean '${suggestion}'?`, { className: 't-dim' })
     } else if (dist > 1) {
-      addOut("Try 'help'.", { className: 't-dim' })
+      addOut("Try typing 'help'.", { className: 't-dim' })
     }
   }
 
