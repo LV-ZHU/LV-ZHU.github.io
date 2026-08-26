@@ -472,10 +472,12 @@ const songs_instrumental = [
     { name: "地上BGM", artist: "近藤浩治", comment: "B站搞笑视频精选", searchKeywords: "" },
     { name: "皇家萌卫", artist: "灵空GTTech", comment: "B站搞笑视频精选，空中课堂御用", searchKeywords: "" },
     { name: "致爱丽丝", artist: "贝多芬", comment: "听力御用，音乐会精选，经典曲目", searchKeywords: "" },
+    { name: "冬眠(纯钢琴演奏版)", artist: "昼夜", comment: "图书馆闭馆音乐3", searchKeywords: "" },
+    { name: "卡农", artist: "George Winston", comment: "图书馆闭馆音乐4", searchKeywords: "" },
     { name: "欢乐颂 第九交响曲", artist: "贝多芬", comment: "音乐会精选，经典曲目", searchKeywords: "" },
     { name: "让爱永在旅途 (Flying With Love)", artist: "国航", comment: "国航BGM", searchKeywords: "" },
     { name: "晴天（纯音乐）", artist: "周杰伦", comment: "吉航BGM", searchKeywords: "" },
-    { name: "always with me", artist: "", comment: "图书馆闭馆音乐2，《千与千寻》片尾曲", searchKeywords: "" },
+    { name: "always with me", artist: "宫崎骏", comment: "图书馆闭馆音乐2，《千与千寻》片尾曲", searchKeywords: "" },
     
 ]
 
