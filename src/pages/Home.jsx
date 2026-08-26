@@ -23,6 +23,10 @@ export default function Home() {
           <h1 id="home-title" aria-label="LV-ZHU">Lv Zhu</h1>
         </FadeIn>
 
+        <FadeIn as="section" className="home-broadcast" aria-label="Audio player">
+          <audio controls preload="metadata" src="/assets/audio/proxima-estacion.mp3" />
+        </FadeIn>
+
         <FadeIn as="section" className="home-sections" aria-labelledby="sections-title">
           <h2 id="sections-title">Sections</h2>
           <div className="home-section-grid">
