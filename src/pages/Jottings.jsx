@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import FadeIn from '../components/FadeIn'
+import PageHeader from '../components/PageHeader'
 import '../styles/Jottings.css'
 
 const articles = [
@@ -9,7 +10,8 @@ const articles = [
 
 export default function Jottings() {
   return (
-    <div className="page-wrapper page-direct">
+    <div className="page-wrapper">
+      <PageHeader title="Jottings" />
       <section className="section">
         <div className="container">
           <div className="jotting-list">

@@ -4,12 +4,6 @@ import { db } from '../firebase/init'
 import { useAuth } from '../components/AuthProvider'
 import '../styles/Account.css'
 
-function escapeHtml(str) {
-  const d = document.createElement('div')
-  d.textContent = str
-  return d.innerHTML
-}
-
 export default function Account() {
   const { user } = useAuth()
   const [nickname, setNickname] = useState('')
@@ -70,8 +64,8 @@ export default function Account() {
               ) : (
                 <i className="fas fa-user-circle account-avatar-icon" />
               )}
-              <div className="account-name">{escapeHtml(user.displayName || '用户')}</div>
-              <div className="account-email">{escapeHtml(user.email || '')}</div>
+              <div className="account-name">{user.displayName || '用户'}</div>
+              <div className="account-email">{user.email || ''}</div>
               <div className="account-provider">
                 <i className={getProviderIcon()} style={{ marginRight: '0.3rem' }} />
                 {user.providerData?.[0]?.providerId === 'google.com' ? 'Google' : user.providerData?.[0]?.providerId === 'github.com' ? 'GitHub' : '未知'}

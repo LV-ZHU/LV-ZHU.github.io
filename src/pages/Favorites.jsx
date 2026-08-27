@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { typeDict, questionBank } from '../data/typeDict'
+import PageHeader from '../components/PageHeader'
 import '../styles/Favorites.css'
 
 const STORAGE_KEY = 'lv-zhu-favorites-keymap'
@@ -400,7 +401,8 @@ export default function Favorites() {
   }, [isTypeGame])
 
   return (
-    <div className="page-wrapper page-direct">
+    <div className="page-wrapper">
+      <PageHeader title="Favorites" />
       <section className="section">
         <div className="container">
           <div className="keyboard-shell">

@@ -4,12 +4,6 @@ import { collection, addDoc, onSnapshot, query, where, orderBy, serverTimestamp,
 import { db } from '../firebase/init'
 import { useAuth } from './AuthProvider'
 
-function escapeHtml(str) {
-  const d = document.createElement('div')
-  d.textContent = str
-  return d.innerHTML
-}
-
 function formatTime(ts) {
   let d
   if (ts && ts.toDate) d = ts.toDate()
@@ -93,7 +87,7 @@ export default function Comments() {
             onChange={(e) => setText(e.target.value)}
             onKeyDown={handleKeyDown}
           />
-          <button className="comment-submit" onClick={submit} disabled={sending}>
+          <button type="button" className="comment-submit" onClick={submit} disabled={sending}>
             {sending ? '发送中...' : '发表'}
           </button>
         </div>
@@ -118,12 +112,12 @@ export default function Comments() {
                   <span className="comment-author">{c.displayName}</span>
                   <span className="comment-time">{formatTime(c.createdAt)}</span>
                   {user && user.uid === c.uid && (
-                    <button className="comment-delete" onClick={() => handleDelete(c.id)}>
-                      <i className="fas fa-times" />
+                    <button type="button" className="comment-delete" aria-label="删除评论" onClick={() => handleDelete(c.id)}>
+                      <i className="fas fa-times" aria-hidden="true" />
                     </button>
                   )}
                 </div>
-                <div className="comment-body">{escapeHtml(c.content)}</div>
+                <div className="comment-body">{c.content}</div>
               </div>
             </div>
           ))

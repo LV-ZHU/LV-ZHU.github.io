@@ -8,6 +8,7 @@ import { db } from '../firebase/init'
 import { useAuth } from '../components/AuthProvider'
 import { useTheme } from '../components/ThemeProvider'
 import FadeIn from '../components/FadeIn'
+import PageHeader from '../components/PageHeader'
 import '../styles/Travel.css'
 
 echarts.use([MapChart, LinesChart, GeoComponent, TooltipComponent, CanvasRenderer])
@@ -261,7 +262,7 @@ export default function Travel() {
           const val = params.data && params.data.value ? params.data.value : 'unvisited'
           return (
             '<b>' +
-            params.name +
+            escapeHtml(params.name) +
             '</b><br/><span style="margin-top:4px;display:inline-block;">' +
             stateStrMap[val] +
             '</span>'
@@ -636,7 +637,8 @@ export default function Travel() {
   }
 
   return (
-    <div className="page-wrapper page-direct">
+    <div className="page-wrapper">
+      <PageHeader title="Travel" />
       <section className="section">
         <div className="container">
           <FadeIn className="travel-container">
@@ -753,7 +755,7 @@ export default function Travel() {
                             style={{ fontSize: '1.4rem', color: '#ccc' }}
                           ></i>
                         )}
-                        <span className="leaderboard-name">{escapeHtml(item.name)}</span>
+                        <span className="leaderboard-name">{item.name}</span>
                         <span className="leaderboard-count">{count} 个地方</span>
                         {item.isMe && (
                           <button

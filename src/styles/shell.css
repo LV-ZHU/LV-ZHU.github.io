@@ -21,6 +21,7 @@
   transition: color var(--duration-base) ease, background-color var(--duration-base) ease;
 }
 .app-content { position: relative; z-index: 1; min-height: 60vh; }
+.app-content .route-loader { min-height: calc(100vh - var(--nav-height)); }
 .ambient-backdrop {
   position: fixed;
   inset: 75px 0 0;
@@ -72,6 +73,9 @@
 
 .nav-dropdown-trigger { display: block; }
 .nav-dropdown-toggle { display: none; }
+.nav-dropdown:focus-within .dropdown-menu { display: block; }
+.mobile-search-item,
+.nav-search-mobile { display: none; }
 
 .theme-toggle {
   width: 38px;
@@ -142,6 +146,7 @@
 }
 
 @media (max-width: 1100px) {
+  .nav-search-desktop { display: none; }
   .theme-toggle { margin-left: auto; }
   .hamburger {
     display: grid;
@@ -181,6 +186,9 @@
     pointer-events: auto;
   }
   .nav-item { width: min(92vw, 420px); }
+  .mobile-search-item { display: block; width: min(92vw, 420px); margin-bottom: .3rem; }
+  .nav-search-mobile { display: flex; width: 100%; }
+  .nav-search-mobile .nav-search-results { top: calc(100% + .3rem); }
   .nav-item .nav-link { display: block; width: 100%; text-align: center; }
   .nav-dropdown-trigger { display: flex; align-items: center; width: 100%; }
   .nav-dropdown-trigger .nav-link { flex: 1; }

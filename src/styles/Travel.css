@@ -293,3 +293,28 @@
 .leaderboard-delete:hover {
   color: #ef4444;
 }
+
+@media (max-width: 768px) {
+  .travel-container,
+  .leaderboard {
+    padding: 1rem;
+  }
+
+  .map-tabs {
+    gap: 0.5rem;
+  }
+
+  .map-tab {
+    flex: 1;
+    min-width: 0;
+    padding: 0.6rem 0.45rem;
+  }
+
+  .map-chart-container {
+    height: clamp(390px, 112vw, 460px);
+  }
+
+  .map-stats-container {
+    grid-template-columns: 1fr;
+  }
+}

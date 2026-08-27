@@ -72,7 +72,7 @@ function FPGA() {
         <div className="container">
           <header className="project-heading">
             <h1>FPGA 开发</h1>
-            <p>Verliog编写</p>
+            <p>Verilog 编写</p>
           </header>
           <div className="section-header fade-in">
             <h2 className="section-title">数字逻辑实验</h2>

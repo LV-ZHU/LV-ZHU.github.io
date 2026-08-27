@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import FadeIn from '../components/FadeIn'
+import PageHeader from '../components/PageHeader'
 import '../styles/Acgn.css'
 
 const games = [
@@ -76,7 +77,8 @@ export default function Acgn() {
   }
 
   return (
-    <div className="page-wrapper page-direct">
+    <div className="page-wrapper">
+      <PageHeader title="ACGN" />
       <section className="section">
         <div className="container">
           <label className="acgn-toggle">
@@ -84,9 +86,9 @@ export default function Acgn() {
             显示所有个人评价
           </label>
           <div className="acgn-section">
-            <div className="acgn-header game">
+            <h2 className="acgn-header game">
               游戏
-            </div>
+            </h2>
             <FadeIn className="media-grid">
               {games.map((item, index) => (
                 <div key={index} className="media-item game">
@@ -100,9 +102,9 @@ export default function Acgn() {
           </div>
 
           <div className="acgn-section">
-            <div className="acgn-header anime">
+            <h2 className="acgn-header anime">
               动漫
-            </div>
+            </h2>
             <FadeIn className="media-grid">
               {anime.map((item, index) => (
                 <div key={index} className="media-item anime">
@@ -116,9 +118,9 @@ export default function Acgn() {
           </div>
 
           <div className="acgn-section">
-            <div className="acgn-header novel">
+            <h2 className="acgn-header novel">
               小说
-            </div>
+            </h2>
             <FadeIn className="media-grid">
               {novels.map((item, index) => (
                 <div key={index} className="media-item novel">

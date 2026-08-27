@@ -344,7 +344,7 @@ function HomeTerminal() {
 
 export default function Home() {
   return (
-    <main className="home-main">
+    <div className="home-main">
       <div className="home-wallpaper" aria-hidden="true" />
       <div className="container home-content">
         <FadeIn className="home-profile">
@@ -365,6 +365,6 @@ export default function Home() {
           </div>
         </FadeIn>
       </div>
-    </main>
+    </div>
   )
 }

@@ -1,6 +1,7 @@
 import { useRef, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import FadeIn from '../components/FadeIn'
+import PageHeader from '../components/PageHeader'
 import '../styles/Study.css'
 
 /* ---------- Node data ---------- */
@@ -178,7 +179,8 @@ export default function Study() {
   }, [drawLines])
 
   return (
-    <div className="page-wrapper page-direct">
+    <div className="page-wrapper">
+      <PageHeader title="Study" />
       <section className="section">
         <div className="container">
           <FadeIn>

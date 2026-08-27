@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import { useAuth } from '../components/AuthProvider'
 import { db } from '../firebase/init'
+import PageHeader from '../components/PageHeader'
 import '../styles/Favorites.css'
 
 const letterData = {
@@ -335,7 +336,8 @@ export default function FavoritesLetter() {
   }
 
   return (
-    <div className="page-wrapper page-direct">
+    <div className="page-wrapper">
+      <PageHeader title={data.title} description={data.subtitle} />
       <section className="section">
         <div className="container">
           <Link to="/favorites" className="back-btn"><i className="fas fa-arrow-left" /> 返回键盘</Link>

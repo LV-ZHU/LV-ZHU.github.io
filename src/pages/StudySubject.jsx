@@ -1,4 +1,3 @@
-import { useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import FadeIn from '../components/FadeIn'
 import GitHubLink from '../components/GitHubLink'

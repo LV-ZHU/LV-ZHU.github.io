@@ -1,6 +1,9 @@
+import PageHeader from '../components/PageHeader'
+
 export default function Tutoring() {
   return (
-    <div className="page-wrapper page-direct">
+    <div className="page-wrapper">
+      <PageHeader title="Tutoring" />
       <section className="section">
         <div className="container">
           <a

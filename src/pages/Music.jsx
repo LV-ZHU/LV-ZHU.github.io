@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import FadeIn from '../components/FadeIn'
+import PageHeader from '../components/PageHeader'
 import '../styles/Music.css'
 
 const songs_mandarin = [
@@ -483,9 +484,9 @@ const songs_instrumental = [
 
 const songs_other = [
     { name: "The King", artist: "Paperman", comment: "最终决战の小曲", searchKeywords: "" },
-    { name: "Never Gonna Give You Up", artist: "Rick Astley", comment: "你被骗了", searchKeywords: "" },
+    { name: "Never Gonna Give You Up", artist: "Rick Astley", comment: "你被骗了", searchKeywords: "Rickroll Rickrolling" },
     { name: "你看到的我（DJ版）", artist: "黄勇、任书怀", comment: "大哥の小曲", searchKeywords: "" },
-    { name: "See you again", artist: "Wiz Khalifa、Charlie Puth", comment: "科比の小曲", searchKeywords: "" },
+    { name: "See you again", artist: "Wiz Khalifa、Charlie Puth", comment: "科比の小曲", searchKeywords: "速度与激情7 Furious 7" },
     { name: "Guitar Battle vs Tom Morello", artist: "Tom Morello", comment: "电摇嘲讽の小曲", searchKeywords: "" },
     { name: "爱河 (DJ版)", artist: "蒋雪儿", comment: "影流之主の小曲", searchKeywords: "" },
     { name: "Halloween", artist: "Amc Orchestra", comment: "紧张の小曲", searchKeywords: "" },
@@ -495,7 +496,7 @@ const songs_other = [
     { name: "我的滑板鞋", artist: "约瑟翰 庞麦郎", comment: "摩擦~摩擦~在这光滑的地上摩擦", searchKeywords: "旅游 重庆 合川" },
     { name: "以下范上", artist: "C-BLOCK", comment: "懂你意思", searchKeywords: "旅游 西班牙 巴塞罗那" },
     { name: "Buttercup", artist: "Jack Stauber", comment: "B站搞笑视频精选，抱枕组准备", searchKeywords: "" },
-    { name: "Lemon", artist: "米津玄师", comment: "那一天的忧郁~忧郁起来", searchKeywords: "" },
+    { name: "Lemon", artist: "米津玄师", comment: "那一天的忧郁~忧郁起来", searchKeywords: "非自然死亡 UNNATURAL" },
     { name: "春庭雪 (0.9x版DJ Wave版)", artist: "邓寓君(等什么君)", comment: "抖音神曲", searchKeywords: "" },
     { name: "Goyang Ubur Ubur", artist: "Tik Tok Top Music", comment: "印尼宽带の小曲", searchKeywords: "" },
     { name: "Ngana Rindu?", artist: "DJ Lucu、Adit Sparky", comment: "零元购の小曲", searchKeywords: "" },
@@ -517,15 +518,15 @@ const songs_other = [
     { name: "Krusty Krab", artist: "Eugene The Dream", comment: "B站搞笑视频精选，动画片《海绵宝宝》配乐", searchKeywords: "" },
     { name: "Beethoven Virus (贝多芬病毒)", artist: "Diana Boncheva", comment: "B站搞笑视频精选，由贝多芬《第五交响曲》改编而来", searchKeywords: "" },
     { name: "Only You (Maxi)", artist: "Rappers Against Racism", comment: "B站搞笑视频精选", searchKeywords: "" },
-    { name: "sans.", artist: "Toby Fox", comment: "B站搞笑视频精选", searchKeywords: "" },
-    { name: "Imperial March", artist: "Kuricorder Quartet", comment: "B站搞笑视频精选", searchKeywords: "" },
+    { name: "sans.", artist: "Toby Fox", comment: "B站搞笑视频精选", searchKeywords: "Undertale 传说之下" },
+    { name: "Imperial March", artist: "Kuricorder Quartet", comment: "B站搞笑视频精选", searchKeywords: "星球大战 Star Wars 黑武士 达斯维达 Darth Vader" },
     { name: "Careless Whisper", artist: "George Michael", comment: "暧昧の小曲，B站搞笑视频精选", searchKeywords: "" },
     { name: "ファンファンファンだよ、らき☆すた", artist: "神前暁", comment: "B站搞笑视频精选", searchKeywords: "" },
     { name: "听我说谢谢你", artist: "李昕融", comment: "听我说谢谢你~因为有你~温暖了四季，疫情时期精选", searchKeywords: "" },
     { name: "Galaxy", artist: "ANANYA NABILA", comment: "顿悟の小曲", searchKeywords: "" },
     { name: "Void-Hongzhe_Cui", artist: "", comment: "营销号御用", searchKeywords: "" },
     { name: "幼女幻奏", artist: "Sing, R. Sing!", comment: "B站搞笑视频精选", searchKeywords: "" },
-    { name: "Pink Panther Theme (Remaster)", artist: "Henry Mancini", comment: "B站搞笑视频精选", searchKeywords: "" },
+    { name: "Pink Panther Theme (Remaster)", artist: "Henry Mancini", comment: "B站搞笑视频精选", searchKeywords: "粉红豹" },
     { name: "The Next Episode (原版伴奏)", artist: "Dr. Dre、Kurupt、Nate Dogg", comment: "B站搞笑视频精选", searchKeywords: "" },
     { name: "Monkeybiz", artist: "D1ofAquavibe", comment: "B站搞笑视频精选", searchKeywords: "" },
     { name: "Barroom Ballet (酒吧间芭蕾舞团)", artist: "Kevin MacLeod", comment: "B站搞笑视频精选", searchKeywords: "" },
@@ -596,6 +597,17 @@ const artistAliases = {
     "周传雄": ["小刚"],
 }
 
+const contextAliasRules = [
+    { triggers: ["B站"], aliases: ["哔哩哔哩", "Bilibili"] },
+    { triggers: ["BGM", "配乐", "主题曲", "插曲", "片头曲", "片尾曲"], aliases: ["背景音乐", "OST"] },
+    { triggers: ["幼时记忆"], aliases: ["童年", "童年回忆"] },
+    { triggers: ["FM89.9"], aliases: ["电台", "广播"] },
+    { triggers: ["抖音"], aliases: ["短视频", "TikTok"] },
+    { triggers: ["营销号"], aliases: ["短视频"] },
+    { triggers: ["小学", "初中", "高中", "大学", "军训", "学农", "跑操", "广播体操", "音乐课", "文艺晚会", "毕业季"], aliases: ["校园"] },
+    { triggers: ["旅游"], aliases: ["旅行"] },
+]
+
 function flattenSearchValue(value) {
     return Array.isArray(value) ? value.join(' ') : (value || '')
 }
@@ -612,6 +624,25 @@ function getArtistAliasText(song) {
         .join(' ')
 }
 
+function getContextAliasText(song) {
+    const sourceText = normalizeSearchText([
+        song.comment,
+        flattenSearchValue(song.searchKeywords),
+    ].join(' '))
+
+    const aliases = contextAliasRules
+        .filter(rule => rule.triggers.some(trigger => sourceText.includes(normalizeSearchText(trigger))))
+        .flatMap(rule => rule.aliases)
+
+    const fullYearAliases = [...sourceText.matchAll(/(^|\D)(\d{2})年/g)]
+        .map(match => {
+            const shortYear = Number(match[2])
+            return shortYear <= 30 ? `20${match[2]}` : `19${match[2]}`
+        })
+
+    return [...new Set([...aliases, ...fullYearAliases])].join(' ')
+}
+
 function matchesSearch(song, query) {
     const terms = normalizeSearchText(query).split(/\s+/).filter(Boolean)
     if (terms.length === 0) return true
@@ -623,6 +654,7 @@ function matchesSearch(song, query) {
         flattenSearchValue(song.contributors),
         flattenSearchValue(song.searchKeywords),
         getArtistAliasText(song),
+        getContextAliasText(song),
     ].join(' '))
 
     return terms.every(term => searchableText.includes(term))
@@ -768,7 +800,8 @@ export default function Music() {
     }
 
     return (
-        <div className="page-wrapper page-direct">
+        <div className="page-wrapper">
+            <PageHeader title="Music" />
             <section className="section">
                 <div className="container">
                     <FadeIn className="music-controls-panel">
@@ -852,9 +885,9 @@ export default function Music() {
 
                     {filteredCategories.map(cat => (
                         <FadeIn key={cat.id} className="music-category">
-                            <h3 className="music-category-title">
+                            <h2 className="music-category-title">
                                 {cat.label}
-                            </h3>
+                            </h2>
                             <ul className="music-list">
                                 {cat.data.map((song, idx) => (
                                     <SongItem
