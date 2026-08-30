@@ -483,7 +483,7 @@ const songs_instrumental = [
 ]
 
 const songs_other = [
-    { name: "The King", artist: "Paperman", comment: "最终决战の小曲", searchKeywords: "" },
+    { name: "The King", artist: "Paperman", comment: "最终决战の小曲", searchKeywords: "PVZ 短视频 十大" },
     { name: "Never Gonna Give You Up", artist: "Rick Astley", comment: "你被骗了", searchKeywords: "Rickroll Rickrolling" },
     { name: "你看到的我（DJ版）", artist: "黄勇、任书怀", comment: "大哥の小曲", searchKeywords: "" },
     { name: "See you again", artist: "Wiz Khalifa、Charlie Puth", comment: "科比の小曲", searchKeywords: "速度与激情7 Furious 7" },
@@ -576,9 +576,9 @@ const songs_other = [
     { name: "热爱105°C的你", artist: "阿肆", comment: "super idol的笑容~都没你的甜~", searchKeywords: "" },
     { name: "我会自己上厕所", artist: "宝宝巴士", comment: "请输入文本", searchKeywords: "" },
     { name: "Orgia (Martin Hansen Mix)(变速版)", artist: "Ottomix、Yano", comment: "磊哥の小曲", searchKeywords: "" },
-    { name: "一笑江湖", artist: "闻人听书", comment: "科目三原速曲，原速还是挺古风的", searchKeywords: "" },
+    { name: "一笑江湖", artist: "闻人听书", comment: "科目三原速曲，原速还是挺古风的", searchKeywords: "科目三 " },
     { name: "蜜雪冰城主题曲", artist: "蜜雪冰城", comment: "你爱我~我爱你~蜜雪冰城甜蜜蜜", searchKeywords: "" },
-    { name: "快乐的答案", artist: "奶龙", comment: "浦江郊野公园奶龙主题BGM", searchKeywords: "" },
+    { name: "快乐的答案", artist: "奶龙", comment: "浦江郊野公园奶龙主题BGM", searchKeywords: "奶龙" },
     { name: "念张师", artist: "AI", comment: "张雪峰老师~我还记得你~，中国版See you again", searchKeywords: "" },
     { name: "中国人能飞", artist: "Chalky Wong、揽佬SKAI ISYOURGOD", comment: "SummerTime再焕新春这一块，中国人能飞~黄皮肤才对~讲中文才飞~中国就是美", searchKeywords: "" },
 ]
