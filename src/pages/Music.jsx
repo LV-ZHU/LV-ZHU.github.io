@@ -16,6 +16,7 @@ const songs_mandarin = [
     { name: "爱情转移", artist: "陈奕迅", comment: "把一个人的温暖~转移到另一个的胸膛~", searchKeywords: "音乐艺术概论" },
     { name: "王妃", artist: "萧敬腾", comment: "摇晃的红酒杯~嗨起来！", searchKeywords: "" },
     { name: "光阴的故事", artist: "罗大佑", comment: "罗老师的歌一放怀旧感就来了", searchKeywords: "" },
+    { name: "说谎", artist: "林宥嘉", comment: "平淡，但又悲伤", searchKeywords: "" },
     { name: "暗香", artist: "沙宝亮", comment: "正如歌名，开始很低沉，副歌有种豁然开朗的感觉", searchKeywords: "" },
     { name: "吻别", artist: "张学友", comment: "我和你吻别~在无人的街，学友代表作", searchKeywords: "" },
     { name: "你的背包", artist: "陈奕迅", comment: "你的背包~背到现在还没烂", searchKeywords: "" },
@@ -82,7 +83,7 @@ const songs_mandarin = [
     { name: "花海", artist: "周杰伦", comment: "周董经典曲目", searchKeywords: "" },
     { name: "消愁", artist: "毛不易", comment: "高中文艺晚会精选，一杯敬朝阳~一杯敬月光", searchKeywords: "" },
     { name: "修炼爱情", artist: "林俊杰", comment: "修炼爱情的悲欢~我们这些努力不简单", searchKeywords: "" },
-    { name: "说谎", artist: "林宥嘉", comment: "平淡，但又悲伤", searchKeywords: "" },
+    
     { name: "祈愿", artist: "张艺兴", comment: "19年FM89.9限定版", searchKeywords: "" },
     { name: "大约在冬季", artist: "齐秦", comment: "音乐会曲目", searchKeywords: "" },
     { name: "犯贱", artist: "徐良、阿悄", comment: "我习惯你走在我的身后~无论什么要求你全都接受~", searchKeywords: "" },
