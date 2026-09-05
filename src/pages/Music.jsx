@@ -245,6 +245,7 @@ const songs_mandarin = [
     { name: "后继者", artist: "任然", comment: "时间真是像是长了脚的妖怪~跑的飞快~", searchKeywords: "" },
     { name: "当你孤单你会想起谁", artist: "郭美美", comment: "你的快乐伤悲~只有我能体会~让我再陪你走一回~", searchKeywords: "" },
     { name: "晚安", artist: "颜人中", comment: "几人份的畅谈~道三两句晚安，希食东精选", searchKeywords: "" },
+    { name: "失隅", artist: "光天笠", comment: "oh~baby~我的心~我的心~我的心，希食东重新开业当天放的热乎新歌", searchKeywords: "" },
 ]
 
 const songs_cantonese = [
@@ -608,6 +609,7 @@ const contextAliasRules = [
     { triggers: ["营销号"], aliases: ["短视频"] },
     { triggers: ["小学", "初中", "高中", "大学", "军训", "学农", "跑操", "广播体操", "音乐课", "文艺晚会", "毕业季"], aliases: ["校园"] },
     { triggers: ["旅游"], aliases: ["旅行"] },
+    { triggers: ["希食东"], aliases: ["大学 同济 嘉定 满天星"] },
 ]
 
 function flattenSearchValue(value) {
