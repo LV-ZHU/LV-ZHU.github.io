@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import FadeIn from '../components/FadeIn'
+
 import PageHeader from '../components/PageHeader'
 
 const projects = [
@@ -15,7 +15,7 @@ export default function Projects() {
       <PageHeader title="Projects" />
       <section className="section">
         <div className="container">
-          <FadeIn as="ol" className="project-index">
+          <ol  className="project-index">
             {projects.map((p, index) => (
               <li className="project-index-item" key={p.path}>
                 <Link to={p.path}>
@@ -25,7 +25,7 @@ export default function Projects() {
                 </Link>
               </li>
             ))}
-          </FadeIn>
+          </ol>
         </div>
       </section>
     </div>

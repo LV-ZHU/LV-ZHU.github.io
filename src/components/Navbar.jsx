@@ -39,10 +39,11 @@ export default function Navbar() {
   const location = useLocation()
   const navigate = useNavigate()
   const { isDark, toggleTheme } = useTheme()
-  const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [mobileGroup, setMobileGroup] = useState(null)
   const [query, setQuery] = useState('')
+  const [search_open, set_search_open] = useState(false)
+  const search_button_ref = useRef(null)
   const [results, setResults] = useState([])
   const desktopSearchRef = useRef(null)
   const mobileSearchRef = useRef(null)
@@ -63,16 +64,15 @@ export default function Navbar() {
   })()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  useEffect(() => {
     setMenuOpen(false)
+    set_search_open(false)
     setMobileGroup(null)
     setResults([])
   }, [location.pathname])
+
+  useEffect(() => {
+    if (search_open) desktopSearchRef.current?.querySelector('input')?.focus()
+  }, [search_open])
 
   useEffect(() => {
     document.body.classList.toggle('nav-open', menuOpen)
@@ -95,7 +95,10 @@ export default function Navbar() {
     function handleClick(e) {
       const insideDesktop = desktopSearchRef.current?.contains(e.target)
       const insideMobile = mobileSearchRef.current?.contains(e.target)
-      if (!insideDesktop && !insideMobile) setResults([])
+      if (!insideDesktop && !insideMobile) {
+        setResults([])
+        set_search_open(false)
+      }
     }
     document.addEventListener('click', handleClick)
     return () => document.removeEventListener('click', handleClick)
@@ -128,7 +131,10 @@ export default function Navbar() {
     }
     if (e.key === 'Escape') {
       setResults([])
-      e.target.blur()
+      if (search_open) {
+        set_search_open(false)
+        search_button_ref.current?.focus()
+      } else e.target.blur()
     }
   }
 
@@ -138,7 +144,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
+    <nav className="navbar">
       <div className="container nav-container">
         <div className="logo">
           <Link to="/"><i className="fas fa-meteor" /><span>Lv Zhu</span></Link>
@@ -183,15 +189,21 @@ export default function Navbar() {
             />
           </li>
         </ul>
-        <SiteSearch
+        <div className="nav-search-disclosure" ref={desktopSearchRef}>
+          <button type="button" className="nav-search-trigger" ref={search_button_ref} aria-label="搜索站内页面" aria-expanded={search_open} aria-controls="desktop-search-panel" onClick={() => set_search_open(open => !open)}>
+            <i className="fas fa-magnifying-glass" aria-hidden="true" />
+          </button>
+          {search_open && <div className="nav-search-panel" id="desktop-search-panel">
+          <SiteSearch
           className="nav-search-desktop"
           query={query}
           results={results}
           onChange={handleSearch}
           onKeyDown={handleSearchKey}
           onSelect={clearSearch}
-          searchRef={desktopSearchRef}
         />
+          </div>}
+        </div>
         <button
           type="button"
           className="theme-toggle"

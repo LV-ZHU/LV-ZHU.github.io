@@ -1,6 +1,6 @@
 import { useRef, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import FadeIn from '../components/FadeIn'
+
 import PageHeader from '../components/PageHeader'
 import '../styles/Study.css'
 
@@ -183,7 +183,7 @@ export default function Study() {
       <PageHeader title="Study" />
       <section className="section">
         <div className="container">
-          <FadeIn>
+          <div>
             <div className="knowledge-map">
               {/* SVG overlay for connection lines */}
               <svg ref={svgRef} className="km-svg" />
@@ -203,7 +203,7 @@ export default function Study() {
                 ))}
               </div>
             </div>
-          </FadeIn>
+          </div>
         </div>
       </section>
     </div>

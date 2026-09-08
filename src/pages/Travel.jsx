@@ -7,7 +7,7 @@ import { collection, doc, setDoc, deleteDoc, onSnapshot, query, orderBy, limit, 
 import { db } from '../firebase/init'
 import { useAuth } from '../components/AuthProvider'
 import { useTheme } from '../components/ThemeProvider'
-import FadeIn from '../components/FadeIn'
+
 import PageHeader from '../components/PageHeader'
 import '../styles/Travel.css'
 
@@ -19,8 +19,8 @@ const STORAGE_SHANGHAI = 'lv-zhu-travel-map-shanghai'
 const STATES = ['unvisited', 'visited', 'want']
 
 const colorMap = {
-  visited: '#4f46e5',
-  want: '#10b981',
+  visited: '#557fa3',
+  want: '#629a87',
   unvisited: '#d1d5db',
 }
 
@@ -196,37 +196,35 @@ export default function Travel() {
     const savedData = loadData(storageKey)
     const mapColors = isDark
       ? {
-          unvisited: '#2b3442',
-          border: '#111722',
-          hover: '#3a4660',
-          hoverBorder: '#9b93ff',
+          unvisited: '#30363d',
+          border: '#22262b',
+          hover: '#455565',
+          hoverBorder: '#9cbad6',
           provinceLine: '#9aa7b8',
-          tooltipBg: 'rgba(21, 26, 34, .97)',
-          tooltipBorder: '#3a4658',
+          tooltipBg: '#22262b',
+          tooltipBorder: '#3b424b',
           tooltipText: '#e7ecf3',
         }
       : {
           unvisited: colorMap.unvisited,
           border: mapType === 'china' ? '#f8fafc' : '#f1f5f9',
-          hover: '#c7d2fe',
-          hoverBorder: '#818cf8',
+          hover: '#bacbda',
+          hoverBorder: '#557fa3',
           provinceLine: '#334155',
-          tooltipBg: 'rgba(255, 255, 255, .97)',
-          tooltipBorder: 'rgba(79, 70, 229, .2)',
+          tooltipBg: '#ffffff',
+          tooltipBorder: '#bec5cc',
           tooltipText: '#334155',
         }
 
     const seriesData = []
     Object.keys(savedData).forEach((name) => {
       const state = savedData[name]
-      const empColor = state === 'visited' ? '#4338ca' : '#059669'
+      const empColor = state === 'visited' ? '#406688' : '#487c6b'
       seriesData.push({
         name,
         value: state,
         itemStyle: {
           areaColor: colorMap[state],
-          shadowColor: 'rgba(0,0,0,0.15)',
-          shadowBlur: 3,
         },
         emphasis: {
           itemStyle: {
@@ -641,7 +639,7 @@ export default function Travel() {
       <PageHeader title="Travel" />
       <section className="section">
         <div className="container">
-          <FadeIn className="travel-container">
+          <div className="travel-container">
             <div className="section-header">
               <h2 className="section-title">我的足迹</h2>
               <p className="section-desc">点击地图行政板块可切换：未去 → 去过 → 想去</p>
@@ -695,13 +693,13 @@ export default function Travel() {
             </div>
 
             {renderStatsCards()}
-          </FadeIn>
+          </div>
         </div>
       </section>
 
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="container">
-          <FadeIn className="leaderboard">
+          <div className="leaderboard">
             <h3 className="leaderboard-title">
               <i className="fas fa-trophy"></i>{' '}
               {currentMap === 'shanghai' ? '上海' : currentMap === 'china' ? '中国' : '全球'}排行榜
@@ -771,7 +769,7 @@ export default function Travel() {
                   })}
               </ul>
             )}
-          </FadeIn>
+          </div>
         </div>
       </section>
     </div>

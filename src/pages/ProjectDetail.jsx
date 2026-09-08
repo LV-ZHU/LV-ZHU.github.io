@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
-import FadeIn from '../components/FadeIn'
+
 import GitHubLink from '../components/GitHubLink'
 import '../styles/ProjectDetail.css'
 

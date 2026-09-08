@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import FadeIn from '../components/FadeIn'
+
 import PageHeader from '../components/PageHeader'
 import '../styles/Acgn.css'
 
@@ -73,11 +73,10 @@ export default function Acgn() {
   const handleToggle = () => {
     const next = !showAll
     setShowAll(next)
-    document.body.classList.toggle('show-all-comments', next)
   }
 
   return (
-    <div className="page-wrapper">
+    <div className={showAll ? "page-wrapper acgn-page show-all-comments" : "page-wrapper acgn-page"}>
       <PageHeader title="ACGN" />
       <section className="section">
         <div className="container">
@@ -89,7 +88,7 @@ export default function Acgn() {
             <h2 className="acgn-header game">
               游戏
             </h2>
-            <FadeIn className="media-grid">
+            <div className="media-grid">
               {games.map((item, index) => (
                 <div key={index} className="media-item game">
                   <a href={item.url} target="_blank" rel="noopener noreferrer">
@@ -98,14 +97,14 @@ export default function Acgn() {
                   {item.review && <div className="media-review">{item.review}</div>}
                 </div>
               ))}
-            </FadeIn>
+            </div>
           </div>
 
           <div className="acgn-section">
             <h2 className="acgn-header anime">
               动漫
             </h2>
-            <FadeIn className="media-grid">
+            <div className="media-grid">
               {anime.map((item, index) => (
                 <div key={index} className="media-item anime">
                   <a href={item.url} target="_blank" rel="noopener noreferrer">
@@ -114,14 +113,14 @@ export default function Acgn() {
                   {item.review && <div className="media-review">{item.review}</div>}
                 </div>
               ))}
-            </FadeIn>
+            </div>
           </div>
 
           <div className="acgn-section">
             <h2 className="acgn-header novel">
               小说
             </h2>
-            <FadeIn className="media-grid">
+            <div className="media-grid">
               {novels.map((item, index) => (
                 <div key={index} className="media-item novel">
                   <a href={item.url} target="_blank" rel="noopener noreferrer">
@@ -130,7 +129,7 @@ export default function Acgn() {
                   {item.review && <div className="media-review">{item.review}</div>}
                 </div>
               ))}
-            </FadeIn>
+            </div>
           </div>
         </div>
       </section>

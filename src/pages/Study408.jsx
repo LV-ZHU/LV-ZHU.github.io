@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import FadeIn from '../components/FadeIn'
+
 
 const subjects = [
   { icon: 'fas fa-sitemap', path: '/study/408/data-structure', name: '数据结构', desc: '线性表、树、图、排序、查找' },
@@ -17,7 +17,7 @@ export default function Study408() {
       </div>
       <section className="section">
         <div className="container">
-          <FadeIn as="ul" className="folder-list">
+          <ul  className="folder-list">
             {subjects.map((s) => (
               <li className="folder-item" key={s.path}>
                 <Link to={s.path}>
@@ -29,7 +29,7 @@ export default function Study408() {
                 </Link>
               </li>
             ))}
-          </FadeIn>
+          </ul>
         </div>
       </section>
     </div>

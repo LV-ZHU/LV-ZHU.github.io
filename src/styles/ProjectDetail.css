@@ -12,20 +12,20 @@
     padding: 1rem 1.25rem;
     background: #fff;
     border: 1px solid rgba(15, 23, 42, 0.08);
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: var(--radius-card);
+    box-shadow: none;
+    transition: color 140ms ease, background-color 140ms ease, border-color 140ms ease;
     color: inherit;
 }
 
 .download-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+    transform: none;
+    box-shadow: none;
 }
 
 .download-item i {
     font-size: 1.75rem;
-    color: #2563eb;
+    color: var(--accent);
     width: 2rem;
     text-align: center;
 }
@@ -37,7 +37,7 @@
 
 .download-name {
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 600;
     color: #0f172a;
     word-break: break-all;
 }
@@ -88,8 +88,8 @@
 .tech-article {
     background: #fff;
     border: 1px solid #e5edf5;
-    border-radius: 14px;
-    box-shadow: 0 12px 30px -18px rgba(15, 23, 42, 0.25);
+    border-radius: var(--radius-card);
+    box-shadow: none;
     padding: 2rem;
     color: #2d3a46;
     line-height: 1.78;
@@ -132,11 +132,11 @@
     padding: 0.45rem 0.85rem;
     background: #f8f9fa;
     border: 1px solid #e9ecef;
-    border-radius: 50px;
+    border-radius: var(--radius-card);
     font-size: 0.92rem;
     font-weight: 500;
     color: #495057;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    box-shadow: none;
 }
 
 .dock-item i { font-size: 1.1rem; }
@@ -144,10 +144,10 @@
 .arch-map {
     margin-top: 0.85rem;
     padding: 1.5rem 1.2rem 2rem;
-    border-radius: 18px;
+    border-radius: var(--radius-card);
     border: 1px solid #e2e8f0;
     background: #ffffff;
-    box-shadow: 0 14px 28px -18px rgba(15, 23, 42, 0.12);
+    box-shadow: none;
     position: relative;
 }
 
@@ -171,7 +171,7 @@
     font-weight: 600;
     color: #64748b;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: normal;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid #e5e7eb;
 }
@@ -201,14 +201,14 @@
     border: 1.5px solid #d1d5db;
     background: #ffffff;
     text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: color 140ms ease, background-color 140ms ease, border-color 140ms ease;
     min-width: 80px;
     text-align: center;
 }
 
 .arch-node:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px -6px rgba(15, 23, 42, 0.12);
+    transform: none;
+    box-shadow: none;
 }
 
 .arch-node .node-title {
@@ -275,7 +275,7 @@
 .table-wrap {
     margin-top: 0.8rem;
     border: 1px solid #dce6f1;
-    border-radius: 10px;
+    border-radius: var(--radius-card);
     overflow-x: auto;
     background: #fff;
 }
@@ -302,7 +302,7 @@
 }
 
 .arch-table a {
-    color: #2563eb;
+    color: var(--accent);
     text-decoration: none;
 }
 
@@ -330,7 +330,7 @@
 
 .port-card {
     border: 1px solid #e2e8f0;
-    border-radius: 10px;
+    border-radius: var(--radius-card);
     padding: 0.55rem 0.75rem;
     background: #f8fafc;
 }
@@ -362,7 +362,7 @@
 .ip-check {
     margin-top: 0.65rem;
     border: 1px solid #e2e8f0;
-    border-radius: 10px;
+    border-radius: var(--radius-card);
     background: #f8fafc;
 }
 
@@ -377,7 +377,7 @@
 
 .ip-check summary i {
     margin-right: 0.35rem;
-    color: #6366f1;
+    color: var(--accent);
 }
 
 .ip-check summary::-webkit-details-marker { display: none; }
@@ -385,7 +385,7 @@
 .issue-card {
     margin-top: 0.75rem;
     border: 1px solid #dce7f1;
-    border-radius: 12px;
+    border-radius: var(--radius-card);
     background: #fcfdff;
     padding: 0.85rem 0.9rem;
 }
@@ -408,7 +408,7 @@
 
 .cmd-chip {
     border: 1px solid #cbddf0;
-    border-radius: 999px;
+    border-radius: var(--radius-card);
     background: #eef5fc;
     color: #234560;
     font-family: Consolas, 'Courier New', monospace;
@@ -418,7 +418,7 @@
 
 .code-block {
     margin-top: 0.5rem;
-    border-radius: 10px;
+    border-radius: var(--radius-card);
     background: #1f252c;
     color: #d5deea;
     font-family: Consolas, 'Courier New', monospace;
@@ -464,14 +464,14 @@
 .plugin-category {
     margin-top: 1rem;
     border: 1px solid #dce7f1;
-    border-radius: 12px;
+    border-radius: var(--radius-card);
     overflow: hidden;
 }
 
 .plugin-category-header {
-    background: linear-gradient(135deg, #f3f8fe 0%, #edf4fc 100%);
+    background: var(--surface-soft);
     padding: 0.65rem 0.9rem;
-    font-weight: 700;
+    font-weight: 600;
     color: #1f3a55;
     font-size: 1rem;
     border-bottom: 1px solid #dce7f1;
@@ -482,7 +482,7 @@
 
 .plugin-category-header i {
     font-size: 1.1rem;
-    color: #3b82f6;
+    color: var(--accent);
 }
 
 .tech-article code {
@@ -518,7 +518,7 @@
     height: 75vh;
     min-height: 500px;
     border: 1px solid #e2e8f0;
-    border-radius: 12px;
+    border-radius: var(--radius-card);
     background: #f8fafc;
 }
 
@@ -533,18 +533,18 @@
     align-items: center;
     gap: 0.4rem;
     padding: 0.55rem 1.1rem;
-    border-radius: 10px;
+    border-radius: var(--radius-card);
     font-weight: 600;
     font-size: 0.92rem;
     color: #fff;
-    background: #2563eb;
-    transition: background 0.2s, transform 0.2s;
+    background: var(--accent);
+    transition: color 140ms ease, background-color 140ms ease, border-color 140ms ease;
     text-decoration: none;
 }
 
 .doc-btn:hover {
-    background: #1d4ed8;
-    transform: translateY(-1px);
+    background: var(--accent);
+    transform: none;
 }
 
 .doc-tip {

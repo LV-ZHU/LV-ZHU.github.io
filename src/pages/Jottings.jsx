@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import FadeIn from '../components/FadeIn'
+
 import PageHeader from '../components/PageHeader'
 import '../styles/Jottings.css'
 
@@ -16,7 +16,7 @@ export default function Jottings() {
         <div className="container">
           <div className="jotting-list">
             {articles.map((a) => (
-              <FadeIn key={a.slug}>
+              <div key={a.slug}>
                 <Link to={`/jottings/${a.slug}`} className="jotting-item">
                   <div className="jotting-title">{a.title}</div>
                   <div className="jotting-meta">
@@ -24,7 +24,7 @@ export default function Jottings() {
                     <span>{a.tags}</span>
                   </div>
                 </Link>
-              </FadeIn>
+              </div>
             ))}
           </div>
         </div>

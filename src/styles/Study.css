@@ -5,10 +5,10 @@
   position: relative;
   margin-top: 1.35rem;
   padding: 3rem 1.5rem;
-  border-radius: 22px;
+  border-radius: var(--radius-card);
   border: 1px solid #e2e8f0;
-  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-  box-shadow: 0 20px 36px -8px rgba(15, 23, 42, 0.05);
+  background: var(--surface-soft);
+  box-shadow: none;
   overflow-x: auto;
   overflow-y: hidden;
 }
@@ -37,7 +37,6 @@
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  animation: kmPathIn 600ms ease both;
 }
 
 .km-svg path.strong {
@@ -49,11 +48,6 @@
   stroke: #cbd5e1;
   stroke-dasharray: 6 6;
   stroke-width: 1.5;
-}
-
-@keyframes kmPathIn {
-  from { opacity: 0; stroke-dashoffset: 1000; stroke-dasharray: 1000; }
-  to { opacity: 1; stroke-dashoffset: 0; }
 }
 
 /* Grid Board */
@@ -75,37 +69,37 @@
   justify-content: center;
   min-height: 56px;
   padding: 0.6rem 1rem;
-  border-radius: 14px;
+  border-radius: var(--radius-card);
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
+  backdrop-filter: none;
   border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  box-shadow: none;
   color: #334155;
   font-size: 0.94rem;
   font-weight: 600;
   text-align: center;
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color 140ms ease, background-color 140ms ease, border-color 140ms ease;
   cursor: pointer;
 }
 
 .km-node:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+  transform: none;
+  box-shadow: none;
   border-color: #cbd5e1;
   z-index: 10;
 }
 
 /* 408 variant */
 .km-node-408 {
-  background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
+  background: var(--surface-soft);
   color: #0369a1 !important;
   border: 1px solid #bae6fd;
-  box-shadow: 0 4px 10px -2px rgba(14, 165, 233, 0.15);
+  box-shadow: none;
 }
 
 .km-node-408:hover {
-  box-shadow: 0 12px 20px -4px rgba(14, 165, 233, 0.25);
+  box-shadow: none;
   border-color: #7dd3fc;
 }
 
@@ -117,7 +111,7 @@
   border-radius: 6px;
   font-size: 0.7rem;
   margin-left: 0.5rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 /* ----- Grid position: col / row ----- */
@@ -176,7 +170,7 @@
   }
 
   .km-node {
-    border-radius: 16px;
+    border-radius: var(--radius-card);
   }
 
   .knowledge-map {
@@ -197,7 +191,7 @@
   margin-bottom: 0;
   color: #172033;
   font-size: 1.45rem;
-  letter-spacing: 0;
+  letter-spacing: normal;
 }
 
 .subject-section-header .section-title::after {

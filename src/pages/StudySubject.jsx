@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import FadeIn from '../components/FadeIn'
+
 import GitHubLink from '../components/GitHubLink'
 import '../styles/Study.css'
 
@@ -837,26 +837,26 @@ export default function StudySubject({ subject }) {
   const renderContentBlock = (content) => {
     if (content.type === 'exam') {
       return (
-        <FadeIn>
+        <div>
           <div className="text-file-panel">
             <div className="text-file-toolbar">
               <div className="text-file-title">{content.panelTitle}</div>
             </div>
             <pre className="text-file-content">{content.text}</pre>
           </div>
-        </FadeIn>
+        </div>
       )
     }
 
     if (content.type === 'github') {
       return (
-        <FadeIn>
+        <div>
           <GitHubLink
             href={content.url}
             title={content.title || content.sectionTitle}
             meta={content.meta}
           />
-        </FadeIn>
+        </div>
       )
     }
 
@@ -866,12 +866,12 @@ export default function StudySubject({ subject }) {
   const renderContent = () => {
     if (!data.content) {
       return (
-        <FadeIn>
+        <div>
           <div className="placeholder-box">
             <i className="fas fa-tools" />
             <p>内容正在建设中，敬请期待</p>
           </div>
-        </FadeIn>
+        </div>
       )
     }
 

@@ -3,7 +3,7 @@
   margin: 0 auto;
   background: #fff;
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
+  box-shadow: none;
   padding: 2.5rem 2rem;
   text-align: center;
 }
@@ -22,7 +22,7 @@
 }
 .account-name {
   font-size: 1.4rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--dark);
   margin-bottom: 0.3rem;
 }
@@ -68,7 +68,7 @@
 .nickname-save {
   padding: 0.5rem 1.2rem;
   background: var(--primary);
-  color: #fff;
+  color: var(--accent-contrast);
   border: none;
   border-radius: 8px;
   font-size: 0.85rem;
@@ -100,7 +100,7 @@
   left: 50%;
   transform: translateX(-50%);
   background: var(--primary);
-  color: #fff;
+  color: var(--accent-contrast);
   padding: 0.6rem 1.5rem;
   border-radius: 8px;
   font-size: 0.9rem;

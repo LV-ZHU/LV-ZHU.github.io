@@ -441,11 +441,7 @@ export default function Favorites() {
               {renderTypeWord()}
               <div className="type-hint">
                 {activeTag && (
-                  <span style={{
-                    background: 'var(--primary)', color: 'white', padding: '0.15rem 0.5rem',
-                    borderRadius: 999, fontSize: '0.75rem', marginRight: '0.6rem',
-                    verticalAlign: 'middle', boxShadow: 'var(--shadow-sm)',
-                  }}>{activeTag}</span>
+                  <span className="type-category-tag">{activeTag}</span>
                 )}
                 <span style={{ verticalAlign: 'middle' }}>{activeHint}</span>
               </div>
