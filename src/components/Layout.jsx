@@ -55,7 +55,6 @@ export default function Layout() {
       <ScrollToTop />
       <a className="skip-link" href="#main-content">跳到主要内容</a>
       <div className={`app-shell${isHome ? ' home-shell' : ''}`}>
-        <div className="ambient-backdrop" aria-hidden="true" />
         <Navbar />
         <main id="main-content" className="app-content">
           <Suspense fallback={<RouteLoader />}>

@@ -22,9 +22,6 @@
 }
 .app-content { position: relative; z-index: 1; min-height: 60vh; }
 .app-content .route-loader { min-height: calc(100vh - var(--nav-height)); }
-.ambient-backdrop {
-  display: none;
-}
 
 .navbar {
   color: var(--ink);

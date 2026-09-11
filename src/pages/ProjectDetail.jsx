@@ -24,12 +24,12 @@ function CppBigHW() {
             <h1>C++ BigHW</h1>
             <p>C++部分作业项目</p>
           </header>
-          <div className="section-header fade-in">
+          <div className="section-header">
             <h2 className="section-title">程序下载</h2>
             <p className="section-desc">注意要在cmd窗口下运行</p>
           </div>
 
-          <div className="download-list fade-in">
+          <div className="download-list">
             {downloads.map((d) => (
               <a
                 key={d.file}
@@ -48,13 +48,12 @@ function CppBigHW() {
           </div>
 
           <GitHubLink
-            className="fade-in"
             href="https://github.com/LV-ZHU/OOP"
             title="LV-ZHU/OOP"
             meta="代码仓库"
           />
 
-          <p className="download-note fade-in">
+          <p className="download-note">
             提示：下载 EXE 时浏览器或系统可能出现安全提示，属于常见现象。                </p>
         </div>
       </section>
@@ -74,13 +73,12 @@ function FPGA() {
             <h1>FPGA 开发</h1>
             <p>Verilog 编写</p>
           </header>
-          <div className="section-header fade-in">
+          <div className="section-header">
             <h2 className="section-title">数字逻辑实验</h2>
             <p className="section-desc">基于 MP3 和 OLED 的数字系统设计</p>
           </div>
 
           <GitHubLink
-            className="fade-in"
             href="https://github.com/LV-ZHU/OLED_MP3_PLAYER"
             title="LV-ZHU/OLED_MP3_PLAYER"
             meta="代码仓库"
@@ -105,12 +103,12 @@ function GPU() {
             <h1>GPU</h1>
             <p>GPU 相关项目</p>
           </header>
-          <div className="section-header fade-in">
+          <div className="section-header">
             <h2 className="section-title">GPU资料</h2>
             <p className="section-desc">介数中心性</p>
           </div>
 
-          <div className="doc-viewer-wrap fade-in">
+          <div className="doc-viewer-wrap">
             <iframe
               className="doc-viewer"
               src={pdfUrl}
@@ -812,26 +810,6 @@ const projectComponents = {
 export default function ProjectDetail() {
   const { slug } = useParams()
   const ProjectComponent = projectComponents[slug]
-  const wrapperRef = useRef(null)
-
-  useEffect(() => {
-    const el = wrapperRef.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible')
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.01, rootMargin: '0px 0px -8% 0px' }
-    )
-    el.querySelectorAll('.fade-in').forEach((node) => observer.observe(node))
-    return () => observer.disconnect()
-  }, [slug])
-
   if (!ProjectComponent) {
     return (
       <div className="page-wrapper page-direct">
@@ -848,7 +826,7 @@ export default function ProjectDetail() {
   }
 
   return (
-    <div className="page-wrapper page-direct" ref={wrapperRef}>
+    <div className="page-wrapper page-direct">
       <ProjectComponent />
     </div>
   )

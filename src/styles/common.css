@@ -41,7 +41,6 @@ img { max-width: 100%; display: block; }
 ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
 .navbar { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(255, 255, 255, 0.4); backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom: 1px solid rgba(255, 255, 255, 0.2); transition: var(--transition-normal); }
-.navbar.scrolled { box-shadow: none; background: rgba(255, 255, 255, 0.92); border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
 .nav-container { display: flex; justify-content: space-between; align-items: center; height: 75px; gap: 1.2rem; }
 .logo { display: flex; align-items: center; gap: 0.6rem; }
 .logo i { background: none; font-size: 1.8rem; color: var(--accent); }

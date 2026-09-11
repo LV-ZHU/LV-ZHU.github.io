@@ -84,7 +84,21 @@ export default function HomeTerminal() {
   const bodyRef = useRef(null)
   const inputRef = useRef(null)
   const idRef = useRef(0)
+  const pending_timers = useRef(new Set())
   const nextId = () => 'e' + ++idRef.current
+
+  useEffect(() => () => {
+    pending_timers.current.forEach(clearTimeout)
+    pending_timers.current.clear()
+  }, [])
+
+  function schedule_action(action, delay) {
+    const timer = setTimeout(() => {
+      pending_timers.current.delete(timer)
+      action()
+    }, delay)
+    pending_timers.current.add(timer)
+  }
 
   // 重置终端
   function resetTerminal() {
@@ -139,7 +153,7 @@ export default function HomeTerminal() {
     if (cmd === 'play') {
       addOut('▶ now playing: Próxima Estación', { className: 'term-np' })
       setPlaying(true)
-      audioRef.current?.play?.().catch(() => {})
+      audioRef.current?.play?.().catch(() => setPlaying(false))
       return
     }
 
@@ -163,16 +177,16 @@ export default function HomeTerminal() {
 
     if (cmd === 'exit') {
       addOut('logout', { className: 't-dim' })
-      setTimeout(() => resetTerminal(), 1500)
+      schedule_action(() => resetTerminal(), 1500)
       return
     }
 
     if (cmd === 'reboot') {
       // 清屏并显示重启信息
       setEntries([])
-      setTimeout(() => {
+      schedule_action(() => {
         addOut('Rebooting...', { className: 't-dim' })
-        setTimeout(() => resetTerminal(), 2000)
+        schedule_action(() => resetTerminal(), 2000)
       }, 100)
       return
     }
@@ -265,7 +279,7 @@ export default function HomeTerminal() {
     e.stopPropagation()
     const next = !playing
     setPlaying(next)
-    if (next) audioRef.current?.play?.().catch(() => {})
+    if (next) audioRef.current?.play?.().catch(() => setPlaying(false))
     else audioRef.current?.pause?.()
   }
 

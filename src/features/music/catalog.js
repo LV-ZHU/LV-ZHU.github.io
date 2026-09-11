@@ -26,9 +26,11 @@ export function random_pool(enabled_categories) {
 
 export const music_platforms = [
   { id: 'bilibili', label: 'Bilibili', base: 'https://search.bilibili.com/all?keyword=' },
+  { id: 'youtube', label: 'YouTube', base: 'https://www.youtube.com/results?search_query=' },
   { id: 'netease', label: '网易云', base: 'https://music.163.com/#/search/m/?s=', suffix: '&type=1' },
-  { id: 'kugou', label: '酷狗', base: 'https://www.kugou.com/yy/html/search.html#searchType=song&searchKeyWord=' },
   { id: 'qq', label: 'QQ', base: 'https://y.qq.com/n/ryqq/search?w=' },
+  { id: 'kugou', label: '酷狗', base: 'https://www.kugou.com/yy/html/search.html#searchType=song&searchKeyWord=' },
+  { id: 'apple', label: 'Apple Music', base: 'https://music.apple.com/cn/search?term=' },
 ]
 
 export function platform_url(platform, song) {

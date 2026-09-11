@@ -41,10 +41,14 @@
 .music-link { display: inline-flex; align-items: center; min-height: 28px; color: var(--ink-muted); font-size: .79rem; text-decoration: none; text-underline-offset: 3px; }
 .music-link:hover, .music-link:focus-visible { text-decoration: underline; }
 .music-link.service-bilibili { color: #ad365e; }
+.music-link.service-youtube { color: #c52222; }
+.music-link.service-apple { color: #b72e4b; }
 .music-link.service-netease { color: #b42b3b; }
 .music-link.service-kugou { color: #237a5a; }
 .music-link.service-qq { color: #36802a; }
 :root[data-theme='dark'] .music-link.service-bilibili { color: #ef91ae; }
+:root[data-theme='dark'] .music-link.service-youtube { color: #ff9393; }
+:root[data-theme='dark'] .music-link.service-apple { color: #ff91aa; }
 :root[data-theme='dark'] .music-link.service-netease { color: #f08c96; }
 :root[data-theme='dark'] .music-link.service-kugou { color: #80cbae; }
 :root[data-theme='dark'] .music-link.service-qq { color: #9dcc7b; }
