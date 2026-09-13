@@ -2,7 +2,6 @@
   grid-template-columns: 1fr;
   display: grid;
   gap: 0;
-  overflow: hidden;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   background: transparent;
@@ -10,13 +9,12 @@
 .app-content .jotting-item {
   color: inherit;
   text-decoration: none;
-  transition: var(--transition-normal);
-  flex-direction: column;
+  transition: background-color 160ms ease;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: baseline;
   gap: 1rem;
-  padding: 1.4rem .2rem;
+  padding: 1.8rem .65rem;
   border: 0;
   border-bottom: 1px solid var(--line);
   border-radius: 0;
@@ -24,23 +22,27 @@
   box-shadow: none;
 }
 .app-content .jotting-item:last-child { border-bottom: 0; }
-.app-content .jotting-item:hover {
-  border-color: var(--primary); transform: none; background: transparent; box-shadow: none; }
+.app-content .jotting-item:hover,
+.app-content .jotting-item:focus-visible { background: var(--surface-soft); }
 .app-content .jotting-title {
   margin-bottom: 0.4rem;
   color: var(--ink);
-  font-family: var(--font-display);
+  font-family: var(--font-reading);
   font-size: clamp(1.12rem, 2.3vw, 1.48rem);
   font-weight: 600;
   line-height: 1.35;
 }
-.app-content .jotting-item:hover .jotting-title { color: var(--accent); }
+.app-content .jotting-item:hover .jotting-title,
+.app-content .jotting-item:focus-visible .jotting-title { color: var(--accent); }
 .app-content .jotting-meta {
   gap: 1rem;
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
+  font-variant-numeric: tabular-nums;
   font-size: 0.9rem; color: var(--ink-muted); }
 .app-content .jotting-meta i { margin-right: 0.3rem; display: none; }
 @media (max-width: 768px) {
-  .app-content .jotting-item { grid-template-columns: 1fr; }
+  .app-content .jotting-item { grid-template-columns: 1fr; gap: .45rem; padding: 1.4rem .4rem; }
+  .app-content .jotting-meta { gap: .35rem 1rem; font-size: .8rem; }
 }

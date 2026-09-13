@@ -16,15 +16,13 @@ export default function Jottings() {
         <div className="container">
           <div className="jotting-list">
             {articles.map((a) => (
-              <div key={a.slug}>
-                <Link to={`/jottings/${a.slug}`} className="jotting-item">
+                <Link key={a.slug} to={`/jottings/${a.slug}`} className="jotting-item">
                   <div className="jotting-title">{a.title}</div>
                   <div className="jotting-meta">
                     <span>{a.date}</span>
                     <span>{a.tags}</span>
                   </div>
                 </Link>
-              </div>
             ))}
           </div>
         </div>

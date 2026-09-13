@@ -8,10 +8,14 @@ export default function SongItem({ song, highlighted }) {
         <div className="music-artist">{song.artist}</div>
       </div>
       <div className="music-actions">
-        {music_platforms.map(platform => (
+        {[music_platforms.slice(0, 2), music_platforms.slice(2)].map((platform_group, group_index) => (
+          <div className="music-platform-group" key={group_index}>
+          {platform_group.map(platform => (
           <a key={platform.id} className={`music-link service-${platform.id}`} href={platform_url(platform, song)} target="_blank" rel="noopener noreferrer">
             {platform.label}
           </a>
+          ))}
+          </div>
         ))}
         {song.sourceUrl && <a className="music-link" href={song.sourceUrl} target="_blank" rel="noopener noreferrer">相关来源</a>}
       </div>

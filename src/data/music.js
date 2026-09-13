@@ -266,6 +266,8 @@ const songs_foreign = [
     { name: "Hayya Hayya", artist: "Trinidad Cardona", comment: "2022 World Cup", searchKeywords: "" },
     { name: "Rolling in the deep", artist: "Adele 阿黛尔", comment: "超高转音，高中文艺晚会精选", searchKeywords: "" },
     { name: "The New Dawn", artist: "Nicola Sedda", comment: "低沉，但有力量", searchKeywords: "" },
+    { name: "Camouflage", artist: "aespa ", comment: "韩语歌", searchKeywords: "KFC" },
+    
     { name: "The Miracle", artist: "Nicola Sedda", comment: "高音这一块", searchKeywords: "" },
     { name: "打上花火", artist: "米津玄师", comment: "那一天的忧郁~忧郁起来~", searchKeywords: "" },
     { name: "You Raise Me Up", artist: "Westlife", comment: "合唱团曲目", searchKeywords: "" },
@@ -572,6 +574,8 @@ const songs_other = [
     { name: "Asphyxia (Piano Ver.)", artist: "逆时针向、NSZX", comment: "营销号御用", searchKeywords: "" },
     { name: "Trip (Original Mix)", artist: "Axero", comment: "古早级营销号御用BGM", searchKeywords: "" },
     { name: "热爱105°C的你", artist: "阿肆", comment: "super idol的笑容~都没你的甜~", searchKeywords: "" },
+    { name: "Old School", artist: "SORIANO", comment: "B站搞笑视频精选", searchKeywords: "命题 凉学长" },
+   
     { name: "我会自己上厕所", artist: "宝宝巴士", comment: "请输入文本", searchKeywords: "" },
     { name: "Orgia (Martin Hansen Mix)(变速版)", artist: "Ottomix、Yano", comment: "磊哥の小曲", searchKeywords: "" },
     { name: "一笑江湖", artist: "闻人听书", comment: "科目三原速曲，原速还是挺古风的", searchKeywords: "科目三 " },
