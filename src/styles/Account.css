@@ -1,4 +1,4 @@
-.account-avatar {
+:where(.account-view) .account-avatar {
   width: 88px;
   height: 88px;
   border-radius: 50%;
@@ -6,40 +6,40 @@
   border: 3px solid var(--primary);
   margin: 0 auto 1rem;
 }
-.account-avatar-icon {
+:where(.account-view) .account-avatar-icon {
   font-size: 5rem;
   color: var(--gray-light);
   margin-bottom: 1rem;
 }
-.account-name {
+:where(.account-view) .account-name {
   font-size: 1.4rem;
   font-weight: 600;
   color: var(--dark);
   margin-bottom: 0.3rem;
 }
-.account-email {
+:where(.account-view) .account-email {
   font-size: 0.9rem;
   color: var(--gray);
   margin-bottom: 0.5rem;
 }
-.account-provider {
+:where(.account-view) .account-provider {
   font-size: 0.85rem;
   color: var(--gray);
   margin-bottom: 1.5rem;
 }
-.account-section {
+:where(.account-view) .account-section {
   margin-top: 1.5rem;
   text-align: left;
 }
-.nickname-row {
+:where(.account-view) .nickname-row {
   display: flex;
   gap: 0.5rem;
   align-items: center;
 }
-.nickname-input:focus {
+:where(.account-view) .nickname-input:focus {
   border-color: var(--primary);
 }
-.nickname-save {
+:where(.account-view) .nickname-save {
   padding: 0.5rem 1.2rem;
   background: var(--primary);
   color: var(--accent-contrast);
@@ -49,16 +49,16 @@
   cursor: pointer;
   font-weight: 500;
 }
-.nickname-save:disabled {
+:where(.account-view) .nickname-save:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-.nickname-hint {
+:where(.account-view) .nickname-hint {
   font-size: 0.8rem;
   color: var(--gray);
   margin-top: 0.4rem;
 }
-.save-toast {
+:where(.account-view) .save-toast {
   position: fixed;
   bottom: 2rem;
   left: 50%;
@@ -72,8 +72,8 @@
   transition: opacity 0.3s;
   z-index: 9999;
 }
-.save-toast.show { opacity: 1; }
-.app-content .account-not-logged {
+:where(.account-view) .save-toast.show { opacity: 1; }
+.app-content :where(.account-view) .account-not-logged {
   text-align: center;
   max-width: 480px;
   margin: 0 auto;
@@ -85,10 +85,10 @@
   box-shadow: none;
   backdrop-filter: none;
 }
-.app-content .account-not-logged a {
+.app-content :where(.account-view) .account-not-logged a {
   margin-top: 1rem;
   display: inline-block; color: var(--accent); font-weight: 600; }
-.app-content .account-card {
+.app-content :where(.account-view) .account-card {
   text-align: center;
   padding: 2.5rem 2rem;
   border-radius: var(--radius-md);
@@ -99,16 +99,16 @@
   background: var(--surface);
   box-shadow: none;
 }
-.app-content :is(.account-name, .account-section-title) { color: var(--ink); }
-.app-content :is(.account-email, .account-provider, .nickname-hint) { color: var(--ink-muted); }
-.app-content .account-section-title {
+.app-content :where(.account-view) :is(.account-name, .account-section-title) { color: var(--ink); }
+.app-content :where(.account-view) :is(.account-email, .account-provider, .nickname-hint) { color: var(--ink-muted); }
+.app-content :where(.account-view) .account-section-title {
   border-bottom: 1px solid var(--gray-light);
   padding-bottom: 0.4rem;
   margin-bottom: 0.8rem;
   color: var(--dark);
   font-weight: 600;
   font-size: 1rem; border-color: var(--line); }
-.app-content .nickname-input {
+.app-content :where(.account-view) .nickname-input {
   transition: border-color 0.2s;
   outline: none;
   font-size: 0.9rem;
@@ -116,4 +116,11 @@
   border: 1px solid var(--gray-light);
   padding: 0.5rem 0.8rem;
   flex: 1; border-color: var(--line); color: var(--ink); background: var(--surface-soft); }
-.app-content .nickname-input::placeholder { color: var(--ink-muted); }
+.app-content :where(.account-view) .nickname-input::placeholder { color: var(--ink-muted); }
+
+
+
+.app-content :where(.account-view) :is(.account-card, .account-not-logged) { max-width: 480px; padding: 32px 24px; }
+:where(.account-view) .nickname-row { flex-wrap: wrap; }
+:where(.account-view) .nickname-input { min-width: 0; min-height: 44px; }
+:where(.account-view) .nickname-save { min-height: 44px; }

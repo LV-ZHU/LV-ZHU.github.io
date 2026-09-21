@@ -18,7 +18,7 @@ export default function JottingArticle() {
 
   if (!article) {
     return (
-      <div className="page-wrapper page-direct">
+      <div className="page-wrapper article-detail-view page-direct">
         <section className="section">
           <div className="container">
             <Link to="/jottings" className="article-back">← 返回随笔列表</Link>
@@ -41,14 +41,14 @@ export default function JottingArticle() {
   }
 
   return (
-    <div className="page-wrapper page-direct">
+    <div className="page-wrapper article-detail-view page-direct">
       <section className="section">
         <div className="container">
           <Link to="/jottings" className="article-back">← 返回随笔列表</Link>
           <div className="card article-paper">
             <div className="card-content">
               <h1 className="card-title">{article.title}</h1>
-              <div className="card-desc" style={{ whiteSpace: 'pre-line', lineHeight: 1.9 }}>{article.content}</div>
+              <div className="card-desc jotting-article-detail-1" >{article.content}</div>
             </div>
           </div>
         </div>
@@ -71,7 +71,7 @@ function renderLongArticle(text) {
 
 function JiqinFenliu() {
   return (
-    <div className="page-wrapper page-direct">
+    <div className="page-wrapper article-detail-view page-direct">
       <section className="section">
         <div className="container">
           <Link to="/jottings" className="article-back">← 返回随笔列表</Link>
@@ -360,7 +360,7 @@ function InterviewPage() {
   ]
 
   return (
-    <div className="page-wrapper page-direct">
+    <div className="page-wrapper article-detail-view page-direct">
       <section className="section">
         <div className="container">
           <Link to="/jottings" className="article-back">← 返回随笔列表</Link>

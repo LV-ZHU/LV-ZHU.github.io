@@ -1,49 +1,56 @@
-.app-content .project-index {
+.app-content :where(.projects-view) .project-index {
   margin: 0;
   padding: 0;
   border-top: 1px solid var(--line-strong);
   border-bottom: 1px solid var(--line);
   list-style: none;
 }
-.app-content .project-index-item { border-bottom: 1px solid var(--line); }
-.app-content .project-index-item:last-child { border-bottom: 0; }
-.app-content .project-index-item a {
+.app-content :where(.projects-view) .project-index-item { border-bottom: 1px solid var(--line); }
+.app-content :where(.projects-view) .project-index-item:last-child { border-bottom: 0; }
+.app-content :where(.projects-view) .project-index-item a {
   display: grid;
-  grid-template-columns: 3.5rem minmax(0, 1fr) minmax(12rem, .65fr);
+  grid-template-columns: 3.5rem minmax(0, 1fr);
   align-items: baseline;
-  gap: 1rem;
-  padding: clamp(1.3rem, 3vw, 2rem) .2rem;
+  gap: .6rem 1rem;
+  padding: clamp(1.5rem, 3vw, 2.2rem) .75rem;
   color: var(--ink);
+  transition: background-color 160ms ease;
 }
-.app-content .project-index-number {
+.app-content :where(.projects-view) .project-index-item a:hover,
+.app-content :where(.projects-view) .project-index-item a:focus-visible { background: var(--surface-soft); }
+.app-content :where(.projects-view) .project-index-number {
   color: var(--ink-muted);
   font-family: var(--font-mono);
   font-size: .72rem;
+  grid-row: 1 / 3;
+  font-variant-numeric: tabular-nums;
   letter-spacing: normal;
 }
-.app-content .project-index-name {
-  font-family: var(--font-display);
+.app-content :where(.projects-view) .project-index-name {
+  font-family: var(--font-reading);
   font-size: clamp(1.35rem, 2.6vw, 2rem);
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: normal;
 }
-.app-content .project-index-desc {
+.app-content :where(.projects-view) .project-index-desc {
   color: var(--ink-muted);
   font-size: .88rem;
-  text-align: right;
+  grid-column: 2;
+  line-height: 1.65;
+  text-align: left;
 }
-.app-content .project-index-item a:hover .project-index-name,
-.app-content .project-index-item a:focus-visible .project-index-name,
-.app-content .project-index-item a:hover .project-index-number,
-.app-content .project-index-item a:focus-visible .project-index-number { color: var(--accent); }
+.app-content :where(.projects-view) .project-index-item a:hover .project-index-name,
+.app-content :where(.projects-view) .project-index-item a:focus-visible .project-index-name,
+.app-content :where(.projects-view) .project-index-item a:hover .project-index-number,
+.app-content :where(.projects-view) .project-index-item a:focus-visible .project-index-number { color: var(--accent); }
 @media (max-width: 768px) {
-  .app-content .project-index-item a {
+  .app-content :where(.projects-view) .project-index-item a {
     grid-template-columns: 2.5rem minmax(0, 1fr);
     gap: .35rem .7rem;
     padding-block: 1.25rem;
   }
-  .app-content .project-index-desc {
+  .app-content :where(.projects-view) .project-index-desc {
     grid-column: 2;
     text-align: left;
   }

@@ -179,7 +179,7 @@ export default function Study() {
   }, [drawLines])
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper study-view">
       <PageHeader title="Study" />
       <section className="section">
         <div className="container">

@@ -86,3 +86,6 @@
  .music-name { font-size: 1.18rem; }
  .random-result { flex-wrap: wrap; }
 }
+
+.music-content { container-type: inline-size; }
+@container (max-width: 620px) { .music-list { grid-template-columns: 1fr; } }

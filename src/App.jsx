@@ -1,3 +1,4 @@
+import { studySections } from './config/site'
 import { lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
@@ -24,21 +25,7 @@ export default function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/study" element={<Study />} />
-        <Route path="/study/data-structure" element={<StudySubject subject="data-structure" />} />
-        <Route path="/study/computer-organization" element={<StudySubject subject="computer-organization" />} />
-        <Route path="/study/os" element={<StudySubject subject="os" />} />
-        <Route path="/study/computer-network" element={<StudySubject subject="computer-network" />} />
-        <Route path="/study/math-analysis" element={<StudySubject subject="math-analysis" />} />
-        <Route path="/study/linear-algebra" element={<StudySubject subject="linear-algebra" />} />
-        <Route path="/study/discrete-math" element={<StudySubject subject="discrete-math" />} />
-        <Route path="/study/algorithm-design" element={<StudySubject subject="algorithm-design" />} />
-        <Route path="/study/artificial-intelligence" element={<StudySubject subject="artificial-intelligence" />} />
-        <Route path="/study/security-math-foundations" element={<StudySubject subject="security-math-foundations" />} />
-        <Route path="/study/physics" element={<StudySubject subject="physics" />} />
-        <Route path="/study/circuit-theory" element={<StudySubject subject="circuit-theory" />} />
-        <Route path="/study/assembly_language_programming" element={<StudySubject subject="assembly_language_programming" />} />
-        <Route path="/study/database" element={<StudySubject subject="database" />} />
-        <Route path="/study/cryptography" element={<StudySubject subject="cryptography" />} />
+        {studySections.map(({ path }) => <Route key={path} path={path} element={<StudySubject subject={path.split('/').pop()} />} />)}
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/jottings" element={<Jottings />} />

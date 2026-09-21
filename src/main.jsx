@@ -6,7 +6,7 @@ import ThemeProvider from './components/ThemeProvider'
 import './styles/common.css'
 import './styles/tokens.css'
 import './styles/shell.css'
-import './styles/atlas-pages.css'
+import './styles/surfaces.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

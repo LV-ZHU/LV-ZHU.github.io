@@ -3,7 +3,8 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 const ThemeContext = createContext(null)
 
 function getInitialTheme() {
-  const saved = localStorage.getItem('lv-zhu-theme')
+  let saved
+  try { saved = localStorage.getItem('lv-zhu-theme') } catch { /* Use the existing default when storage is unavailable. */ }
   if (saved === 'light' || saved === 'dark') return saved
   return 'dark'
 }
@@ -20,7 +21,7 @@ export default function ThemeProvider({ children }) {
   useEffect(() => {
     document.documentElement.dataset.theme = theme
     document.documentElement.style.colorScheme = theme
-    localStorage.setItem('lv-zhu-theme', theme)
+    try { localStorage.setItem('lv-zhu-theme', theme) } catch { /* Theme remains usable for this session. */ }
   }, [theme])
 
   const value = useMemo(() => ({

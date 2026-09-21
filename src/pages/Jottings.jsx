@@ -10,7 +10,7 @@ const articles = [
 
 export default function Jottings() {
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper jottings-view">
       <PageHeader title="Jottings" />
       <section className="section">
         <div className="container">

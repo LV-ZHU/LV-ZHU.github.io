@@ -1,23 +1,28 @@
+
+:where(.study-view) .folder-item:hover { transform: none; box-shadow: none; border-color: var(--line); background: #ffffff; }
+:where(.study-view) .folder-item i { font-size: 1.8rem; color: var(--primary); flex-shrink: 0; }
+:where(.study-view) .folder-item .folder-info { display: flex; flex-direction: column; }
+
 /* ===== Study Page ===== */
 
 /* Knowledge Map Container */
 
 /* SVG Overlay */
-.km-svg {
+:where(.study-view) .km-svg {
   position: absolute;
   z-index: 1;
   inset: 0;
   pointer-events: none;
 }
 
-.km-svg path.soft {
+:where(.study-view) .km-svg path.soft {
   stroke: #cbd5e1;
   stroke-dasharray: 6 6;
   stroke-width: 1.5;
 }
 
 /* Grid Board */
-.km-board {
+:where(.study-view) .km-board {
   position: relative;
   z-index: 2;
   display: grid;
@@ -31,20 +36,9 @@
 /* Node base */
 
 /* 408 variant */
-.km-node-408 {
-  background: var(--surface-soft);
-  color: #0369a1 !important;
-  border: 1px solid #bae6fd;
-  box-shadow: none;
-}
-
-.km-node-408:hover {
-  box-shadow: none;
-  border-color: #7dd3fc;
-}
 
 /* 408 Badge */
-.km-badge {
+:where(.study-view) .km-badge {
   background: #bae6fd;
   color: #0284c7;
   padding: 0.15rem 0.4rem;
@@ -55,43 +49,43 @@
 }
 
 /* ----- Grid position: col / row ----- */
-.km-n-math      { grid-column: 5 / 7;  grid-row: 1; }
-.km-n-linear    { grid-column: 9 / 11; grid-row: 1; }
-.km-n-physics   { grid-column: 2 / 4;  grid-row: 2; }
-.km-n-discrete  { grid-column: 6 / 8;  grid-row: 2; }
-.km-n-circuit   { grid-column: 11 / 13; grid-row: 2; }
-.km-n-program   { grid-column: 3 / 5;  grid-row: 3; }
-.km-n-ai        { grid-column: 7 / 9;  grid-row: 4; }
-.km-n-sec-math  { grid-column: 10 / 12; grid-row: 3; }
-.km-n-crypto    { grid-column: 8 / 10; grid-row: 3; }
-.km-n-assembly  { grid-column: 12 / 14; grid-row: 3; }
-.km-n-ds        { grid-column: 4 / 6;  grid-row: 4; }
-.km-n-algorithm { grid-column: 5 / 7;  grid-row: 5; }
-.km-n-logic     { grid-column: 10 / 12; grid-row: 4; }
-.km-n-db        { grid-column: 2 / 4;  grid-row: 5; }
-.km-n-co        { grid-column: 11 / 13; grid-row: 5; }
-.km-n-os        { grid-column: 7 / 9;  grid-row: 6; }
-.km-n-net       { grid-column: 11 / 13; grid-row: 6; }
+:where(.study-view) .km-n-math      { grid-column: 5 / 7;  grid-row: 1; }
+:where(.study-view) .km-n-linear    { grid-column: 9 / 11; grid-row: 1; }
+:where(.study-view) .km-n-physics   { grid-column: 2 / 4;  grid-row: 2; }
+:where(.study-view) .km-n-discrete  { grid-column: 6 / 8;  grid-row: 2; }
+:where(.study-view) .km-n-circuit   { grid-column: 11 / 13; grid-row: 2; }
+:where(.study-view) .km-n-program   { grid-column: 3 / 5;  grid-row: 3; }
+:where(.study-view) .km-n-ai        { grid-column: 7 / 9;  grid-row: 4; }
+:where(.study-view) .km-n-sec-math  { grid-column: 10 / 12; grid-row: 3; }
+:where(.study-view) .km-n-crypto    { grid-column: 8 / 10; grid-row: 3; }
+:where(.study-view) .km-n-assembly  { grid-column: 12 / 14; grid-row: 3; }
+:where(.study-view) .km-n-ds        { grid-column: 4 / 6;  grid-row: 4; }
+:where(.study-view) .km-n-algorithm { grid-column: 5 / 7;  grid-row: 5; }
+:where(.study-view) .km-n-logic     { grid-column: 10 / 12; grid-row: 4; }
+:where(.study-view) .km-n-db        { grid-column: 2 / 4;  grid-row: 5; }
+:where(.study-view) .km-n-co        { grid-column: 11 / 13; grid-row: 5; }
+:where(.study-view) .km-n-os        { grid-column: 7 / 9;  grid-row: 6; }
+:where(.study-view) .km-n-net       { grid-column: 11 / 13; grid-row: 6; }
 
 /* ===== Responsive: 1024px ===== */
 
-.subject-content-section + .subject-content-section {
+:where(.study-view) .subject-content-section + .subject-content-section {
   margin-top: 3.5rem;
 }
 
-.section-header.subject-section-header {
+:where(.study-view) .section-header.subject-section-header {
   margin-bottom: 1.35rem;
   text-align: left;
 }
 
-.subject-section-header .section-title {
+:where(.study-view) .subject-section-header .section-title {
   margin-bottom: 0;
   color: #172033;
   font-size: 1.45rem;
   letter-spacing: normal;
 }
 
-.subject-section-header .section-title::after {
+:where(.study-view) .subject-section-header .section-title::after {
   bottom: -8px;
   left: 0;
   width: 28px;
@@ -99,10 +93,9 @@
   transform: none;
 }
 
-.app-content .folder-list {
+.app-content :where(.study-view) .folder-list { display: grid; list-style: none;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0;
-  overflow: hidden;
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -110,33 +103,22 @@
   border-top: 1px solid var(--line);
 }
 
-.app-content .folder-item {
-  min-width: 0;
-  min-height: 7rem;
-  padding: 1.25rem 1.35rem;
-  border: 0;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-}
+.app-content :where(.study-view) .folder-item:nth-child(even) { border-right: 0; }
 
-.app-content .folder-item:nth-child(even) { border-right: 0; }
+.app-content :where(.study-view) .folder-item:nth-last-child(-n + 2) { border-bottom: 1px solid var(--line); }
 
-.app-content .folder-item:nth-last-child(-n + 2) { border-bottom: 1px solid var(--line); }
+.app-content :where(.study-view) .folder-item:hover,
+.app-content :where(.study-view) .folder-item:focus-within { transform: none; border-color: var(--line); background: var(--surface-soft); box-shadow: none; }
 
-.app-content .folder-item:hover { transform: none; border-color: var(--line); background: var(--surface-soft); box-shadow: none; }
+.app-content :where(.study-view) .folder-item a { display: flex; align-items: center; gap: 1rem; width: 100%; font-weight: 600; position: relative; z-index: 1; color: var(--ink); }
 
-.app-content .folder-item a { color: var(--ink); }
+.app-content :where(.study-view) .folder-item a > i { display: none; }
 
-.app-content .folder-item a > i { display: none; }
+.app-content :where(.study-view) .folder-item .folder-name { font-family: var(--font-reading); font-size: 1.12rem; font-weight: 600; line-height: 1.5; }
 
-.app-content .folder-item .folder-name { font-size: 1.03rem; font-weight: 600; }
+.app-content :where(.study-view) .folder-item .folder-desc { font-size: 0.82rem; color: var(--ink-muted); line-height: 1.7; margin-top: .4rem; overflow-wrap: anywhere; }
 
-.app-content .folder-item .folder-desc { color: var(--ink-muted); }
-
-.app-content .knowledge-map {
+.app-content :where(.study-view) .knowledge-map {
   overflow-y: hidden;
   overflow-x: auto;
   border: 1px solid #e2e8f0;
@@ -149,7 +131,7 @@
   box-shadow: none;
 }
 
-.app-content .knowledge-map::before {
+.app-content :where(.study-view) .knowledge-map::before {
   pointer-events: none;
   background-size: 24px 24px;
   inset: 0;
@@ -159,16 +141,16 @@
   opacity: 1;
 }
 
-.app-content .km-svg path {
+.app-content :where(.study-view) .km-svg path {
   stroke-linejoin: round;
   stroke-linecap: round;
   stroke-width: 2;
   fill: none; stroke: var(--line); animation: none; }
 
-.app-content .km-svg path.strong {
+.app-content :where(.study-view) .km-svg path.strong {
   stroke-width: 2.5; stroke: var(--line-strong); }
 
-.app-content .km-node {
+.app-content :where(.study-view) .km-node {
   cursor: pointer;
   text-decoration: none;
   text-align: center;
@@ -189,7 +171,8 @@
   transition: color var(--duration-fast) ease, border-color var(--duration-fast) ease, background var(--duration-fast) ease;
 }
 
-.app-content .km-node:hover {
+.app-content :where(.study-view) .km-node:hover,
+.app-content :where(.study-view) .km-node:focus-visible {
   z-index: 10;
   transform: none;
   border-color: var(--line-strong);
@@ -198,21 +181,21 @@
   box-shadow: none;
 }
 
-.app-content .km-node.km-node-408 {
+.app-content :where(.study-view) .km-node.km-node-408 {
   border-color: color-mix(in srgb, var(--signal) 42%, var(--line));
-  color: var(--signal) !important;
+  color: var(--signal);
   background: var(--signal-soft);
   box-shadow: none;
 }
 
-.app-content .km-node-408 .km-badge { margin-left: .3rem; padding: .15rem .3rem; border-radius: 3px; color: var(--signal); background: var(--surface-raised); }
+.app-content :where(.study-view) .km-node-408 .km-badge { margin-left: .3rem; padding: .15rem .3rem; border-radius: 3px; color: var(--signal); background: var(--surface-raised); }
 
 @media (max-width: 1024px) {
-  .km-svg {
+  :where(.study-view) .km-svg {
     display: none;
   }
 
-  .km-board {
+  :where(.study-view) .km-board {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: auto;
     min-height: auto;
@@ -221,58 +204,74 @@
   }
 
   /* Reset all grid positions to auto-flow */
-  .km-n-math,
-  .km-n-linear,
-  .km-n-physics,
-  .km-n-discrete,
-  .km-n-circuit,
-  .km-n-program,
-  .km-n-ai,
-  .km-n-sec-math,
-  .km-n-crypto,
-  .km-n-assembly,
-  .km-n-ds,
-  .km-n-algorithm,
-  .km-n-logic,
-  .km-n-db,
-  .km-n-co,
-  .km-n-os,
-  .km-n-net {
+  :where(.study-view) .km-n-math,
+:where(.study-view) .km-n-linear,
+:where(.study-view) .km-n-physics,
+:where(.study-view) .km-n-discrete,
+:where(.study-view) .km-n-circuit,
+:where(.study-view) .km-n-program,
+:where(.study-view) .km-n-ai,
+:where(.study-view) .km-n-sec-math,
+:where(.study-view) .km-n-crypto,
+:where(.study-view) .km-n-assembly,
+:where(.study-view) .km-n-ds,
+:where(.study-view) .km-n-algorithm,
+:where(.study-view) .km-n-logic,
+:where(.study-view) .km-n-db,
+:where(.study-view) .km-n-co,
+:where(.study-view) .km-n-os,
+:where(.study-view) .km-n-net {
     grid-column: auto;
     grid-row: auto;
   }
 
-  .km-node {
+  :where(.study-view) .km-node {
     border-radius: var(--radius-card);
   }
 
-  .knowledge-map {
-    padding: 24px 16px;
+  .app-content :where(.study-view) .knowledge-map {
+    padding: 1rem;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
   }
+  .app-content :where(.study-view) .knowledge-map::before { display: none; }
+  .app-content :where(.study-view) .km-node { justify-content: flex-start; text-align: left; padding: .85rem .7rem; min-height: 64px; line-height: 1.5; }
 }
 
 @media (max-width: 768px) {
-  .subject-content-section + .subject-content-section {
+  :where(.study-view) .subject-content-section + .subject-content-section {
     margin-top: 2.75rem;
   }
 
-  .subject-section-header .section-title {
+  :where(.study-view) .subject-section-header .section-title {
     font-size: 1.25rem;
   }
-  .app-content .folder-list { grid-template-columns: 1fr; border-radius: 0; border: 0; border-top: 1px solid var(--line); background: transparent; }
-  .app-content .folder-item,
-  .app-content .folder-item:nth-child(even),
-  .app-content .folder-item:nth-last-child(-n + 2) { border-right: 0; border-bottom: 1px solid var(--line); }
-  .app-content .folder-item:last-child { border-bottom: 0; }
+  .app-content :where(.study-view) .folder-list { grid-template-columns: 1fr; border-radius: 0; border: 0; border-top: 1px solid var(--line); background: transparent; }
+  .app-content :where(.study-view) .folder-item,
+.app-content :where(.study-view) .folder-item:nth-child(even),
+.app-content :where(.study-view) .folder-item:nth-last-child(-n + 2) { border-right: 0; border-bottom: 1px solid var(--line); }
+  .app-content :where(.study-view) .folder-item:last-child { border-bottom: 0; }
 }
 
-.app-content .text-file-content {
+
+.study-subject-detail-1 { margin-top: 1rem; display: inline-block; }
+
+
+.app-content :where(.study-view) .folder-item { backdrop-filter: none; transition: var(--transition-normal); position: relative;
+  min-width: 0;
+  padding: 1.25rem 1.35rem;
+  border: 0;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none; min-height: 112px; }
+.app-content :where(.study-view) .text-file-content {
   color: var(--ink-soft);
   background: var(--surface-soft);
-  font-family: var(--font-body);
   font-size: .94rem;
-  line-height: 1.8;
-  white-space: pre-wrap;
-}
-
-.app-content .text-file-toolbar { border-color: var(--line); color: var(--ink); background: var(--surface); }
+  white-space: pre-wrap; font-family: var(--font-body); line-height: 1.9; padding: 24px; overflow-wrap: anywhere; }
+.app-content :where(.study-view) .text-file-panel { border: 0; }
+.app-content :where(.study-view) .text-file-toolbar { border-color: var(--line); color: var(--ink); background: var(--surface); padding: 16px 0; border-bottom: 1px solid var(--line); }
+@media (max-width: 380px) { :where(.study-view) .km-board { grid-template-columns: 1fr; } }

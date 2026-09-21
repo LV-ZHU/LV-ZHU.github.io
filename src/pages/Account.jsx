@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { db } from '../firebase/init'
 import { useAuth } from '../components/AuthProvider'
 import '../styles/Account.css'
 
 export default function Account() {
+  const toast_timer = useRef(null)
+  useEffect(() => () => clearTimeout(toast_timer.current), [])
   const { user } = useAuth()
   const [nickname, setNickname] = useState('')
   const [savedNickname, setSavedNickname] = useState('')
@@ -13,14 +15,16 @@ export default function Account() {
 
   useEffect(() => {
     if (!user) return
+    let cancelled = false
     const loadNickname = async () => {
       const snap = await getDoc(doc(db, 'users', user.uid))
-      if (snap.exists() && snap.data().nickname) {
+      if (!cancelled && snap.exists() && snap.data().nickname) {
         setNickname(snap.data().nickname)
         setSavedNickname(snap.data().nickname)
       }
     }
-    loadNickname()
+    loadNickname().catch(console.error)
+    return () => { cancelled = true }
   }, [user])
 
   async function handleSave() {
@@ -30,7 +34,8 @@ export default function Account() {
       await setDoc(doc(db, 'users', user.uid), { nickname }, { merge: true })
       setSavedNickname(nickname)
       setToast(true)
-      setTimeout(() => setToast(false), 2000)
+      clearTimeout(toast_timer.current)
+      toast_timer.current = setTimeout(() => setToast(false), 2000)
     } catch (e) {
       alert('保存失败: ' + e.message)
     }
@@ -46,7 +51,7 @@ export default function Account() {
   }
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper account-view">
       <div className="page-header">
         <h1>账号管理</h1>
       </div>

@@ -1,4 +1,4 @@
-.travel-container {
+:where(.travel-view) .travel-container {
   max-width: 1100px;
   margin: 0 auto;
   background: white;
@@ -7,7 +7,7 @@
   padding: 2rem;
 }
 
-.map-tabs {
+:where(.travel-view) .map-tabs {
   display: flex;
   justify-content: flex-start;
   gap: 1.5rem;
@@ -15,7 +15,7 @@
   border-bottom: 1px solid var(--line);
 }
 
-.map-tab {
+:where(.travel-view) .map-tab {
   padding: .65rem .2rem;
   border: none;
   border-radius: 0;
@@ -27,7 +27,7 @@
   border-bottom: 2px solid transparent;
 }
 
-.map-legend {
+:where(.travel-view) .map-legend {
   display: flex;
   gap: 1.5rem;
   margin-bottom: 1.5rem;
@@ -35,7 +35,7 @@
   flex-wrap: wrap;
 }
 
-.legend-item {
+:where(.travel-view) .legend-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -43,28 +43,28 @@
   color: var(--gray);
 }
 
-.map-legend .legend-dot {
+:where(.travel-view) .map-legend .legend-dot {
   width: 14px;
   height: 14px;
   border-radius: 3px;
 }
 
-.map-legend .legend-dot.visited {
+:where(.travel-view) .map-legend .legend-dot.visited {
   background: #557fa3;
   box-shadow: none;
 }
 
-.map-legend .legend-dot.want {
+:where(.travel-view) .map-legend .legend-dot.want {
   background: #629a87;
   box-shadow: none;
 }
 
-.map-legend .legend-dot.unvisited {
+:where(.travel-view) .map-legend .legend-dot.unvisited {
   background: #d1d5db;
   border: 1px solid #94a3b8;
 }
 
-.echarts-wrapper {
+:where(.travel-view) .echarts-wrapper {
   background: var(--surface);
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -74,23 +74,23 @@
   border-color: var(--line);
 }
 
-:root[data-theme='dark'] .echarts-wrapper {
+:root[data-theme='dark'] :where(.travel-view) .echarts-wrapper {
   border-color: var(--line);
   background: var(--surface);
   box-shadow: none;
 }
 
-:root[data-theme='dark'] .loading-overlay {
+:root[data-theme='dark'] :where(.travel-view) .loading-overlay {
   color: var(--accent);
   background: var(--surface);
 }
 
-.map-chart-container {
+:where(.travel-view) .map-chart-container {
   width: 100%;
   height: 650px;
 }
 
-.map-stats-container {
+:where(.travel-view) .map-stats-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
@@ -99,7 +99,7 @@
   border-top: 1px solid var(--gray-light);
 }
 
-.stat-card {
+:where(.travel-view) .stat-card {
   background: transparent;
   border-radius: 0;
   padding: 1rem;
@@ -108,34 +108,34 @@
   transition: color 140ms ease, background-color 140ms ease, border-color 140ms ease;
 }
 
-.stat-card:hover {
+:where(.travel-view) .stat-card:hover {
   transform: none;
   box-shadow: none;
 }
 
-.stat-row {
+:where(.travel-view) .stat-row {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 
-.stat-item {
+:where(.travel-view) .stat-item {
   text-align: center;
 }
 
-.stat-num {
+:where(.travel-view) .stat-num {
   font-size: 1.8rem;
   font-weight: 600;
   color: var(--primary);
 }
 
-.stat-label {
+:where(.travel-view) .stat-label {
   font-size: 0.8rem;
   color: var(--gray);
   margin-top: 0.2rem;
 }
 
-.map-tip {
+:where(.travel-view) .map-tip {
   text-align: center;
   margin-top: 2rem;
   font-size: 0.85rem;
@@ -143,7 +143,7 @@
   line-height: 1.6;
 }
 
-.loading-overlay {
+:where(.travel-view) .loading-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -160,7 +160,7 @@
   font-weight: 600;
 }
 
-.lds-dual-ring {
+:where(.travel-view) .lds-dual-ring {
   display: inline-block;
   width: 24px;
   height: 24px;
@@ -168,7 +168,7 @@
   position: relative;
 }
 
-.lds-dual-ring:after {
+:where(.travel-view) .lds-dual-ring:after {
   content: "";
   display: block;
   position: absolute;
@@ -182,7 +182,7 @@
 }
 
 /* Leaderboard */
-.leaderboard {
+:where(.travel-view) .leaderboard {
   max-width: 1100px;
   margin: 2rem auto;
   background: white;
@@ -191,22 +191,22 @@
   padding: 2rem;
 }
 
-.leaderboard-title {
+:where(.travel-view) .leaderboard-title {
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--dark);
   margin-bottom: 1rem;
 }
 
-.leaderboard-list {
+:where(.travel-view) .leaderboard-list {
   list-style: none;
 }
 
-.leaderboard-item:last-child {
+:where(.travel-view) .leaderboard-item:last-child {
   border-bottom: none;
 }
 
-.leaderboard-rank {
+:where(.travel-view) .leaderboard-rank {
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -219,12 +219,12 @@
   flex-shrink: 0;
 }
 
-.leaderboard-rank.top1 { background: #f59e0b; }
-.leaderboard-rank.top2 { background: #94a3b8; }
-.leaderboard-rank.top3 { background: #cd7f32; }
-.leaderboard-rank.other { background: #e2e8f0; color: #64748b; }
+:where(.travel-view) .leaderboard-rank.top1 { background: #f59e0b; }
+:where(.travel-view) .leaderboard-rank.top2 { background: #94a3b8; }
+:where(.travel-view) .leaderboard-rank.top3 { background: #cd7f32; }
+:where(.travel-view) .leaderboard-rank.other { background: #e2e8f0; color: #64748b; }
 
-.leaderboard-avatar {
+:where(.travel-view) .leaderboard-avatar {
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -232,24 +232,24 @@
   flex-shrink: 0;
 }
 
-.leaderboard-name {
+:where(.travel-view) .leaderboard-name {
   flex: 1;
   font-size: 0.9rem;
   color: var(--dark);
 }
 
-.leaderboard-count {
+:where(.travel-view) .leaderboard-count {
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--primary);
 }
 
-.leaderboard-empty {
+:where(.travel-view) .leaderboard-empty {
   font-size: 0.85rem;
   color: var(--gray);
 }
 
-.leaderboard-delete {
+:where(.travel-view) .leaderboard-delete {
   background: none;
   border: none;
   color: #94a3b8;
@@ -259,18 +259,18 @@
   margin-left: 0.3rem;
 }
 
-.leaderboard-delete:hover {
+:where(.travel-view) .leaderboard-delete:hover {
   color: #ef4444;
 }
 
-.app-content .leaderboard-item {
+.app-content :where(.travel-view) .leaderboard-item {
   border-bottom: 1px solid #f1f5f9;
   padding: 0.6rem 0;
   gap: 0.8rem;
   align-items: center;
   display: flex; border-color: var(--line); }
 
-.app-content .stat-card-title {
+.app-content :where(.travel-view) .stat-card-title {
   gap: 0.5rem;
   justify-content: center;
   align-items: center;
@@ -279,14 +279,14 @@
   font-size: 1.1rem;
   font-weight: 600; color: var(--ink); }
 
-.app-content .map-tab.active {
+.app-content :where(.travel-view) .map-tab.active {
   border-bottom-color: var(--ink);
   box-shadow: none;
   background: transparent; color: var(--ink); }
 
-.app-content .stat-num.want { color: var(--signal); }
+.app-content :where(.travel-view) .stat-num.want { color: var(--signal); }
 
-.app-content .stat-num.unvisited { color: var(--ink-muted); }
+.app-content :where(.travel-view) .stat-num.unvisited { color: var(--ink-muted); }
 
 @keyframes lds-dual-ring {
   0% { transform: rotate(0deg); }
@@ -294,18 +294,18 @@
 }
 
 @media (max-width: 768px) {
-  .travel-container,
-  .leaderboard {
+  :where(.travel-view) .travel-container,
+:where(.travel-view) .leaderboard {
     padding: 1rem;
   }
 
-  .map-tabs {
+  :where(.travel-view) .map-tabs {
     gap: 1.5rem;
     justify-content: flex-start;
     border-bottom: 1px solid var(--line);
   }
 
-  .map-tab {
+  :where(.travel-view) .map-tab {
     flex: 1;
     min-width: 0;
     padding: .65rem .2rem;
@@ -315,11 +315,25 @@
     border-bottom: 2px solid transparent;
   }
 
-  .map-chart-container {
+  :where(.travel-view) .map-chart-container {
     height: clamp(390px, 112vw, 460px);
   }
 
-  .map-stats-container {
+  :where(.travel-view) .map-stats-container {
     grid-template-columns: 1fr;
   }
 }
+
+
+.travel-detail-1 { padding-top: 0; }
+.travel-detail-2 { font-size: 1.4rem; color: #ccc; }
+
+
+.app-content :where(.travel-view) .travel-container { max-width: 1180px; }
+:where(.travel-view) .map-tabs { gap: 24px; margin-bottom: 16px; }
+:where(.travel-view) .map-tab { min-height: 44px; }
+:where(.travel-view) .map-legend { gap: 24px; margin-bottom: 16px; }
+:where(.travel-view) .map-chart-container { height: clamp(360px, 65vh, 650px); }
+:where(.travel-view) .map-stats-container { gap: 16px; margin-top: 16px; padding-top: 16px; }
+:where(.travel-view) .stat-num { font-variant-numeric: tabular-nums; font-weight: 500; }
+:where(.travel-view) .leaderboard { max-width: 780px; margin-inline: auto; }

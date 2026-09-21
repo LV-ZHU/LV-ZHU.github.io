@@ -12,7 +12,7 @@ const projects = [
 
 export default function Projects() {
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper projects-view">
       <PageHeader title="Projects" />
       <section className="section">
         <div className="container">
