@@ -56,7 +56,6 @@ export const letterData = {
   G: {
     title: 'G — 游戏网站',
     icon: 'fas fa-gamepad',
-    subtitle: '各类游戏和娱乐平台',
     links: [
       { title: '速通网站', url: 'https://speedrun.com', icon: 'fas fa-chess', urlDisplay: 'speedrun.com' },
       { title: 'Lichess', url: 'https://lichess.org', icon: 'fas fa-chess', urlDisplay: 'lichess.org' },
@@ -81,7 +80,6 @@ export const letterData = {
   O: {
     title: 'O — 有趣网站',
     icon: 'fas fa-globe',
-    subtitle: '各种有趣的网站',
     links: [
       { title: '拉导的网站推荐合集', url: 'https://lkssite.vip', icon: 'fas fa-bookmark', urlDisplay: 'lkssite.vip' },
       { title: 'enjoy physics，但不是只有physics', url: 'https://enjoyphysics.cn', icon: 'fas fa-atom', urlDisplay: 'enjoyphysics.cn' },
@@ -163,7 +161,7 @@ export const letterData = {
   T: {
     title: 'T — 同济网站',
     icon: 'fas fa-university',
-    subtitle: '同济大学常用网站',
+    subtitle: '同济大学常用网站，部分需要校园网环境',
     links: [
       { title: '学校宣传网', url: 'https://www.tongji.edu.cn', icon: 'fas fa-globe', urlDisplay: 'www.tongji.edu.cn' },
       { title: '教务管理系统', url: 'https://1.tongji.edu.cn', icon: 'fas fa-book', urlDisplay: '1.tongji.edu.cn' },
@@ -171,6 +169,7 @@ export const letterData = {
       { title: '一网通办', url: 'https://all.tongji.edu.cn', icon: 'fas fa-th', urlDisplay: 'all.tongji.edu.cn' },
       { title: '录课系统', url: 'https://look.tongji.edu.cn', icon: 'fas fa-video', urlDisplay: 'look.tongji.edu.cn' },
       { title: '旧录课系统', url: 'https://v.tongji.edu.cn', icon: 'fas fa-film', urlDisplay: 'v.tongji.edu.cn' },
+      { title: 'OS平台', url: 'https://vesper-center.gardilily.com/', icon: 'fas fa-sort', urlDisplay: 'vesper-center.gardilily.com' },
       { title: 'OJ平台', url: 'https://oj.tongji.edu.cn', icon: 'fas fa-code', urlDisplay: 'oj.tongji.edu.cn' },
       { title: 'MIPS架构CPU', url: 'https://mips246.tongji.edu.cn', icon: 'fas fa-microchip', urlDisplay: 'mips246.tongji.edu.cn' },
       { title: '计算机学院', url: 'https://cs.tongji.edu.cn', icon: 'fas fa-tasks', urlDisplay: 'cs.tongji.edu.cn' },
@@ -192,7 +191,6 @@ export const letterData = {
   U: {
     title: 'U — 实用工具',
     icon: 'fas fa-tools',
-    subtitle: '各类实用软件和在线工具',
     links: [
       { title: '在线上传文件', url: 'https://upfile.live', icon: 'fas fa-file-upload', urlDisplay: 'upfile.live' },
       { title: '强力删除工具', url: 'https://geekuninstaller.com', icon: 'fas fa-trash-alt', urlDisplay: 'geekuninstaller.com' },

@@ -25,18 +25,24 @@ export default function Travel() {
             <div className="map-tabs">
               <button
                 className={`map-tab ${currentMap === 'shanghai' ? 'active' : ''}`}
+                aria-pressed={currentMap === 'shanghai'}
+                type="button"
                 onClick={() => switchMap('shanghai')}
               >
                 上海足迹
               </button>
               <button
                 className={`map-tab ${currentMap === 'china' ? 'active' : ''}`}
+                aria-pressed={currentMap === 'china'}
+                type="button"
                 onClick={() => switchMap('china')}
               >
                 中国足迹
               </button>
               <button
                 className={`map-tab ${currentMap === 'world' ? 'active' : ''}`}
+                aria-pressed={currentMap === 'world'}
+                type="button"
                 onClick={() => switchMap('world')}
               >
                 全球足迹
@@ -55,7 +61,7 @@ export default function Travel() {
               </div>
             </div>
 
-            <div className="echarts-wrapper">
+            <div className="echarts-wrapper" aria-busy={loading}>
               {loading && (
                 <div className="loading-overlay">
                   <div className="lds-dual-ring"></div>
@@ -66,7 +72,7 @@ export default function Travel() {
             </div>
 
             <div className="map-tip">
-              提示：点击地图上的区域可以切换"去过/想去/未去"状态，数据将自动保存并同步到排行榜。
+              足迹保存在本机，登录后同步到排行榜。
             </div>
 
             {renderStatsCards()}

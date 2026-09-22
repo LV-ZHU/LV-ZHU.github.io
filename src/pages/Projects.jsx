@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader'
 
 const projects = [
-  { path: '/projects/llm-bot', name: 'LLM聊天机器人', desc: '多平台 LLM 聊天机器人项目' },
+  { path: '/projects/llm-bot', name: 'LLM聊天机器人', desc: '多平台接入' },
   { path: '/projects/cpp-bighw', name: 'C++ BigHW', desc: 'C++ 大作业' },
   { path: '/projects/fpga', name: 'FPGA 开发', desc: '基于 Verilog 语言' },
-  { path: '/projects/gpu', name: 'GPU', desc: 'GPU 相关项目' },
+  { path: '/projects/gpu', name: 'GPU' },
 ]
 
 export default function Projects() {
@@ -22,7 +22,7 @@ export default function Projects() {
                 <Link to={p.path}>
                   <span className="project-index-number">{String(index + 1).padStart(2, '0')}</span>
                   <span className="project-index-name">{p.name}</span>
-                  <span className="project-index-desc">{p.desc}</span>
+                  {p.desc && <span className="project-index-desc">{p.desc}</span>}
                 </Link>
               </li>
             ))}

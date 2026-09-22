@@ -41,8 +41,8 @@ export default function Favorites() {
             </div>
             <p className="edit-tip">
               {isEditMode
-                ? '编辑模式已开启：点击任意字母键，依次输入新标题与新地址（可自行选择填写任意站内相对路径或完整网址）。'
-                : '编辑模式关闭。开启后可点击任意字母键自定义标题和跳转地址。'}
+                ? '点击字母键修改名称和链接。'
+                : '开启编辑模式可修改键位。'}
             </p>
 
             <div className="type-board">
@@ -114,7 +114,7 @@ export default function Favorites() {
               ))}
             </div>
 
-            <p className="tip-line">提示：非游戏模式下按回车键/点击鼠标可直接进入当前选择模块；按字母键跳转到对应字母；按方向键可切换当前选择模块。</p>
+            <p className="tip-line">方向键选择，回车或点击打开；字母键直接跳转。</p>
           </div>
         </div>
       </section>

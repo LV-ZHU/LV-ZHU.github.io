@@ -299,7 +299,7 @@
     min-width: 0;
     text-decoration: none;
     transition: border-color 180ms ease, background-color 180ms ease;
-  min-height: 0;
+  min-height: 64px;
   padding: 1rem .2rem;
   border: 0;
   border-top: 1px solid var(--line-strong);
@@ -308,6 +308,7 @@
   color: var(--ink);
   background: transparent;
   box-shadow: none;
+  align-items: center;
 }
 .app-content .github-link:hover {
     border-color: #aeb8c5; transform: none; color: var(--accent); background: transparent; box-shadow: none; }

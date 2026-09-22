@@ -16,7 +16,7 @@ export default function StudySubject({ subject }) {
           <div className="container">
             <div className="placeholder-box">
               <i className="fas fa-ghost" />
-              <p>内容正在建设中</p>
+              <p>暂未添加资料</p>
               <Link to="/study" className="card-link study-subject-detail-1" >返回学习地图</Link>
             </div>
           </div>
@@ -60,7 +60,7 @@ export default function StudySubject({ subject }) {
         <div>
           <div className="placeholder-box">
             <i className="fas fa-tools" />
-            <p>内容正在建设中，敬请期待</p>
+            <p>暂未添加资料</p>
           </div>
         </div>
       )

@@ -46,9 +46,6 @@ export function CppBigHW() {
             title="LV-ZHU/OOP"
             meta="代码仓库"
           />
-
-          <p className="download-note">
-            提示：下载 EXE 时浏览器或系统可能出现安全提示，属于常见现象。                </p>
         </div>
       </section>
     </div>
@@ -89,7 +86,6 @@ export function GPU() {
         <div className="container">
           <header className="project-heading">
             <h1>GPU</h1>
-            <p>GPU 相关项目</p>
           </header>
           <div className="section-header">
             <h2 className="section-title">GPU资料</h2>

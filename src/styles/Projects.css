@@ -30,8 +30,9 @@
   font-family: var(--font-reading);
   font-size: clamp(1.35rem, 2.6vw, 2rem);
   font-weight: 600;
-  line-height: 1.15;
+  line-height: 1.45;
   letter-spacing: normal;
+  overflow-wrap: anywhere;
 }
 .app-content :where(.projects-view) .project-index-desc {
   color: var(--ink-muted);

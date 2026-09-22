@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { typeDict, questionBank } from '../../data/typeDict'
 import { STORAGE_KEY, defaultConfig, loadConfig, saveConfig, keyboardLayout } from './config.js';
-import { advance_typing } from './typing.js'
+import { advance_typing, is_typing_key } from './typing.js'
 
 export function use_favorites() {
   const navigate = useNavigate()
@@ -206,12 +206,13 @@ export function use_favorites() {
 
       if (isTypeGame) {
         if (showQuiz) return
-        event.preventDefault()
         if (event.key === 'Escape') {
+          event.preventDefault()
           stopTypeGame()
           return
         }
-        if (event.key.length !== 1 || !/[a-zA-Z0-9]/.test(event.key)) return
+        if (!is_typing_key(event.key)) return
+        event.preventDefault()
 
         const typedChar = event.key.toLowerCase()
         const expectedChar = activeWord[typeIndex]?.toLowerCase()

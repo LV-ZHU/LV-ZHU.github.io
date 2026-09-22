@@ -1,3 +1,7 @@
+export function is_typing_key(key) {
+  return /^[a-z0-9]$/i.test(key)
+}
+
 export function advance_typing(word, index, combo, key) {
   if (key.toLowerCase() !== word[index]?.toLowerCase()) {
     return { index, combo: 0, score: 0, complete: false, correct: false }

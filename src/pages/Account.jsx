@@ -5,9 +5,22 @@ import { useAuth } from '../components/AuthProvider'
 import '../styles/Account.css'
 
 export default function Account() {
-  const toast_timer = useRef(null)
-  useEffect(() => () => clearTimeout(toast_timer.current), [])
   const { user } = useAuth()
+  return <AccountForm key={user?.uid || 'signed-out'} user={user} />
+}
+
+function AccountForm({ user }) {
+  const toast_timer = useRef(null)
+  const mounted = useRef(false)
+  const edited = useRef(false)
+  const save_pending = useRef(false)
+  useEffect(() => {
+    mounted.current = true
+    return () => {
+      mounted.current = false
+      clearTimeout(toast_timer.current)
+    }
+  }, [])
   const [nickname, setNickname] = useState('')
   const [savedNickname, setSavedNickname] = useState('')
   const [saving, setSaving] = useState(false)
@@ -19,7 +32,7 @@ export default function Account() {
     const loadNickname = async () => {
       const snap = await getDoc(doc(db, 'users', user.uid))
       if (!cancelled && snap.exists() && snap.data().nickname) {
-        setNickname(snap.data().nickname)
+        if (!edited.current) setNickname(snap.data().nickname)
         setSavedNickname(snap.data().nickname)
       }
     }
@@ -28,18 +41,22 @@ export default function Account() {
   }, [user])
 
   async function handleSave() {
-    if (!user || nickname === savedNickname) return
+    if (!user || save_pending.current || nickname === savedNickname) return
+    save_pending.current = true
     setSaving(true)
     try {
       await setDoc(doc(db, 'users', user.uid), { nickname }, { merge: true })
+      if (!mounted.current) return
       setSavedNickname(nickname)
       setToast(true)
       clearTimeout(toast_timer.current)
       toast_timer.current = setTimeout(() => setToast(false), 2000)
     } catch (e) {
-      alert('保存失败: ' + e.message)
+      if (mounted.current) alert('保存失败: ' + e.message)
+    } finally {
+      save_pending.current = false
+      if (mounted.current) setSaving(false)
     }
-    setSaving(false)
   }
 
   function getProviderIcon() {
@@ -85,7 +102,7 @@ export default function Account() {
                     placeholder="设置你的昵称..."
                     maxLength={20}
                     value={nickname}
-                    onChange={(e) => setNickname(e.target.value)}
+                    onChange={(e) => { edited.current = true; setNickname(e.target.value) }}
                   />
                   <button className="nickname-save" onClick={handleSave} disabled={saving || nickname === savedNickname}>
                     {saving ? '保存中...' : '保存'}

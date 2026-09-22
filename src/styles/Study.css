@@ -190,6 +190,16 @@
 
 .app-content :where(.study-view) .km-node-408 .km-badge { margin-left: .3rem; padding: .15rem .3rem; border-radius: 3px; color: var(--signal); background: var(--surface-raised); }
 
+.app-content :where(.study-view) .folder-item { backdrop-filter: none; transition: var(--transition-normal); position: relative;
+  min-width: 0;
+  padding: 1.25rem 1.35rem;
+  border: 0;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none; min-height: 112px; }
+
 @media (max-width: 1024px) {
   :where(.study-view) .km-svg {
     display: none;
@@ -256,17 +266,6 @@
 
 
 .study-subject-detail-1 { margin-top: 1rem; display: inline-block; }
-
-
-.app-content :where(.study-view) .folder-item { backdrop-filter: none; transition: var(--transition-normal); position: relative;
-  min-width: 0;
-  padding: 1.25rem 1.35rem;
-  border: 0;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none; min-height: 112px; }
 .app-content :where(.study-view) .text-file-content {
   color: var(--ink-soft);
   background: var(--surface-soft);

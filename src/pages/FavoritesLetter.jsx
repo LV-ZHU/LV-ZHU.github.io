@@ -94,14 +94,12 @@ export default function FavoritesLetter() {
       <div className="page-wrapper favorites-view page-direct">
         <div className="page-header">
           <h1><i className="fas fa-keyboard" /> {upperLetter} 键 | 待配置</h1>
-          <p>当前分区还未配置内容，可在 Favorites 键盘页中开启编辑模式快速修改此键说明和跳转。</p>
         </div>
         <section className="section">
           <div className="container">
             <div className="placeholder-box">
               <i className="fas fa-folder-open" />
-              <h3>此分区暂未添加站点</h3>
-              <p className="favorites-letter-detail-2" >请返回键盘主页后点击 <strong>{upperLetter}</strong> 键进行配置，或直接编辑当前页面内容。</p>
+              <h3>暂未添加站点</h3>
               <p className="favorites-letter-detail-3" ><Link className="card-link" to="/favorites"><i className="fas fa-arrow-left" /> 返回 Favorites 键盘页</Link></p>
             </div>
           </div>

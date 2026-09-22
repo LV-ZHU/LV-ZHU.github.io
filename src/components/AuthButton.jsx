@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useAuth } from './AuthProvider'
 
 export default function AuthButton() {
-  const { user, loading, signIn, signOut } = useAuth()
+  const { user, loading, error, signIn, signOut } = useAuth()
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
 
@@ -48,6 +48,10 @@ export default function AuthButton() {
 
   return (
     <div className="auth-dropdown" ref={ref}>
+      {error && <div className="auth-error" role="alert">
+        {error}
+        {window.location.hostname === '127.0.0.1' && <a href={window.location.href.replace('://127.0.0.1', '://localhost')}>使用 localhost 打开</a>}
+      </div>}
       <button type="button" className="auth-login-btn" aria-haspopup="menu" aria-expanded={open} onClick={(e) => { e.stopPropagation(); setOpen(!open) }}>
         <i className="fas fa-right-to-bracket" aria-hidden="true" /><span>登录</span>
       </button>

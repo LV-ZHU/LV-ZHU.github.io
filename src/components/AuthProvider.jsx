@@ -11,24 +11,40 @@ export function useAuth() {
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
       setUser(u)
       setLoading(false)
+      setError('')
+    }, (error) => {
+      console.error('Firebase auth state:', error)
+      setLoading(false)
+      setError('无法读取登录状态，请刷新后重试。')
     })
     return unsub
   }, [])
 
   async function signIn(providerName) {
+    setError('')
+    if (window.location.hostname === '127.0.0.1') {
+      setError('当前本地地址未获 Firebase 授权，请使用 localhost 打开网站后登录。')
+      return
+    }
     const provider = providerName === 'google'
       ? new GoogleAuthProvider()
       : new GithubAuthProvider()
     try {
       await signInWithPopup(auth, provider)
     } catch (e) {
-      if (e.code !== 'auth/cancelled-popup-request') {
-        alert('登录失败: ' + e.message)
+      if (!['auth/cancelled-popup-request', 'auth/popup-closed-by-user'].includes(e.code)) {
+        const messages = {
+          'auth/unauthorized-domain': '当前域名未获 Firebase 授权，无法登录。',
+          'auth/popup-blocked': '登录窗口被浏览器拦截，请允许本站弹出窗口后重试。',
+          'auth/network-request-failed': '无法连接登录服务，请检查网络后重试。',
+        }
+        setError(messages[e.code] || '登录失败: ' + e.message)
       }
     }
   }
@@ -38,7 +54,7 @@ export default function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signOut: signOutUser }}>
+    <AuthContext.Provider value={{ user, loading, error, signIn, signOut: signOutUser }}>
       {children}
     </AuthContext.Provider>
   )
