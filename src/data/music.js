@@ -1,6 +1,7 @@
 const songs_mandarin = [
+    { name: "一百万个可能", artist: "胡小斐", comment: "在一瞬间~有一百万种可能", searchKeywords: "绿群" },
+    { name: "北京欢迎你", artist: "华语群星", comment: "奥运会主题曲，百位歌手云集，一个民族向世界张开双臂的集体记忆", searchKeywords: "2008", contributors: ["陈天佳", "刘欢", "那英", "韩红", "孙楠", "成龙", "王力宏", "蔡依林", "谢霆锋", "周华健", "孙燕姿", "汪峰", "谭晶", "李宇春", "周笔畅", "张靓颖", "羽泉", "黄晓明", "陈坤", "林俊杰", "容祖儿", "任贤齐", "陈奕迅", "莫文蔚", "梁咏琪", "韦唯", "韩庚"] },
     { name: "再见", artist: "张震岳", comment: "轻装策马青云路，人生从此驭长风。希君生羽翼，一化北冥鱼。毕业季金曲，FM89.9一个时代的落幕", searchKeywords: "高考 听力 电台 2024" },
-    { name: "北京欢迎你", artist: "华语群星", comment: "奥运会主题曲，歌手云集，这首歌的录制背后有很多故事", searchKeywords: "2008", contributors: ["陈天佳", "刘欢", "那英", "韩红", "孙楠", "成龙", "王力宏", "蔡依林", "谢霆锋", "周华健", "孙燕姿", "汪峰", "谭晶", "李宇春", "周笔畅", "张靓颖", "羽泉", "黄晓明", "陈坤", "林俊杰", "容祖儿", "任贤齐", "陈奕迅", "莫文蔚", "梁咏琪", "韦唯", "韩庚"] },
     { name: "水手", artist: "郑智化", comment: "属于70、80后的回忆", searchKeywords: "擦干泪 不要怕" },
     { name: "黄昏", artist: "周传雄", comment: "依然记得从你口中说出再见坚决如铁~传奇金曲，调子挺高的", searchKeywords: "过完整个夏天 黄昏的地平线 爱情进入永夜" },
     { name: "江南", artist: "林俊杰", comment: "离愁能有多痛~痛有多浓", searchKeywords: "圈圈圆圆圈圈 相信爱一天抵过永远 风到这里就是黏 不懂爱恨情愁煎熬" },
@@ -221,7 +222,7 @@ const songs_mandarin = [
     { name: "难忘今宵", artist: "李谷一", comment: "春晚指定ED", searchKeywords: "" },
     { name: "Ring Ring Ring", artist: "不是花火呀", comment: "出租车司机特供", searchKeywords: "" },
     { name: "少年", artist: "梦然", comment: "仿佛穿越回了疫情初代目的时期", searchKeywords: "" },
-    { name: "一路生花", artist: "温奕心", comment: "疫情歌曲，上岸の小曲", searchKeywords: "" },
+    { name: "一路生花", artist: "温奕心", comment: "疫情歌曲，上岸の小曲", searchKeywords: "绿群 周深 张韶涵" },
     { name: "生僻字", artist: "陈柯宇", comment: "初中记忆，鳞次栉比，想起芥川龙之介了", searchKeywords: "" },
     { name: "生僻字 (化学版)", artist: "", comment: "化学图谱概览，拍摄于中国科学院上海有机化学研究所", searchKeywords: "" },
     { name: "最美的期待", artist: "周笔畅", comment: "初中听的，你就是我最美的期待~", searchKeywords: "" },
@@ -241,6 +242,7 @@ const songs_mandarin = [
     { name: "当你孤单你会想起谁", artist: "郭美美", comment: "你的快乐伤悲~只有我能体会~让我再陪你走一回~", searchKeywords: "" },
     { name: "晚安", artist: "颜人中", comment: "几人份的畅谈~道三两句晚安，希食东精选", searchKeywords: "" },
     { name: "失隅", artist: "光天笠", comment: "oh~baby~我的心~我的心~我的心，希食东重新开业当天放的热乎新歌", searchKeywords: "" },
+    { name: "一程山路", artist: "毛不易", comment: "白云是否也听过你的诉说~笑着你~笑着我", searchKeywords: "绿群" },
 ]
 
 const songs_cantonese = [
