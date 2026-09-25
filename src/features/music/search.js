@@ -26,6 +26,7 @@ const context_alias_rules = [
     { triggers: ["初中"], aliases: ["南洋","龙华中路200号"] },
     { triggers: ["高中"], aliases: ["位育","sujia","tx","wyq"] },
     { triggers: ["大学"], aliases: ["同济","Tongji"] },
+    { triggers: ["绿群"], aliases: ["绿裙","保研","计算机","CS","研究生","推免","夏令营","预推免"] },
 ]
 
 function flatten_search_value(value) {
