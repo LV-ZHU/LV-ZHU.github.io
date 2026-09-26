@@ -56,6 +56,68 @@ const QUESTS = {
   },
 }
 
+
+const LESSONS = {
+  'word-search': {
+    title: '回溯 · 5 分钟',
+    model: '回溯 = 在“选择树”上 DFS。递归返回时，必须把共享状态恢复到进入这一层之前。',
+    code: `for (auto x : choices) {
+  if (!valid(x)) continue;
+  choose(x);
+  dfs();
+  undo(x);
+}`,
+    question: '哪一行保证下一条兄弟分支看到的是同一个父状态？',
+    options: ['choose(x)', 'dfs()', 'undo(x)'],
+    correct: 2,
+    answer: 'undo(x)。递归返回只恢复调用栈，不会自动恢复你改过的数组、棋盘、visited 或 path。',
+    sources: [
+      ['labuladong · 回溯框架', 'https://labuladong.online/zh/algo/essential-technique/algorithm-summary/'],
+      ['OI Wiki · 回溯法', 'https://oi-wiki.org/search/backtracking/'],
+      ['递归过程可视化', 'https://labuladong.online/zh/algo/intro/visualize/'],
+    ],
+  },
+  'kmp': {
+    title: 'KMP · 5 分钟',
+    model: 'KMP 的关键不是“跳”，而是复用已经匹配好的前缀信息：失配时把 j 退到仍可能成立的最长前后缀。',
+    code: `while (j > 0 && s[i] != p[j])
+  j = pi[j - 1];
+if (s[i] == p[j]) ++j;`,
+    question: '失配后为什么不是直接把 j 清零？',
+    options: ['为了少写代码', '因为已有匹配后缀可能同时是模式串前缀', '因为 pi 一定递增'],
+    correct: 1,
+    answer: '已经匹配的后缀里，可能有一段仍等于模式串前缀；pi 正是在保存这段可复用信息。',
+    sources: [['OI Wiki · KMP', 'https://oi-wiki.org/string/kmp/']],
+  },
+  'lis': {
+    title: 'DP 状态 · 5 分钟',
+    model: 'DP 先给数组元素一个精确定义，再谈转移。LIS 最经典的定义是：dp[i] = 以 a[i] 结尾的 LIS 长度。',
+    code: `dp[i] = 1;
+for (int j = 0; j < i; ++j)
+  if (a[j] < a[i])
+    dp[i] = max(dp[i], dp[j] + 1);`,
+    question: '为什么最后答案通常是 max(dp[i])，而不是 dp[n-1]？',
+    options: ['最长序列不一定以最后一个元素结尾', '为了处理空数组', '只是模板习惯'],
+    correct: 0,
+    answer: '因为状态定义是“以 i 结尾”，全局最优可能在任意 i 结束。',
+    sources: [['labuladong · 算法框架', 'https://labuladong.online/zh/algo/essential-technique/algorithm-summary/']],
+  },
+  'cpp-baseline': {
+    title: '代码写法 · 5 分钟',
+    model: '机试里的“漂亮”首先是可预测：变量含义单一、状态变化局部、边界条件集中。',
+    code: `while (l < r) {
+  int mid = l + (r - l) / 2;
+  if (check(mid)) r = mid;
+  else l = mid + 1;
+}`,
+    question: '这段写法最值得欣赏的地方是什么？',
+    options: ['行数短', '区间不变量清楚，更新后仍保持候选答案在 [l,r]', '用了 mid'],
+    correct: 1,
+    answer: '不是短，而是不变量稳定。机试里真正省 debug 时间的是“每一步都知道什么仍然成立”。',
+    sources: [],
+  },
+}
+
 function initialState() {
   return {
     version: 1,
@@ -100,6 +162,7 @@ let cloudEnabled = false
 let syncing = false
 let timerHandle = null
 let cloudTimer = null
+let practiceVisible = Boolean(state.activeSession)
 
 const el = (id) => document.getElementById(id)
 const modal = el('modal')
@@ -156,6 +219,9 @@ function renderToday() {
   }
 
   const active = Boolean(state.activeSession)
+  if (active) practiceVisible = true
+  el('entryChoice').classList.toggle('hidden', practiceVisible || active)
+  el('practicePanel').classList.toggle('hidden', !practiceVisible || active)
   el('idlePanel').classList.toggle('hidden', active)
   el('sessionPanel').classList.toggle('hidden', !active)
   document.querySelectorAll('.duration-select button').forEach((button) => {
@@ -195,6 +261,7 @@ function renderRevivals() {
   document.querySelectorAll('.revival-item').forEach((button) => {
     button.addEventListener('click', () => {
       patch((next) => { next.activeQuestId = button.dataset.id })
+      practiceVisible = false
       switchView('today')
     })
   })
@@ -351,6 +418,74 @@ function currentPrompt(reason = state.lastStuckReason) {
     '',
     '不要直接给完整答案。先判断卡点属于知识/建模/API/实现/debug/边界中的哪一类，只给一级最小提示，让我继续自己写。',
   ].filter(Boolean).join('\n')
+}
+
+
+function showPractice() {
+  practiceVisible = true
+  renderToday()
+}
+
+function showWarmup() {
+  const q = quest()
+  const lesson = LESSONS[q.id]
+  if (!lesson) {
+    showPractice()
+    return
+  }
+
+  openModal(`
+    <div class="lesson">
+      <div>
+        <div class="lesson-label">5 MIN / ${escapeHtml(q.module)}</div>
+        <h3>${escapeHtml(lesson.title)}</h3>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-label">MODEL</div>
+        <div class="lesson-model">${escapeHtml(lesson.model)}</div>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-label">CODE</div>
+        <pre class="code-sample"><code>${escapeHtml(lesson.code)}</code></pre>
+      </div>
+
+      <div class="lesson-block">
+        <div class="lesson-label">先猜</div>
+        <div class="lesson-question">${escapeHtml(lesson.question)}</div>
+        <div class="quiz-options">
+          ${lesson.options.map((opt, i) => `<button class="lesson-option" data-i="${i}" type="button">${escapeHtml(opt)}</button>`).join('')}
+        </div>
+        <div id="lessonAnswer" class="lesson-answer hidden"></div>
+      </div>
+
+      ${lesson.sources.length ? `
+      <div class="lesson-block">
+        <div class="lesson-label">想多看一点，只选一个</div>
+        <div class="source-links">
+          ${lesson.sources.map(([name, url]) => `<a href="${url}" target="_blank" rel="noreferrer">${escapeHtml(name)}</a>`).join('')}
+        </div>
+      </div>` : ''}
+
+      <button id="lessonGo" class="lesson-go" type="button">关掉，去写</button>
+    </div>
+  `)
+
+  document.querySelectorAll('.lesson-option').forEach((button) => {
+    button.addEventListener('click', () => {
+      const i = Number(button.dataset.i)
+      document.querySelectorAll('.lesson-option').forEach((b) => b.classList.remove('correct', 'wrong'))
+      button.classList.add(i === lesson.correct ? 'correct' : 'wrong')
+      const answer = el('lessonAnswer')
+      answer.textContent = lesson.answer
+      answer.classList.remove('hidden')
+    })
+  })
+  el('lessonGo').addEventListener('click', () => {
+    closeModal()
+    showPractice()
+  })
 }
 
 function showStuck() {
@@ -569,6 +704,8 @@ document.querySelectorAll('.duration-select button').forEach((b) => b.addEventLi
   selectedMinutes = Number(b.dataset.minutes)
   renderToday()
 }))
+el('warmupButton').addEventListener('click', showWarmup)
+el('skipWarmupButton').addEventListener('click', showPractice)
 el('startButton').addEventListener('click', startSession)
 el('acButton').addEventListener('click', showAc)
 el('stuckButton').addEventListener('click', showStuck)
