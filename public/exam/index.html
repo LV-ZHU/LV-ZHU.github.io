@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="description" content="推免机试 AI-off 陪练台：下一关、复活、能力地图与跨设备训练记录。" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./style.css" />
+  <title>机试陪练 · LV-ZHU</title>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">AI-OFF TRAINING</div>
+        <h1>机试陪练</h1>
+      </div>
+      <button id="syncButton" class="sync-pill" type="button" aria-label="同步状态">
+        <span id="syncDot" class="sync-dot"></span>
+        <span id="syncText">本机</span>
+      </button>
+    </header>
+
+    <main>
+      <section id="viewToday" class="view active" data-view="today">
+        <div class="return-note">不追连续打卡。回来，就从这里继续。</div>
+
+        <article class="quest-card">
+          <div class="quest-meta">
+            <span id="questModule" class="chip">搜索 / 回溯</span>
+            <span id="questState" class="muted">等待第二战</span>
+          </div>
+          <h2 id="questTitle">单词搜索 · 冷启动复写</h2>
+          <p id="questWhy" class="quest-why"></p>
+          <div class="goal-box">
+            <div class="goal-label">今天只证明一件事</div>
+            <div id="questGoal" class="goal-text"></div>
+          </div>
+          <div id="lastEvidence" class="last-evidence"></div>
+        </article>
+
+        <section id="idlePanel" class="start-panel">
+          <div class="section-title-row">
+            <h3>现在开始</h3>
+            <span>按状态选，不按内疚选</span>
+          </div>
+          <div class="mode-grid">
+            <button class="mode-card" data-minutes="12" type="button">
+              <b>12 分钟</b>
+              <span>点火</span>
+              <small>今天很累也能做</small>
+            </button>
+            <button class="mode-card primary" data-minutes="30" type="button">
+              <b>30 分钟</b>
+              <span>主任务</span>
+              <small>默认选择</small>
+            </button>
+            <button class="mode-card" data-minutes="90" type="button">
+              <b>90 分钟</b>
+              <span>深练</span>
+              <small>状态很好再开</small>
+            </button>
+          </div>
+        </section>
+
+        <section id="sessionPanel" class="session-panel hidden">
+          <div class="session-badge">AI-OFF</div>
+          <div id="timer" class="timer">30:00</div>
+          <p id="sessionInstruction">从空白开始。今天不要求一次成功。</p>
+          <div class="session-actions">
+            <button id="acButton" class="big-action success" type="button">我 AC 了</button>
+            <button id="stuckButton" class="big-action" type="button">我卡住了</button>
+            <button id="stopButton" class="big-action quiet" type="button">今天到这里</button>
+          </div>
+        </section>
+
+        <section class="tiny-card">
+          <div>
+            <strong>需要 GPT？</strong>
+            <p>卡住后我会生成一段“只给一级提示”的陪练上下文。</p>
+          </div>
+          <button id="copyStateButton" class="text-button" type="button">复制当前状态</button>
+        </section>
+      </section>
+
+      <section id="viewSkills" class="view" data-view="skills">
+        <div class="page-heading">
+          <div class="eyebrow">SKILL MAP</div>
+          <h2>能力地图</h2>
+          <p>不是刷题数量，而是哪些能力已经可以独立调用。</p>
+        </div>
+        <div id="skillList" class="skill-list"></div>
+      </section>
+
+      <section id="viewRevive" class="view" data-view="revive">
+        <div class="page-heading">
+          <div class="eyebrow">REVIVAL QUEUE</div>
+          <h2>复活清单</h2>
+          <p>失败不会被清零。它只会变成下一次更具体的挑战。</p>
+        </div>
+        <div id="revivalList" class="revival-list"></div>
+      </section>
+
+      <section id="viewHistory" class="view" data-view="history">
+        <div class="page-heading">
+          <div class="eyebrow">HISTORY</div>
+          <h2>训练记录</h2>
+          <p>这里只保留证据，不制造“断签”焦虑。</p>
+        </div>
+        <div id="historyStats" class="stats-row"></div>
+        <div id="historyList" class="history-list"></div>
+        <details class="settings-card">
+          <summary>同步与数据</summary>
+          <div id="authArea" class="auth-area"></div>
+          <div class="settings-actions">
+            <button id="exportButton" class="secondary-button" type="button">导出 JSON</button>
+            <label class="secondary-button file-label">
+              导入 JSON
+              <input id="importInput" type="file" accept="application/json" />
+            </label>
+            <a class="secondary-button" href="https://docs.google.com/spreadsheets/d/1mrMg8ssLxNIfdUc1VK-cd4GHasGcM64vYdlS2cAVndI/edit" target="_blank" rel="noreferrer">后台台账</a>
+          </div>
+          <p class="settings-hint">登录后尝试使用 Firebase 云同步；若权限未配置，会自动保留在本机，不影响训练。</p>
+        </details>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="训练台导航">
+      <button class="nav-item active" data-target="today" type="button"><span>▶</span><b>今天</b></button>
+      <button class="nav-item" data-target="skills" type="button"><span>◇</span><b>能力</b></button>
+      <button class="nav-item" data-target="revive" type="button"><span>↻</span><b>复活</b></button>
+      <button class="nav-item" data-target="history" type="button"><span>≡</span><b>记录</b></button>
+    </nav>
+  </div>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-sheet">
+      <button id="modalClose" class="modal-close" aria-label="关闭" type="button">×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
