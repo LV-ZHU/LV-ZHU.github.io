@@ -1,0 +1,13 @@
+{
+  "name": "机试陪练 · LV-ZHU",
+  "short_name": "机试陪练",
+  "start_url": "/exam/",
+  "scope": "/exam/",
+  "display": "standalone",
+  "background_color": "#07101f",
+  "theme_color": "#0b1020",
+  "description": "AI-off 推免机试陪练：下一关、复活、能力地图与训练记录。",
+  "icons": [
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
