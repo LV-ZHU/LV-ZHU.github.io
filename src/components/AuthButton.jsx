@@ -56,11 +56,8 @@ export default function AuthButton() {
         <i className="fas fa-right-to-bracket" aria-hidden="true" /><span>登录</span>
       </button>
       <div className={`auth-dropdown-menu${open ? ' active' : ''}`} role="menu" aria-hidden={!open}>
-        <button type="button" role="menuitem" className="auth-provider-btn" onClick={() => { signIn('google'); setOpen(false) }}>
+        <button type="button" role="menuitem" className="auth-provider-btn" onClick={() => { signIn(); setOpen(false) }}>
           <i className="fab fa-google" aria-hidden="true" /><span>Google 登录</span>
-        </button>
-        <button type="button" role="menuitem" className="auth-provider-btn" onClick={() => { signIn('github'); setOpen(false) }}>
-          <i className="fab fa-github" aria-hidden="true" /><span>GitHub 登录</span>
         </button>
       </div>
     </div>

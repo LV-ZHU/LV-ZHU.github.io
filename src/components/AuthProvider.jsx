@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { onAuthStateChanged, signInWithPopup, signOut, GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth'
+import { onAuthStateChanged, signInWithPopup, signOut, GoogleAuthProvider } from 'firebase/auth'
 import { auth } from '../firebase/init'
 
 const AuthContext = createContext(null)
@@ -26,15 +26,13 @@ export default function AuthProvider({ children }) {
     return unsub
   }, [])
 
-  async function signIn(providerName) {
+  async function signIn() {
     setError('')
     if (window.location.hostname === '127.0.0.1') {
       setError('当前本地地址未获 Firebase 授权，请使用 localhost 打开网站后登录。')
       return
     }
-    const provider = providerName === 'google'
-      ? new GoogleAuthProvider()
-      : new GithubAuthProvider()
+    const provider = new GoogleAuthProvider()
     try {
       await signInWithPopup(auth, provider)
     } catch (e) {

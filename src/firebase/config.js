@@ -1,8 +1,8 @@
 export const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyB2_9eQioXfA9KUQCup4lifzeVXU-L9U34",
-  authDomain: "my-personal-blog-f825c.firebaseapp.com",
-  projectId: "my-personal-blog-f825c",
-  storageBucket: "my-personal-blog-f825c.firebasestorage.app",
-  messagingSenderId: "1029767566489",
-  appId: "1:1029767566489:web:eb442d8c2506abfcab5408"
+  apiKey: "AIzaSyCxNsQKbjZqcnVfnH5voFzVIHXKzYLE9sA",
+  authDomain: "coding-ed4a5.firebaseapp.com",
+  projectId: "coding-ed4a5",
+  storageBucket: "coding-ed4a5.firebasestorage.app",
+  messagingSenderId: "710377584040",
+  appId: "1:710377584040:web:4ce1ed8052146af0b6199d"
 }
