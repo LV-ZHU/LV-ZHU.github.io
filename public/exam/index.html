@@ -46,13 +46,17 @@
             <b id="questFocus">递归返回后恢复现场</b>
           </div>
 
-          <ol class="howto">
-            <li><b>打开题目</b><span>只看题面，不看题解。</span></li>
-            <li><b>关 AI 写代码</b><span>从空白开始，编译和本地调试都可以。</span></li>
-            <li><b>提交后回这里</b><span>按「AC」或「卡住」，我再接管复盘。</span></li>
-          </ol>
+          <div id="entryChoice" class="entry-choice">
+            <button id="warmupButton" class="warmup-button" type="button">
+              <b>先看 5 分钟</b>
+              <span>理论 + 一段漂亮写法</span>
+            </button>
+            <button id="skipWarmupButton" class="skip-button" type="button">直接做</button>
+          </div>
 
-          <a id="openProblemButton" class="primary-action" href="#" target="_blank" rel="noreferrer">打开题目</a>
+          <div id="practicePanel" class="practice-panel hidden">
+            <div class="practice-rule">只看题面 → AI-off → 提交后回来记结果</div>
+            <a id="openProblemButton" class="primary-action" href="#" target="_blank" rel="noreferrer">打开题目</a>
 
           <div id="idlePanel" class="start-row">
             <div class="duration-select" role="group" aria-label="训练时长">
@@ -61,6 +65,8 @@
               <button data-minutes="90" type="button">90m</button>
             </div>
             <button id="startButton" class="start-button" type="button">开始训练</button>
+          </div>
+
           </div>
 
           <div id="sessionPanel" class="session hidden">
