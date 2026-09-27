@@ -41,7 +41,7 @@
     <header class="page-header">
       <p class="page-kicker">EXAM PRACTICE</p>
       <h1>推免机试训练</h1>
-      <p>看一点，写一题，只记录能说明问题的结果。</p>
+      <p>每天完成一轮：热身、独立作答、记录结果。</p>
     </header>
 
     <nav class="view-tabs" aria-label="训练台导航">
@@ -60,7 +60,11 @@
         <button id="syncBannerButton" type="button">登录同步</button>
       </section>
 
-      <article class="task-sheet">
+      <article id="dailyPlan" class="task-sheet">
+        <div class="today-label">
+          <span>今日训练</span>
+          <span id="todayDate"></span>
+        </div>
         <header class="task-head">
           <div>
             <p class="task-kicker">本轮题目</p>
@@ -73,52 +77,53 @@
         </header>
 
         <div class="focus-line">
-          <span>这轮只练</span>
+          <span>本轮目标</span>
           <b id="questFocus">递归返回后恢复现场</b>
         </div>
 
-        <div id="entryChoice" class="entry-choice">
-          <button id="warmupButton" class="choice-button primary-choice" type="button">
-            <span>先看 5 分钟</span>
-            <small>一个模型、一段写法、一个小问题</small>
-          </button>
-          <button id="skipWarmupButton" class="choice-button" type="button">
-            <span>直接做</span>
-            <small>现在就打开题面</small>
-          </button>
-        </div>
-
-        <div id="practicePanel" class="practice-panel hidden">
-          <p class="practice-rule">只看题面，独立写完；提交后回来记结果。</p>
-          <a id="openProblemButton" class="primary-action" href="#" target="_blank" rel="noreferrer">打开题目 ↗</a>
-
-          <div id="idlePanel" class="start-row">
+        <div id="readyPanel" class="ready-panel">
+          <div class="duration-row">
+            <span>本轮时长</span>
             <div class="duration-select" role="group" aria-label="训练时长">
-              <button data-minutes="12" type="button">12 min</button>
-              <button data-minutes="30" class="selected" type="button">30 min</button>
-              <button data-minutes="90" type="button">90 min</button>
+              <button data-minutes="12" type="button">12 分钟</button>
+              <button data-minutes="30" class="selected" type="button">30 分钟</button>
+              <button data-minutes="90" type="button">90 分钟</button>
             </div>
-            <button id="startButton" class="start-button" type="button">开始计时</button>
           </div>
+          <button id="startTodayButton" class="today-start" type="button">
+            <span>开始 30 分钟训练</span>
+            <small>启动计时并打开题目 ↗</small>
+          </button>
+          <button id="warmupButton" class="warmup-link" type="button">先做 5 分钟热身</button>
         </div>
+
+        <ol id="trainingFlow" class="training-flow" aria-label="今日训练步骤">
+          <li><b>1</b><span><strong>热身</strong><small>看一个模型和一段好代码，可跳过</small></span></li>
+          <li><b>2</b><span><strong>独立作答</strong><small>计时后前往 OJ，不看答案</small></span></li>
+          <li><b>3</b><span><strong>回来报结果</strong><small>AC、卡点和用时会形成能力证据</small></span></li>
+        </ol>
 
         <div id="sessionPanel" class="session hidden">
+          <div class="session-state">
+            <span>训练进行中</span>
+            <a id="openProblemButton" href="#" target="_blank" rel="noreferrer">重新打开题目 ↗</a>
+          </div>
           <div class="session-top">
-            <span class="ai-off">AI OFF</span>
+            <span class="ai-off">独立作答</span>
             <span id="timer" class="timer">30:00</span>
           </div>
           <div class="result-row">
-            <button id="acButton" class="result-button ac" type="button">AC</button>
+            <button id="acButton" class="result-button ac" type="button">我 AC 了</button>
             <button id="stuckButton" class="result-button" type="button">卡住</button>
             <button id="stopButton" class="result-button subtle" type="button">结束</button>
           </div>
-          <p id="sessionHint" class="session-hint">提交后直接点结果。</p>
+          <p id="sessionHint" class="session-hint">在 OJ 提交后，回来选择真实结果。</p>
         </div>
       </article>
 
       <div class="quick-links">
-        <button id="copyStateButton" type="button">复制当前状态给 GPT</button>
-        <button id="switchQuestButton" type="button">查看复活队列 →</button>
+        <button id="copyStateButton" type="button">需要陪练？把本轮状态发给 GPT</button>
+        <button id="switchQuestButton" type="button">为什么练这题？查看复活队列 →</button>
       </div>
     </section>
 

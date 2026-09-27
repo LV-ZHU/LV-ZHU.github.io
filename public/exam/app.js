@@ -158,7 +158,6 @@ let syncing = false
 let authError = ''
 let timerHandle = null
 let cloudTimer = null
-let practiceVisible = Boolean(state.activeSession)
 
 const el = (id) => document.getElementById(id)
 const modal = el('modal')
@@ -205,6 +204,7 @@ function latestRecordFor(q) {
 function renderToday() {
   const q = quest()
   const latest = latestRecordFor(q)
+  el('todayDate').textContent = new Intl.DateTimeFormat('zh-CN', { month: 'numeric', day: 'numeric', weekday: 'short' }).format(new Date())
   el('questTitle').textContent = q.title
   el('questModule').textContent = q.module
   el('questFocus').textContent = q.focus
@@ -219,17 +219,16 @@ function renderToday() {
   }
 
   const active = Boolean(state.activeSession)
-  if (active) practiceVisible = true
-  el('entryChoice').classList.toggle('hidden', practiceVisible || active)
-  el('practicePanel').classList.toggle('hidden', !practiceVisible || active)
-  el('idlePanel').classList.toggle('hidden', active)
+  el('readyPanel').classList.toggle('hidden', active)
+  el('trainingFlow').classList.toggle('hidden', active)
   el('sessionPanel').classList.toggle('hidden', !active)
   document.querySelectorAll('.duration-select button').forEach((button) => {
     button.classList.toggle('selected', Number(button.dataset.minutes) === selectedMinutes)
   })
+  el('startTodayButton').querySelector('span').textContent = `开始 ${selectedMinutes} 分钟训练`
 
   if (active) {
-    el('sessionHint').textContent = state.activeSession.rescues ? `本次已请求 ${state.activeSession.rescues} 次提示` : '提交后直接点结果。'
+    el('sessionHint').textContent = state.activeSession.rescues ? `本次已请求 ${state.activeSession.rescues} 次提示` : '在 OJ 提交后，回来选择真实结果。'
     startTimerLoop()
   }
 }
@@ -261,7 +260,6 @@ function renderRevivals() {
   document.querySelectorAll('.revival-item').forEach((button) => {
     button.addEventListener('click', () => {
       patch((next) => { next.activeQuestId = button.dataset.id })
-      practiceVisible = false
       switchView('today')
     })
   })
@@ -353,6 +351,12 @@ function startSession() {
   })
 }
 
+function startToday() {
+  const q = quest()
+  if (q.sourceUrl) window.open(q.sourceUrl, '_blank', 'noopener,noreferrer')
+  startSession()
+}
+
 function secondsElapsed(session = state.activeSession) {
   if (!session) return 0
   return Math.max(0, Math.floor((Date.now() - session.startedAt) / 1000))
@@ -403,6 +407,7 @@ function endSession(result, note = '') {
   clearInterval(timerHandle)
   timerHandle = null
   switchView('today')
+  toast(`已记录。下一轮：${quest().title}`)
 }
 
 function currentPrompt(reason = state.lastStuckReason) {
@@ -420,16 +425,11 @@ function currentPrompt(reason = state.lastStuckReason) {
 }
 
 
-function showPractice() {
-  practiceVisible = true
-  renderToday()
-}
-
 function showWarmup() {
   const q = quest()
   const lesson = LESSONS[q.id]
   if (!lesson) {
-    showPractice()
+    startToday()
     return
   }
 
@@ -467,7 +467,7 @@ function showWarmup() {
         </div>
       </div>` : ''}
 
-      <button id="lessonGo" class="lesson-go" type="button">关掉，去写</button>
+      <button id="lessonGo" class="lesson-go" type="button">看完了，开始训练</button>
     </div>
   `)
 
@@ -483,7 +483,7 @@ function showWarmup() {
   })
   el('lessonGo').addEventListener('click', () => {
     closeModal()
-    showPractice()
+    startToday()
   })
 }
 
@@ -739,8 +739,7 @@ document.querySelectorAll('.duration-select button').forEach((b) => b.addEventLi
   renderToday()
 }))
 el('warmupButton').addEventListener('click', showWarmup)
-el('skipWarmupButton').addEventListener('click', showPractice)
-el('startButton').addEventListener('click', startSession)
+el('startTodayButton').addEventListener('click', startToday)
 el('acButton').addEventListener('click', showAc)
 el('stuckButton').addEventListener('click', showStuck)
 el('stopButton').addEventListener('click', showStop)
