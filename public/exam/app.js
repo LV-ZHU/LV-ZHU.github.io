@@ -1,6 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js'
 import {
-  getAuth, GoogleAuthProvider, GithubAuthProvider, onAuthStateChanged,
+  getAuth, GoogleAuthProvider, onAuthStateChanged,
   signInWithPopup, signInWithRedirect, getRedirectResult, signOut
 } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js'
 import {
@@ -8,12 +8,12 @@ import {
 } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js'
 
 const FIREBASE_CONFIG = {
-  apiKey: 'AIzaSyB2_9eQioXfA9KUQCup4lifzeVXU-L9U34',
-  authDomain: 'my-personal-blog-f825c.firebaseapp.com',
-  projectId: 'my-personal-blog-f825c',
-  storageBucket: 'my-personal-blog-f825c.firebasestorage.app',
-  messagingSenderId: '1029767566489',
-  appId: '1:1029767566489:web:eb442d8c2506abfcab5408',
+  apiKey: 'AIzaSyCxNsQKbjZqcnVfnH5voFzVIHXKzYLE9sA',
+  authDomain: 'coding-ed4a5.firebaseapp.com',
+  projectId: 'coding-ed4a5',
+  storageBucket: 'coding-ed4a5.firebasestorage.app',
+  messagingSenderId: '710377584040',
+  appId: '1:710377584040:web:4ce1ed8052146af0b6199d',
 }
 
 const STORAGE_KEY = 'exam-trainer-state-v1'
@@ -125,27 +125,21 @@ function initialState() {
     activeQuestId: 'word-search',
     activeSession: null,
     lastStuckReason: '',
-    records: [
-      { date: '2026-09-12', title: 'LeetCode 300 · LIS', module: '动态规划', minutes: 48, result: '提示后通过', note: '状态定义想复杂；先明确 dp[i] 含义' },
-      { date: '2026-09-10', title: 'Dijkstra 模板复写', module: '图论', minutes: 32, result: '独立通过', note: '堆优化版可以独立写完' },
-      { date: '2026-09-08', title: '二叉树层序遍历', module: '数据结构', minutes: 21, result: '独立通过', note: '队列边界处理正常' },
-      { date: '2026-09-05', title: 'LeetCode 79 · 单词搜索', module: '搜索 / 回溯', minutes: 55, result: '暂未通过', note: '回溯后忘记恢复现场' },
-      { date: '2026-09-01', title: '洛谷 P3375 · KMP', module: '字符串', minutes: 44, result: '提示后通过', note: 'next / 前缀函数下标仍需复写' },
-    ],
+    records: [],
     revivals: [
-      { id: 'word-search', status: 'active', attempts: 1, reason: '回溯后忘记恢复现场', target: '从空白独立 AC' },
-      { id: 'kmp', status: 'queued', attempts: 1, reason: 'next / 前缀函数下标不稳', target: '无提示重写' },
-      { id: 'lis', status: 'queued', attempts: 1, reason: '状态定义想复杂', target: '先定义状态再实现' },
+      { id: 'word-search', status: 'active', attempts: 0, reason: '本轮起点', target: '从空白独立 AC' },
+      { id: 'kmp', status: 'queued', attempts: 0, reason: '等待训练', target: '无提示重写' },
+      { id: 'lis', status: 'queued', attempts: 0, reason: '等待训练', target: '先定义状态再实现' },
     ],
     skills: [
-      { group: '代码运动', name: 'C++ 基础语法 / 输入输出', level: 0, status: '待测', evidence: '暂无基线' },
-      { group: '代码运动', name: 'STL 常用容器 / API', level: 0, status: '待测', evidence: '暂无基线' },
-      { group: '代码运动', name: '独立 debug', level: 0, status: '待测', evidence: '暂无稳定证据' },
-      { group: '算法调用', name: 'DFS / 回溯', level: 1, status: '复活中', evidence: '单词搜索：恢复现场出错' },
-      { group: '算法调用', name: '动态规划', level: 2, status: '需巩固', evidence: 'LIS：提示后通过' },
-      { group: '算法调用', name: 'KMP / 字符串', level: 2, status: '需巩固', evidence: 'KMP：提示后通过' },
-      { group: '算法调用', name: 'BFS / 队列', level: 3, status: '已验证', evidence: '层序遍历：独立通过' },
-      { group: '算法调用', name: 'Dijkstra', level: 3, status: '已验证', evidence: '堆优化版：独立通过' },
+      { group: '代码运动', name: 'C++ 基础语法 / 输入输出', level: 0, status: '待测', evidence: '暂无证据' },
+      { group: '代码运动', name: 'STL 常用容器 / API', level: 0, status: '待测', evidence: '暂无证据' },
+      { group: '代码运动', name: '独立 debug', level: 0, status: '待测', evidence: '暂无证据' },
+      { group: '算法调用', name: 'DFS / 回溯', level: 0, status: '未测', evidence: '暂无证据' },
+      { group: '算法调用', name: '动态规划', level: 0, status: '未测', evidence: '暂无证据' },
+      { group: '算法调用', name: 'KMP / 字符串', level: 0, status: '未测', evidence: '暂无证据' },
+      { group: '算法调用', name: 'BFS / 队列', level: 0, status: '未测', evidence: '暂无证据' },
+      { group: '算法调用', name: 'Dijkstra', level: 0, status: '未测', evidence: '暂无证据' },
       { group: '算法调用', name: '二分', level: 0, status: '未测', evidence: '暂无证据' },
       { group: '算法调用', name: '并查集', level: 0, status: '未测', evidence: '暂无证据' },
       { group: '算法调用', name: '拓扑排序', level: 0, status: '未测', evidence: '暂无证据' },
@@ -155,11 +149,13 @@ function initialState() {
   }
 }
 
+let hasStoredLocalState = false
 let state = loadLocal()
 let selectedMinutes = state.activeSession?.targetMinutes || 30
 let currentUser = null
 let cloudEnabled = false
 let syncing = false
+let authError = ''
 let timerHandle = null
 let cloudTimer = null
 let practiceVisible = Boolean(state.activeSession)
@@ -171,7 +167,10 @@ const modalContent = el('modalContent')
 function loadLocal() {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY))
-    if (saved?.version === 1) return saved
+    if (saved?.version === 1) {
+      hasStoredLocalState = true
+      return saved
+    }
   } catch {}
   return initialState()
 }
@@ -179,6 +178,7 @@ function loadLocal() {
 function saveLocal() {
   state.updatedAt = new Date().toISOString()
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+  hasStoredLocalState = true
 }
 
 function patch(fn) {
@@ -313,13 +313,12 @@ function renderAuth() {
   if (!currentUser) {
     area.innerHTML = `
       <div>未登录：数据只在当前浏览器。</div>
+      ${authError ? `<div class="auth-error-inline" role="alert">${escapeHtml(authError)}</div>` : ''}
       <div class="auth-actions">
         <button id="googleLogin" type="button">Google 登录</button>
-        <button id="githubLogin" type="button">GitHub 登录</button>
       </div>
     `
-    el('googleLogin').addEventListener('click', () => signIn('google'))
-    el('githubLogin').addEventListener('click', () => signIn('github'))
+    el('googleLogin').addEventListener('click', signIn)
   } else {
     area.innerHTML = `
       <div>${escapeHtml(currentUser.displayName || currentUser.email || '已登录')} · ${cloudEnabled ? '跨设备同步已开启' : '已登录，但云同步未成功'}</div>
@@ -553,15 +552,14 @@ function showLogin() {
     return
   }
   openModal(`
-    <h3>跨设备同步</h3>
-    <p>不登录：只存当前浏览器。登录：手机和电脑使用同一份训练状态。</p>
+    <h3 id="modalTitle">跨设备同步</h3>
+    <p>使用主站同一个 Google 账号登录，手机和电脑会读取同一份训练状态。</p>
+    ${authError ? `<p class="auth-error-inline" role="alert">${escapeHtml(authError)}</p>` : ''}
     <div class="modal-actions">
       <button id="loginGoogle" class="primary" type="button">Google 登录</button>
-      <button id="loginGithub" type="button">GitHub 登录</button>
     </div>
   `)
-  el('loginGoogle').addEventListener('click', () => signIn('google'))
-  el('loginGithub').addEventListener('click', () => signIn('github'))
+  el('loginGoogle').addEventListener('click', signIn)
 }
 
 function openModal(html) {
@@ -605,6 +603,17 @@ function escapeHtml(value = '') {
   return String(value).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))
 }
 
+function applyTheme(theme) {
+  const nextTheme = theme === 'light' ? 'light' : 'dark'
+  document.documentElement.dataset.theme = nextTheme
+  document.documentElement.style.colorScheme = nextTheme
+  localStorage.setItem('lv-zhu-theme', nextTheme)
+  const button = el('themeButton')
+  button.textContent = nextTheme === 'dark' ? '日' : '夜'
+  button.setAttribute('aria-label', nextTheme === 'dark' ? '切换到日间模式' : '切换到夜间模式')
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', nextTheme === 'dark' ? '#1b1e22' : '#fafafa')
+}
+
 function scheduleCloudSync() {
   if (!currentUser || !cloudEnabled) return
   clearTimeout(cloudTimer)
@@ -616,17 +625,12 @@ async function syncCloud() {
   syncing = true
   renderSync()
   try {
-    await setDoc(doc(db, 'examTrainer', currentUser.uid), {
-      ownerUid: currentUser.uid,
-      state,
-      updatedAt: state.updatedAt,
-      serverUpdatedAt: serverTimestamp(),
-    }, { merge: true })
+    await writeCloud(currentUser)
     cloudEnabled = true
   } catch (error) {
     console.warn('Exam trainer sync failed', error)
     cloudEnabled = false
-    toast('Firebase 同步失败')
+    toast(formatFirebaseError(error, '同步失败'))
   } finally {
     syncing = false
     renderSync()
@@ -634,45 +638,77 @@ async function syncCloud() {
   }
 }
 
+async function writeCloud(user) {
+  await setDoc(doc(db, 'users', user.uid), {
+    examTrainer: {
+      ownerUid: user.uid,
+      state,
+      updatedAt: state.updatedAt,
+      serverUpdatedAt: serverTimestamp(),
+    },
+  }, { merge: true })
+}
+
 async function loadCloud(user) {
   syncing = true
   renderSync()
   try {
-    const snap = await getDoc(doc(db, 'examTrainer', user.uid))
-    cloudEnabled = true
-    if (snap.exists() && snap.data()?.state) {
-      const remote = snap.data().state
-      if (Date.parse(remote.updatedAt || 0) > Date.parse(state.updatedAt || 0)) {
+    const snap = await getDoc(doc(db, 'users', user.uid))
+    const remote = snap.data()?.examTrainer?.state
+    if (remote?.version === 1) {
+      if (!hasStoredLocalState || Date.parse(remote.updatedAt || 0) > Date.parse(state.updatedAt || 0)) {
         state = remote
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
+        hasStoredLocalState = true
       } else {
-        await syncCloud()
+        await writeCloud(user)
       }
     } else {
-      await syncCloud()
+      await writeCloud(user)
     }
+    cloudEnabled = true
   } catch (error) {
     console.warn('Exam trainer cloud unavailable', error)
     cloudEnabled = false
+    toast(formatFirebaseError(error, '云同步不可用'))
   } finally {
     syncing = false
     render()
   }
 }
 
-function isMobile() {
-  return matchMedia('(max-width:700px)').matches || /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent)
+function formatFirebaseError(error, fallback = '操作失败') {
+  const messages = {
+    'auth/unauthorized-domain': '当前域名未加入 Firebase 授权域名。',
+    'auth/operation-not-allowed': 'Firebase 尚未启用 Google 登录。',
+    'auth/popup-blocked': '登录窗口被浏览器拦截，请允许弹窗后重试。',
+    'auth/network-request-failed': '无法连接 Firebase，请检查当前网络。',
+    'permission-denied': 'Firestore 规则尚未允许当前账号同步训练数据。',
+    'firestore/permission-denied': 'Firestore 规则尚未允许当前账号同步训练数据。',
+  }
+  return messages[error?.code] || `${fallback}${error?.code ? `（${error.code}）` : ''}`
 }
 
-async function signIn(providerName) {
+async function signIn() {
   closeModal()
-  const provider = providerName === 'github' ? new GithubAuthProvider() : new GoogleAuthProvider()
+  authError = ''
+  const provider = new GoogleAuthProvider()
   try {
-    if (isMobile()) await signInWithRedirect(auth, provider)
-    else await signInWithPopup(auth, provider)
+    await signInWithPopup(auth, provider)
   } catch (error) {
     console.warn(error)
-    toast('登录失败')
+    if (error?.code === 'auth/popup-blocked') {
+      try {
+        await signInWithRedirect(auth, provider)
+        return
+      } catch (redirectError) {
+        error = redirectError
+      }
+    }
+    if (['auth/cancelled-popup-request', 'auth/popup-closed-by-user'].includes(error?.code)) return
+    authError = formatFirebaseError(error, '登录失败')
+    toast(authError)
+    renderAuth()
   }
 }
 
@@ -714,6 +750,7 @@ el('copyStateButton').addEventListener('click', () => copyText(currentPrompt()))
 el('switchQuestButton').addEventListener('click', () => switchView('revive'))
 el('syncButton').addEventListener('click', showLogin)
 el('syncBannerButton').addEventListener('click', showLogin)
+el('themeButton').addEventListener('click', () => applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'))
 document.querySelectorAll('.nav-item').forEach((b) => b.addEventListener('click', () => switchView(b.dataset.target)))
 el('modalClose').addEventListener('click', closeModal)
 modal.addEventListener('click', (e) => { if (e.target === modal) closeModal() })
@@ -724,15 +761,28 @@ el('importInput').addEventListener('change', (e) => {
   e.target.value = ''
 })
 
-getRedirectResult(auth).catch(() => {})
+getRedirectResult(auth).catch((error) => {
+  authError = formatFirebaseError(error, '登录失败')
+  toast(authError)
+  renderAuth()
+})
 onAuthStateChanged(auth, async (user) => {
   currentUser = user
-  if (user) await loadCloud(user)
+  if (user) {
+    authError = ''
+    await loadCloud(user)
+  }
   else {
     cloudEnabled = false
     render()
   }
+}, (error) => {
+  authError = formatFirebaseError(error, '无法读取登录状态')
+  cloudEnabled = false
+  syncing = false
+  render()
 })
 
+applyTheme(document.documentElement.dataset.theme)
 render()
 if (state.activeSession) startTimerLoop()

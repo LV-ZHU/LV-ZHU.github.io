@@ -1,147 +1,177 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#1b1e22" />
-  <meta name="description" content="推免机试 AI-off 陪练台" />
+  <meta name="description" content="推免机试训练台：限时训练、复活队列与跨设备同步" />
+  <script>
+    try {
+      const saved_theme = localStorage.getItem('lv-zhu-theme')
+      document.documentElement.dataset.theme = saved_theme === 'light' ? 'light' : 'dark'
+    } catch {}
+  </script>
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" href="./icon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="./style.css" />
-  <title>机试训练</title>
+  <title>机试训练 | LV-ZHU</title>
 </head>
 <body>
-  <div id="app">
-    <header class="topbar">
-      <div class="brand">
-        <span class="brand-index">EXAM / 01</span>
-        <strong>机试训练</strong>
+  <a class="skip-link" href="#mainContent">跳到训练内容</a>
+
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="site-logo" href="/" aria-label="返回 LV-ZHU 首页">Lv Zhu</a>
+      <nav class="site-links" aria-label="站点导航">
+        <a href="/">Home</a>
+        <a href="/study">Study</a>
+        <a class="active" href="/exam/" aria-current="page">Exam</a>
+      </nav>
+      <div class="site-actions">
+        <button id="themeButton" class="plain-button theme-button" type="button" aria-label="切换到日间模式">日</button>
+        <button id="syncButton" class="plain-button sync-button" type="button">
+          <span id="syncDot" class="sync-dot" aria-hidden="true"></span>
+          <span id="syncText">未登录</span>
+        </button>
       </div>
-      <button id="syncButton" class="sync-button" type="button">
-        <span id="syncDot" class="sync-dot"></span>
-        <span id="syncText">未登录</span>
-      </button>
+    </div>
+  </header>
+
+  <main id="mainContent" class="exam-main">
+    <header class="page-header">
+      <p class="page-kicker">EXAM PRACTICE</p>
+      <h1>推免机试训练</h1>
+      <p>看一点，写一题，只记录能说明问题的结果。</p>
     </header>
 
-    <main>
-      <section id="viewToday" class="view active" data-view="today">
-        <section id="syncBanner" class="sync-banner">
-          <div>
-            <strong>手机 ⇄ 电脑同步未开启</strong>
-            <span>登录一次即可跨设备接着练。</span>
-          </div>
-          <button id="syncBannerButton" type="button">登录同步</button>
-        </section>
-
-        <section class="task">
-          <div class="task-kicker">NEXT</div>
-          <h1 id="questTitle">LeetCode 79 · 单词搜索</h1>
-          <div class="task-meta">
-            <span id="questModule">搜索 / 回溯</span>
-            <span id="questEvidence">上次 55 min · 未通过</span>
-          </div>
-
-          <div class="focus-line">
-            <span>这轮只练</span>
-            <b id="questFocus">递归返回后恢复现场</b>
-          </div>
-
-          <div id="entryChoice" class="entry-choice">
-            <button id="warmupButton" class="warmup-button" type="button">
-              <b>先看 5 分钟</b>
-              <span>理论 + 一段漂亮写法</span>
-            </button>
-            <button id="skipWarmupButton" class="skip-button" type="button">直接做</button>
-          </div>
-
-          <div id="practicePanel" class="practice-panel hidden">
-            <div class="practice-rule">只看题面 → AI-off → 提交后回来记结果</div>
-            <a id="openProblemButton" class="primary-action" href="#" target="_blank" rel="noreferrer">打开题目</a>
-
-          <div id="idlePanel" class="start-row">
-            <div class="duration-select" role="group" aria-label="训练时长">
-              <button data-minutes="12" type="button">12m</button>
-              <button data-minutes="30" class="selected" type="button">30m</button>
-              <button data-minutes="90" type="button">90m</button>
-            </div>
-            <button id="startButton" class="start-button" type="button">开始训练</button>
-          </div>
-
-          </div>
-
-          <div id="sessionPanel" class="session hidden">
-            <div class="session-top">
-              <span class="ai-off">[ AI OFF ]</span>
-              <span id="timer" class="timer">30:00</span>
-            </div>
-            <div class="result-row">
-              <button id="acButton" class="result-button ac" type="button">AC</button>
-              <button id="stuckButton" class="result-button" type="button">卡住</button>
-              <button id="stopButton" class="result-button subtle" type="button">结束</button>
-            </div>
-            <div id="sessionHint" class="session-hint">提交后直接点结果。</div>
-          </div>
-        </section>
-
-        <section class="quick-links">
-          <button id="copyStateButton" type="button">复制当前状态给 GPT</button>
-          <button id="switchQuestButton" type="button">查看复活队列</button>
-        </section>
-      </section>
-
-      <section id="viewRevive" class="view" data-view="revive">
-        <div class="section-head">
-          <span>REVIEW</span>
-          <h2>复活队列</h2>
-          <p>提示后通过和失败题，都会回来再打一遍。</p>
-        </div>
-        <div id="revivalList" class="list"></div>
-      </section>
-
-      <section id="viewSkills" class="view" data-view="skills">
-        <div class="section-head">
-          <span>MAP</span>
-          <h2>能力</h2>
-          <p>只看证据，不看刷题数量。</p>
-        </div>
-        <div id="skillList" class="list"></div>
-      </section>
-
-      <section id="viewHistory" class="view" data-view="history">
-        <div class="section-head">
-          <span>LOG</span>
-          <h2>记录</h2>
-          <p id="historySummary"></p>
-        </div>
-        <div id="historyList" class="list"></div>
-
-        <details class="data-panel">
-          <summary>同步 / 数据</summary>
-          <div id="authArea"></div>
-          <div class="data-actions">
-            <button id="exportButton" type="button">导出 JSON</button>
-            <label>导入 JSON<input id="importInput" type="file" accept="application/json" /></label>
-          </div>
-        </details>
-      </section>
-    </main>
-
-    <nav class="bottom-nav" aria-label="导航">
+    <nav class="view-tabs" aria-label="训练台导航">
       <button class="nav-item active" data-target="today" type="button">训练</button>
       <button class="nav-item" data-target="revive" type="button">复活</button>
       <button class="nav-item" data-target="skills" type="button">能力</button>
       <button class="nav-item" data-target="history" type="button">记录</button>
     </nav>
-  </div>
 
-  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <section id="viewToday" class="view active" data-view="today">
+      <section id="syncBanner" class="sync-banner" aria-label="同步状态">
+        <div>
+          <strong>这台设备还没有接入同步</strong>
+          <span>用主站的 Google 账号登录，手机和电脑会读取同一份记录。</span>
+        </div>
+        <button id="syncBannerButton" type="button">登录同步</button>
+      </section>
+
+      <article class="task-sheet">
+        <header class="task-head">
+          <div>
+            <p class="task-kicker">本轮题目</p>
+            <h2 id="questTitle">LeetCode 79 · 单词搜索</h2>
+          </div>
+          <div class="task-meta">
+            <span id="questModule">搜索 / 回溯</span>
+            <span id="questEvidence">上次 55 min · 未通过</span>
+          </div>
+        </header>
+
+        <div class="focus-line">
+          <span>这轮只练</span>
+          <b id="questFocus">递归返回后恢复现场</b>
+        </div>
+
+        <div id="entryChoice" class="entry-choice">
+          <button id="warmupButton" class="choice-button primary-choice" type="button">
+            <span>先看 5 分钟</span>
+            <small>一个模型、一段写法、一个小问题</small>
+          </button>
+          <button id="skipWarmupButton" class="choice-button" type="button">
+            <span>直接做</span>
+            <small>现在就打开题面</small>
+          </button>
+        </div>
+
+        <div id="practicePanel" class="practice-panel hidden">
+          <p class="practice-rule">只看题面，独立写完；提交后回来记结果。</p>
+          <a id="openProblemButton" class="primary-action" href="#" target="_blank" rel="noreferrer">打开题目 ↗</a>
+
+          <div id="idlePanel" class="start-row">
+            <div class="duration-select" role="group" aria-label="训练时长">
+              <button data-minutes="12" type="button">12 min</button>
+              <button data-minutes="30" class="selected" type="button">30 min</button>
+              <button data-minutes="90" type="button">90 min</button>
+            </div>
+            <button id="startButton" class="start-button" type="button">开始计时</button>
+          </div>
+        </div>
+
+        <div id="sessionPanel" class="session hidden">
+          <div class="session-top">
+            <span class="ai-off">AI OFF</span>
+            <span id="timer" class="timer">30:00</span>
+          </div>
+          <div class="result-row">
+            <button id="acButton" class="result-button ac" type="button">AC</button>
+            <button id="stuckButton" class="result-button" type="button">卡住</button>
+            <button id="stopButton" class="result-button subtle" type="button">结束</button>
+          </div>
+          <p id="sessionHint" class="session-hint">提交后直接点结果。</p>
+        </div>
+      </article>
+
+      <div class="quick-links">
+        <button id="copyStateButton" type="button">复制当前状态给 GPT</button>
+        <button id="switchQuestButton" type="button">查看复活队列 →</button>
+      </div>
+    </section>
+
+    <section id="viewRevive" class="view" data-view="revive">
+      <header class="section-head">
+        <p>REVIEW</p>
+        <h2>复活队列</h2>
+        <span>提示后通过和失败题，会回来再打一遍。</span>
+      </header>
+      <div id="revivalList" class="list"></div>
+    </section>
+
+    <section id="viewSkills" class="view" data-view="skills">
+      <header class="section-head">
+        <p>ABILITY</p>
+        <h2>能力</h2>
+        <span>只看独立完成留下的证据。</span>
+      </header>
+      <div id="skillList" class="list"></div>
+    </section>
+
+    <section id="viewHistory" class="view" data-view="history">
+      <header class="section-head">
+        <p>LOG</p>
+        <h2>记录</h2>
+        <span id="historySummary"></span>
+      </header>
+      <div id="historyList" class="list"></div>
+
+      <details class="data-panel">
+        <summary>同步与数据</summary>
+        <div id="authArea"></div>
+        <div class="data-actions">
+          <button id="exportButton" type="button">导出 JSON</button>
+          <label>导入 JSON<input id="importInput" type="file" accept="application/json" /></label>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>LV-ZHU / EXAM</span>
+    <a href="/account">账号管理</a>
+  </footer>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-box">
-      <button id="modalClose" class="modal-close" type="button">×</button>
+      <button id="modalClose" class="modal-close" type="button" aria-label="关闭">×</button>
       <div id="modalContent"></div>
     </div>
   </div>
 
-  <div id="toast" class="toast hidden"></div>
+  <div id="toast" class="toast hidden" role="status"></div>
   <script type="module" src="./app.js"></script>
 </body>
 </html>
