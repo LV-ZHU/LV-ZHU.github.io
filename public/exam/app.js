@@ -639,13 +639,11 @@ async function syncCloud() {
 }
 
 async function writeCloud(user) {
-  await setDoc(doc(db, 'users', user.uid), {
-    examTrainer: {
-      ownerUid: user.uid,
-      state,
-      updatedAt: state.updatedAt,
-      serverUpdatedAt: serverTimestamp(),
-    },
+  await setDoc(doc(db, 'examTrainer', user.uid), {
+    ownerUid: user.uid,
+    state,
+    updatedAt: state.updatedAt,
+    serverUpdatedAt: serverTimestamp(),
   }, { merge: true })
 }
 
@@ -653,8 +651,8 @@ async function loadCloud(user) {
   syncing = true
   renderSync()
   try {
-    const snap = await getDoc(doc(db, 'users', user.uid))
-    const remote = snap.data()?.examTrainer?.state
+    const snap = await getDoc(doc(db, 'examTrainer', user.uid))
+    const remote = snap.data()?.state
     if (remote?.version === 1) {
       if (!hasStoredLocalState || Date.parse(remote.updatedAt || 0) > Date.parse(state.updatedAt || 0)) {
         state = remote
