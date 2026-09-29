@@ -19,7 +19,7 @@ export default function SongItem({ song, highlighted }) {
         ))}
         {song.sourceUrl && <a className="music-link" href={song.sourceUrl} target="_blank" rel="noopener noreferrer">相关来源</a>}
       </div>
-      {song.comment && <div className="music-summary">{song.comment}</div>}
+      {song.comment && <div className="music-summary"><div>{song.comment}</div></div>}
     </li>
   )
 }

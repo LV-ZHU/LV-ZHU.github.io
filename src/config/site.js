@@ -1,3 +1,5 @@
+import { projects } from '../features/projects/project_catalog'
+
 export const SITE_NAME = 'LV-ZHU'
 export const DEFAULT_DOCUMENT_TITLE = 'LV-ZHU | Personal Space'
 
@@ -26,12 +28,7 @@ export const navItems = [
     key: 'projects',
     label: 'Projects',
     path: '/projects',
-    children: [
-      { label: 'C++ BigHW', path: '/projects/cpp-bighw' },
-      { label: 'FPGA', path: '/projects/fpga' },
-      { label: 'GPU', path: '/projects/gpu' },
-      { label: 'LLM聊天机器人', path: '/projects/llm-bot' },
-    ],
+    children: projects.map((project) => ({ label: project.name, path: `/projects/${project.slug}` })),
   },
   { key: 'jottings', label: 'Jottings', path: '/jottings' },
   { key: 'favorites', label: 'Favorites', path: '/favorites' },
@@ -50,10 +47,7 @@ export const searchIndex = [
     keywords: section.keywords,
   })),
   { title: 'Projects', path: '/projects', keywords: '项目 projects' },
-  { title: 'Projects / C++ BigHW', path: '/projects/cpp-bighw', keywords: 'cpp c++ bighw 程序设计 程设 高程 oop 沈坚 sj' },
-  { title: 'Projects / FPGA', path: '/projects/fpga', keywords: 'fpga 数字逻辑 verilog oled mp3 zdd mips246' },
-  { title: 'Projects / GPU', path: '/projects/gpu', keywords: 'gpu 并行 gunrock 图' },
-  { title: 'Projects / LLM聊天机器人', path: '/projects/llm-bot', keywords: 'llm 聊天机器人 chatbot astrbot 多平台 qq bot' },
+  ...projects.map((project) => ({ title: `Projects / ${project.name}`, path: `/projects/${project.slug}`, keywords: `${project.desc} ${project.repo || ''}` })),
   { title: 'Music', path: '/music', keywords: '音乐 music 歌单 eason jj' },
   { title: 'Favorites', path: '/favorites', keywords: '收藏 favorites 网址 键盘 打字 问答' },
   { title: 'Favorites / T', path: '/favorites/T', keywords: 't 同济' },
