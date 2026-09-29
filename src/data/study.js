@@ -588,6 +588,18 @@ T4：读写B，读写C
 2.归并外排序，给定t1-t12（如t1(107,a)，t2(114,c),t8(170,b),t11(153,r)，每个内存有3个数据块，给出按照第一个元组属性的排序`
 
 export const subjectData = {
+  'formal-languages': {
+    title: '形式语言与自动机',
+    subtitle: '',
+  },
+  'machine-learning': {
+    title: '机器学习',
+    subtitle: '',
+  },
+  'computer-forensics': {
+    title: '计算机取证',
+    subtitle: '',
+  },
   'data-structure': {
     title: '数据结构',
     icon: 'fas fa-sitemap',

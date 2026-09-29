@@ -6,6 +6,9 @@ import '../styles/Study.css'
 
 /* ---------- Node data ---------- */
 const nodes = [
+  { id: 'n-formal', text: '形式语言与自动机', link: '/study/formal-languages', is408: false, cls: 'km-n-formal' },
+  { id: 'n-ml', text: '机器学习', link: '/study/machine-learning', is408: false, cls: 'km-n-ml' },
+  { id: 'n-forensics', text: '计算机取证', link: '/study/computer-forensics', is408: false, cls: 'km-n-forensics' },
   { id: 'n-math',     text: '数学分析/高等数学',     link: '/study/math-analysis',                       is408: false, cls: 'km-n-math' },
   { id: 'n-linear',   text: '高等代数/线性代数',     link: '/study/linear-algebra',                      is408: false, cls: 'km-n-linear' },
   { id: 'n-physics',  text: '大学物理',              link: '/study/physics',                             is408: false, cls: 'km-n-physics' },
@@ -27,6 +30,10 @@ const nodes = [
 
 /* ---------- Connections ---------- */
 const connections = [
+  ['n-discrete', 'n-formal', 'strong', { fromSide: 'left', toSide: 'top' }],
+  ['n-ai', 'n-ml', 'strong'],
+  ['n-os', 'n-forensics', 'strong'],
+  ['n-net', 'n-forensics', 'soft'],
   ['n-math',    'n-physics',  'soft'],
   ['n-math',    'n-discrete', 'soft'],
   ['n-math',    'n-circuit',  'soft'],

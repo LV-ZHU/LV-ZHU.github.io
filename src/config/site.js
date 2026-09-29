@@ -4,6 +4,9 @@ export const SITE_NAME = 'LV-ZHU'
 export const DEFAULT_DOCUMENT_TITLE = 'LV-ZHU | Personal Space'
 
 export const studySections = [
+  { label: '形式语言与自动机', path: '/study/formal-languages', keywords: '形式语言 自动机 文法 正则 DFA NFA' },
+  { label: '机器学习', path: '/study/machine-learning', keywords: '机器学习 machine learning ML' },
+  { label: '计算机取证', path: '/study/computer-forensics', keywords: '计算机取证 数字取证 computer forensics' },
   { label: '数据结构', path: '/study/data-structure', keywords: '数据结构 data structure 408' },
   { label: '计组', path: '/study/computer-organization', keywords: '计组 CPU 408' },
   { label: '操作系统', path: '/study/os', keywords: '操作系统 os 408' },
