@@ -30,30 +30,36 @@ const nodes = [
 
 /* ---------- Connections ---------- */
 const connections = [
-  ['n-discrete', 'n-formal', 'strong', { fromSide: 'left', toSide: 'top' }],
-  ['n-ai', 'n-ml', 'strong'],
-  ['n-os', 'n-forensics', 'strong'],
-  ['n-net', 'n-forensics', 'soft'],
-  ['n-math',    'n-physics',  'soft'],
-  ['n-math',    'n-discrete', 'soft'],
-  ['n-math',    'n-circuit',  'soft'],
-  ['n-linear',  'n-sec-math', 'soft'],
-  ['n-linear',  'n-circuit',  'soft'],
-  ['n-sec-math','n-crypto',   'soft'],
-  ['n-discrete','n-crypto',   'soft'],
-  ['n-discrete','n-ai',       'soft'],
-  ['n-ds',      'n-ai',       'strong'],
-  ['n-discrete','n-ds',       'strong'],
-  ['n-program', 'n-ds',       'strong'],
-  ['n-ds',      'n-algorithm','strong'],
-  ['n-program', 'n-db',       'soft'],
-  ['n-ds',      'n-db',       'strong'],
-  ['n-logic',   'n-co',       'strong'],
-  ['n-assembly','n-co',       'strong'],
-  ['n-ds',      'n-os',       'strong', { fromSide: 'bottom', toSide: 'left', route: 'dogleg-left' }],
-  ['n-co',      'n-os',       'strong'],
-  ['n-co',      'n-net',      'strong'],
+  ['n-discrete', 'n-formal', { fromSide: 'left', toSide: 'top' }],
+  ['n-ai', 'n-ml'],
+  ['n-os', 'n-forensics'],
+  ['n-net', 'n-forensics'],
+  ['n-math',    'n-physics'],
+  ['n-math',    'n-discrete'],
+  ['n-math',    'n-circuit'],
+  ['n-linear',  'n-sec-math'],
+  ['n-linear',  'n-circuit'],
+  ['n-sec-math','n-crypto'],
+  ['n-discrete','n-crypto'],
+  ['n-discrete','n-ai'],
+  ['n-ds',      'n-ai'],
+  ['n-discrete','n-ds'],
+  ['n-program', 'n-ds'],
+  ['n-ds',      'n-algorithm'],
+  ['n-program', 'n-db'],
+  ['n-ds',      'n-db'],
+  ['n-logic',   'n-co'],
+  ['n-assembly','n-co'],
+  ['n-ds',      'n-os', { fromSide: 'bottom', toSide: 'left', route: 'dogleg-left' }],
+  ['n-co',      'n-os'],
+  ['n-co',      'n-net'],
 ]
+
+// 线型只由课程的 408 标记决定，连线数据不单独指定。
+const course_nodes = new Map(nodes.map((node) => [node.id, node]))
+function connection_class(from_id, to_id) {
+  return course_nodes.get(from_id)?.is408 || course_nodes.get(to_id)?.is408 ? 'strong' : 'soft'
+}
 
 /* ---------- Component ---------- */
 export default function Study() {
@@ -149,7 +155,7 @@ export default function Study() {
     svg.setAttribute('height', height)
     svg.innerHTML = ''
 
-    connections.forEach(([fromId, toId, type, options = {}]) => {
+    connections.forEach(([fromId, toId, options = {}]) => {
       const src = nodeInfo(fromId)
       const dst = nodeInfo(toId)
       if (!src || !dst) return
@@ -159,7 +165,7 @@ export default function Study() {
 
       const path = document.createElementNS(ns, 'path')
       path.setAttribute('d', buildPath(start, end, options))
-      path.setAttribute('class', type)
+      path.setAttribute('class', connection_class(fromId, toId))
 
       svg.appendChild(path)
     })
