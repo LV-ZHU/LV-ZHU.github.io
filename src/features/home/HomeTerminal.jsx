@@ -20,31 +20,70 @@ function fmtTime(t) {
   return m + ':' + String(s).padStart(2, '0')
 }
 
-function levenshteinDistance(a, b) {
-  const matrix = []
-  for (let i = 0; i <= b.length; i++) matrix[i] = [i]
-  for (let j = 0; j <= a.length; j++) matrix[0][j] = j
-  for (let i = 1; i <= b.length; i++) {
-    for (let j = 1; j <= a.length; j++) {
-      if (b[i - 1] === a[j - 1]) {
-        matrix[i][j] = matrix[i - 1][j - 1]
-      } else {
-        matrix[i][j] = Math.min(
-          matrix[i - 1][j - 1] + 1,
-          matrix[i][j - 1] + 1,
-          matrix[i - 1][j] + 1
-        )
-      }
-    }
+// Damerau–Levenshtein，支持插入、删除、替换和相邻字符交换
+function damerauLevenshteinDistance(a, b) {
+  const maxDist = a.length + b.length
+  const matrix = Array.from(
+    { length: a.length + 2 },
+    () => Array(b.length + 2).fill(0)
+  )
+  const lastSeen = Object.create(null)
+
+  matrix[0][0] = maxDist
+
+  for (let i = 0; i <= a.length; i++) {
+    matrix[i + 1][0] = maxDist
+    matrix[i + 1][1] = i
   }
-  return matrix[b.length][a.length]
+
+  for (let j = 0; j <= b.length; j++) {
+    matrix[0][j + 1] = maxDist
+    matrix[1][j + 1] = j
+  }
+
+  for (let i = 1; i <= a.length; i++) {
+    let lastMatchCol = 0
+
+    for (let j = 1; j <= b.length; j++) {
+      const lastMatchRow = lastSeen[b[j - 1]] ?? 0
+      const previousMatchCol = lastMatchCol
+
+      let cost = 1
+
+      if (a[i - 1] === b[j - 1]) {
+        cost = 0
+        lastMatchCol = j
+      }
+
+      matrix[i + 1][j + 1] = Math.min(
+        // 替换 / 字符相同
+        matrix[i][j] + cost,
+
+        // 插入
+        matrix[i + 1][j] + 1,
+
+        // 删除
+        matrix[i][j + 1] + 1,
+
+        // 相邻字符交换
+        matrix[lastMatchRow][previousMatchCol]
+          + (i - lastMatchRow - 1)
+          + 1
+          + (j - previousMatchCol - 1)
+      )
+    }
+
+    lastSeen[a[i - 1]] = i
+  }
+
+  return matrix[a.length + 1][b.length + 1]
 }
 
 function closestCommand(input) {
   let best = null
   let bestDist = Infinity
   for (const cmd of ALL_COMMANDS) {
-    const dist = levenshteinDistance(input, cmd)
+    const dist = damerauLevenshteinDistance(input, cmd)
     if (dist < bestDist) {
       bestDist = dist
       best = cmd
