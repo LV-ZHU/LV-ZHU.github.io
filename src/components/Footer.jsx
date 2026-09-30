@@ -1,4 +1,3 @@
-import GitHubLink from './GitHubLink'
 
 export default function Footer() {
   return (
@@ -7,12 +6,7 @@ export default function Footer() {
         <div className="footer-inner">
           <div className="footer-copy">&copy; 2026 LV-ZHU</div>
           <div className="footer-social">
-            <GitHubLink
-              compact
-              href="https://github.com/LV-ZHU"
-              title="LV-ZHU"
-              meta="GitHub"
-            />
+            <a href="https://github.com/LV-ZHU" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
         </div>
       </div>

@@ -1,126 +1,56 @@
-:where(.account-view) .account-avatar {
-  width: 88px;
-  height: 88px;
+/* Account details use the same reading width as the rest of the site. */
+.account-view .account-card,
+.account-view .account-not-logged {
+  max-width: 640px;
+  margin: 0 auto;
+  color: var(--ink);
+}
+.account-view .account-card {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  column-gap: 20px;
+  align-items: start;
+}
+.account-view .account-avatar,
+.account-view .account-avatar-icon {
+  grid-column: 1;
+  grid-row: 1 / 4;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--primary);
-  margin: 0 auto 1rem;
 }
-:where(.account-view) .account-avatar-icon {
-  font-size: 5rem;
-  color: var(--gray-light);
-  margin-bottom: 1rem;
+.account-view .account-avatar-icon { font-size: 64px; color: var(--ink-muted); }
+.account-view .account-name { grid-column: 2; font-size: 1.2rem; font-weight: 600; overflow-wrap: anywhere; }
+.account-view .account-email,
+.account-view .account-provider { grid-column: 2; color: var(--ink-muted); font-size: .9rem; overflow-wrap: anywhere; }
+.account-view .account-section { grid-column: 1 / -1; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line); }
+.account-view .account-section-title { display: block; margin-bottom: 8px; }
+.account-view .nickname-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.account-view .nickname-input {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface);
 }
-:where(.account-view) .account-name {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--dark);
-  margin-bottom: 0.3rem;
-}
-:where(.account-view) .account-email {
-  font-size: 0.9rem;
-  color: var(--gray);
-  margin-bottom: 0.5rem;
-}
-:where(.account-view) .account-provider {
-  font-size: 0.85rem;
-  color: var(--gray);
-  margin-bottom: 1.5rem;
-}
-:where(.account-view) .account-section {
-  margin-top: 1.5rem;
-  text-align: left;
-}
-:where(.account-view) .nickname-row {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-:where(.account-view) .nickname-input:focus {
-  border-color: var(--primary);
-}
-:where(.account-view) .nickname-save {
-  padding: 0.5rem 1.2rem;
-  background: var(--primary);
-  color: var(--accent-contrast);
-  border: none;
-  border-radius: 8px;
-  font-size: 0.85rem;
+.account-view .nickname-input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.account-view .nickname-save {
+  min-height: 44px;
+  padding: 8px 20px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
   cursor: pointer;
-  font-weight: 500;
 }
-:where(.account-view) .nickname-save:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-:where(.account-view) .nickname-hint {
-  font-size: 0.8rem;
-  color: var(--gray);
-  margin-top: 0.4rem;
-}
-:where(.account-view) .save-toast {
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--primary);
-  color: var(--accent-contrast);
-  padding: 0.6rem 1.5rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  opacity: 0;
-  transition: opacity 0.3s;
-  z-index: 9999;
-}
-:where(.account-view) .save-toast.show { opacity: 1; }
-.app-content :where(.account-view) .account-not-logged {
-  text-align: center;
-  max-width: 480px;
-  margin: 0 auto;
-  padding: clamp(2rem, 6vw, 3rem) 1.5rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  color: var(--ink-soft);
-  background: var(--surface);
-  box-shadow: none;
-  backdrop-filter: none;
-}
-.app-content :where(.account-view) .account-not-logged a {
-  margin-top: 1rem;
-  display: inline-block; color: var(--accent); font-weight: 600; }
-.app-content :where(.account-view) .account-card {
-  text-align: center;
-  padding: 2.5rem 2rem;
-  border-radius: var(--radius-md);
-  margin: 0 auto;
-  max-width: 480px;
-  border: 1px solid var(--line);
-  color: var(--ink-soft);
-  background: var(--surface);
-  box-shadow: none;
-}
-.app-content :where(.account-view) :is(.account-name, .account-section-title) { color: var(--ink); }
-.app-content :where(.account-view) :is(.account-email, .account-provider, .nickname-hint) { color: var(--ink-muted); }
-.app-content :where(.account-view) .account-section-title {
-  border-bottom: 1px solid var(--gray-light);
-  padding-bottom: 0.4rem;
-  margin-bottom: 0.8rem;
-  color: var(--dark);
-  font-weight: 600;
-  font-size: 1rem; border-color: var(--line); }
-.app-content :where(.account-view) .nickname-input {
-  transition: border-color 0.2s;
-  outline: none;
-  font-size: 0.9rem;
-  border-radius: 8px;
-  border: 1px solid var(--gray-light);
-  padding: 0.5rem 0.8rem;
-  flex: 1; border-color: var(--line); color: var(--ink); background: var(--surface-soft); }
-.app-content :where(.account-view) .nickname-input::placeholder { color: var(--ink-muted); }
-
-
-
-.app-content :where(.account-view) :is(.account-card, .account-not-logged) { max-width: 480px; padding: 32px 24px; }
-:where(.account-view) .nickname-row { flex-wrap: wrap; }
-:where(.account-view) .nickname-input { min-width: 0; min-height: 44px; }
-:where(.account-view) .nickname-save { min-height: 44px; }
+.account-view .nickname-save:hover:not(:disabled) { background: var(--surface-soft); }
+.account-view .nickname-save:disabled { opacity: .5; cursor: default; }
+.account-view .nickname-hint { margin-top: 8px; font-size: .85rem; color: var(--ink-muted); }
+.account-view .save-feedback { margin-top: 8px; font-size: .9rem; color: var(--ink-muted); }
+.account-view .account-not-logged a { display: inline-block; margin-top: 12px; color: var(--accent); }

@@ -2,15 +2,11 @@ import { use_travel } from '../features/travel/use_travel'
 
 
 
-
-
-
-
 import PageHeader from '../components/PageHeader'
 import '../styles/Travel.css'
 
 export default function Travel() {
-  const { currentMap, loading, loadingText, leaderboard, chartRef, switchMap, handleDeleteRecord, renderStatsCards } = use_travel()
+  const { sync_status, leaderboard_error, currentMap, loading, loadingText, leaderboard, chartRef, switchMap, handleDeleteRecord, renderStatsCards } = use_travel()
   return (
     <div className="page-wrapper travel-view">
       <PageHeader title="Travel" />
@@ -19,7 +15,6 @@ export default function Travel() {
           <div className="travel-container">
             <div className="section-header">
               <h2 className="section-title">我的足迹</h2>
-              <p className="section-desc">点击地图行政板块可切换：未去 → 去过 → 想去</p>
             </div>
 
             <div className="map-tabs">
@@ -29,7 +24,7 @@ export default function Travel() {
                 type="button"
                 onClick={() => switchMap('shanghai')}
               >
-                上海足迹
+                上海
               </button>
               <button
                 className={`map-tab ${currentMap === 'china' ? 'active' : ''}`}
@@ -37,7 +32,7 @@ export default function Travel() {
                 type="button"
                 onClick={() => switchMap('china')}
               >
-                中国足迹
+                中国
               </button>
               <button
                 className={`map-tab ${currentMap === 'world' ? 'active' : ''}`}
@@ -45,7 +40,7 @@ export default function Travel() {
                 type="button"
                 onClick={() => switchMap('world')}
               >
-                全球足迹
+                世界
               </button>
             </div>
 
@@ -71,9 +66,9 @@ export default function Travel() {
               <div className="map-chart-container" ref={chartRef}></div>
             </div>
 
-            <div className="map-tip">
-              足迹保存在本机，登录后同步到排行榜。
-            </div>
+            {sync_status && <div className="map-tip" role="status">
+              {sync_status}
+            </div>}
 
             {renderStatsCards()}
           </div>
@@ -84,11 +79,11 @@ export default function Travel() {
         <div className="container">
           <div className="leaderboard">
             <h3 className="leaderboard-title">
-              <i className="fas fa-trophy"></i>{' '}
+
               {currentMap === 'shanghai' ? '上海' : currentMap === 'china' ? '中国' : '全球'}排行榜
             </h3>
             {leaderboard.length === 0 ? (
-              <div className="leaderboard-empty">暂无数据</div>
+              <div className="leaderboard-empty">{leaderboard_error || '还没有人记录去过的地点。'}</div>
             ) : (
               <ul className="leaderboard-list">
                 {[...leaderboard]
@@ -141,8 +136,9 @@ export default function Travel() {
                         {item.isMe && (
                           <button
                             className="leaderboard-delete"
-                            title="删除我的记录"
-                            onClick={() => handleDeleteRecord(item.uid)}
+                            title="退出排行榜"
+                            aria-label="退出排行榜"
+                            onClick={handleDeleteRecord}
                           >
                             <i className="fas fa-times"></i>
                           </button>

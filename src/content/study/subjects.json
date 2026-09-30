@@ -1,0 +1,232 @@
+{
+  "formal-languages": {
+    "title": "形式语言与自动机",
+    "subtitle": ""
+  },
+  "machine-learning": {
+    "title": "机器学习",
+    "subtitle": ""
+  },
+  "computer-forensics": {
+    "title": "计算机取证",
+    "subtitle": ""
+  },
+  "data-structure": {
+    "title": "数据结构",
+    "icon": "fas fa-sitemap",
+    "subtitle": "线性表、树、图、排序、查找",
+    "content": {
+      "type": "exam",
+      "sectionTitle": "25261 期末真题回忆",
+      "panelTitle": "25261数据结构期末真题回忆",
+      "text_file": "ds_exam_text.md"
+    }
+  },
+  "algorithm-design": {
+    "title": "算法分析与设计",
+    "icon": "fas fa-code-branch",
+    "subtitle": "概论、分治、动态规划、贪心、回溯、分支限界、线性规划",
+    "content": {
+      "type": "sections",
+      "sections": [
+        {
+          "type": "github",
+          "sectionTitle": "课程笔记",
+          "title": "算法.pdf",
+          "meta": "PDF 笔记",
+          "url": "https://github.com/LV-ZHU/notes/blob/main/%E7%AE%97%E6%B3%95.pdf"
+        },
+        {
+          "type": "exam",
+          "sectionTitle": "回忆版真题",
+          "panelTitle": "算法设计回忆版真题",
+          "text_file": "algorithm_exam_text.md"
+        }
+      ]
+    }
+  },
+  "computer-organization": {
+    "title": "计算机组成原理",
+    "icon": "fas fa-memory",
+    "subtitle": "CPU、存储器、总线、I/O",
+    "content": {
+      "type": "sections",
+      "sections": [
+        {
+          "type": "github",
+          "sectionTitle": "课程笔记",
+          "title": "计组.pdf",
+          "meta": "PDF 笔记",
+          "url": "https://github.com/LV-ZHU/notes/blob/main/%E8%AE%A1%E7%BB%84.pdf"
+        },
+        {
+          "type": "exam",
+          "sectionTitle": "期末回忆",
+          "panelTitle": "计算机组成原理期末回忆",
+          "text_file": "co_exam_text.md"
+        }
+      ]
+    }
+  },
+  "os": {
+    "title": "操作系统",
+    "icon": "fas fa-desktop",
+    "subtitle": "进程、内存、文件、设备管理"
+  },
+  "computer-network": {
+    "title": "计算机网络",
+    "icon": "fas fa-network-wired",
+    "subtitle": "TCP/IP、HTTP、DNS、路由"
+  },
+  "math-analysis": {
+    "title": "数分高数",
+    "icon": "fas fa-infinity",
+    "subtitle": "极限、导数、积分、级数",
+    "content": {
+      "type": "github",
+      "sectionTitle": "笔记",
+      "title": "数分高数.pdf",
+      "meta": "PDF 笔记",
+      "url": "https://github.com/LV-ZHU/notes/blob/main/%E6%95%B0%E5%88%86%E9%AB%98%E6%95%B0.pdf"
+    }
+  },
+  "linear-algebra": {
+    "title": "高代线代",
+    "icon": "fas fa-table",
+    "subtitle": "矩阵、行列式、线性空间",
+    "content": {
+      "type": "github",
+      "sectionTitle": "笔记",
+      "title": "高代线代.pdf",
+      "meta": "PDF 笔记",
+      "url": "https://github.com/LV-ZHU/notes/blob/main/%E9%AB%98%E4%BB%A3%E7%BA%BF%E4%BB%A3.pdf"
+    }
+  },
+  "discrete-math": {
+    "title": "离散数学",
+    "icon": "fas fa-project-diagram",
+    "subtitle": "图论、组合、逻辑、代数结构",
+    "content": {
+      "type": "exam",
+      "sectionTitle": "25261 期末回忆",
+      "panelTitle": "考点回忆",
+      "text_file": "dm_exam_text.md"
+    }
+  },
+  "artificial-intelligence": {
+    "title": "人工智能原理与应用",
+    "icon": "fas fa-robot",
+    "subtitle": "搜索、推理、机器学习、强化学习",
+    "content": {
+      "type": "exam",
+      "sectionTitle": "25262 期末回忆",
+      "panelTitle": "考点回忆",
+      "text_file": "ai_exam_text.md"
+    }
+  },
+  "security-math-foundations": {
+    "title": "信安数基",
+    "icon": "",
+    "subtitle": "数论、群、原根、二次剩余、素性检测、环、域、椭圆曲线",
+    "content": {
+      "type": "sections",
+      "sections": [
+        {
+          "type": "github",
+          "sectionTitle": "课程笔记",
+          "title": "信安数基.pdf",
+          "meta": "PDF 笔记",
+          "url": "https://github.com/LV-ZHU/notes/blob/main/%E4%BF%A1%E5%AE%89%E6%95%B0%E5%9F%BA.pdf"
+        },
+        {
+          "type": "exam",
+          "sectionTitle": "期末回忆",
+          "panelTitle": "考点回忆",
+          "text_file": "security_math_exam_text.md"
+        }
+      ]
+    }
+  },
+  "physics": {
+    "title": "大学物理",
+    "icon": "fas fa-atom",
+    "subtitle": "力学、热学、电磁学、光学",
+    "content": {
+      "type": "github",
+      "sectionTitle": "笔记",
+      "title": "大物.pdf",
+      "meta": "PDF 笔记",
+      "url": "https://github.com/LV-ZHU/notes/blob/main/%E5%A4%A7%E7%89%A9.pdf"
+    }
+  },
+  "circuit-theory": {
+    "title": "电路理论",
+    "icon": "fas fa-bolt",
+    "subtitle": "电路分析、暂态、稳态",
+    "content": {
+      "type": "github",
+      "sectionTitle": "100 个常见问题",
+      "title": "电路理论.pdf",
+      "meta": "PDF · 100 个常见问题",
+      "url": "https://github.com/LV-ZHU/notes/blob/main/%E7%94%B5%E8%B7%AF%E7%90%86%E8%AE%BA.pdf"
+    }
+  },
+  "assembly_language_programming": {
+    "title": "汇编语言程序设计",
+    "icon": "fas fa-microchip",
+    "subtitle": "8086指令、x86架构",
+    "content": {
+      "type": "github",
+      "sectionTitle": "24252 期末试卷",
+      "title": "assembly_language_programming",
+      "meta": "GitHub 仓库",
+      "url": "https://github.com/LV-ZHU/assembly_language_programming"
+    }
+  },
+  "database": {
+    "title": "数据库",
+    "icon": "fas fa-database",
+    "subtitle": "关系代数、SQL、E-R图、正则覆盖、索引、查询优化、事务、并发控制、恢复系统",
+    "content": {
+      "type": "sections",
+      "sections": [
+        {
+          "type": "github",
+          "sectionTitle": "课程笔记",
+          "title": "数据库.pdf",
+          "meta": "PDF 笔记",
+          "url": "https://github.com/LV-ZHU/notes/blob/main/%E6%95%B0%E6%8D%AE%E5%BA%93.pdf"
+        },
+        {
+          "type": "exam",
+          "sectionTitle": "25262期末回忆",
+          "panelTitle": "数据库期末总结",
+          "text_file": "database_exam_text.md"
+        }
+      ]
+    }
+  },
+  "cryptography": {
+    "title": "密码学",
+    "icon": "fas fa-lock",
+    "subtitle": "加密、认证、信息安全",
+    "content": {
+      "type": "sections",
+      "sections": [
+        {
+          "type": "github",
+          "sectionTitle": "课程笔记",
+          "title": "现代密码学.pdf",
+          "meta": "PDF 笔记",
+          "url": "https://github.com/LV-ZHU/notes/blob/main/%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6.pdf"
+        },
+        {
+          "type": "exam",
+          "sectionTitle": "25262 期末回忆",
+          "panelTitle": "考点回忆",
+          "text_file": "crypto_exam_text.md"
+        }
+      ]
+    }
+  }
+}

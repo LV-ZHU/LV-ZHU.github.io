@@ -14,8 +14,7 @@ export default function StudySubject({ subject }) {
         </div>
         <section className="section">
           <div className="container">
-            <div className="placeholder-box">
-              <i className="fas fa-ghost" />
+            <div className="resource-empty">
               <p>暂未添加资料</p>
               <Link to="/study" className="card-link study-subject-detail-1" >返回学习地图</Link>
             </div>
@@ -58,8 +57,7 @@ export default function StudySubject({ subject }) {
     if (!data.content) {
       return (
         <div>
-          <div className="placeholder-box">
-            <i className="fas fa-tools" />
+          <div className="resource-empty">
             <p>暂未添加资料</p>
           </div>
         </div>

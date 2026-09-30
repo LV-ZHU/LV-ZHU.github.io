@@ -1,4 +1,3 @@
-import FadeIn from './FadeIn'
 import { Suspense, useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from './Navbar'
@@ -59,10 +58,10 @@ export default function Layout() {
         <Navbar />
         <main id="main-content" className="app-content">
           <Suspense fallback={<RouteLoader />}>
-            <FadeIn key={pathname}><Outlet /></FadeIn>
+            <div key={pathname}><Outlet /></div>
           </Suspense>
         </main>
-        {showComments && <Comments />}
+        {showComments && <Comments key={pathname} />}
         {!isHome && <Footer />}
       </div>
     </AuthProvider>

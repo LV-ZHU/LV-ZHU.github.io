@@ -1,4 +1,3 @@
-import FadeIn from '../components/FadeIn'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { catalog, filter_catalog, random_pool } from '../features/music/catalog'
 import SongItem from '../features/music/SongItem'
@@ -63,7 +62,7 @@ export default function Music() {
         </aside>
         <div className="music-content">
           <p className="music-intro">音乐像是时空的存档点，总能让你想起生命中的一些瞬间</p>
-          <FadeIn className="music-controls-panel">
+          <div className="music-controls-panel">
             <div className="music-toolbar">
               <div className="music-search">
                 <i className="fas fa-search search-icon" aria-hidden="true" />
@@ -71,22 +70,24 @@ export default function Music() {
                 {search_query && <button className="clear-btn" onClick={() => set_search_query('')} title="清除搜索"><span aria-hidden="true">×</span></button>}
               </div>
               <button className="btn-random" onClick={choose_random} disabled={!available_songs.length}>随机一首</button>
-              <label className="toggle-comments-label"><input type="checkbox" checked={show_comments} onChange={event => set_show_comments(event.target.checked)} /><span>显示所有评论</span></label>
+              <label className="toggle-comments-label"><input type="checkbox" checked={show_comments} onChange={event => set_show_comments(event.target.checked)} /><span>显示歌曲短评</span></label>
             </div>
             <div className="random-filters">
-              <span className="random-help">支持多选类别</span>
               {catalog.map(category => <label key={category.id}><input type="checkbox" checked={enabled_categories[category.id]} onChange={() => toggle_category(category.id)} /><span>{category_names[category.id]}</span></label>)}
             </div>
             {random_result && <div className="random-result" aria-live="polite">
               <div className="random-result-info"><strong>{random_result.name}</strong><span>{random_result.artist}</span>{random_result.comment && <p>{random_result.comment}</p>}</div>
-              <button className="btn-jump" onClick={jump_to_song}><i className="fas fa-location-arrow" aria-hidden="true" /> 跳转播放</button>
+              <button className="btn-jump" onClick={jump_to_song}><i className="fas fa-location-arrow" aria-hidden="true" /> 定位歌曲</button>
             </div>}
-          </FadeIn>
-          {filtered_categories.map(category => <FadeIn as="section" className="music-category" id={'category-' + category.id} data-category={category.id} key={category.id} aria-labelledby={'heading-' + category.id}>
+          </div>
+          {filtered_categories.every(category => category.data.length === 0) && (
+            <p role="status">{available_songs.length ? '没有找到匹配的歌曲。' : '请选择至少一个类别。'}</p>
+          )}
+          {filtered_categories.map(category => <section className="music-category" id={'category-' + category.id} data-category={category.id} key={category.id} aria-labelledby={'heading-' + category.id}>
             <h2 className="music-category-title" id={'heading-' + category.id}>{category.label}</h2>
             <ul className="music-list">{category.data.map(song => <SongItem key={song.id} song={song} highlighted={highlighted_id === song.id} />)}</ul>
             <p className="music-summary-count">共 {category.data.length} 首。</p>
-          </FadeIn>)}
+          </section>)}
         </div>
       </div>
     </div>

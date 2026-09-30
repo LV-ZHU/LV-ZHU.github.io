@@ -1,0 +1,40 @@
+// Travel rules ONLY. Merge into the live rules; do not replace unrelated rules.
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function owns(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+    match /users/{uid}/travelPrivate/maps {
+      allow read, delete: if owns(uid);
+      allow create, update: if owns(uid)
+        && request.resource.data.keys().hasOnly(['china', 'world', 'shanghai', 'published', 'updatedAt'])
+        && request.resource.data.china is map
+        && request.resource.data.world is map
+        && request.resource.data.shanghai is map
+        && request.resource.data.published is bool
+        && request.resource.data.updatedAt is timestamp;
+    }
+    match /travelLeaderboard/{uid} {
+      allow get: if true;
+      allow list: if request.query.limit != null && request.query.limit <= 50;
+      allow delete: if owns(uid);
+      allow create, update: if owns(uid)
+        && request.resource.data.keys().hasOnly(['displayName', 'photoURL', 'visitedCount', 'chinaVisited', 'worldVisited', 'shanghaiVisited', 'updatedAt'])
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() <= 200
+        && request.resource.data.photoURL is string
+        && request.resource.data.photoURL.size() <= 2048
+        && request.resource.data.chinaVisited is int && request.resource.data.chinaVisited >= 0
+        && request.resource.data.worldVisited is int && request.resource.data.worldVisited >= 0
+        && request.resource.data.shanghaiVisited is int && request.resource.data.shanghaiVisited >= 0
+        && request.resource.data.visitedCount == request.resource.data.chinaVisited + request.resource.data.worldVisited + request.resource.data.shanghaiVisited
+        && request.resource.data.updatedAt is timestamp;
+    }
+    // Preserve historical records for owner-only migration. No collection queries.
+    match /travelData/{uid} {
+      allow get, delete: if owns(uid);
+      allow list, create, update: if false;
+    }
+  }
+}

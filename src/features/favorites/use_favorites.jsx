@@ -1,11 +1,26 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { typeDict, questionBank } from '../../data/typeDict'
 import { STORAGE_KEY, defaultConfig, loadConfig, saveConfig, keyboardLayout } from './config.js';
+import { normalize_href, key_target } from './links.js'
 import { advance_typing, is_typing_key } from './typing.js'
 
 export function use_favorites() {
   const navigate = useNavigate()
+  const [search_params, set_search_params] = useSearchParams()
+  const [editor_key, set_editor_key] = useState(null)
+  const [save_message, set_save_message] = useState('')
+
+  useEffect(() => {
+    const requested_key = search_params.get('edit')?.toUpperCase()
+    if (keyboardLayout.flat().some(item => item.key === requested_key && !item.static)) {
+      setIsEditMode(true)
+      set_editor_key(requested_key)
+      const next_params = new URLSearchParams(search_params)
+      next_params.delete('edit')
+      set_search_params(next_params, { replace: true })
+    }
+  }, [search_params, set_search_params])
   const [config, setConfig] = useState(loadConfig)
   const [isEditMode, setIsEditMode] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -24,13 +39,12 @@ export function use_favorites() {
 
   const typeTimerRef = useRef(null)
   const errorTimerRef = useRef(null)
-  const keysRef = useRef([])
 
   const linkableKeys = keyboardLayout.flat().filter(k => k.key && !k.static && !k.spacer)
   const hotkeys = {}
   linkableKeys.forEach(k => {
     const item = config[k.key] || defaultConfig[k.key]
-    hotkeys[k.key.toLowerCase()] = item?.href || defaultConfig[k.key]?.href
+    hotkeys[k.key.toLowerCase()] = key_target(item)
   })
 
   const applyConfigToKey = (key) => {
@@ -40,43 +54,60 @@ export function use_favorites() {
 
   const setCurrent = useCallback((idx) => {
     const len = linkableKeys.length
-    setCurrentIndex(((idx % len) + len) % len)
+    const next_index = ((idx % len) + len) % len
+    setCurrentIndex(next_index)
+    document.querySelector(`.keyboard [data-key="${linkableKeys[next_index].key}"]`)?.focus()
   }, [linkableKeys.length])
-
-  function normalizeHref(input, fallback) {
-    const val = (input || '').trim()
-    if (!val) return fallback
-    return val
-  }
 
   function handleKeyClick(key) {
     if (!isEditMode) return
-    const current = config[key] || defaultConfig[key]
-    const note = window.prompt('输入 ' + key + ' 键显示标题：', current?.note || '-')
-    if (note === null) return
-    const href = window.prompt('输入 ' + key + ' 键跳转地址：', current?.href || defaultConfig[key]?.href)
-    if (href === null) return
-    const newConfig = {
-      ...config,
-      [key]: {
-        note: note.trim() || '-',
-        href: normalizeHref(href, defaultConfig[key]?.href),
-      },
-    }
-    setConfig(newConfig)
-    saveConfig(newConfig)
+    set_editor_key(key)
+    set_save_message('')
+  }
+
+  function save_key(key, note, input) {
+    const href = normalize_href(input)
+    if (href === null) return '请输入网站地址或以 / 开头的站内路径。'
+    if (href && !key_target({ href })) return '这个分区还没有内容，请填写其他链接。'
+    const new_config = { ...config, [key]: { note: note.trim(), href } }
+    if (!saveConfig(new_config)) return '浏览器未能保存，输入已保留，请重试。'
+    setConfig(new_config)
+    set_editor_key(null)
+    requestAnimationFrame(() => document.querySelector(`.keyboard [data-key="${key}"]`)?.focus())
+    set_save_message(`${key} 键已保存`)
+    return ''
+  }
+
+  function cancel_edit() {
+    const key = editor_key
+    set_editor_key(null)
+    requestAnimationFrame(() => document.querySelector(`.keyboard [data-key="${key}"]`)?.focus())
   }
 
   function toggleEditMode() {
     if (isTypeGame) return
     setIsEditMode(prev => !prev)
+    set_editor_key(null)
+    set_save_message('')
   }
 
   function resetConfig() {
-    if (!window.confirm('确认重置所有键位配置为默认值吗？')) return
-    try { localStorage.removeItem(STORAGE_KEY) } catch { /* Reset remains available in memory. */ }
-    setConfig({ ...defaultConfig })
-    setCurrentIndex(0)
+    if (!window.confirm('恢复所有默认键位？此浏览器中的自定义名称和链接会被清除。')) return
+    try {
+      localStorage.removeItem(STORAGE_KEY)
+      setConfig({ ...defaultConfig })
+      set_editor_key(null)
+      setCurrentIndex(0)
+      set_save_message('已恢复默认键位')
+    } catch {
+      set_save_message('恢复失败，现有键位未改动。')
+    }
+  }
+
+  function open_key(href) {
+    if (!href) return
+    if (/^https?:\/\//i.test(href)) window.location.assign(href)
+    else navigate(href)
   }
 
   // Type game logic
@@ -92,6 +123,8 @@ export function use_favorites() {
 
   function startTypeGame() {
     if (isEditMode) setIsEditMode(false)
+    set_editor_key(null)
+    set_save_message('')
     setIsTypeGame(true)
     setTypeTimeLeft(60)
     setTypeScore(0)
@@ -202,10 +235,13 @@ export function use_favorites() {
   useEffect(() => {
     function handleKeyDown(event) {
       const tag = (event.target.tagName || '').toLowerCase()
-      if (tag === 'input' || tag === 'textarea' || event.target.isContentEditable || event.ctrlKey || event.metaKey || event.altKey) return
+      if (event.isComposing || event.repeat) return
+      if (tag === 'select' || tag === 'input' || tag === 'textarea' || event.target.isContentEditable || event.ctrlKey || event.metaKey || event.altKey) return
+
+      if (editor_key || showQuiz) return
+      if (event.key === 'Enter' && event.target.closest('a, button')) return
 
       if (isTypeGame) {
-        if (showQuiz) return
         if (event.key === 'Escape') {
           event.preventDefault()
           stopTypeGame()
@@ -234,8 +270,9 @@ export function use_favorites() {
       }
 
       const lower = event.key.toLowerCase()
-      if (hotkeys[lower] && !isEditMode) {
-        navigate(hotkeys[lower])
+      if (Object.hasOwn(hotkeys, lower)) {
+        if (isEditMode) handleKeyClick(lower.toUpperCase())
+        else open_key(hotkeys[lower])
         return
       }
 
@@ -279,16 +316,19 @@ export function use_favorites() {
         const targetKey = targetRowLinkable[targetCol]?.key
         const targetIdx = linkableKeys.findIndex(k => k.key === targetKey)
         if (targetIdx !== -1) setCurrent(targetIdx)
-      } else if (event.key === 'Enter' && !isEditMode) {
+      } else if (event.key === 'Enter') {
         event.preventDefault()
         const keyItem = linkableKeys[currentIndex]
-        if (keyItem) navigate(hotkeys[keyItem.key.toLowerCase()])
+        if (keyItem) {
+          if (isEditMode) handleKeyClick(keyItem.key)
+          else open_key(hotkeys[keyItem.key.toLowerCase()])
+        }
       }
     }
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isTypeGame, showQuiz, isEditMode, currentIndex, activeWord, typeIndex, typeCombo, hotkeys, navigate, linkableKeys, setCurrent, errorKey])
+  }, [editor_key, isTypeGame, showQuiz, isEditMode, currentIndex, activeWord, typeIndex, typeCombo, hotkeys, navigate, linkableKeys, setCurrent, errorKey])
 
   // Cleanup timers on unmount
   useEffect(() => {
@@ -298,16 +338,5 @@ export function use_favorites() {
     }
   }, [])
 
-  // Click blocker during type game
-  useEffect(() => {
-    function handleClick(e) {
-      if (isTypeGame && e.target.closest('.key.linkable')) {
-        e.preventDefault()
-      }
-    }
-    document.addEventListener('click', handleClick)
-    return () => document.removeEventListener('click', handleClick)
-  }, [isTypeGame])
-
-  return { isEditMode, currentIndex, isTypeGame, typeTimeLeft, typeScore, typeCombo, activeHint, activeTag, showQuiz, currentQuestion, selectedAnswers, errorKey, linkableKeys, applyConfigToKey, handleKeyClick, toggleEditMode, resetConfig, startTypeGame, stopTypeGame, showQuestionModal, handleQuizSubmit, toggleAnswer, renderTypeWord, targetKey }
+  return { editor_key, save_key, cancel_edit, save_message, isEditMode, currentIndex, isTypeGame, typeTimeLeft, typeScore, typeCombo, activeHint, activeTag, showQuiz, currentQuestion, selectedAnswers, errorKey, linkableKeys, applyConfigToKey, handleKeyClick, toggleEditMode, resetConfig, startTypeGame, stopTypeGame, showQuestionModal, handleQuizSubmit, toggleAnswer, renderTypeWord, targetKey }
 }

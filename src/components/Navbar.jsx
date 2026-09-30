@@ -13,13 +13,14 @@ function SiteSearch({ className = '', query, results, onChange, onKeyDown, onSel
         type="search"
         placeholder="搜索页面..."
         aria-label="搜索站内页面"
-        aria-expanded={results.length > 0}
+        aria-expanded={Boolean(query.trim())}
         autoComplete="off"
         value={query}
         onChange={(event) => onChange(event.target.value)}
         onKeyDown={onKeyDown}
       />
-      <div className={`nav-search-results${results.length ? ' active' : ''}`} role="list" aria-label="站点搜索结果">
+      <div className={`nav-search-results${query.trim() ? ' active' : ''}`} role="group" aria-label="站点搜索结果">
+        {query.trim() && results.length === 0 && <p className="nav-search-empty" role="status">没有找到相关页面</p>}
         {results.map((result) => (
           <Link
             key={result.path + result.title}
@@ -67,6 +68,7 @@ export default function Navbar() {
     setMenuOpen(false)
     set_search_open(false)
     setMobileGroup(null)
+    setQuery('')
     setResults([])
   }, [location.pathname])
 
@@ -97,6 +99,7 @@ export default function Navbar() {
       const insideMobile = mobileSearchRef.current?.contains(e.target)
       if (!insideDesktop && !insideMobile) {
         setResults([])
+        setQuery('')
         set_search_open(false)
       }
     }
@@ -112,6 +115,7 @@ export default function Navbar() {
   }
 
   function handleSearchKey(e) {
+    if (e.nativeEvent.isComposing || e.keyCode === 229) return
     if (e.key === 'Enter') {
       const q = query.trim().toLowerCase()
       const easterEggs = { sujia: '宝宝这素什么东东呀' }
@@ -130,6 +134,7 @@ export default function Navbar() {
       }
     }
     if (e.key === 'Escape') {
+      setQuery('')
       setResults([])
       if (search_open) {
         set_search_open(false)

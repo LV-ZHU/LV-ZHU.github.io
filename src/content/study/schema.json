@@ -1,0 +1,154 @@
+{
+  "type": "object",
+  "minProperties": 1,
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string"
+      },
+      "subtitle": {
+        "type": "string"
+      },
+      "icon": {
+        "type": "string"
+      },
+      "content": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "exam"
+              },
+              "sectionTitle": {
+                "type": "string"
+              },
+              "panelTitle": {
+                "type": "string"
+              },
+              "text_file": {
+                "type": "string",
+                "pattern": "^[a-z0-9_]+\\.md$"
+              }
+            },
+            "required": [
+              "type",
+              "sectionTitle",
+              "panelTitle",
+              "text_file"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "github"
+              },
+              "sectionTitle": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "meta": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "pattern": "^https://"
+              }
+            },
+            "required": [
+              "type",
+              "sectionTitle",
+              "title",
+              "url"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "sections"
+              },
+              "sections": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "const": "exam"
+                        },
+                        "sectionTitle": {
+                          "type": "string"
+                        },
+                        "panelTitle": {
+                          "type": "string"
+                        },
+                        "text_file": {
+                          "type": "string",
+                          "pattern": "^[a-z0-9_]+\\.md$"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "sectionTitle",
+                        "panelTitle",
+                        "text_file"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "const": "github"
+                        },
+                        "sectionTitle": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "meta": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string",
+                          "pattern": "^https://"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "sectionTitle",
+                        "title",
+                        "url"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                }
+              }
+            },
+            "required": [
+              "type",
+              "sections"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "required": [
+      "title",
+      "subtitle"
+    ],
+    "additionalProperties": false
+  }
+}

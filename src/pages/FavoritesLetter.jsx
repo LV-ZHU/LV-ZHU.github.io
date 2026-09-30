@@ -7,7 +7,7 @@ import { db } from '../firebase/init'
 import PageHeader from '../components/PageHeader'
 import '../styles/Favorites.css'
 
-function normalizePrivateLink(doc) {
+function normalize_shared_link(doc) {
   const data = doc.data()
   if (typeof data.title !== 'string' || typeof data.url !== 'string') return null
 
@@ -22,47 +22,53 @@ function normalizePrivateLink(doc) {
 export default function FavoritesLetter() {
   const { letter } = useParams()
   const { user } = useAuth()
-  const [privateLinks, setPrivateLinks] = useState([])
+  const [shared_links, set_shared_links] = useState([])
+  const [shared_error, set_shared_error] = useState('')
   const upperLetter = letter?.toUpperCase()
   const data = letterData[upperLetter]
   const visibleLinks = useMemo(() => {
     if (!data?.links) return []
-    if (upperLetter !== 'O' || !user || privateLinks.length === 0) return data.links
+    if (upperLetter !== 'O' || !user || shared_links.length === 0) return data.links
 
     return [
       ...data.links.slice(0, O_PRIVATE_LINK_INSERT_INDEX),
-      ...privateLinks,
+      ...shared_links,
       ...data.links.slice(O_PRIVATE_LINK_INSERT_INDEX),
     ]
-  }, [data, privateLinks, upperLetter, user])
+  }, [data, shared_links, upperLetter, user])
 
   useEffect(() => {
     let cancelled = false
+    set_shared_links([])
+    set_shared_error('')
 
     if (upperLetter !== 'O' || !user) {
-      setPrivateLinks([])
+      set_shared_links([])
       return () => {
         cancelled = true
       }
     }
 
-    async function loadPrivateLinks() {
+    async function load_shared_links() {
       try {
-        const privateLinksQuery = query(
+        const shared_links_query = query(
           collection(db, 'privateLinks', 'favoritesO', 'items'),
           orderBy('order', 'asc')
         )
-        const snapshot = await getDocs(privateLinksQuery)
+        const snapshot = await getDocs(shared_links_query)
         if (!cancelled) {
-          setPrivateLinks(snapshot.docs.map(normalizePrivateLink).filter(Boolean))
+          set_shared_links(snapshot.docs.map(normalize_shared_link).filter(Boolean))
         }
       } catch (error) {
-        console.error('加载私密收藏链接失败:', error)
-        if (!cancelled) setPrivateLinks([])
+        console.error('加载登录用户共享链接失败:', error)
+        if (!cancelled) {
+          set_shared_links([])
+          set_shared_error('共享链接暂时无法加载，请稍后重试。')
+        }
       }
     }
 
-    loadPrivateLinks()
+    load_shared_links()
 
     return () => {
       cancelled = true
@@ -73,12 +79,11 @@ export default function FavoritesLetter() {
     return (
       <div className="page-wrapper favorites-view page-direct">
         <div className="page-header">
-          <h1><i className="fas fa-keyboard" /> {upperLetter}</h1>
+          <h1>{upperLetter}</h1>
         </div>
         <section className="section">
           <div className="container">
-            <div className="placeholder-box">
-              <i className="fas fa-ghost" />
+            <div className="resource-empty">
               <p>页面未找到</p>
               <Link to="/favorites" className="card-link favorites-letter-detail-1" >返回键盘</Link>
             </div>
@@ -93,14 +98,14 @@ export default function FavoritesLetter() {
     return (
       <div className="page-wrapper favorites-view page-direct">
         <div className="page-header">
-          <h1><i className="fas fa-keyboard" /> {upperLetter} 键 | 待配置</h1>
+          <h1>{upperLetter}</h1>
         </div>
         <section className="section">
           <div className="container">
-            <div className="placeholder-box">
-              <i className="fas fa-folder-open" />
-              <h3>暂未添加站点</h3>
-              <p className="favorites-letter-detail-3" ><Link className="card-link" to="/favorites"><i className="fas fa-arrow-left" /> 返回 Favorites 键盘页</Link></p>
+            <div className="resource-empty">
+              <p>这个键位还没有链接。</p>
+              <Link to={`/favorites?edit=${upperLetter}`} className="card-link">设置 {upperLetter} 键</Link>
+              <p className="favorites-letter-detail-3" ><Link className="card-link" to="/favorites">返回键盘</Link></p>
             </div>
           </div>
         </section>
@@ -114,6 +119,7 @@ export default function FavoritesLetter() {
       <section className="section">
         <div className="container">
           <Link to="/favorites" className="back-btn"><i className="fas fa-arrow-left" /> 返回键盘</Link>
+          {upperLetter === 'O' && shared_error && <p role="alert">{shared_error}</p>}
           {data.qqGroups ? (
             <div className="link-grid">
               {data.qqGroups.map((g, i) => (

@@ -1,5 +1,7 @@
 import { use_favorites } from '../features/favorites/use_favorites'
-import { defaultConfig, keyboardLayout, rowClasses } from '../features/favorites/config.js';
+import { key_label, key_target } from '../features/favorites/links.js'
+import KeyEditor from '../features/favorites/KeyEditor'
+import { keyboardLayout, rowClasses } from '../features/favorites/config.js';
 
 import { Link } from 'react-router-dom';
 
@@ -7,7 +9,7 @@ import PageHeader from '../components/PageHeader'
 import '../styles/Favorites.css'
 
 export default function Favorites() {
-  const { isEditMode, currentIndex, isTypeGame, typeTimeLeft, typeScore, typeCombo, activeHint, activeTag, showQuiz, currentQuestion, selectedAnswers, errorKey, linkableKeys, applyConfigToKey, handleKeyClick, toggleEditMode, resetConfig, startTypeGame, stopTypeGame, showQuestionModal, handleQuizSubmit, toggleAnswer, renderTypeWord, targetKey } = use_favorites()
+  const { editor_key, save_key, cancel_edit, save_message, isEditMode, currentIndex, isTypeGame, typeTimeLeft, typeScore, typeCombo, activeHint, activeTag, showQuiz, currentQuestion, selectedAnswers, errorKey, linkableKeys, applyConfigToKey, handleKeyClick, toggleEditMode, resetConfig, startTypeGame, stopTypeGame, showQuestionModal, handleQuizSubmit, toggleAnswer, renderTypeWord, targetKey } = use_favorites()
   return (
     <div className={`page-wrapper favorites-view${isTypeGame ? " typing-active" : ""}`}>
       <PageHeader title="Favorites" />
@@ -19,16 +21,16 @@ export default function Favorites() {
             </div>
 
             <div className="controls">
-              <button className={`ctrl-btn ${isEditMode ? 'warning' : 'primary'}`} onClick={toggleEditMode} type="button">
-                {isEditMode ? '关闭编辑模式' : '开启编辑模式'}
+              <button className="ctrl-btn" onClick={toggleEditMode} type="button" aria-pressed={isEditMode} disabled={isTypeGame}>
+                {isEditMode ? '退出编辑' : '编辑键位'}
               </button>
-              <button className="ctrl-btn warning" onClick={resetConfig} type="button">重置键位配置</button>
+              {isEditMode && <button className="ctrl-btn" onClick={resetConfig} type="button">恢复默认</button>}
               <button
                 className={`ctrl-btn ${isTypeGame ? 'warning' : 'play-type-btn'}`}
                 onClick={isTypeGame ? stopTypeGame : startTypeGame}
                 type="button"
               >
-                {isTypeGame ? <><i className="fas fa-times" /> 退出打字</> : <><i className="fas fa-keyboard" /> 小游戏：键盘打字王 </>}
+                {isTypeGame ? <><i className="fas fa-times" /> 退出打字</> : <><i className="fas fa-keyboard" /> 打字练习 </>}
               </button>
               <button
                 className="ctrl-btn primary"
@@ -39,11 +41,9 @@ export default function Favorites() {
                 知识问答
               </button>
             </div>
-            <p className="edit-tip">
-              {isEditMode
-                ? '点击字母键修改名称和链接。'
-                : '开启编辑模式可修改键位。'}
-            </p>
+            {isEditMode && !editor_key && <p className="edit-tip">选择一个键位，修改名称和链接。</p>}
+            {editor_key && <KeyEditor key={editor_key} selected_key={editor_key} item={applyConfigToKey(editor_key)} on_save={save_key} on_cancel={cancel_edit} />}
+            {save_message && <p className="key-save-message" role="status">{save_message}</p>}
 
             <div className="type-board">
               {renderTypeWord()}
@@ -60,9 +60,6 @@ export default function Favorites() {
               </div>
             </div>
 
-            <div className="keyboard-legend">
-              <span className="legend-chip"><span className="legend-dot general" />键盘快捷导航</span>
-            </div>
 
             <div className="keyboard">
               {keyboardLayout.map((row, rowIdx) => (
@@ -73,7 +70,7 @@ export default function Favorites() {
                       return (
                         <div key={colIdx} className="key">
                           <span className="k-label">{item.key}</span>
-                          <span className="k-note">-</span>
+                          <span className="k-note" aria-hidden="true"></span>
                         </div>
                       )
                     }
@@ -81,19 +78,28 @@ export default function Favorites() {
                     const linkableIdx = linkableKeys.findIndex(k => k.key === item.key)
                     const isCurrent = linkableIdx === currentIndex
                     const isEditing = isEditMode
+                    const href = key_target(keyConfig)
+                    const label = key_label(keyConfig)
+                    const KeyElement = isEditMode || isTypeGame || !href ? 'button' : Link
                     const isTarget = isTypeGame && targetKey === item.key.toLowerCase()
                     const isError = isTypeGame && errorKey === item.key.toLowerCase()
 
                     let className = 'key linkable'
                     if (isCurrent && !isTypeGame) className += ' current-key'
                     if (isEditing) className += ' editing'
+                    if (!href) className += ' unassigned'
+                    if (editor_key === item.key) className += ' selected-edit'
                     if (isTarget) className += ' type-target'
                     if (isError) className += ' type-error'
 
                     return (
-                      <Link
+                      <KeyElement
                         key={colIdx}
-                        to={isEditMode ? '#' : (keyConfig?.href || defaultConfig[item.key]?.href)}
+                        {...(KeyElement === Link ? { to: href } : { type: 'button' })}
+                        aria-label={`${item.key}${label ? ` · ${label}` : ''}${isEditMode ? '，编辑' : !href ? '，未设置' : ''}`}
+                        aria-disabled={!isEditMode && !isTypeGame && !href ? true : undefined}
+                        tabIndex={!isEditMode && !isTypeGame && !href ? -1 : undefined}
+                        aria-pressed={isEditMode ? editor_key === item.key : undefined}
                         className={className}
                         data-key={item.key}
                         onClick={(e) => {
@@ -106,15 +112,15 @@ export default function Favorites() {
                         }}
                       >
                         <span className="k-label">{item.key}</span>
-                        <span className="k-note">{keyConfig?.note || '-'}</span>
-                      </Link>
+                        <span className="k-note">{label || (isEditMode ? '+' : '')}</span>
+                      </KeyElement>
                     )
                   })}
                 </div>
               ))}
             </div>
 
-            <p className="tip-line">方向键选择，回车或点击打开；字母键直接跳转。</p>
+            {!isEditMode && !isTypeGame && <p className="tip-line">按字母键打开链接。</p>}
           </div>
         </div>
       </section>
@@ -129,10 +135,9 @@ export default function Favorites() {
             </div>
             <div className="q-options">
               {Object.entries(currentQuestion.options).map(([key, val]) => (
-                <div
+                <label
                   key={key}
                   className="q-option"
-                  onClick={() => toggleAnswer(key)}
                 >
                   <input
                     type={currentQuestion.type === 'single' ? 'radio' : 'checkbox'}
@@ -142,7 +147,7 @@ export default function Favorites() {
                     onChange={() => toggleAnswer(key)}
                   />
                   <span>{key.toUpperCase()}. {val}</span>
-                </div>
+                </label>
               ))}
             </div>
             <div className="favorites-detail-3" >

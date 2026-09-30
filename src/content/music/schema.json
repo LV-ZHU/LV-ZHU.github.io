@@ -1,0 +1,62 @@
+{
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "label": {
+        "type": "string"
+      },
+      "icon": {
+        "type": "string"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "artist": {
+              "type": "string"
+            },
+            "comment": {
+              "type": "string"
+            },
+            "searchKeywords": {
+              "type": "string"
+            },
+            "contributors": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "sourceUrl": {
+              "type": "string",
+              "pattern": "^https?://"
+            }
+          },
+          "required": [
+            "name",
+            "artist",
+            "comment"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "id",
+      "label",
+      "icon",
+      "data"
+    ],
+    "additionalProperties": false
+  }
+}

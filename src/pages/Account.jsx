@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { db } from '../firebase/init'
 import { useAuth } from '../components/AuthProvider'
@@ -25,6 +26,8 @@ function AccountForm({ user }) {
   const [savedNickname, setSavedNickname] = useState('')
   const [saving, setSaving] = useState(false)
   const [toast, setToast] = useState(false)
+  const [profile_loading, set_profile_loading] = useState(Boolean(user))
+  const [profile_error, set_profile_error] = useState('')
 
   useEffect(() => {
     if (!user) return
@@ -36,23 +39,30 @@ function AccountForm({ user }) {
         setSavedNickname(snap.data().nickname)
       }
     }
-    loadNickname().catch(console.error)
+    loadNickname().catch(() => {
+      if (!cancelled) set_profile_error('昵称读取失败，请刷新重试。')
+    }).finally(() => { if (!cancelled) set_profile_loading(false) })
     return () => { cancelled = true }
   }, [user])
 
-  async function handleSave() {
-    if (!user || save_pending.current || nickname === savedNickname) return
+  async function handleSave(event) {
+    event.preventDefault()
+    const next_nickname = nickname.trim()
+    if (!user || profile_loading || save_pending.current || next_nickname === savedNickname) return
     save_pending.current = true
     setSaving(true)
+    set_profile_error('')
+    setToast(false)
     try {
-      await setDoc(doc(db, 'users', user.uid), { nickname }, { merge: true })
+      await setDoc(doc(db, 'users', user.uid), { nickname: next_nickname }, { merge: true })
       if (!mounted.current) return
-      setSavedNickname(nickname)
+      setNickname(next_nickname)
+      setSavedNickname(next_nickname)
       setToast(true)
       clearTimeout(toast_timer.current)
       toast_timer.current = setTimeout(() => setToast(false), 2000)
     } catch (e) {
-      if (mounted.current) alert('保存失败: ' + e.message)
+      if (mounted.current) set_profile_error('昵称未保存，请重试。')
     } finally {
       save_pending.current = false
       if (mounted.current) setSaving(false)
@@ -77,7 +87,7 @@ function AccountForm({ user }) {
           {!user ? (
             <div className="account-not-logged">
               <p>请在登录后查看账号信息</p>
-              <a href="/">返回首页</a>
+              <Link to="/">返回首页</Link>
             </div>
           ) : (
             <div className="account-card">
@@ -93,28 +103,32 @@ function AccountForm({ user }) {
                 {user.providerData?.[0]?.providerId === 'google.com' ? 'Google' : user.providerData?.[0]?.providerId === 'github.com' ? 'GitHub' : '未知'}
               </div>
 
-              <div className="account-section">
-                <div className="account-section-title">昵称</div>
+              <form className="account-section" onSubmit={handleSave}>
+                <label className="account-section-title" htmlFor="account-nickname">昵称</label>
                 <div className="nickname-row">
                   <input
                     className="nickname-input"
+                    id="account-nickname"
                     type="text"
-                    placeholder="设置你的昵称..."
+                    disabled={saving || profile_loading}
                     maxLength={20}
+                    aria-describedby="nickname-limit"
                     value={nickname}
-                    onChange={(e) => { edited.current = true; setNickname(e.target.value) }}
+                    onChange={(e) => { edited.current = true; setToast(false); setNickname(e.target.value) }}
                   />
-                  <button className="nickname-save" onClick={handleSave} disabled={saving || nickname === savedNickname}>
+                  <button className="nickname-save" type="submit" disabled={saving || profile_loading || nickname.trim() === savedNickname}>
                     {saving ? '保存中...' : '保存'}
                   </button>
                 </div>
-                <div className="nickname-hint">最多20个字符</div>
-              </div>
+                <div className="nickname-hint" id="nickname-limit">最多20个字符</div>
+                {profile_loading && <p className="save-feedback" role="status">读取中…</p>}
+                {profile_error && <p role="alert">{profile_error}</p>}
+                {toast && <p className="save-feedback" role="status">已保存</p>}
+              </form>
             </div>
           )}
         </div>
       </section>
-      <div className={`save-toast${toast ? ' show' : ''}`}>已保存</div>
     </div>
   )
 }

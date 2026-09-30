@@ -91,5 +91,4 @@
 .music-content { container-type: inline-size; }
 @container (max-width: 430px) { .music-list { grid-template-columns: 1fr; } }
 
-.music-item { transition: background-color .3s ease, transform .3s ease; }
-@media (hover: hover) { .music-item:hover { transform: translateY(-3px); } }
+.music-item { transition: background-color .3s ease; }

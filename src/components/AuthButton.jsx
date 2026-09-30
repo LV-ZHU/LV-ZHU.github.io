@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useAuth } from './AuthProvider'
 
 export default function AuthButton() {
-  const { user, loading, error, signIn, signOut } = useAuth()
+  const { user, display_name, loading, signing_in, error, signIn, signOut } = useAuth()
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
 
@@ -37,7 +37,7 @@ export default function AuthButton() {
           ) : (
             <i className="fas fa-user-circle auth-avatar-icon" />
           )}
-          <span className="auth-name">{user.displayName || user.email}</span>
+          <span className="auth-name">{display_name}</span>
         </Link>
         <button type="button" className="auth-logout-btn" onClick={signOut} aria-label="退出登录">
           <i className="fas fa-right-from-bracket" aria-hidden="true" />
@@ -52,12 +52,15 @@ export default function AuthButton() {
         {error}
         {window.location.hostname === '127.0.0.1' && <a href={window.location.href.replace('://127.0.0.1', '://localhost')}>使用 localhost 打开</a>}
       </div>}
-      <button type="button" className="auth-login-btn" aria-haspopup="menu" aria-expanded={open} onClick={(e) => { e.stopPropagation(); setOpen(!open) }}>
-        <i className="fas fa-right-to-bracket" aria-hidden="true" /><span>登录</span>
+      <button type="button" className="auth-login-btn" disabled={signing_in} aria-haspopup="menu" aria-expanded={open} onClick={(e) => { e.stopPropagation(); setOpen(!open) }}>
+        <i className="fas fa-right-to-bracket" aria-hidden="true" /><span>{signing_in ? '登录中…' : '登录'}</span>
       </button>
       <div className={`auth-dropdown-menu${open ? ' active' : ''}`} role="menu" aria-hidden={!open}>
-        <button type="button" role="menuitem" className="auth-provider-btn" onClick={() => { signIn(); setOpen(false) }}>
+        <button type="button" role="menuitem" className="auth-provider-btn" disabled={signing_in} onClick={() => { signIn('google'); setOpen(false) }}>
           <i className="fab fa-google" aria-hidden="true" /><span>Google 登录</span>
+        </button>
+        <button type="button" role="menuitem" className="auth-provider-btn" disabled={signing_in} onClick={() => { signIn('github'); setOpen(false) }}>
+          <i className="fab fa-github" aria-hidden="true" /><span>GitHub 登录</span>
         </button>
       </div>
     </div>

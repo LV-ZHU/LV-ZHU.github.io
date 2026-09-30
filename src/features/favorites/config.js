@@ -1,3 +1,4 @@
+import { normalize_href } from './links.js'
 import { read_record, write_record } from '../storage.js'
 export const STORAGE_KEY = 'lv-zhu-favorites-keymap'
 
@@ -42,7 +43,7 @@ export const defaultConfig = {
 
 export function loadConfig() {
   const saved = read_record(STORAGE_KEY)
-  const valid = Object.fromEntries(Object.entries(saved).filter(([, value]) => value && typeof value.note === 'string' && typeof value.href === 'string'))
+  const valid = Object.fromEntries(Object.entries(saved).filter(([key, value]) => Object.hasOwn(defaultConfig, key) && value && typeof value.note === 'string' && typeof value.href === 'string' && normalize_href(value.href) !== null))
   return { ...defaultConfig, ...valid }
 }
 

@@ -1,7 +1,7 @@
 :where(.travel-view) .travel-container {
   max-width: 1100px;
   margin: 0 auto;
-  background: white;
+  background: var(--surface);
   border-radius: var(--radius-md);
   box-shadow: none;
   padding: 2rem;
@@ -185,7 +185,7 @@
 :where(.travel-view) .leaderboard {
   max-width: 1100px;
   margin: 2rem auto;
-  background: white;
+  background: var(--surface);
   border-radius: var(--radius-md);
   box-shadow: none;
   padding: 2rem;
@@ -337,3 +337,16 @@
 :where(.travel-view) .map-stats-container { gap: 16px; margin-top: 16px; padding-top: 16px; }
 :where(.travel-view) .stat-num { font-variant-numeric: tabular-nums; font-weight: 500; }
 :where(.travel-view) .leaderboard { max-width: 780px; margin-inline: auto; }
+
+/* Keep the map and its controls on one quiet surface. */
+:where(.travel-view) .travel-container,
+:where(.travel-view) .leaderboard { background: transparent; border-radius: 0; }
+:where(.travel-view) .map-tip { text-align: left; margin-top: 12px; }
+:where(.travel-view) .leaderboard { max-width: 1100px; border-top: 1px solid var(--line); }
+:where(.travel-view) .leaderboard-rank { background: transparent; color: var(--ink-muted); border-radius: 0; }
+:where(.travel-view) .leaderboard-rank.top1,
+:where(.travel-view) .leaderboard-rank.top2,
+:where(.travel-view) .leaderboard-rank.top3,
+:where(.travel-view) .leaderboard-rank.other { background: transparent; color: var(--ink-muted); }
+:where(.travel-view) .leaderboard-delete { min-width: 44px; min-height: 44px; }
+:where(.travel-view) .leaderboard-name { min-width: 0; overflow-wrap: anywhere; }

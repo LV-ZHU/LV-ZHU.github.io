@@ -8,19 +8,22 @@
     "build": "vite build",
     "preview": "vite preview",
     "verify": "npm run test && npm run build",
-    "test": "node --test src/features/music/catalog.test.js src/features/state.test.js"
+    "test": "node --test src/features/music/catalog.test.js src/features/state.test.js src/features/travel/privacy.test.js src/features/auth/auth.test.js src/features/favorites/links.test.js",
+    "validate:content": "node scripts/validate-content.mjs",
+    "prebuild": "npm run validate:content"
   },
   "dependencies": {
+    "echarts": "^5.5.0",
+    "firebase": "^10.12.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.28.0",
-    "firebase": "^10.12.0",
-    "echarts": "^5.5.0"
+    "react-router-dom": "^6.28.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "ajv": "^8.20.0",
     "vite": "^6.0.0"
   }
 }

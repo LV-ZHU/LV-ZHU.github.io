@@ -1,81 +1,44 @@
 import { games, anime, novels } from '../data/acgn.js'
 import { useState } from 'react'
-
 import PageHeader from '../components/PageHeader'
 import '../styles/Acgn.css'
 
+const media_sections = [
+  { id: 'game', title: '游戏', items: games },
+  { id: 'anime', title: '动漫', items: anime },
+  { id: 'novel', title: '小说', items: novels },
+]
+
 export default function Acgn() {
-  const [showAll, setShowAll] = useState(false)
-
-  const handleToggle = () => {
-    const next = !showAll
-    setShowAll(next)
-  }
-
+  const [show_reviews, set_show_reviews] = useState(false)
   return (
-    <div className={showAll ? "page-wrapper acgn-view acgn-page show-all-comments" : "page-wrapper acgn-view acgn-page"}>
+    <div className={`page-wrapper acgn-view${show_reviews ? ' show-reviews' : ''}`}>
       <PageHeader title="ACGN" />
       <section className="section">
         <div className="container acgn-layout">
-          <nav className="acgn-navigation">
-            <a href="#acgn-game">游戏</a>
-            <a href="#acgn-anime">动漫</a>
-            <a href="#acgn-novel">小说</a>
+          <nav className="acgn-navigation" aria-label="作品分类">
+            {media_sections.map(section => <a key={section.id} href={`#acgn-${section.id}`}>{section.title}</a>)}
           </nav>
           <div className="acgn-content">
-          <label className="acgn-toggle">
-            <input type="checkbox" checked={showAll} onChange={handleToggle} />
-            显示所有个人评价
-          </label>
-          <div className="acgn-section">
-            <h2 className="acgn-header game" id="acgn-game">
-              游戏
-            </h2>
-            <div className="media-grid">
-              {games.map((item, index) => (
-                <div key={index} className="media-item game">
-                  <a href={item.url} target="_blank" rel="noopener noreferrer">
-                    <span>{item.name}</span>
-                  </a>
-                  {item.review && <div className="media-review">{item.review}</div>}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="acgn-section">
-            <h2 className="acgn-header anime" id="acgn-anime">
-              动漫
-            </h2>
-            <div className="media-grid">
-              {anime.map((item, index) => (
-                <div key={index} className="media-item anime">
-                  <a href={item.url} target="_blank" rel="noopener noreferrer">
-                    <span>{item.name}</span>
-                  </a>
-                  {item.review && <div className="media-review">{item.review}</div>}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="acgn-section">
-            <h2 className="acgn-header novel" id="acgn-novel">
-              小说
-            </h2>
-            <div className="media-grid">
-              {novels.map((item, index) => (
-                <div key={index} className="media-item novel">
-                  <a href={item.url} target="_blank" rel="noopener noreferrer">
-                    <span>{item.name}</span>
-                  </a>
-                  {item.review && <div className="media-review">{item.review}</div>}
-                </div>
-              ))}
-            </div>
+            <label className="acgn-toggle">
+              <input type="checkbox" checked={show_reviews} onChange={event => set_show_reviews(event.target.checked)} />
+              显示短评
+            </label>
+            {media_sections.map(section => (
+              <section className="acgn-section" key={section.id} aria-labelledby={`acgn-${section.id}`}>
+                <h2 className="acgn-header" id={`acgn-${section.id}`}>{section.title}</h2>
+                <ul className="media-grid">
+                  {section.items.map((item, index) => (
+                    <li className="media-item" key={`${item.url}-${index}`}>
+                      <a href={item.url} target="_blank" rel="noopener noreferrer">{item.name}</a>
+                      {item.review && <p className="media-review">{item.review}</p>}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
           </div>
         </div>
-          </div>
       </section>
     </div>
   )

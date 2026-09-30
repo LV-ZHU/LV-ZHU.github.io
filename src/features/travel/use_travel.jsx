@@ -1,11 +1,13 @@
 import { next_map_state } from './state.js'
-import { STORAGE_CHINA, STORAGE_WORLD, STORAGE_SHANGHAI, colorMap, loadData, saveData, getStorageKey, countVisited, escapeHtml } from './state.js';
+import { STORAGE_CHINA, STORAGE_WORLD, STORAGE_SHANGHAI, colorMap, loadData as read_local, saveData as write_local, getStorageKey, escapeHtml } from './state.js';
 import { useState, useEffect, useRef, useCallback } from 'react'
 import * as echarts from 'echarts/core'
 import { LinesChart, MapChart } from 'echarts/charts'
 import { GeoComponent, TooltipComponent } from 'echarts/components'
 import { CanvasRenderer } from 'echarts/renderers'
-import { collection, doc, setDoc, deleteDoc, onSnapshot, query, orderBy, limit, getDoc } from 'firebase/firestore'
+import { collection, doc, writeBatch, serverTimestamp, onSnapshot, query, orderBy, limit, getDoc } from 'firebase/firestore'
+import { public_name } from '../auth/public_name.js'
+import { leaderboard_record } from './privacy.js'
 import { db } from '../../firebase/init'
 import { useAuth } from '../../components/AuthProvider'
 import { useTheme } from '../../components/ThemeProvider'
@@ -16,7 +18,15 @@ export function use_travel() {
   const map_request = useRef(null)
   const sync_timer = useRef(null)
   useEffect(() => () => clearTimeout(sync_timer.current), [])
-  const { user } = useAuth()
+  const { user, nickname, loading: auth_loading } = useAuth()
+  const account_ref = useRef(null)
+  const ready_ref = useRef(false)
+  const published_ref = useRef(true)
+  const edit_version = useRef(0)
+  const [sync_status, set_sync_status] = useState('')
+  const [leaderboard_error, set_leaderboard_error] = useState('')
+  const loadData = (key) => read_local(account_ref.current ? `${key}:${account_ref.current}` : key)
+  const saveData = (key, data) => write_local(account_ref.current ? `${key}:${account_ref.current}` : key, data)
   const { isDark } = useTheme()
   const [currentMap, setCurrentMap] = useState('china')
   const [loading, setLoading] = useState(true)
@@ -215,9 +225,9 @@ export function use_travel() {
         formatter(params) {
           if (params.seriesType === 'lines') return ''
           const stateStrMap = {
-            visited: '🎈 去过',
-            want: '🎯 想去',
-            unvisited: '☁️ 未去',
+            visited: '去过',
+            want: '想去',
+            unvisited: '未去',
           }
           const val = params.data && params.data.value ? params.data.value : 'unvisited'
           return (
@@ -344,38 +354,81 @@ export function use_travel() {
     []
   )
 
-  // Sync travel data to Firestore
+  // Private maps and the public summary are committed atomically.
   const syncTravelToFirestore = useCallback(async () => {
-    if (!user) return
+    if (!user || !ready_ref.current || account_ref.current !== user.uid) return
     const china = loadData(STORAGE_CHINA)
     const world = loadData(STORAGE_WORLD)
     const shanghai = loadData(STORAGE_SHANGHAI)
-    const chinaVisited = countVisited(china)
-    const worldVisited = countVisited(world)
-    const shanghaiVisited = countVisited(shanghai)
-    const totalVisited = chinaVisited + worldVisited + shanghaiVisited
-
+    const version = edit_version.current
+    set_sync_status('正在同步…')
     try {
-      await setDoc(
-        doc(db, 'travelData', user.uid),
-        {
-          photoURL: user.photoURL || '',
-          displayName: user.displayName || user.email || '用户',
-          china,
-          world,
-          shanghai,
-          visitedCount: totalVisited,
-          chinaVisited,
-          worldVisited,
-          shanghaiVisited,
-          updatedAt: new Date(),
-        },
-        { merge: true }
-      )
+      const batch = writeBatch(db)
+      batch.set(doc(db, 'users', user.uid, 'travelPrivate', 'maps'), {
+        china, world, shanghai, published: published_ref.current, updatedAt: serverTimestamp(),
+      })
+      if (published_ref.current) {
+        batch.set(doc(db, 'travelLeaderboard', user.uid), {
+          ...leaderboard_record(user, { china, world, shanghai }, nickname), updatedAt: serverTimestamp(),
+        })
+      }
+      await batch.commit()
+      if (account_ref.current === user.uid && version === edit_version.current) {
+        localStorage.removeItem(`travel-dirty:${user.uid}`)
+        set_sync_status(published_ref.current ? '已同步。排行榜只公开头像、名称和去过的数量。' : '已同步，你已退出排行榜。')
+      }
     } catch (err) {
+      if (account_ref.current === user.uid) set_sync_status('云端同步失败，本机记录已保留。请稍后刷新重试。')
       console.error('同步失败:', err)
     }
-  }, [user])
+  }, [user, nickname])
+
+  useEffect(() => {
+    let cancelled = false
+    clearTimeout(sync_timer.current)
+    ready_ref.current = false
+    account_ref.current = user?.uid || null
+    const refresh = () => {
+      renderStats(currentMapRef.current, loading)
+      if (!loading) updateChartDisplay(currentMapRef.current)
+    }
+    refresh()
+    if (auth_loading) return
+    if (!user) {
+      ready_ref.current = true
+      set_sync_status('')
+      return
+    }
+    set_sync_status('正在读取你的足迹…')
+    ;(async () => {
+      try {
+        const private_ref = doc(db, 'users', user.uid, 'travelPrivate', 'maps')
+        let snapshot = await getDoc(private_ref)
+        // Legacy data is read only by its owner, never through a collection query.
+        if (!snapshot.exists()) snapshot = await getDoc(doc(db, 'travelData', user.uid))
+        if (cancelled) return
+        const data = snapshot.exists() ? snapshot.data() : null
+        const guest_owner = localStorage.getItem('travel-guest-owner')
+        const import_guest = !guest_owner || guest_owner === user.uid
+        if (!guest_owner) localStorage.setItem('travel-guest-owner', user.uid)
+        published_ref.current = data?.published !== false
+        for (const [map, key] of [['china', STORAGE_CHINA], ['world', STORAGE_WORLD], ['shanghai', STORAGE_SHANGHAI]]) {
+          // Unsynced account-local changes take precedence, including empty maps.
+          const cached = localStorage.getItem(`${key}:${user.uid}`)
+          const dirty = localStorage.getItem(`travel-dirty:${user.uid}`)
+          const maps = dirty && cached !== null ? loadData(key) : (data?.[map] || (cached !== null ? loadData(key) : import_guest ? read_local(key) : {}))
+          if (!saveData(key, maps)) throw new Error('Local storage unavailable')
+        }
+        ready_ref.current = true
+        refresh()
+        await syncTravelToFirestore()
+      } catch (err) {
+        if (!cancelled) set_sync_status('足迹读取失败，请刷新重试。为避免覆盖云端记录，暂时无法标记。')
+        console.error('读取足迹失败:', err)
+      }
+    })()
+    return () => { cancelled = true; ready_ref.current = false }
+  }, [user, auth_loading]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Store latest sync function in ref so the click handler always uses current user
   const syncRef = useRef(syncTravelToFirestore)
@@ -386,7 +439,7 @@ export function use_travel() {
   // Handle map click: cycle state unvisited -> visited -> want -> unvisited
   // Stored in a ref so the chart event handler always calls the latest version
   handleMapClickRef.current = (params) => {
-    if (!params.name || params.seriesType === 'lines') return
+    if (!ready_ref.current || account_ref.current !== (user?.uid || null) || !params.name || params.seriesType === 'lines') return
 
     const storageKey = getStorageKey(currentMapRef.current)
     const data = loadData(storageKey)
@@ -398,8 +451,13 @@ export function use_travel() {
     } else {
       data[params.name] = nextState
     }
-    saveData(storageKey, data)
+    if (!saveData(storageKey, data)) {
+      set_sync_status('浏览器无法保存记录，请检查存储设置。')
+      return
+    }
 
+    edit_version.current += 1
+    if (user) localStorage.setItem(`travel-dirty:${user.uid}`, '1')
     updateChartDisplay(currentMapRef.current)
     renderStats(currentMapRef.current, false)
 
@@ -466,66 +524,45 @@ export function use_travel() {
     }
   }, [isDark, loading, updateChartDisplay])
 
-  // Leaderboard: real-time listener from Firestore
+  // Read only the public collection, ranked for the selected map.
   useEffect(() => {
-    const q = query(
-      collection(db, 'travelData'),
-      orderBy('visitedCount', 'desc'),
-      limit(50)
-    )
-
-    const unsub = onSnapshot(q, async (snapshot) => {
-      if (snapshot.empty) {
-        setLeaderboard([])
-        return
-      }
-
-      const docs = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }))
-
-      // Batch fetch user nicknames from users collection
-      const nicknameMap = {}
-      await Promise.all(
-        docs.map(async (item) => {
-          try {
-            const userDoc = await getDoc(doc(db, 'users', item.id))
-            if (userDoc.exists() && userDoc.data().nickname) {
-              nicknameMap[item.id] = userDoc.data().nickname
-            }
-          } catch {
-            // ignore
-          }
-        })
-      )
-
-      setLeaderboard(
-        docs.map((item) => ({
-          uid: item.id,
-          name: nicknameMap[item.id] || item.displayName || '用户',
-          photoURL: item.photoURL || '',
-          visitedCount: item.visitedCount || 0,
-          chinaVisited: item.chinaVisited || 0,
-          worldVisited: item.worldVisited || 0,
-          shanghaiVisited: item.shanghaiVisited || 0,
-          isMe: user && user.uid === item.id,
-        }))
-      )
+    setLeaderboard([])
+    set_leaderboard_error('')
+    const count_field = { china: 'chinaVisited', world: 'worldVisited', shanghai: 'shanghaiVisited' }[currentMap]
+    const q = query(collection(db, 'travelLeaderboard'), orderBy(count_field, 'desc'), limit(50))
+    return onSnapshot(q, (snapshot) => {
+      setLeaderboard(snapshot.docs.filter((entry) => entry.data()[count_field] > 0).map((entry) => {
+        const data = entry.data()
+        return {
+          uid: entry.id, name: public_name(data), photoURL: data.photoURL || '',
+          chinaVisited: data.chinaVisited || 0, worldVisited: data.worldVisited || 0,
+          shanghaiVisited: data.shanghaiVisited || 0, isMe: user?.uid === entry.id,
+        }
+      }))
+    }, (err) => {
+      setLeaderboard([])
+      set_leaderboard_error('排行榜暂时无法加载。')
+      console.error('排行榜读取失败:', err)
     })
+  }, [user, currentMap])
 
-    return unsub
+  const handleDeleteRecord = useCallback(async () => {
+    if (!user || !ready_ref.current || account_ref.current !== user.uid) return
+    if (!confirm('退出排行榜？你的私人足迹会保留。')) return
+    clearTimeout(sync_timer.current)
+    published_ref.current = false
+    try {
+      const batch = writeBatch(db)
+      batch.update(doc(db, 'users', user.uid, 'travelPrivate', 'maps'), { published: false })
+      batch.delete(doc(db, 'travelLeaderboard', user.uid))
+      await batch.commit()
+      set_sync_status('已退出排行榜，足迹仍会同步。')
+    } catch (err) {
+      published_ref.current = true
+      set_sync_status('退出排行榜失败，请重试。')
+      console.error('删除失败:', err)
+    }
   }, [user])
-
-  // Delete leaderboard record
-  const handleDeleteRecord = useCallback(
-    async (uid) => {
-      if (!confirm('确定删除你的排行榜记录？')) return
-      try {
-        await deleteDoc(doc(db, 'travelData', uid))
-      } catch (err) {
-        console.error('删除失败:', err)
-      }
-    },
-    []
-  )
 
   // Stats cards rendering
   function renderStatsCards() {
@@ -599,5 +636,5 @@ export function use_travel() {
     )
   }
 
-  return { currentMap, loading, loadingText, leaderboard, chartRef, switchMap, handleDeleteRecord, renderStatsCards }
+  return { sync_status, leaderboard_error, currentMap, loading, loadingText, leaderboard, chartRef, switchMap, handleDeleteRecord, renderStatsCards }
 }
