@@ -1,11 +1,9 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { typeDict, questionBank } from '../../data/typeDict'
 import { STORAGE_KEY, defaultConfig, loadConfig, saveConfig, keyboardLayout } from './config.js';
 import { normalize_href, key_target } from './links.js'
-import { advance_typing, is_typing_key } from './typing.js'
 
-export function use_favorites() {
+export function use_favorites(practice_open = false) {
   const navigate = useNavigate()
   const [search_params, set_search_params] = useSearchParams()
   const [editor_key, set_editor_key] = useState(null)
@@ -24,22 +22,6 @@ export function use_favorites() {
   const [config, setConfig] = useState(loadConfig)
   const [isEditMode, setIsEditMode] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [isTypeGame, setIsTypeGame] = useState(false)
-  const [typeTimeLeft, setTypeTimeLeft] = useState(60)
-  const [typeScore, setTypeScore] = useState(0)
-  const [typeCombo, setTypeCombo] = useState(0)
-  const [activeWord, setActiveWord] = useState('')
-  const [activeHint, setActiveHint] = useState('')
-  const [activeTag, setActiveTag] = useState('')
-  const [typeIndex, setTypeIndex] = useState(0)
-  const [showQuiz, setShowQuiz] = useState(false)
-  const [currentQuestion, setCurrentQuestion] = useState(null)
-  const [selectedAnswers, setSelectedAnswers] = useState([])
-  const [errorKey, setErrorKey] = useState(null)
-
-  const typeTimerRef = useRef(null)
-  const errorTimerRef = useRef(null)
-
   const linkableKeys = keyboardLayout.flat().filter(k => k.key && !k.static && !k.spacer)
   const hotkeys = {}
   linkableKeys.forEach(k => {
@@ -85,7 +67,7 @@ export function use_favorites() {
   }
 
   function toggleEditMode() {
-    if (isTypeGame) return
+    if (practice_open) return
     setIsEditMode(prev => !prev)
     set_editor_key(null)
     set_save_message('')
@@ -110,164 +92,16 @@ export function use_favorites() {
     else navigate(href)
   }
 
-  // Type game logic
-  function nextTypeWord() {
-    const item = typeDict[Math.floor(Math.random() * typeDict.length)]
-    setActiveWord(item.w)
-    setActiveHint(item.h)
-    setActiveTag(item.tag || '')
-    let idx = 0
-    while (idx < item.w.length && item.w[idx] === ' ') idx++
-    setTypeIndex(idx)
-  }
-
-  function startTypeGame() {
-    if (isEditMode) setIsEditMode(false)
-    set_editor_key(null)
-    set_save_message('')
-    setIsTypeGame(true)
-    setTypeTimeLeft(60)
-    setTypeScore(0)
-    setTypeCombo(0)
-    nextTypeWord()
-    clearInterval(typeTimerRef.current)
-    typeTimerRef.current = setInterval(() => {
-      setTypeTimeLeft(prev => {
-        if (prev <= 1) {
-          clearInterval(typeTimerRef.current)
-          showQuestionModal()
-          return 0
-        }
-        return prev - 1
-      })
-    }, 1000)
-  }
-
-  function stopTypeGame() {
-    setIsTypeGame(false)
-    clearInterval(typeTimerRef.current)
-    setCurrentIndex(0)
-  }
-
-  function showQuestionModal() {
-    if (!questionBank || !questionBank.length) {
-      alert('时间到！\n\n  你的最终得分是：' + typeScore + ' 分')
-      stopTypeGame()
-      return
-    }
-    const q = questionBank[Math.floor(Math.random() * questionBank.length)]
-    setCurrentQuestion(q)
-    setSelectedAnswers([])
-    setShowQuiz(true)
-  }
-
-  function handleQuizSubmit() {
-    if (!currentQuestion) return
-    if (selectedAnswers.length === 0) {
-      alert('请选择答案！')
-      return
-    }
-    const userAns = [...selectedAnswers].sort()
-    const correctAns = [...currentQuestion.answer].sort()
-    const isCorrect = JSON.stringify(userAns) === JSON.stringify(correctAns)
-
-    if (isCorrect) {
-      alert('🎉 回答正确！恢复到 60 秒时间，继续游戏！\n\n解析：' + currentQuestion.analysis)
-      setShowQuiz(false)
-      setTypeTimeLeft(60)
-      if (isTypeGame) {
-        clearInterval(typeTimerRef.current)
-        typeTimerRef.current = setInterval(() => {
-          setTypeTimeLeft(prev => {
-            if (prev <= 1) {
-              clearInterval(typeTimerRef.current)
-              showQuestionModal()
-              return 0
-            }
-            return prev - 1
-          })
-        }, 1000)
-      }
-    } else {
-      if (typeTimeLeft <= 0) {
-        alert(`❌ 回答错误！游戏结束。\n\n正确答案：${correctAns.join(', ').toUpperCase()}\n你的答案：${userAns.join(', ').toUpperCase()}\n\n解析：${currentQuestion.analysis}\n   \n  最终得分：${typeScore}`)
-        setShowQuiz(false)
-        stopTypeGame()
-      } else {
-        alert(`回答错误！时间扣除 15 秒\n\n正确答案：${correctAns.join(', ').toUpperCase()}\n你的答案：${userAns.join(', ').toUpperCase()}\n\n解析：${currentQuestion.analysis}\n`)
-        setShowQuiz(false)
-        setTypeTimeLeft(prev => Math.max(0, prev - 15))
-      }
-    }
-  }
-
-  function toggleAnswer(ans) {
-    if (!currentQuestion) return
-    if (currentQuestion.type === 'single') {
-      setSelectedAnswers([ans])
-    } else {
-      setSelectedAnswers(prev =>
-        prev.includes(ans) ? prev.filter(a => a !== ans) : [...prev, ans]
-      )
-    }
-  }
-
-  // Render type word
-  function renderTypeWord() {
-    if (!activeWord) return null
-    const chars = activeWord.split('').map((char, i) => {
-      if (char === ' ') return <span key={i} className="space">&nbsp;</span>
-      if (i < typeIndex) return <span key={i} className="tw-done">{char}</span>
-      return <span key={i} className="tw-todo">{char}</span>
-    })
-    return <div className="type-word">{chars}</div>
-  }
-
-  // Get target key for type game highlight
-  function getTargetKey() {
-    if (!isTypeGame || typeIndex >= activeWord.length) return null
-    return activeWord[typeIndex]?.toLowerCase()
-  }
-
-  const targetKey = getTargetKey()
-
   // Keyboard event handler
   useEffect(() => {
     function handleKeyDown(event) {
+      if (practice_open) return
       const tag = (event.target.tagName || '').toLowerCase()
       if (event.isComposing || event.repeat) return
       if (tag === 'select' || tag === 'input' || tag === 'textarea' || event.target.isContentEditable || event.ctrlKey || event.metaKey || event.altKey) return
 
-      if (editor_key || showQuiz) return
+      if (editor_key) return
       if (event.key === 'Enter' && event.target.closest('a, button')) return
-
-      if (isTypeGame) {
-        if (event.key === 'Escape') {
-          event.preventDefault()
-          stopTypeGame()
-          return
-        }
-        if (!is_typing_key(event.key)) return
-        event.preventDefault()
-
-        const typedChar = event.key.toLowerCase()
-        const expectedChar = activeWord[typeIndex]?.toLowerCase()
-
-        const result = advance_typing(activeWord, typeIndex, typeCombo, typedChar)
-        if (result.correct) {
-          setTypeCombo(result.combo)
-          setTypeScore(prev => prev + result.score)
-          setTypeIndex(result.index)
-          if (result.complete) nextTypeWord()
-        } else {
-          setTypeCombo(0)
-          // Flash error on target key
-          setErrorKey(expectedChar)
-          clearTimeout(errorTimerRef.current)
-          errorTimerRef.current = setTimeout(() => setErrorKey(null), 300)
-        }
-        return
-      }
 
       const lower = event.key.toLowerCase()
       if (Object.hasOwn(hotkeys, lower)) {
@@ -328,15 +162,7 @@ export function use_favorites() {
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [editor_key, isTypeGame, showQuiz, isEditMode, currentIndex, activeWord, typeIndex, typeCombo, hotkeys, navigate, linkableKeys, setCurrent, errorKey])
+  }, [practice_open, editor_key, isEditMode, currentIndex, hotkeys, navigate, linkableKeys, setCurrent])
 
-  // Cleanup timers on unmount
-  useEffect(() => {
-    return () => {
-      clearInterval(typeTimerRef.current)
-      clearTimeout(errorTimerRef.current)
-    }
-  }, [])
-
-  return { editor_key, save_key, cancel_edit, save_message, isEditMode, currentIndex, isTypeGame, typeTimeLeft, typeScore, typeCombo, activeHint, activeTag, showQuiz, currentQuestion, selectedAnswers, errorKey, linkableKeys, applyConfigToKey, handleKeyClick, toggleEditMode, resetConfig, startTypeGame, stopTypeGame, showQuestionModal, handleQuizSubmit, toggleAnswer, renderTypeWord, targetKey }
+  return { editor_key, save_key, cancel_edit, save_message, isEditMode, currentIndex, linkableKeys, applyConfigToKey, handleKeyClick, toggleEditMode, resetConfig }
 }

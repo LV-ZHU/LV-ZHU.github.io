@@ -2,9 +2,9 @@
 
 ## GitHub 登录
 
-前端支持 Google 和 GitHub popup 登录，不额外申请 GitHub 仓库权限，也不保存 GitHub access token。同邮箱遇到登录方式冲突时，提示使用原方式登录，不自动合并账号。
+前端支持 Google 和 GitHub popup 登录，不额外申请 GitHub 仓库权限，也不保存 GitHub access token。账号管理提供 Google / GitHub 绑定按钮，通过 Firebase linkWithPopup 将另一种登录方式绑定到当前 UID。绑定后两种方式共用昵称和数据。同邮箱冲突时引导先用原方式登录，再到账号管理绑定；已经属于其他 UID 的身份不自动合并，以免覆盖历史数据。
 
-云端配置尚未验证。站主需在 GitHub 的 Settings → Developer settings → OAuth Apps 创建或选择本站应用，首页设为 `https://lv-zhu.top`，回调地址设为 `https://coding-ed4a5.firebaseapp.com/__/auth/handler`。随后在 Firebase 项目 `coding-ed4a5` 的 Authentication → Sign-in method 中启用 GitHub，填写该 OAuth 应用的 Client ID 和 Client Secret。Secret 只填写在 Firebase 控制台，不放入源码、Vite 环境变量或聊天。
+2026-09-30 已实际检查：本地 GitHub 登录返回 `auth/operation-not-allowed`，Firebase 控制台仅列出已启用的 Google 提供方，GitHub 尚未配置。站主需在 GitHub 的 Settings → Developer settings → OAuth Apps 创建或选择本站应用，首页设为 `https://lv-zhu.top`，回调地址设为 `https://coding-ed4a5.firebaseapp.com/__/auth/handler`。随后在 Firebase 项目 `coding-ed4a5` 的 Authentication → Sign-in method 中启用 GitHub，填写该 OAuth 应用的 Client ID 和 Client Secret。Secret 只填写在 Firebase 控制台，不放入源码、Vite 环境变量或聊天。
 
 参考：[Firebase GitHub 登录官方文档](https://firebase.google.com/docs/auth/web/github-auth)。上线前需实际检查新用户登录、取消弹窗、同邮箱冲突，以及 Google 原入口。生产构建不能证明 OAuth 配置正确。
 

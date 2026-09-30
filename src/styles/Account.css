@@ -54,3 +54,6 @@
 .account-view .nickname-hint { margin-top: 8px; font-size: .85rem; color: var(--ink-muted); }
 .account-view .save-feedback { margin-top: 8px; font-size: .9rem; color: var(--ink-muted); }
 .account-view .account-not-logged a { display: inline-block; margin-top: 12px; color: var(--accent); }
+
+.account-login-methods { display: grid; gap: 12px; }
+.account-login-methods > div { display: flex; justify-content: space-between; align-items: center; gap: 16px; }

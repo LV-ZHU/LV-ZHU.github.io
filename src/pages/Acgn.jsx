@@ -31,7 +31,7 @@ export default function Acgn() {
                   {section.items.map((item, index) => (
                     <li className="media-item" key={`${item.url}-${index}`}>
                       <a href={item.url} target="_blank" rel="noopener noreferrer">{item.name}</a>
-                      {item.review && <p className="media-review">{item.review}</p>}
+                      {item.review && <div className="media-review"><div><p>{item.review}</p></div></div>}
                     </li>
                   ))}
                 </ul>

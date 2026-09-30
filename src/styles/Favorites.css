@@ -442,3 +442,22 @@
 .favorites-view .key-editor-actions { display: flex; gap: 12px; margin-top: 8px; }
 .favorites-view .key-save-message { margin-bottom: 16px; }
 .favorites-view .edit-tip { text-align: left; }
+
+.favorites-view .keyboard[hidden] { display: none; }
+.typing-practice { padding: clamp(16px, 4vw, 32px); border: 1px solid var(--line); background: var(--surface-soft); color: var(--ink); }
+.practice-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px; }
+.practice-heading h2 { margin: 0; }
+.typing-practice p { line-height: 1.7; }
+.practice-metrics { display: flex; flex-wrap: wrap; gap: 16px 32px; margin: 24px 0 12px; }
+.practice-metrics strong { font-size: 1.6rem; }
+.typing-practice progress { width: 100%; height: 5px; accent-color: var(--accent); }
+.practice-word { margin: 28px 0 16px; font: 500 clamp(24px, 5vw, 44px)/1.6 var(--font-mono); overflow-wrap: anywhere; white-space: pre-wrap; }
+.practice-correct { color: #278350; }
+.practice-wrong { color: #c0393c; background: #c0393c18; text-decoration: underline; }
+.practice-current { border-bottom: 3px solid var(--accent); background: var(--surface); }
+.practice-meaning { color: var(--ink-muted); min-height: 3.4em; }
+.typing-practice label { display: block; margin-bottom: 8px; }
+.typing-practice input { width: 100%; box-sizing: border-box; padding: 12px; font: 20px var(--font-mono); color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 4px; }
+.typing-practice input:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+:root[data-theme='dark'] .practice-correct { color: #80cbae; }
+:root[data-theme='dark'] .practice-wrong { color: #f08c96; }

@@ -11,6 +11,7 @@ export default function Account() {
 }
 
 function AccountForm({ user }) {
+  const { linked_providers, link_provider, link_message, signing_in, error } = useAuth()
   const toast_timer = useRef(null)
   const mounted = useRef(false)
   const edited = useRef(false)
@@ -69,14 +70,6 @@ function AccountForm({ user }) {
     }
   }
 
-  function getProviderIcon() {
-    if (!user) return 'fas fa-user'
-    const p = user.providerData?.[0]?.providerId
-    if (p === 'google.com') return 'fab fa-google'
-    if (p === 'github.com') return 'fab fa-github'
-    return 'fas fa-user'
-  }
-
   return (
     <div className="page-wrapper account-view">
       <div className="page-header">
@@ -98,10 +91,21 @@ function AccountForm({ user }) {
               )}
               <div className="account-name">{user.displayName || '用户'}</div>
               <div className="account-email">{user.email || ''}</div>
-              <div className="account-provider">
-                <i className={getProviderIcon()} style={{ marginRight: '0.3rem' }} />
-                {user.providerData?.[0]?.providerId === 'google.com' ? 'Google' : user.providerData?.[0]?.providerId === 'github.com' ? 'GitHub' : '未知'}
-              </div>
+              <section className="account-section" aria-label="登录方式">
+                <h2 className="account-section-title">登录方式</h2>
+                <p>绑定后，两种方式均可登录此账号，共用昵称和数据。</p>
+                <div className="account-login-methods">
+                  {[['google', 'Google'], ['github', 'GitHub']].map(([provider_id, label]) => {
+                    const linked = linked_providers.includes(`${provider_id}.com`)
+                    return <div key={provider_id}>
+                      <span><i className={`fab fa-${provider_id}`} aria-hidden="true" /> {label}</span>
+                      <button className="nickname-save" type="button" disabled={linked || signing_in} onClick={() => link_provider(provider_id)}>{linked ? '已绑定' : signing_in ? '处理中…' : `绑定 ${label}`}</button>
+                    </div>
+                  })}
+                </div>
+                {error && <p role="alert">{error}</p>}
+                {link_message && <p role="status">{link_message}</p>}
+              </section>
 
               <form className="account-section" onSubmit={handleSave}>
                 <label className="account-section-title" htmlFor="account-nickname">昵称</label>

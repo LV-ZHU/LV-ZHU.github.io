@@ -75,15 +75,16 @@ export default function Music() {
             <div className="random-filters">
               {catalog.map(category => <label key={category.id}><input type="checkbox" checked={enabled_categories[category.id]} onChange={() => toggle_category(category.id)} /><span>{category_names[category.id]}</span></label>)}
             </div>
+          {filtered_categories.every(category => category.data.length === 0) && (
+            <p role="status">{available_songs.length ? '没有找到匹配的歌曲。' : '请选择至少一个类别。'}</p>
+          )}
             {random_result && <div className="random-result" aria-live="polite">
               <div className="random-result-info"><strong>{random_result.name}</strong><span>{random_result.artist}</span>{random_result.comment && <p>{random_result.comment}</p>}</div>
               <button className="btn-jump" onClick={jump_to_song}><i className="fas fa-location-arrow" aria-hidden="true" /> 定位歌曲</button>
             </div>}
           </div>
-          {filtered_categories.every(category => category.data.length === 0) && (
-            <p role="status">{available_songs.length ? '没有找到匹配的歌曲。' : '请选择至少一个类别。'}</p>
-          )}
-          {filtered_categories.map(category => <section className="music-category" id={'category-' + category.id} data-category={category.id} key={category.id} aria-labelledby={'heading-' + category.id}>
+
+          {filtered_categories.filter(category => category.data.length > 0).map(category => <section className="music-category" id={'category-' + category.id} data-category={category.id} key={category.id} aria-labelledby={'heading-' + category.id}>
             <h2 className="music-category-title" id={'heading-' + category.id}>{category.label}</h2>
             <ul className="music-list">{category.data.map(song => <SongItem key={song.id} song={song} highlighted={highlighted_id === song.id} />)}</ul>
             <p className="music-summary-count">共 {category.data.length} 首。</p>
