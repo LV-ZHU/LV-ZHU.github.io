@@ -8,7 +8,8 @@
         "name": "一百万个可能",
         "artist": "胡小斐",
         "comment": "顶峰相见，一路生花，前程似锦",
-        "searchKeywords": "绿群 绿群春晚 在一瞬间"
+        "searchKeywords": "绿群 绿群春晚 924 在一瞬间 这深夜里",
+        "sourceUrl": "https://www.bilibili.com/video/BV1Htac6RErX"
       },
       {
         "name": "北京欢迎你",
@@ -43,13 +44,15 @@
           "梁咏琪",
           "韦唯",
           "韩庚"
-        ]
+        ],
+        "sourceUrl": "https://www.bilibili.com/video/BV1dg411v7PR"
       },
       {
         "name": "再见",
         "artist": "张震岳",
         "comment": "轻装策马青云路，人生从此驭长风。希君生羽翼，一化北冥鱼。毕业季金曲，FM89.9一个时代的落幕",
-        "searchKeywords": "高考 听力 电台 2024"
+        "searchKeywords": "高考 听力 电台 2024",
+        "sourceUrl": "https://www.bilibili.com/video/BV1dg411v7PR"
       },
       {
         "name": "水手",
@@ -703,8 +706,9 @@
       {
         "name": "明天，你好",
         "artist": "牛奶咖啡",
-        "comment": "明天你好~含着泪微笑~，23年FM89.9限定版",
-        "searchKeywords": ""
+        "comment": "明天你好~含着泪微笑~",
+        "searchKeywords": "2023 FM89.9",
+        "sourceUrl": "https://www.bilibili.com/video/BV1wz4y1i7dy"
       },
       {
         "name": "俩俩相忘",
@@ -1484,7 +1488,8 @@
         "name": "一程山路",
         "artist": "毛不易",
         "comment": "白云是否也听过你的诉说~笑着你~笑着我",
-        "searchKeywords": "绿群"
+        "searchKeywords": "绿群",
+        "sourceUrl": "https://www.bilibili.com/video/BV1Htac6RErX"
       },
       {
         "name": "国际歌",
