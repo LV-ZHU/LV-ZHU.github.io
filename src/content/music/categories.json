@@ -1575,15 +1575,15 @@
         "name": "Dai Dai",
         "artist": "Shakira、Burna Boy",
         "comment": "2026 World Cup主题曲，塞万提斯笔下的梦骑士的精神，协作、纪律和共同信念铸就的伟大，Vamossss!",
-        "searchKeywords": ""
-        
+        "searchKeywords": "",
+        "sourceUrl": "https://news.tongji.edu.cn/info/1003/95467.htm"
       },
       {
         "name": "Lighter",
         "artist": "Jelly Roll、Carin Leon",
         "comment": "2026 World Cup震撼首发, 让我们相约在落基山、尼亚加拉瀑布、尤卡坦半岛，让我们一起去玛雅文明曾经存在过的地方",
         "searchKeywords": "",
-        "sourceUrl": "https://zhuanlan.zhihu.com/p/2062486256840447949"
+        "sourceUrl": "https://zhuanlan.zhihu.com/p/593212861"
       },
       {
         "name": "Zoo(From Zootopia 2)",
@@ -1596,6 +1596,7 @@
         "artist": "Travis Scott",
         "comment": "电影《奥德赛》片尾曲",
         "searchKeywords": ""
+        
       },
       {
         "name": "oh yeah?",
@@ -2088,7 +2089,8 @@
         "name": "Troy",
         "artist": "Ludwig Göransson",
         "comment": "节奏逐渐加速，电影《奥德赛》夜晚偷袭特洛伊时的配乐",
-        "searchKeywords": "电影 奥德赛 听觉陷阱"
+        "searchKeywords": "电影 奥德赛 听觉陷阱",
+        "sourceUrl": "https://www.bilibili.com/video/BV141bQ6vELV"
       },
       {
         "name": "The Trial of the Bow / Vengeance",
