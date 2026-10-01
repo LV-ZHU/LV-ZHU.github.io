@@ -1,32 +1,32 @@
-// ¸èÊÖ±ðÃû
+// æ­Œæ‰‹åˆ«å
 const artist_aliases = {
-    "ÍõÁ¦ºê": ["Leehom"],
-    "²ÌÒÀÁÖ": ["Jolin"],
-    "Ð»öª·æ": ["Nicholas"],
-    "ËïÑà×Ë": ["Stefanie"],
-    "ÁÖ¿¡½Ü": ["JJ"],
-    "ÈÝ×æ¶ù": ["Joey"],
-    "³ÂÞÈÑ¸": ["Eason"],
-    "ÄªÎÄÎµ": ["Karen"],
-    "ÁºÓ½ç÷": ["Gigi"],
-    "ÖÜ´«ÐÛ": ["Ð¡¸Õ"],
+    "çŽ‹åŠ›å®": ["Leehom"],
+    "è”¡ä¾æž—": ["Jolin"],
+    "è°¢éœ†é”‹": ["Nicholas"],
+    "å­™ç‡•å§¿": ["Stefanie"],
+    "æž—ä¿Šæ°": ["JJ"],
+    "å®¹ç¥–å„¿": ["Joey"],
+    "é™ˆå¥•è¿…": ["Eason"],
+    "èŽ«æ–‡è”š": ["Karen"],
+    "æ¢å’çª": ["Gigi"],
+    "å‘¨ä¼ é›„": ["å°åˆš"],
 }
 
 const context_alias_rules = [
-    { triggers: ["BÕ¾"], aliases: ["ßÙÁ¨ßÙÁ¨", "Bilibili"] },
-    { triggers: ["BGM", "ÅäÀÖ", "Ö÷ÌâÇú", "²åÇú", "Æ¬Í·Çú", "Æ¬Î²Çú"], aliases: ["±³¾°ÒôÀÖ", "OST"] },
-    { triggers: ["Ó×Ê±¼ÇÒä"], aliases: ["Í¯Äê", "Í¯Äê»ØÒä"] },
-    { triggers: ["FM89.9"], aliases: ["µçÌ¨", "¹ã²¥"] },
-    { triggers: ["¶¶Òô"], aliases: ["¶ÌÊÓÆµ", "TikTok"] },
-    { triggers: ["ÓªÏúºÅ"], aliases: ["¶ÌÊÓÆµ"] },
-    { triggers: ["Ð¡Ñ§", "³õÖÐ", "¸ßÖÐ", "´óÑ§", "¾üÑµ", "Ñ§Å©", "ÅÜ²Ù", "¹ã²¥Ìå²Ù", "ÒôÀÖ¿Î", "ÎÄÒÕÍí»á", "±ÏÒµ¼¾"], aliases: ["Ð£Ô°"] },
-    { triggers: ["ÂÃÓÎ"], aliases: ["ÂÃÐÐ"] },
-    { triggers: ["Ï£Ê³¶«"], aliases: ["´óÑ§","Í¬¼Ã","¼Î¶¨","ÂúÌìÐÇ"] },
-    { triggers: ["Ð¡Ñ§"], aliases: ["¸ßÒ»", "¸ß°²Â·Ò»Ð¡"] },
-    { triggers: ["³õÖÐ"], aliases: ["ÄÏÑó","Áú»ªÖÐÂ·200ºÅ"] },
-    { triggers: ["¸ßÖÐ"], aliases: ["Î»Óý","sujia","tx","wyq"] },
-    { triggers: ["´óÑ§"], aliases: ["Í¬¼Ã","Tongji"] },
-    { triggers: ["ÂÌÈº"], aliases: ["ÂÌÈ¹","±£ÑÐ","¼ÆËã»ú","CS","ÑÐ¾¿Éú","ÍÆÃâ","ÏÄÁîÓª","Ô¤ÍÆÃâ"] },
+    { triggers: ["Bç«™"], aliases: ["å“”å“©å“”å“©", "Bilibili"] },
+    { triggers: ["BGM", "é…ä¹", "ä¸»é¢˜æ›²", "æ’æ›²", "ç‰‡å¤´æ›²", "ç‰‡å°¾æ›²"], aliases: ["èƒŒæ™¯éŸ³ä¹", "OST"] },
+    { triggers: ["å¹¼æ—¶è®°å¿†"], aliases: ["ç«¥å¹´", "ç«¥å¹´å›žå¿†"] },
+    { triggers: ["FM89.9"], aliases: ["ç”µå°", "å¹¿æ’­"] },
+    { triggers: ["æŠ–éŸ³"], aliases: ["çŸ­è§†é¢‘", "TikTok"] },
+    { triggers: ["è¥é”€å·"], aliases: ["çŸ­è§†é¢‘"] },
+    { triggers: ["å°å­¦", "åˆä¸­", "é«˜ä¸­", "å¤§å­¦", "å†›è®­", "å­¦å†œ", "è·‘æ“", "å¹¿æ’­ä½“æ“", "éŸ³ä¹è¯¾", "æ–‡è‰ºæ™šä¼š", "æ¯•ä¸šå­£"], aliases: ["æ ¡å›­"] },
+    { triggers: ["æ—…æ¸¸"], aliases: ["æ—…è¡Œ"] },
+    { triggers: ["å¸Œé£Ÿä¸œ"], aliases: ["å¤§å­¦","åŒæµŽ","å˜‰å®š","æ»¡å¤©æ˜Ÿ"] },
+    { triggers: ["å°å­¦"], aliases: ["é«˜ä¸€", "é«˜å®‰è·¯ä¸€å°"] },
+    { triggers: ["åˆä¸­"], aliases: ["å—æ´‹","é¾™åŽä¸­è·¯200å·"] },
+    { triggers: ["é«˜ä¸­"], aliases: ["ä½è‚²","sujia","tx","wyq"] },
+    { triggers: ["å¤§å­¦"], aliases: ["åŒæµŽ","Tongji"] },
+    { triggers: ["ç»¿ç¾¤"], aliases: ["ç»¿è£™","ä¿ç ”","è®¡ç®—æœº","CS","ç ”ç©¶ç”Ÿ","æŽ¨å…","å¤ä»¤è¥","é¢„æŽ¨å…"] },
 ]
 
 function flatten_search_value(value) {
@@ -55,7 +55,7 @@ function get_context_alias_text(song) {
         .filter(rule => rule.triggers.some(trigger => source_text.includes(normalize_search_text(trigger))))
         .flatMap(rule => rule.aliases)
 
-    const full_year_aliases = [...source_text.matchAll(/(^|\D)(\d{2})Äê/g)]
+    const full_year_aliases = [...source_text.matchAll(/(^|\D)(\d{2})å¹´/g)]
         .map(match => {
             const short_year = Number(match[2])
             return short_year <= 30 ? `20${match[2]}` : `19${match[2]}`
