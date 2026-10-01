@@ -83,13 +83,13 @@
         "name": "信仰",
         "artist": "张信哲",
         "comment": "你究竟知道吗",
-        "searchKeywords": ""
+        "searchKeywords": "我爱你 是多么清楚 多么勇敢的信仰"
       },
       {
         "name": "大海",
         "artist": "张雨生",
         "comment": "副歌的大海两个字完美唱出了大海的那种开阔感",
-        "searchKeywords": ""
+        "searchKeywords": "如果大海能够 唤回曾经的爱"
       },
       {
         "name": "你是我的眼",
@@ -154,14 +154,15 @@
       {
         "name": "凤凰花开的路口",
         "artist": "林志炫",
-        "comment": "毕业季经典歌曲，22年FM89.9指定版",
-        "searchKeywords": ""
+        "comment": "毕业季经典歌曲",
+        "searchKeywords": "FM89.9"
       },
       {
         "name": "十年",
         "artist": "陈奕迅",
-        "comment": "十年之前~我不认识你~你不属于我，Eason伪装走音的一曲",
-        "searchKeywords": ""
+        "comment": "十年之前~我不认识你~你不属于我",
+        "searchKeywords": "伪装",
+        "sourceUrl":"https://b23.tv/1QieZJ9"
       },
       {
         "name": "一场游戏一场梦",
