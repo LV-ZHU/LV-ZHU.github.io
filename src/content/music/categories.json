@@ -240,7 +240,8 @@
         "name": "这样很好 (Isha's Song)",
         "artist": "陈奕迅",
         "comment": "英雄联盟：双城之战第二季主题曲",
-        "searchKeywords": ""
+        "searchKeywords": "",
+        "sourceUrl":"https://b23.tv/KbDibRV"
       },
       {
         "name": "告白气球",
@@ -425,7 +426,7 @@
       {
         "name": "刚好遇见你",
         "artist": "李玉刚",
-        "comment": "魔性，因为我刚好遇见你这一句不断换调",
+        "comment": "魔性，因为我刚好遇见你 这一句不断换调",
         "searchKeywords": ""
       },
       {
@@ -1369,7 +1370,7 @@
         "name": "一路生花",
         "artist": "温奕心",
         "comment": "疫情歌曲，上岸の小曲",
-        "searchKeywords": "绿群 周深 张韶涵"
+        "searchKeywords": "绿群"
       },
       {
         "name": "生僻字",
@@ -1380,8 +1381,8 @@
       {
         "name": "生僻字 (化学版)",
         "artist": "",
-        "comment": "化学图谱概览，拍摄于中国科学院上海有机化学研究所",
-        "searchKeywords": ""
+        "comment": "化学图谱概览",
+        "searchKeywords": "零陵路 徐汇 中科院 化学有机研究所"
       },
       {
         "name": "最美的期待",
