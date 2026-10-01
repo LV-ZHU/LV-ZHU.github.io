@@ -15,7 +15,7 @@
         "name": "北京欢迎你",
         "artist": "华语群星",
         "comment": "奥运会主题曲，百位歌手云集，一个民族向世界张开双臂的集体记忆",
-        "searchKeywords": "2008",
+        "searchKeywords": "2008 故事",
         "contributors": [
           "陈天佳",
           "刘欢",
@@ -52,7 +52,7 @@
         "artist": "张震岳",
         "comment": "轻装策马青云路，人生从此驭长风。希君生羽翼，一化北冥鱼。毕业季金曲，FM89.9一个时代的落幕",
         "searchKeywords": "高考 听力 电台 2024",
-        "sourceUrl": "https://www.bilibili.com/video/BV1dg411v7PR"
+        "sourceUrl": "https://www.bilibili.com/video/BV1rw4m1v7nU"
       },
       {
         "name": "水手",
@@ -77,7 +77,7 @@
         "artist": "黑豹乐队",
         "comment": "飞跃黄渡理工BGM，怀旧向",
         "searchKeywords": "大学 同济 航拍 嘉定 窦唯 也许是我",
-        "sourceUrl": "https://b23.tv/M4wFAnj"
+        "sourceUrl": "https://www.bilibili.com/video/BV17h4y1G7PM"
       },
       {
         "name": "信仰",
@@ -1576,12 +1576,14 @@
         "artist": "Shakira、Burna Boy",
         "comment": "2026 World Cup主题曲，塞万提斯笔下的梦骑士的精神，协作、纪律和共同信念铸就的伟大，Vamossss!",
         "searchKeywords": ""
+        
       },
       {
         "name": "Lighter",
         "artist": "Jelly Roll、Carin Leon",
         "comment": "2026 World Cup震撼首发, 让我们相约在落基山、尼亚加拉瀑布、尤卡坦半岛，让我们一起去玛雅文明曾经存在过的地方",
-        "searchKeywords": ""
+        "searchKeywords": "",
+        "Sourceurl": "https://zhuanlan.zhihu.com/p/2062486256840447949"
       },
       {
         "name": "Zoo(From Zootopia 2)",
