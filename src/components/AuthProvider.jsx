@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, useRef } from 'react'
-import { onAuthStateChanged, signInWithPopup, linkWithPopup, reload, signOut } from 'firebase/auth'
+import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth'
 import { auth, db } from '../firebase/init'
 import { doc, onSnapshot } from 'firebase/firestore'
 import { create_provider, login_error } from '../features/auth/providers'
@@ -17,8 +17,6 @@ export default function AuthProvider({ children }) {
   const [error, setError] = useState('')
   const [signing_in, set_signing_in] = useState(false)
   const signing_ref = useRef(false)
-  const [linked_providers, set_linked_providers] = useState([])
-  const [link_message, set_link_message] = useState('')
   const [profile, set_profile] = useState(null)
   const nickname = profile?.uid === user?.uid ? profile?.nickname || '' : ''
   const display_name = public_name(user, nickname)
@@ -34,8 +32,6 @@ export default function AuthProvider({ children }) {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
       setUser(u)
-      set_linked_providers(u?.providerData.map(item => item.providerId) || [])
-      set_link_message('')
       setLoading(false)
       setError('')
     }, (error) => {
@@ -68,32 +64,12 @@ export default function AuthProvider({ children }) {
     }
   }
 
-  async function link_provider(provider_id) {
-    if (signing_ref.current || !auth.currentUser) return
-    signing_ref.current = true
-    set_signing_in(true)
-    setError('')
-    set_link_message('')
-    try {
-      const current_user = auth.currentUser
-      await linkWithPopup(current_user, create_provider(provider_id))
-      await reload(current_user)
-      set_linked_providers(current_user.providerData.map(item => item.providerId))
-      set_link_message('绑定成功，现在可以用 Google 或 GitHub 登录同一个账号。')
-    } catch (e) {
-      if (!['auth/cancelled-popup-request', 'auth/popup-closed-by-user'].includes(e.code)) setError(login_error(e.code))
-    } finally {
-      signing_ref.current = false
-      set_signing_in(false)
-    }
-  }
-
   async function signOutUser() {
     await signOut(auth)
   }
 
   return (
-    <AuthContext.Provider value={{ user, linked_providers, link_provider, link_message, nickname, display_name, loading, signing_in, error, signIn, signOut: signOutUser }}>
+    <AuthContext.Provider value={{ user, nickname, display_name, loading, signing_in, error, signIn, signOut: signOutUser }}>
       {children}
     </AuthContext.Provider>
   )

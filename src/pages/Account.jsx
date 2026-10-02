@@ -11,7 +11,6 @@ export default function Account() {
 }
 
 function AccountForm({ user }) {
-  const { linked_providers, link_provider, link_message, signing_in, error } = useAuth()
   const toast_timer = useRef(null)
   const mounted = useRef(false)
   const edited = useRef(false)
@@ -93,18 +92,17 @@ function AccountForm({ user }) {
               <div className="account-email">{user.email || ''}</div>
               <section className="account-section" aria-label="登录方式">
                 <h2 className="account-section-title">登录方式</h2>
-                <p>绑定后，两种方式均可登录此账号，共用昵称和数据。</p>
+                <p>此账号可使用以下方式登录。网站暂不提供账号绑定或合并，不同账号的昵称和数据分别保存。切换账号请先退出登录。</p>
                 <div className="account-login-methods">
                   {[['google', 'Google'], ['github', 'GitHub']].map(([provider_id, label]) => {
-                    const linked = linked_providers.includes(`${provider_id}.com`)
+                    const linked = user.providerData.some(provider => provider.providerId === `${provider_id}.com`)
+                    if (!linked) return null
                     return <div key={provider_id}>
                       <span><i className={`fab fa-${provider_id}`} aria-hidden="true" /> {label}</span>
-                      <button className="nickname-save" type="button" disabled={linked || signing_in} onClick={() => link_provider(provider_id)}>{linked ? '已绑定' : signing_in ? '处理中…' : `绑定 ${label}`}</button>
+                      <span>可用</span>
                     </div>
                   })}
                 </div>
-                {error && <p role="alert">{error}</p>}
-                {link_message && <p role="status">{link_message}</p>}
               </section>
 
               <form className="account-section" onSubmit={handleSave}>
