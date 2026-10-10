@@ -22,11 +22,16 @@ const context_alias_rules = [
     { triggers: ["小学", "初中", "高中", "大学", "军训", "学农", "跑操", "广播体操", "音乐课", "文艺晚会", "毕业季"], aliases: ["校园"] },
     { triggers: ["旅游"], aliases: ["旅行"] },
     { triggers: ["希食东"], aliases: ["大学","同济","嘉定","满天星"] },
+    { triggers: ["Chole"], aliases: ["瑞丁"] },
     { triggers: ["小学"], aliases: ["高一", "高安路一小"] },
     { triggers: ["初中"], aliases: ["南洋","龙华中路200号"] },
     { triggers: ["高中"], aliases: ["位育","sujia","tx","wyq"] },
     { triggers: ["大学"], aliases: ["同济","Tongji"] },
     { triggers: ["绿群"], aliases: ["绿裙","保研","计算机","CS","研究生","推免","夏令营","预推免"] },
+    { triggers: ["World Cup" ], aliases: ["足球","世界杯", "FIFA"] },
+    { triggers: ["进球"], aliases: ["足球", "集锦"] },
+    { triggers: ["PVZ" ], aliases: ["植物大战僵尸","植"] },
+    { triggers: ["qoqoqo origin" ], aliases: ["I wanna"] },
 ]
 
 function flatten_search_value(value) {

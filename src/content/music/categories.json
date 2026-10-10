@@ -590,7 +590,7 @@
         "name": "那些年",
         "artist": "胡夏",
         "comment": "最早是在一个游戏小程序上听到的",
-        "searchKeywords": ""
+        "searchKeywords": "COE 板载"
       },
       {
         "name": "轨迹",
@@ -782,7 +782,7 @@
       {
         "name": "路边的野花不要采",
         "artist": "邓丽君",
-        "comment": "记着我的情~记着我的爱~记着有我天天在等待~  千万不要把~我来忘怀~",
+        "comment": "记着我的情~记着我的爱~记着有我天天在等待~ 千万不要把~我来忘怀~",
         "searchKeywords": ""
       },
       {
@@ -1029,7 +1029,7 @@
         "name": "伊犁欢迎你",
         "artist": "胡瑛",
         "comment": "夏塔BGM",
-        "searchKeywords": ""
+        "searchKeywords": "新疆 旅游"
       },
       {
         "name": "【十年榜】华语top100",
@@ -1376,8 +1376,8 @@
       {
         "name": "生僻字",
         "artist": "陈柯宇",
-        "comment": "初中记忆，鳞次栉比，想起芥川龙之介了",
-        "searchKeywords": ""
+        "comment": "初中记忆",
+        "searchKeywords": "鳞次栉比 芥川龙之介"
       },
       {
         "name": "生僻字 (化学版)",
@@ -1487,6 +1487,14 @@
         "comment": "oh~baby~我的心~我的心~我的心，希食东重新开业当天放的热乎新歌",
         "searchKeywords": ""
       },
+       {
+        "name": "今日少年，昨日你我",
+        "artist": "陈张太康",
+        "comment": "吹开诗卷哪一册~千万里漂泊~梦的离合~风的悱恻 奔流入海~天地辽阔，S45王维CG",
+        "searchKeywords": "相思无穷尽 山河皆故人 王者 王者荣耀 农 入坑 国庆 旅游 肇庆 佛山 惠州",
+        "sourceUrl": "https://www.bilibili.com/video/BV1d2hk6fEk7"
+      },
+      
       {
         "name": "一程山路",
         "artist": "毛不易",
@@ -1578,14 +1586,14 @@
         "name": "Dai Dai",
         "artist": "Shakira、Burna Boy",
         "comment": "2026 World Cup主题曲，塞万提斯笔下的梦骑士的精神，协作、纪律和共同信念铸就的伟大，Vamossss!",
-        "searchKeywords": "",
+        "searchKeywords": "贺炜 西班牙 解说",
         "sourceUrl": "https://news.tongji.edu.cn/info/1003/95467.htm"
       },
       {
         "name": "Lighter",
         "artist": "Jelly Roll、Carin Leon",
         "comment": "2026 World Cup震撼首发, 让我们相约在落基山、尼亚加拉瀑布、尤卡坦半岛，让我们一起去玛雅文明曾经存在过的地方",
-        "searchKeywords": "",
+        "searchKeywords": "贺炜 解说",
         "sourceUrl": "https://zhuanlan.zhihu.com/p/593212861"
       },
       {
@@ -1647,7 +1655,7 @@
         "name": "打上花火",
         "artist": "米津玄师",
         "comment": "那一天的忧郁~忧郁起来~",
-        "searchKeywords": ""
+        "searchKeywords": "B站"
       },
       {
         "name": "You Raise Me Up",
@@ -1659,7 +1667,7 @@
         "name": "Shots",
         "artist": "Imagine Dragons、Broiler",
         "comment": "运动の小曲",
-        "searchKeywords": ""
+        "searchKeywords": "足球"
       },
       {
         "name": "HandClap",
@@ -1863,7 +1871,7 @@
         "name": "Legends Never Die",
         "artist": "英雄联盟",
         "comment": "英雄联盟主题曲",
-        "searchKeywords": ""
+        "searchKeywords": "2017 LPL"
       },
       {
         "name": "Earth Song",
@@ -1941,13 +1949,13 @@
         "name": "Nevada",
         "artist": "Vicetone",
         "comment": "电音神作",
-        "searchKeywords": ""
+        "searchKeywords": "足球"
       },
       {
         "name": "Novera",
         "artist": "Daniel Yount",
         "comment": "空中浩劫の小曲，22卡塔尔世界杯の小曲",
-        "searchKeywords": ""
+        "searchKeywords": "足球"
       },
       {
         "name": "Temple",
@@ -1983,7 +1991,7 @@
         "name": "Natural",
         "artist": "Imagine Dragons",
         "comment": "That's the price you pay~Leave behind your heartache cast away~",
-        "searchKeywords": ""
+        "searchKeywords": "足球"
       },
       {
         "name": "Timber",
@@ -2007,7 +2015,7 @@
         "name": "Sold Out",
         "artist": "Hawk Nelson",
         "comment": "进球の小曲",
-        "searchKeywords": ""
+        "searchKeywords": "足球"
       },
       {
         "name": "Children of the Dark",
@@ -2061,7 +2069,7 @@
         "name": "only my railgun",
         "artist": "fripSide",
         "comment": "超电磁炮OP",
-        "searchKeywords": ""
+        "searchKeywords": "某科学的超电磁炮 24炮 超多炮"
       },
       {
         "name": "Floating Shelter",
@@ -2073,7 +2081,7 @@
         "name": "LEVEL5 - Judgelight",
         "artist": "水缘无忆",
         "comment": "超电磁炮OP",
-        "searchKeywords": ""
+        "searchKeywords": "某科学的超电磁炮"
       },
       {
         "name": "It's a small world",
@@ -2135,7 +2143,8 @@
         "name": "Arms Dealer",
         "artist": "Pokecale",
         "comment": "车祸警示录第三阶段BGM",
-        "searchKeywords": ""
+        "searchKeywords": "",
+        "sourceUrl": "https://xiaoce.fun/q/14316"
       },
       {
         "name": "Sunburst",
@@ -2225,7 +2234,7 @@
         "name": "Victory",
         "artist": "纯音乐",
         "comment": "进球の小曲",
-        "searchKeywords": ""
+        "searchKeywords": "足球"
       },
       {
         "name": "Caribbean Blue",
@@ -2273,7 +2282,7 @@
         "name": "Horizon",
         "artist": "Janji",
         "comment": "进球の小曲",
-        "searchKeywords": ""
+        "searchKeywords": "足球"
       },
       {
         "name": "High Brow Low Down",
@@ -2296,8 +2305,8 @@
       {
         "name": "Illusionary Daytime",
         "artist": "Shirfine",
-        "comment": "悲伤の小曲，不知道有多少人还记得胡鑫宇",
-        "searchKeywords": ""
+        "comment": "悲伤の小曲",
+        "searchKeywords": "胡鑫宇"
       },
       {
         "name": "爱琴海的珍珠",
@@ -2314,7 +2323,7 @@
       {
         "name": "欢乐斗地主",
         "artist": "纯音乐",
-        "comment": "《欢乐斗地主》配乐",
+        "comment": "《欢乐斗地主》游戏配乐",
         "searchKeywords": ""
       },
       {
@@ -2327,7 +2336,7 @@
         "name": "Xenogenesis",
         "artist": "TheFatRat",
         "comment": "国象の神之一手",
-        "searchKeywords": ""
+        "searchKeywords": "国际象棋"
       },
       {
         "name": "我在時間尽头等你",
@@ -2549,7 +2558,7 @@
         "name": "官方配乐",
         "artist": "PVZ2",
         "comment": "B站官方号有各个世界的音乐全收录",
-        "searchKeywords": ""
+        "searchKeywords": "植2"
       },
       {
         "name": "Classic Energy",
@@ -2627,79 +2636,79 @@
         "name": "埃德尔斯坦国家公园",
         "artist": "原声带",
         "comment": "冒险岛经典配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "Apple Woods",
         "artist": "Arata Iiyoshi",
         "comment": "宝可梦配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "Barren Valley",
         "artist": "Arata Iiyoshi",
         "comment": "宝可梦配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "Aegis Cave",
         "artist": "Arata Iiyoshi",
         "comment": "宝可梦配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "Brine Cave",
         "artist": "Arata Iiyoshi",
         "comment": "宝可梦配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "Monster House!",
         "artist": "Arata Iiyoshi",
         "comment": "宝可梦配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "Blizzard Island Rescue Team Medley",
         "artist": "Arata Iiyoshi",
         "comment": "宝可梦配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "Vast Ice Mountain Peak",
         "artist": "Arata Iiyoshi",
         "comment": "宝可梦配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "Pokemon Exploration Team",
         "artist": "Arata Iiyoshi",
         "comment": "宝可梦配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "And I Begin To Wonder",
         "artist": "風のクロノアシリーズ",
         "comment": "风之克罗诺亚配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "Mine Of Lights",
         "artist": "風のクロノアシリーズ",
         "comment": "风之克罗诺亚配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "Pirate Lagoon",
         "artist": "david wise",
         "comment": "大金刚赛车配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "Rainbow Resort",
         "artist": "Arcade Player",
         "comment": "星之卡比配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "Home Sweet Grave",
@@ -2711,121 +2720,121 @@
         "name": "スペクタクルスペース",
         "artist": "",
         "comment": "星之卡比配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "Baladium's Drive",
         "artist": "風のクロノアシリーズ",
         "comment": "风之克罗诺亚配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "ドロシア ソウル",
         "artist": "",
         "comment": "星之卡比配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "銀河にねがいを",
         "artist": "石川淳",
         "comment": "星之卡比配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "The Closing Encounter I",
         "artist": "風のクロノアシリーズ",
         "comment": "风之克罗诺亚配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "飛行砲台カブーラー",
         "artist": "安藤浩和",
         "comment": "星之卡比配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "Donkey Kong Country 2",
         "artist": "BKNAPP",
         "comment": "CANSX配乐，超级大金刚2配乐，有种打击乐器感",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "神的黄昏",
         "artist": "PinkBeen",
         "comment": "冒险岛配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "ミラクルマター",
         "artist": "いしかわ じゅん",
         "comment": "星之卡比配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna see the moon"
       },
       {
         "name": "Fluffing a Duck",
         "artist": "Kevin MacLeod",
         "comment": "Spike Flying配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna"
       },
       {
         "name": "8bit Faith",
         "artist": "eS=S",
         "comment": "东方配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna"
       },
       {
         "name": "The Moon (Duck Tales OST)",
         "artist": "Yoshihiro Sakaguchi",
         "comment": "DuckTales配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna"
       },
       {
         "name": "Black Apple",
         "artist": "AQUAELIE",
         "comment": "东方配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna"
       },
       {
         "name": "パティのテーマ",
         "artist": "神前暁",
         "comment": "幸运星配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna"
       },
       {
         "name": "Dr.WILY STAGE 1",
         "artist": "纯音乐",
         "comment": "洛克人配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna"
       },
       {
         "name": "Bad Apple!!",
         "artist": "上海アリス幻樂団",
         "comment": "东方幻想乡配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna"
       },
       {
         "name": "林中之城",
         "artist": "StudioEIM",
         "comment": "冒险岛配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna"
       },
       {
         "name": "空島",
         "artist": "Nintendo Sound Team",
         "comment": "超级马里奥银河2配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna"
       },
       {
         "name": "Luv Letter (情书)",
         "artist": "DJ OKAWARI",
         "comment": "节奏大师の小曲",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna"
       },
       {
         "name": "Might Is Right But Tight",
         "artist": "石渡太輔",
         "comment": "I wanna系列Gameover时的配乐",
-        "searchKeywords": ""
+        "searchKeywords": "I wanna"
       },
       {
         "name": "Dreaming",
@@ -2890,7 +2899,7 @@
       {
         "name": "always with me",
         "artist": "宫崎骏",
-        "comment": "图书馆闭馆音乐2，《千与千寻》片尾曲",
+        "comment": "图书馆闭馆音乐2,《千与千寻》片尾曲",
         "searchKeywords": ""
       }
     ]
@@ -2916,7 +2925,7 @@
         "name": "你看到的我（DJ版）",
         "artist": "黄勇、任书怀",
         "comment": "大哥の小曲",
-        "searchKeywords": ""
+        "searchKeywords": "电能豌豆 PVZ"
       },
       {
         "name": "See you again",
@@ -2970,7 +2979,7 @@
         "name": "以下范上",
         "artist": "C-BLOCK",
         "comment": "懂你意思",
-        "searchKeywords": "旅游 西班牙 巴塞罗那"
+        "searchKeywords": "旅游 西班牙 巴塞罗那 手势"
       },
       {
         "name": "Buttercup",
@@ -3480,7 +3489,7 @@
         "name": "快乐的答案",
         "artist": "奶龙",
         "comment": "浦江郊野公园奶龙主题BGM",
-        "searchKeywords": "奶龙"
+        "searchKeywords": ""
       },
       {
         "name": "念张师",
