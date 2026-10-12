@@ -44,14 +44,6 @@
     background: var(--surface-soft);
     border-color: var(--line-strong);
 }
-:where(.favorites-view) .ctrl-btn.primary {
-    border-color: var(--line-strong);
-    color: var(--primary);
-}
-:where(.favorites-view) .ctrl-btn.warning {
-    border-color: var(--line);
-    color: var(--danger);
-}
 :where(.favorites-view) .edit-tip {
     text-align: center;
     color: var(--gray);
@@ -161,121 +153,6 @@
     font-size: 0.88rem;
 }
 
-/* 打字游戏样式 */
-:where(.favorites-view) .type-board {
-    display: none;
-    text-align: center;
-    padding: 1.5rem;
-    background: var(--surface-soft);
-    border-radius: var(--radius-lg);
-    margin-bottom: 1.5rem;
-    border: 1px solid var(--line);
-    box-shadow: none;
-    border-color: var(--line);
-}
-:where(.favorites-view) .type-word {
-    font-size: clamp(1.6rem, 6vw, 2.6rem);
-    font-family: var(--font-mono);
-    font-weight: 600;
-    letter-spacing: .04em;
-    margin-bottom: 0.5rem;
-    overflow-wrap: anywhere;
-}
-:where(.favorites-view) .tw-done { color: var(--primary); text-shadow: none; }
-:where(.favorites-view) .tw-todo { color: var(--ink-muted); }
-:where(.favorites-view) .type-hint {
-    font-size: 1.2rem;
-    color: var(--gray);
-    margin-bottom: 1.2rem;
-    font-weight: 500;
-}
-:where(.favorites-view) .type-category-tag {
-    display: inline-block;
-    margin-right: .6rem;
-    padding: .15rem .5rem;
-    border: 1px solid var(--line-strong);
-    border-radius: 3px;
-    color: var(--ink-soft);
-    font-size: .75rem;
-    vertical-align: middle;
-}
-:where(.favorites-view) .type-stats {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--dark);
-    flex-wrap: wrap;
-}
-:where(.favorites-view) .tw-score-val { color: #f59e0b; }
-:where(.favorites-view) .tw-combo-val { color: #ef4444; }
-
-:where(.favorites-view) .key.type-target {
-    background: var(--accent-soft) !important;
-    border-color: var(--primary) !important;
-    transform: none;
-    box-shadow: none !important;
-}
-:where(.favorites-view) .key.type-target .k-label { color: var(--primary) !important; }
-
-:where(.favorites-view) .key.type-error {
-    background: color-mix(in srgb, var(--danger) 14%, var(--surface)) !important;
-    border-color: var(--danger) !important;
-}
-
-:where(.favorites-view) .play-type-btn {
-    background: var(--primary);
-    border-color: var(--primary);
-    color: var(--accent-contrast);
-}
-:where(.favorites-view) .play-type-btn:hover { background: var(--accent-strong); color: var(--accent-contrast); }
-
-/* 答题 Modal 样式 */
-:where(.favorites-view) .q-modal-overlay {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.6);
-    z-index: 9999;
-    align-items: center;
-    justify-content: center;
-}
-:where(.favorites-view) .q-tag {
-    background: var(--primary);
-    color: var(--accent-contrast);
-    padding: 0.15rem 0.5rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    margin-right: 0.5rem;
-    vertical-align: middle;
-}
-:where(.favorites-view) .q-options {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    margin-bottom: 1.5rem;
-}
-:where(.favorites-view) .q-option input {
-    margin-top: 0.2rem;
-    margin-right: 0.8rem;
-    cursor: pointer;
-}
-:where(.favorites-view) .q-btn {
-    background: var(--primary);
-    color: var(--accent-contrast);
-    border: none;
-    padding: 0.6rem 1.5rem;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.2s;
-}
-:where(.favorites-view) .q-btn:hover {
-    background: var(--accent-strong);
-    color: var(--accent-contrast);
-}
-
 /* FavoritesLetter styles */
 :where(.favorites-view) .lk-icon {
     width: 28px;
@@ -349,38 +226,6 @@
 .app-content :where(.favorites-view) .lk-url { font-size: .78rem; line-height: 1.65; margin-top: .35rem; overflow-wrap: anywhere; color: var(--ink-muted); opacity: 1; }
 .app-content :where(.favorites-view) .lk:hover .lk-title,
 .app-content :where(.favorites-view) .lk:focus-visible .lk-title { color: var(--accent); }
-.app-content :where(.favorites-view) .q-modal {
-    overflow-y: auto;
-    max-height: calc(100dvh - 32px);
-    width: 90%;
-    max-width: 600px;
-    border-radius: var(--radius-lg);
-    padding: 2rem;
-  border: 1px solid var(--line);
-  color: var(--ink-soft);
-  background: var(--surface);
-  box-shadow: var(--shadow-float);
-}
-.app-content :where(.favorites-view) .q-title {
-    line-height: 1.5;
-    margin-bottom: 1.2rem;
-    font-weight: 600;
-    font-size: 1.2rem; color: var(--ink); }
-.app-content :where(.favorites-view) .q-option {
-    line-height: 1.4;
-    transition: color 140ms ease, background-color 140ms ease, border-color 140ms ease;
-    cursor: pointer;
-    border-radius: var(--radius-md);
-    border: 1px solid rgba(0,0,0,0.1);
-    padding: 0.8rem;
-    align-items: flex-start;
-    display: flex; border-color: var(--line); color: var(--ink-soft); background: transparent; }
-.app-content :where(.favorites-view) .q-option:hover { border-color: var(--accent); background: var(--accent-soft); }
-.app-content :where(.favorites-view) .type-stats > span {
-    border: 1px solid rgba(0,0,0,0.05);
-    box-shadow: none;
-    border-radius: var(--radius-card);
-    padding: 0.4rem 1rem; border-color: var(--line); color: var(--ink); background: var(--surface-raised); }
 @media (max-width: 1024px) {
     :where(.favorites-view) .keyboard-shell { padding: 1.2rem; }
     :where(.favorites-view) .key-row,
@@ -411,20 +256,13 @@
 .favorites-letter-detail-2 { margin-top: 0.5rem; }
 .favorites-letter-detail-3 { margin-top: 1rem; }
 
-.favorites-detail-1 { vertical-align: middle; }
-.favorites-detail-2 { display: flex; }
-.favorites-detail-3 { text-align: right; }
-
 
 :where(.favorites-view) .controls { display: flex; flex-wrap: wrap; gap: 12px; padding: 16px 0; margin-block: 24px 8px; border-block: 1px solid var(--line); }
 :where(.favorites-view) .ctrl-btn { min-height: 44px; padding: 8px 16px; border-radius: 5px; }
 :where(.favorites-view) .keyboard { padding-block: 24px; }
 :where(.favorites-view) .key { min-height: 64px; }
 :where(.favorites-view) .lk-icon { margin-top: 4px; color: var(--brand-mark); }
-:where(.favorites-view) .q-modal { overscroll-behavior: contain; }
 @media (max-width: 680px) { :where(.favorites-view) .controls { gap: 8px; } :where(.favorites-view) .ctrl-btn { flex: 1 1 auto; } :where(.favorites-view) .spacer { display: none; } }
-
-.favorites-view:not(.typing-active) :is(.type-board, [data-game-only]), .favorites-view.typing-active :is(.edit-tip, .keyboard-legend) { display: none; }
 
 /* Editing stays on the page, next to the key it changes. */
 .favorites-view .key { font-family: inherit; }
@@ -442,22 +280,3 @@
 .favorites-view .key-editor-actions { display: flex; gap: 12px; margin-top: 8px; }
 .favorites-view .key-save-message { margin-bottom: 16px; }
 .favorites-view .edit-tip { text-align: left; }
-
-.favorites-view .keyboard[hidden] { display: none; }
-.typing-practice { padding: clamp(16px, 4vw, 32px); border: 1px solid var(--line); background: var(--surface-soft); color: var(--ink); }
-.practice-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px; }
-.practice-heading h2 { margin: 0; }
-.typing-practice p { line-height: 1.7; }
-.practice-metrics { display: flex; flex-wrap: wrap; gap: 16px 32px; margin: 24px 0 12px; }
-.practice-metrics strong { font-size: 1.6rem; }
-.typing-practice progress { width: 100%; height: 5px; accent-color: var(--accent); }
-.practice-word { margin: 28px 0 16px; font: 500 clamp(24px, 5vw, 44px)/1.6 var(--font-mono); overflow-wrap: anywhere; white-space: pre-wrap; }
-.practice-correct { color: #278350; }
-.practice-wrong { color: #c0393c; background: #c0393c18; text-decoration: underline; }
-.practice-current { border-bottom: 3px solid var(--accent); background: var(--surface); }
-.practice-meaning { color: var(--ink-muted); min-height: 3.4em; }
-.typing-practice label { display: block; margin-bottom: 8px; }
-.typing-practice input { width: 100%; box-sizing: border-box; padding: 12px; font: 20px var(--font-mono); color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 4px; }
-.typing-practice input:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
-:root[data-theme='dark'] .practice-correct { color: #80cbae; }
-:root[data-theme='dark'] .practice-wrong { color: #f08c96; }

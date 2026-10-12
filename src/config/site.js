@@ -52,7 +52,7 @@ export const searchIndex = [
   { title: 'Projects', path: '/projects', keywords: '项目 projects' },
   ...projects.map((project) => ({ title: `Projects / ${project.name}`, path: `/projects/${project.slug}`, keywords: `${project.desc} ${project.repo || ''}` })),
   { title: 'Music', path: '/music', keywords: '音乐 music 歌单 eason jj' },
-  { title: 'Favorites', path: '/favorites', keywords: '收藏 favorites 网址 键盘 打字 问答' },
+  { title: 'Favorites', path: '/favorites', keywords: '收藏 favorites 网址 键盘 快捷链接' },
   { title: 'Favorites / T', path: '/favorites/T', keywords: 't 同济' },
   { title: 'Jottings', path: '/jottings', keywords: '随笔 jottings' },
   { title: '同济济勤巨类大一生存指北', path: '/jottings/jiqin-fenliu', keywords: '济勤 分流 同济 生存指北' },

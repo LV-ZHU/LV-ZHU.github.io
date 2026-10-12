@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { STORAGE_KEY, defaultConfig, loadConfig, saveConfig, keyboardLayout } from './config.js';
 import { normalize_href, key_target } from './links.js'
 
-export function use_favorites(practice_open = false) {
+export function use_favorites() {
   const navigate = useNavigate()
   const [search_params, set_search_params] = useSearchParams()
   const [editor_key, set_editor_key] = useState(null)
@@ -67,7 +67,6 @@ export function use_favorites(practice_open = false) {
   }
 
   function toggleEditMode() {
-    if (practice_open) return
     setIsEditMode(prev => !prev)
     set_editor_key(null)
     set_save_message('')
@@ -95,7 +94,6 @@ export function use_favorites(practice_open = false) {
   // Keyboard event handler
   useEffect(() => {
     function handleKeyDown(event) {
-      if (practice_open) return
       const tag = (event.target.tagName || '').toLowerCase()
       if (event.isComposing || event.repeat) return
       if (tag === 'select' || tag === 'input' || tag === 'textarea' || event.target.isContentEditable || event.ctrlKey || event.metaKey || event.altKey) return
@@ -162,7 +160,7 @@ export function use_favorites(practice_open = false) {
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [practice_open, editor_key, isEditMode, currentIndex, hotkeys, navigate, linkableKeys, setCurrent])
+  }, [editor_key, isEditMode, currentIndex, hotkeys, navigate, linkableKeys, setCurrent])
 
   return { editor_key, save_key, cancel_edit, save_message, isEditMode, currentIndex, linkableKeys, applyConfigToKey, handleKeyClick, toggleEditMode, resetConfig }
 }
