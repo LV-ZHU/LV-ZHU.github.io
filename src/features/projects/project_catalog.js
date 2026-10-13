@@ -1,8 +1,8 @@
 export const projects = [
   {
     "slug": "transit-navigator",
-    "name": "数据结构课程设计",
-    "desc": "数据结构课设 · C++、Dijkstra 与 EasyX",
+    "name": "导航路径",
+    "desc": "导航路径 · C++、Dijkstra 与 EasyX",
     "repo": "Data_Structure_Curriculum_Design",
     "subject": "公共交通路线规划",
     "summary": "C++ 编写，使用 Dijkstra 算法计算路线，EasyX 实现图形界面。"
