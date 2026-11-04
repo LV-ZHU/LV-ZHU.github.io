@@ -21,11 +21,12 @@
   object-fit: cover;
 }
 .account-view .account-avatar-icon { font-size: 64px; color: var(--ink-muted); }
-.account-view .account-name { grid-column: 2; font-size: 1.2rem; font-weight: 600; overflow-wrap: anywhere; }
+.account-view .account-name { grid-column: 2; font: var(--weight-heading) var(--title-item)/var(--leading-heading) var(--font-display); overflow-wrap: anywhere; }
 .account-view .account-email,
-.account-view .account-provider { grid-column: 2; color: var(--ink-muted); font-size: .9rem; overflow-wrap: anywhere; }
+.account-view .account-provider { grid-column: 2; color: var(--ink-muted); font-size: var(--text-sm); overflow-wrap: anywhere; }
 .account-view .account-section { grid-column: 1 / -1; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line); }
-.account-view .account-section-title { display: block; margin-bottom: 8px; }
+.account-view .account-section-title { display: block; margin-bottom: 8px; font: var(--weight-heading) var(--title-section)/var(--leading-heading) var(--font-display); }
+.account-view .account-section > p { margin-bottom: 16px; }
 .account-view .nickname-row { display: flex; gap: 12px; flex-wrap: wrap; }
 .account-view .nickname-input {
   flex: 1;
@@ -51,8 +52,8 @@
 }
 .account-view .nickname-save:hover:not(:disabled) { background: var(--surface-soft); }
 .account-view .nickname-save:disabled { opacity: .5; cursor: default; }
-.account-view .nickname-hint { margin-top: 8px; font-size: .85rem; color: var(--ink-muted); }
-.account-view .save-feedback { margin-top: 8px; font-size: .9rem; color: var(--ink-muted); }
+.account-view .nickname-hint { margin-top: 8px; font-size: var(--text-sm); color: var(--ink-muted); }
+.account-view .save-feedback { margin-top: 8px; font-size: var(--text-sm); color: var(--ink-muted); }
 .account-view .account-not-logged a { display: inline-block; margin-top: 12px; color: var(--accent); }
 
 .account-login-methods { display: grid; gap: 12px; }

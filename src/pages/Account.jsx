@@ -92,14 +92,13 @@ function AccountForm({ user }) {
               <div className="account-email">{user.email || ''}</div>
               <section className="account-section" aria-label="登录方式">
                 <h2 className="account-section-title">登录方式</h2>
-                <p>此账号可使用以下方式登录。网站暂不提供账号绑定或合并，不同账号的昵称和数据分别保存。切换账号请先退出登录。</p>
+                <p>不同账号的昵称和数据分别保存，暂不支持绑定或合并。切换账号请先退出登录。</p>
                 <div className="account-login-methods">
                   {[['google', 'Google'], ['github', 'GitHub']].map(([provider_id, label]) => {
                     const linked = user.providerData.some(provider => provider.providerId === `${provider_id}.com`)
                     if (!linked) return null
                     return <div key={provider_id}>
                       <span><i className={`fab fa-${provider_id}`} aria-hidden="true" /> {label}</span>
-                      <span>可用</span>
                     </div>
                   })}
                 </div>

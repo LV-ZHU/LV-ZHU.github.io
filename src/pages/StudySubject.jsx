@@ -29,10 +29,7 @@ export default function StudySubject({ subject }) {
       return (
         <div>
           <div className="text-file-panel">
-            <div className="text-file-toolbar">
-              <div className="text-file-title">{content.panelTitle}</div>
-            </div>
-            <pre className="text-file-content">{content.text}</pre>
+            <pre className="text-file-content" aria-label={content.panelTitle}>{content.text}</pre>
           </div>
         </div>
       )
@@ -89,7 +86,7 @@ export default function StudySubject({ subject }) {
     <div className="page-wrapper study-view">
       <div className="page-header">
         <h1>{data.title}</h1>
-        <p>{data.subtitle}</p>
+        {data.subtitle && <p>{data.subtitle}</p>}
       </div>
       <section className="section">
         <div className="container">

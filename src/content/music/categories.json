@@ -2623,7 +2623,7 @@
       {
         "name": "部队起床号",
         "artist": "纯音乐",
-        "comment": "请输入文本，高中起床号",
+        "comment": "高中起床号",
         "searchKeywords": ""
       },
       {
@@ -3470,7 +3470,7 @@
       {
         "name": "我会自己上厕所",
         "artist": "宝宝巴士",
-        "comment": "请输入文本",
+        "comment": "",
         "searchKeywords": ""
       },
       {

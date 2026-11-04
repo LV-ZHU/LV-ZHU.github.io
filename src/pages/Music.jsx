@@ -70,7 +70,7 @@ export default function Music() {
                 {search_query && <button className="clear-btn" onClick={() => set_search_query('')} title="清除搜索"><span aria-hidden="true">×</span></button>}
               </div>
               <button className="btn-random" onClick={choose_random} disabled={!available_songs.length}>随机一首</button>
-              <label className="toggle-comments-label"><input type="checkbox" checked={show_comments} onChange={event => set_show_comments(event.target.checked)} /><span>显示歌曲短评</span></label>
+              <label className="toggle-comments-label"><input type="checkbox" checked={show_comments} onChange={event => set_show_comments(event.target.checked)} /><span>显示短评</span></label>
             </div>
             <div className="random-filters">
               {catalog.map(category => <label key={category.id}><input type="checkbox" checked={enabled_categories[category.id]} onChange={() => toggle_category(category.id)} /><span>{category_names[category.id]}</span></label>)}

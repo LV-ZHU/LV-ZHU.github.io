@@ -43,7 +43,7 @@
   color: #0284c7;
   padding: 0.15rem 0.4rem;
   border-radius: 6px;
-  font-size: 0.7rem;
+  font-size: var(--text-xs);
   margin-left: 0.5rem;
   font-weight: 600;
 }
@@ -117,9 +117,9 @@
 
 .app-content :where(.study-view) .folder-item a > i { display: none; }
 
-.app-content :where(.study-view) .folder-item .folder-name { font-family: var(--font-reading); font-size: 1.12rem; font-weight: 600; line-height: 1.5; }
+.app-content :where(.study-view) .folder-item .folder-name { font: var(--weight-medium) var(--title-item)/var(--leading-ui) var(--font-display); }
 
-.app-content :where(.study-view) .folder-item .folder-desc { font-size: 0.82rem; color: var(--ink-muted); line-height: 1.7; margin-top: .4rem; overflow-wrap: anywhere; }
+.app-content :where(.study-view) .folder-item .folder-desc { font-size: var(--text-xs); color: var(--ink-muted); line-height: 1.7; margin-top: .4rem; overflow-wrap: anywhere; }
 
 .app-content :where(.study-view) .knowledge-map {
   overflow-y: hidden;
@@ -163,7 +163,7 @@
   align-items: center;
   display: flex;
   padding: .6rem .5rem;
-  font-size: .85rem;
+  font-size: var(--text-sm);
   font-weight: 500;
   border-color: var(--line);
   border-radius: 5px;
@@ -275,8 +275,8 @@
 .app-content :where(.study-view) .text-file-content {
   color: var(--ink-soft);
   background: var(--surface-soft);
-  font-size: .94rem;
-  white-space: pre-wrap; font-family: var(--font-body); line-height: 1.9; padding: 24px; overflow-wrap: anywhere; }
+  font-size: var(--text-base);
+  white-space: pre-wrap; font-family: var(--font-body); line-height: var(--leading-reading); padding: 24px; overflow-wrap: anywhere; }
 .app-content :where(.study-view) .text-file-panel { border: 0; }
 .app-content :where(.study-view) .text-file-toolbar { border-color: var(--line); color: var(--ink); background: var(--surface); padding: 16px 0; border-bottom: 1px solid var(--line); }
 @media (max-width: 380px) { :where(.study-view) .km-board { grid-template-columns: 1fr; } }

@@ -4,14 +4,14 @@
 .home-content { position: relative; display: grid; grid-template-columns: minmax(230px, .8fr) minmax(0, 2fr); align-items: center; gap: 2.5rem 4rem; }
 .home-profile { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .home-profile img { width: clamp(120px, 12vw, 160px); aspect-ratio: 1; object-fit: cover; border-radius: 50%; border: 1px solid var(--line); }
-.home-profile h1 { margin: 1.2rem 0 0; font-family: 'Great Vibes', cursive; font-size: clamp(3.8rem, 6.2vw, 5.8rem); line-height: 1.1; font-weight: 400; color: var(--brand-mark); white-space: nowrap; }
+.home-profile h1 { margin: 1.2rem 0 0; font-family: var(--font-signature); font-size: clamp(3.8rem, 6.2vw, 5.8rem); line-height: 1.1; font-weight: 400; color: var(--brand-mark); white-space: nowrap; }
 .home-broadcast { min-width: 0; }
 .home-sections { grid-column: 1 / -1; margin-top: .8rem; }
-.home-sections h2 { display: flex; align-items: center; gap: 1rem; margin: 0 0 .3rem; font: 400 .85rem/1.6 var(--font-mono); color: var(--ink-muted); }
+.home-sections h2 { display: flex; align-items: center; gap: 1rem; margin: 0 0 .3rem; font: var(--weight-medium) var(--text-sm)/var(--leading-ui) var(--font-body); color: var(--ink-muted); }
 .home-sections h2::after { content: ''; height: 1px; flex: 1; background: var(--line-strong); }
 .home-section-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 2.5rem; }
-.home-section-link { display: flex; justify-content: space-between; align-items: baseline; gap: .75rem; padding: 1.05rem .15rem; border-bottom: 1px solid var(--line); font-family: Georgia, 'Times New Roman', serif; font-size: 1.45rem; color: var(--ink); }
-.home-section-link > span:last-child { font-family: var(--font-body); font-size: 1rem; color: var(--brand-mark); }
+.home-section-link { display: flex; justify-content: space-between; align-items: baseline; gap: .75rem; padding: 1.05rem .15rem; border-bottom: 1px solid var(--line); font: var(--weight-medium) var(--title-section)/var(--leading-heading) var(--font-display); color: var(--ink); }
+.home-section-link > span:last-child { font-family: var(--font-body); font-size: var(--text-base); color: var(--brand-mark); }
 .home-section-link:hover { color: var(--brand-mark); border-bottom-color: var(--brand-mark); }
 @media (max-width: 760px) {
   .home-main { padding-top: calc(var(--nav-height) + 2rem); }
@@ -21,5 +21,5 @@
   .home-wallpaper { height: 510px; background-size: 1100px auto; }
   .home-sections { margin-top: 0; }
   .home-section-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.5rem; }
-  .home-section-link { font-size: 1.25rem; padding-block: .85rem; }
+  .home-section-link { padding-block: .85rem; }
 }

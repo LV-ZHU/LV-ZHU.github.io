@@ -78,10 +78,10 @@ export default function Travel() {
       <section className="section travel-detail-1" >
         <div className="container">
           <div className="leaderboard">
-            <h3 className="leaderboard-title">
+            <h2 className="leaderboard-title">
 
               {currentMap === 'shanghai' ? '上海' : currentMap === 'china' ? '中国' : '全球'}排行榜
-            </h3>
+            </h2>
             {leaderboard.length === 0 ? (
               <div className="leaderboard-empty">{leaderboard_error || '还没有人记录去过的地点。'}</div>
             ) : (

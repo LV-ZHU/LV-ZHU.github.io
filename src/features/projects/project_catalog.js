@@ -13,7 +13,7 @@ export const projects = [
     "desc": "计算机组成原理课设 · Verilog",
     "repo": "Computer_Organization_and_Architecture_Course_Design",
     "subject": "计算机组成原理课程设计",
-    "summary": "Verilog 实现的 MIPS 54 条指令 CPU。"
+    "summary": "使用 Verilog 实现。"
   },
   {
     "slug": "cryptography",

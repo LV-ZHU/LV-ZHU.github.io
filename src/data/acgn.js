@@ -1,7 +1,7 @@
 export const games = [
   { name: 'I wanna be the guy', url: 'https://delicious-fruit.com/ratings/full.php?s=I+wanna+be+the+guy', icon: 'fas fa-star', review: 'I wanna本家作，发布于2007年' },
   { name: 'I wanna run the marathon', url: 'https://delicious-fruit.com/ratings/full.php?s=I+wanna+run+the+marathon', icon: 'fas fa-star', review: '入坑作，包含马里奥、索尼克、洛克人、高尔夫、VVVVVV、心之卡比等元素' },
-  { name: 'I Wanna Kill The Kamilia 3', url: 'https://delicious-fruit.com/ratings/full.php?s=I+wanna+Kill+the+Kamilia+3', icon: 'fas fa-star', review: '请输入文本，超难抄袭向，吓哭了' },
+  { name: 'I Wanna Kill The Kamilia 3', url: 'https://delicious-fruit.com/ratings/full.php?s=I+wanna+Kill+the+Kamilia+3', icon: 'fas fa-star', review: '超难抄袭向，吓哭了' },
   { name: 'I Wanna Kill The Kamilia 2', url: 'https://delicious-fruit.com/ratings/full.php?s=I+wanna+Kill+the+Kamilia+3', icon: 'fas fa-star', review: '没上一个那么难，但也非常有挑战性' },
   { name: 'I wanna kokomi', url: 'https://delicious-fruit.com/ratings/full.php?s=I+wanna+kokomi', icon: 'fas fa-star', review: '心海可爱捏~内含原神元素反应' },
   { name: 'I wanna see the moon', url: 'https://delicious-fruit.com/ratings/full.php?s=I+wanna+see+the+moon', icon: 'fas fa-star', review: '绕路向代表作，内含解谜，包含陆地、森林、水、洞穴、天空、宇宙等众多场景，并且直接影响了后续一部分i wanna的风格' },
@@ -13,7 +13,7 @@ export const games = [
   { name: 'I wanna conquer the blow game 1', url: 'https://delicious-fruit.com/ratings/full.php?s=I+wanna+conquer+the+blow+game+1', icon: 'fas fa-star', review: '看似新手向百击，实则最后一个boss还是略带难度的' },
   { name: 'I wanna conquer the blow game 2', url: 'https://delicious-fruit.com/ratings/full.php?s=I+wanna+conquer+the+blow+game+2', icon: 'fas fa-star', review: '百击向，最后两关和本家地图一致' },
   { name: 'I wanna conquer the blow game 3', url: 'https://delicious-fruit.com/ratings/full.php?s=I+wanna+conquer+the+blow+game+3', icon: 'fas fa-star', review: '比前两作难一点，最后boss打的时候要有耐心' },
-  { name: 'I wanna bigger p**is', url: 'https://delicious-fruit.com/ratings/full.php?s=I+wanna+bigger+penis', icon: 'fas fa-star', review: '请输入文本 第二大关还真是这个主题，非常逆天，另外内含西游记主题曲' },
+  { name: 'I wanna bigger p**is', url: 'https://delicious-fruit.com/ratings/full.php?s=I+wanna+bigger+penis', icon: 'fas fa-star', review: '第二大关还真是这个主题，非常逆天，另外内含西游记主题曲' },
   { name: '3 traps in a room', url: 'https://delicious-fruit.com/ratings/full.php?s=3+traps+in+a+room', icon: 'fas fa-star', review: '一面只有3个坑，但依然让人怀疑人生' },
   { name: 'Spike flying', url: 'https://delicious-fruit.com/ratings/full.php?s=Spike+flying', icon: 'fas fa-star', review: '调和级数是一种既发散又收敛的级数.jpg' },
   { name: 'I wanna be the MC', url: 'https://delicious-fruit.com/ratings/full.php?s=I+wanna+be+the+MC', icon: 'fas fa-star', review: '算是比较新手向，注意有隐藏关' },

@@ -34,8 +34,8 @@ export function CppBigHW() {
                 <i className="fas fa-file-arrow-down" />
                 <div className="download-meta">
                   <div className="download-name">{d.file}</div>
-                  <div className="download-size">大小：{d.size}</div>
-                  <div className="download-usage">功能：{d.desc}</div>
+                  <div className="download-size">{d.size}</div>
+                  <div className="download-usage">{d.desc}</div>
                 </div>
               </a>
             ))}
@@ -58,11 +58,10 @@ export function FPGA() {
       <section className="section">
         <div className="container">
           <header className="project-heading">
-            <h1>FPGA 开发</h1>
-            <p>Verilog 编写</p>
+            <h1>OLED MP3 播放器</h1>
+            <p>数字逻辑实验，使用 Verilog 编写。</p>
           </header>
           <div className="section-header">
-            <h2 className="section-title">数字逻辑实验</h2>
             <p className="section-desc">基于 MP3 和 OLED 的数字系统设计</p>
           </div>
 
@@ -88,15 +87,14 @@ export function GPU() {
             <h1>GPU</h1>
           </header>
           <div className="section-header">
-            <h2 className="section-title">GPU资料</h2>
-            <p className="section-desc">介数中心性</p>
+            <h2 className="section-title">介数中心性</h2>
           </div>
 
           <div className="doc-viewer-wrap">
             <iframe
               className="doc-viewer"
               src={pdfUrl}
-              title="GPU 资料 PDF"
+              title="介数中心性 PDF"
             />
 
             <div className="doc-actions">
@@ -110,7 +108,7 @@ export function GPU() {
               </a>
             </div>
 
-            <p className="doc-tip">若当前浏览器不支持内嵌预览，请使用"新标签打开"或"下载 PDF"。</p>
+            <p className="doc-tip">无法预览时，可在新标签中打开或下载。</p>
           </div>
         </div>
       </section>
@@ -219,12 +217,11 @@ export function QQBot() {
         <div className="container">
           <header className="project-heading">
             <h1>LLM 聊天机器人</h1>
-            <p>基于 AstrBot 的多平台聊天助手</p>
           </header>
           <article className="tech-article">
 
             {/* Project intro + architecture + ports + IP check */}
-            <p>这是一个基于 <a href="https://docs.astrbot.app/" target="_blank" className="ext-link"><i className="fas fa-link" /> AstrBot </a> 的 LLM 聊天机器人项目，对接QQ、钉钉、飞书、微信等消息平台，可接入各大模型的API。下图展示了各组件间的关系。</p>
+            <p>基于 <a href="https://docs.astrbot.app/" target="_blank" className="ext-link"><i className="fas fa-link" /> AstrBot </a> 对接 QQ、钉钉、飞书、微信等消息平台，可接入大模型 API。</p>
 
             <h2 className="zone-title">架构图</h2>
             <div className="arch-map" id="arch-map" ref={mapRef}>

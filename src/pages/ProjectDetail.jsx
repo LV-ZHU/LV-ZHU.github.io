@@ -26,7 +26,7 @@ export default function ProjectDetail() {
               <h1>{repository_project.name}</h1>
             </header>
             <div className="section-header">
-              <h2 className="section-title">{repository_project.subject}</h2>
+              <p className="project-context">{repository_project.subject}</p>
               <p className="section-desc">{repository_project.summary}</p>
             </div>
             <GitHubLink href={`https://github.com/LV-ZHU/${repository_project.repo}`} title={`LV-ZHU/${repository_project.repo}`} meta="代码仓库" />

@@ -46,7 +46,6 @@ export const letterData = {
   C: {
     title: 'C — 文章',
     icon: 'fas fa-file-alt',
-    subtitle: '技术文章和参考资料',
     links: [
       { title: '右螺旋法则', url: 'https://blog.csdn.net/weixin_45710042/article/details/149065904', icon: 'fas fa-file-alt', urlDisplay: 'blog.csdn.net / weixin_45710042' },
       { title: 'Visual Studio 编译模式', url: 'https://blog.csdn.net/sac761/article/details/52120262', icon: 'fas fa-cogs', urlDisplay: 'blog.csdn.net / sac761' },
@@ -104,7 +103,6 @@ export const letterData = {
   P: {
     title: 'P — 项目',
     icon: 'fas fa-project-diagram',
-    subtitle: '开源项目',
     links: [
       { title: '新闻热点', url: 'https://github.com/bobkingdom/TrendRadar', icon: 'fas fa-project-diagram', urlDisplay: 'github.com/bobkingdom/TrendRadar' },
       { title: 'gunrock', url: 'https://github.com/gunrock/gunrock', icon: 'fas fa-project-diagram', urlDisplay: 'github.com/gunrock/gunrock' },
@@ -116,7 +114,6 @@ export const letterData = {
   Q: {
     title: 'Q — QQ 群号',
     icon: 'fab fa-qq',
-    subtitle: '各类 QQ 群整理',
     qqGroups: [
       { num: '497301267', label: '信安' },
       { num: '195142580', label: '留学' },
@@ -130,7 +127,6 @@ export const letterData = {
   S: {
     title: 'S — 学习资源',
     icon: 'fas fa-book-open',
-    subtitle: '各类学习资源和教程',
     links: [
       { title: 'CS 自学指南', url: 'https://csdiy.wiki', icon: 'fas fa-map-signs', urlDisplay: 'csdiy.wiki' },
       { title: 'GitHub项目热点', url: 'https://hellogithub.com/', icon: 'fas fa-globe', urlDisplay: 'hellogithub.com' },

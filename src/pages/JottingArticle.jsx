@@ -79,7 +79,9 @@ function JiqinFenliu() {
             <div className="card-content">
               <h1 className="card-title">济勤分流</h1>
               <div className="jiqin-content">
-{renderLongArticle(`§0.开篇
+{renderLongArticle(
+  `人生无常，本文的各类客观环境都已经发生了巨变
+§0.开篇
 必须在开始就明确的是，大学学习的方式与高中有很大的差异。就我个人而言，济勤整个大一最重要是：（注意，以下内容基于对随录取通知书下发的各种小册子有了解的基础上（可参考24级https://docs.qq.com/doc/DTEJ0SkxJY2pUZUhw?nlc=1））信息差。这个词汇在各种互联网上的大学学习经验分享中间反复出现，除了需要了解所有大学生都需要了解的学业相关的名词，比如逐一搜索以下名词（注意要找同济相关的，比如搜索"同济绩点制度"）："绩点""学分""rank（简称rk）" "分流""保研率""考研""出国深造""培养方案""给分（详见乌龙茶网站tongji.icu）" "学院""专业""红课""水课""刷锻"等等，更重要的是和大类分流密切相关的内容，要有自己从各种渠道（各种官网、各类民间QQ群、校圈小程序、xhs、知乎等互联网平台）搜集信息的能力，下文也会提到一些；在有信息差的基础上对很多事情提前产生认知，领跑时间线。挖掘学长的一些"圣遗物"，少走不必要的弯路。
 §1.概述
 当前的大一分流主要参考大一两个学期，具体占比如下：注意：以下内容基于24年情况，请注意关注1系统，以实际情况为准。
@@ -368,14 +370,14 @@ function InterviewPage() {
             <div className="card-content">
               <h1 className="card-title">大学面试、答辩记录</h1>
               <div className="interview-note">
-                写在前面：多数面试无完整记录，主要根据回忆内容整理，且多数面试为半结构化面试与个人介绍强相关，内容仅供参考
+                多数面试没有完整记录，主要根据回忆整理；多为半结构化面试，问题与个人介绍密切相关，仅供参考。
               </div>
               <div className="interview-list">
                 {interviews.map((iv, idx) => (
                   <section className="interview-record" key={idx}>
-                    <div className="interview-heading">
+                    <h2 className="interview-heading">
                       <span>{iv.title}</span>
-                    </div>
+                    </h2>
                     <div className="interview-meta">
                       {iv.meta.map((m, mi) => (
                         <span className="interview-meta-item" key={mi}>{m.text}</span>

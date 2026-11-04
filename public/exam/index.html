@@ -13,6 +13,7 @@
   </script>
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/assets/typography.css" />
   <link rel="stylesheet" href="./style.css" />
   <title>机试训练 | LV-ZHU</title>
 </head>
@@ -39,9 +40,7 @@
 
   <main id="mainContent" class="exam-main">
     <header class="page-header">
-      <p class="page-kicker">EXAM PRACTICE</p>
       <h1>推免机试训练</h1>
-      <p>每天完成一轮：热身、独立作答、记录结果。</p>
     </header>
 
     <nav class="view-tabs" aria-label="训练台导航">
@@ -67,7 +66,6 @@
         </div>
         <header class="task-head">
           <div>
-            <p class="task-kicker">本轮题目</p>
             <h2 id="questTitle">LeetCode 79 · 单词搜索</h2>
           </div>
           <div class="task-meta">
@@ -83,7 +81,7 @@
 
         <div id="readyPanel" class="ready-panel">
           <div class="duration-row">
-            <span>本轮时长</span>
+            <span>训练时长</span>
             <div class="duration-select" role="group" aria-label="训练时长">
               <button data-minutes="12" type="button">12 分钟</button>
               <button data-minutes="30" class="selected" type="button">30 分钟</button>
@@ -98,9 +96,9 @@
         </div>
 
         <ol id="trainingFlow" class="training-flow" aria-label="今日训练步骤">
-          <li><b>1</b><span><strong>热身</strong><small>看一个模型和一段好代码，可跳过</small></span></li>
+          <li><b>1</b><span><strong>热身（可跳过）</strong><small>看一个模型和一段好代码</small></span></li>
           <li><b>2</b><span><strong>独立作答</strong><small>计时后前往 OJ，不看答案</small></span></li>
-          <li><b>3</b><span><strong>回来报结果</strong><small>AC、卡点和用时会形成能力证据</small></span></li>
+          <li><b>3</b><span><strong>记录结果</strong><small>记录 AC、卡点和实际用时</small></span></li>
         </ol>
 
         <div id="sessionPanel" class="session hidden">
@@ -123,13 +121,12 @@
 
       <div class="quick-links">
         <button id="copyStateButton" type="button">需要陪练？把本轮状态发给 GPT</button>
-        <button id="switchQuestButton" type="button">为什么练这题？查看复活队列 →</button>
+        <button id="switchQuestButton" type="button">查看复活队列 →</button>
       </div>
     </section>
 
     <section id="viewRevive" class="view" data-view="revive">
       <header class="section-head">
-        <p>REVIEW</p>
         <h2>复活队列</h2>
         <span>提示后通过和失败题，会回来再打一遍。</span>
       </header>
@@ -138,7 +135,6 @@
 
     <section id="viewSkills" class="view" data-view="skills">
       <header class="section-head">
-        <p>ABILITY</p>
         <h2>能力</h2>
         <span>只看独立完成留下的证据。</span>
       </header>
@@ -147,7 +143,6 @@
 
     <section id="viewHistory" class="view" data-view="history">
       <header class="section-head">
-        <p>LOG</p>
         <h2>记录</h2>
         <span id="historySummary"></span>
       </header>
